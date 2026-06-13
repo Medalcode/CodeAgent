@@ -5,7 +5,11 @@ from langchain.tools import tool
 
 @tool("Consultar base de datos")
 def consultar_db(query: str):
-    """Extrae eventos desde MisEventos.db. La base de datos tiene una tabla 'eventos' con columnas: id, fecha, titulo, descripcion, prioridad."""
+    """Extrae eventos desde MisEventos.db. La base de datos tiene una tabla 'eventos' con columnas: id, fecha, titulo, descripcion, prioridad. Solo se permiten consultas SELECT."""
+    # Protección contra SQL injection: solo SELECT
+    query_upper = query.strip().upper()
+    if not query_upper.startswith("SELECT"):
+        return "Error: Solo se permiten consultas de lectura (SELECT). Operaciones de escritura no están permitidas."
     conn = sqlite3.connect('MisEventos.db')
     cursor = conn.cursor()
     try:
@@ -31,15 +35,15 @@ def consultar_github(token: str):
     """
     headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
     try:
-        response = requests.get("https://api.github.com/user/repos?sort=updated&per_page=100", headers=headers)
+        response = requests.get("https://api.github.com/user/repos?sort=updated&per_page=10", headers=headers)
         if response.status_code == 200:
             repos = response.json()
             if not repos:
                 return "El usuario no tiene repositorios públicos o el token no tiene permisos suficientes."
             
-            repo_info = ["Repositorios más recientes del usuario:"]
+            repo_info = ["Repositorios más recientes del usuario (Top 10):"]
             for r in repos:
-                repo_info.append(f"- Nombre completo: {r.get('full_name')} | Lenguaje: {r.get('language')} | Estrellas: {r.get('stargazers_count')}\n  Descripción: {r.get('description')}")
+                repo_info.append(f"- Nombre completo: {r.get('full_name')} | Lenguaje: {r.get('language')}")
             
             return "\n".join(repo_info)
         elif response.status_code == 401:
@@ -66,6 +70,19 @@ def leer_repositorio_github(token: str, nombres_repos: str):
     for full_name in lista_repos:
         if not full_name:
             continue
+            
+        # Intentar auto-completar el nombre si el LLM solo mandó "Steam-hunter" en vez de "usuario/Steam-hunter"
+        if "/" not in full_name:
+            try:
+                r_search = requests.get("https://api.github.com/user/repos?per_page=100", headers=headers)
+                if r_search.status_code == 200:
+                    for repo in r_search.json():
+                        if repo["name"].lower() == full_name.lower():
+                            full_name = repo["full_name"]
+                            break
+            except Exception:
+                pass
+                
         resultado = f"--- Análisis profundo del repositorio: {full_name} ---\n\n"
         try:
             # 1. Obtener la lista de archivos (Contents)
@@ -95,6 +112,34 @@ def leer_repositorio_github(token: str, nombres_repos: str):
             resultado_final += f"Error al intentar leer el repositorio {full_name}: {str(e)}\n\n"
             
     return resultado_final
+
+@tool("Leer Archivo Github")
+def leer_archivo_github(token: str, repo_full_name: str, ruta_archivo: str):
+    """Lee el contenido de un archivo específico de un repositorio de GitHub.
+    Pasa el token, el nombre completo del repo (ej: 'usuario/repo') y la ruta del archivo dentro del repo (ej: 'src/main.py').
+    """
+    headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
+    try:
+        url = f"https://api.github.com/repos/{repo_full_name}/contents/{ruta_archivo}"
+        resp = requests.get(url, headers=headers)
+        if resp.status_code == 200:
+            data = resp.json()
+            if data.get("encoding") == "base64":
+                contenido = base64.b64decode(data["content"]).decode("utf-8")
+                # Limitar a 3000 caracteres para no saturar el contexto
+                if len(contenido) > 3000:
+                    contenido = contenido[:3000] + "\n... [TRUNCADO A 3000 CARACTERES]"
+                return f"Contenido de {ruta_archivo}:\n\n{contenido}"
+            else:
+                return f"El archivo {ruta_archivo} no tiene codificación base64 esperada."
+        elif resp.status_code == 404:
+            return f"Archivo no encontrado: {ruta_archivo} en {repo_full_name}"
+        elif resp.status_code == 401:
+            return "Error: Token de GitHub inválido o expirado."
+        else:
+            return f"Error HTTP {resp.status_code} al leer {ruta_archivo}"
+    except Exception as e:
+        return f"Error al leer archivo de GitHub: {e}"
 import os
 import subprocess
 
@@ -180,8 +225,8 @@ def editar_archivo_search_replace(ruta_archivo: str, busqueda: str, reemplazo: s
     """
     IMPORTANTE: Úsala para modificar partes de un archivo SIN reescribirlo todo.
     Busca el bloque exacto de código en 'busqueda' y lo reemplaza con 'reemplazo'.
-    'busqueda' debe coincidir EXACTAMENTE con el contenido actual del archivo (incluyendo espacios).
     """
+    import difflib
     try:
         with open(ruta_archivo, 'r', encoding='utf-8') as f:
             contenido = f.read()
@@ -194,6 +239,111 @@ def editar_archivo_search_replace(ruta_archivo: str, busqueda: str, reemplazo: s
         with open(ruta_archivo, 'w', encoding='utf-8') as f:
             f.write(nuevo_contenido)
             
-        return f"Éxito: Archivo {ruta_archivo} editado correctamente."
+        # Generar diff visual para confianza del usuario
+        diff = list(difflib.unified_diff(
+            contenido.splitlines(keepends=True),
+            nuevo_contenido.splitlines(keepends=True),
+            fromfile=f"a/{ruta_archivo}",
+            tofile=f"b/{ruta_archivo}",
+            n=3
+        ))
+        
+        diff_str = "".join(diff)
+        
+        return f"Éxito: Archivo {ruta_archivo} editado correctamente.\n\nA continuación el diff de los cambios (asegúrate de mostrarlo al usuario):\n```diff\n{diff_str}\n```"
     except Exception as e:
         return f"Error al editar {ruta_archivo}: {e}"
+
+@tool("Git Status")
+def git_status(ruta_repo: str = "."):
+    """Muestra el estado del repositorio Git (archivos modificados, untracked, etc)."""
+    try:
+        result = subprocess.run(["git", "status"], cwd=ruta_repo, capture_output=True, text=True)
+        return result.stdout if result.returncode == 0 else f"Error: {result.stderr}"
+    except Exception as e:
+        return f"Error ejecutando git status: {e}"
+
+@tool("Git Diff")
+def git_diff(ruta_repo: str = "."):
+    """Muestra los cambios no commiteados en el repositorio."""
+    try:
+        result = subprocess.run(["git", "diff"], cwd=ruta_repo, capture_output=True, text=True)
+        return result.stdout if result.stdout else "No hay cambios no commiteados."
+    except Exception as e:
+        return f"Error ejecutando git diff: {e}"
+
+@tool("Git Add")
+def git_add(archivos: str, ruta_repo: str = "."):
+    """Añade archivos al staging area de Git. Pasa los archivos separados por espacios, o '.' para añadir todos."""
+    try:
+        args = ["git", "add"] + archivos.split()
+        result = subprocess.run(args, cwd=ruta_repo, capture_output=True, text=True)
+        return f"Archivos añadidos al stage: {archivos}" if result.returncode == 0 else f"Error: {result.stderr}"
+    except Exception as e:
+        return f"Error ejecutando git add: {e}"
+
+@tool("Git Commit")
+def git_commit(mensaje: str, ruta_repo: str = "."):
+    """Crea un commit con los archivos en el staging area."""
+    try:
+        result = subprocess.run(["git", "commit", "-m", mensaje], cwd=ruta_repo, capture_output=True, text=True)
+        return result.stdout if result.returncode == 0 else f"Error: {result.stderr}"
+    except Exception as e:
+        return f"Error ejecutando git commit: {e}"
+
+@tool("Git Push")
+def git_push(ruta_repo: str = ".", rama: str = "main"):
+    """Sube los commits locales al repositorio remoto (GitHub). Opcionalmente especifica la rama."""
+    try:
+        result = subprocess.run(["git", "push", "origin", rama], cwd=ruta_repo, capture_output=True, text=True)
+        if result.returncode == 0:
+            return f"Push exitoso a origin/{rama}.\n{result.stdout}"
+        else:
+            return f"Error en git push: {result.stderr}"
+    except Exception as e:
+        return f"Error ejecutando git push: {e}"
+
+def obtener_contexto_workspace(ruta="."):
+    """Función de utilidad para el comando @workspace. Genera un resumen del entorno."""
+    contexto = "### CONTEXTO AUTOMÁTICO DEL WORKSPACE ###\n\n"
+    
+    # 1. Leer README.md si existe
+    readme_path = os.path.join(ruta, "README.md")
+    if os.path.exists(readme_path):
+        with open(readme_path, "r", encoding="utf-8") as f:
+            contexto += f"Contenido de README.md:\n{f.read()[:1500]}\n\n"
+            
+    # 2. Detectar lenguaje por archivos clave
+    archivos_clave = {
+        "requirements.txt": "Python (Pip)",
+        "Pipfile": "Python (Pipenv)",
+        "pyproject.toml": "Python (Poetry/Modern)",
+        "package.json": "Node.js / JavaScript / TypeScript",
+        "Cargo.toml": "Rust",
+        "go.mod": "Go",
+        "pom.xml": "Java (Maven)",
+        "build.gradle": "Java (Gradle)"
+    }
+    
+    archivos_locales = os.listdir(ruta)
+    lenguajes_detectados = []
+    for archivo, lang in archivos_clave.items():
+        if archivo in archivos_locales:
+            lenguajes_detectados.append(lang)
+            
+    if lenguajes_detectados:
+        contexto += f"Lenguajes/Entornos detectados: {', '.join(lenguajes_detectados)}\n\n"
+        
+    # 3. Estructura de carpetas principal (1 nivel de profundidad)
+    estructura = []
+    for item in archivos_locales:
+        if item.startswith('.') or item == "__pycache__":
+            continue
+        item_path = os.path.join(ruta, item)
+        if os.path.isdir(item_path):
+            estructura.append(f"📁 {item}/")
+        else:
+            estructura.append(f"📄 {item}")
+            
+    contexto += "Estructura del directorio raíz:\n" + "\n".join(estructura) + "\n\n"
+    return contexto

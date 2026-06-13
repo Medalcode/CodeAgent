@@ -1,7 +1,8 @@
 import streamlit as st
 import os
+import datetime
 import contextlib
-from datetime import datetime
+from datetime import datetime as dt
 import session_manager
 from main import ejecutar_agentes
 
@@ -57,6 +58,7 @@ with st.sidebar:
         selected_tools = []
     else:
         use_local_fs = st.checkbox("Archivos Locales (Leer/Escribir)", value=True, help="Permite al agente modificar código en tu PC")
+        use_git = st.checkbox("Control de Versiones (Git)", value=True, help="Permite al agente usar git status, diff, add, commit")
         use_terminal = st.checkbox("Terminal Integrada", value=True, help="Permite al agente ejecutar comandos en tu PC")
         use_db = st.checkbox("Base de Datos (SQLite)", value=False)
         use_github = st.checkbox("GitHub API", value=False)
@@ -65,6 +67,7 @@ with st.sidebar:
         
         selected_tools = []
         if use_local_fs: selected_tools.append("Archivos Locales")
+        if use_git: selected_tools.append("Git")
         if use_terminal: selected_tools.append("Terminal Integrada")
         if use_db: selected_tools.append("Base de Datos (SQLite)")
         if use_github: selected_tools.append("GitHub API")
@@ -75,7 +78,7 @@ with st.sidebar:
     
     st.header("📁 Sesiones")
     if st.button("➕ Nueva Sesión"):
-        new_id = session_manager.create_new_session("Sesión " + str(datetime.now().strftime("%H:%M:%S")))
+        new_id = session_manager.create_new_session("Sesión " + str(dt.now().strftime("%H:%M:%S")))
         st.session_state.current_session_id = new_id
         st.session_state.messages = []
         st.rerun()
@@ -107,7 +110,7 @@ with st.sidebar:
 
 # Si no hay sesión activa, crear una por defecto
 if not st.session_state.current_session_id:
-    new_id = session_manager.create_new_session("Sesión " + str(datetime.now().strftime("%H:%M:%S")))
+    new_id = session_manager.create_new_session("Sesión " + str(dt.now().strftime("%H:%M:%S")))
     st.session_state.current_session_id = new_id
 
 # --- MAIN UI ---
@@ -117,6 +120,8 @@ st.caption("Comandos disponibles: `/help`, `/clear` | Configura el modelo, el ag
 # Mostrar historial de la sesión actual
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
+        if "time" in msg:
+            st.caption(f"🕒 {msg['time']}")
         st.markdown(msg["content"])
 
 # Captura de input principal
@@ -128,7 +133,8 @@ if prompt:
         comando = prompt.strip().lower()
         if comando == "/help":
             ayuda = "**Comandos Disponibles:**\n- `/help`: Muestra esta ayuda.\n- `/clear`: Borra el historial de la sesión actual.\n\n*Tip:* Utiliza la **Barra Lateral (Sidebar)** para cambiar de agentes, modelos de IA, proveedores o inyectar tus API Keys."
-            st.session_state.messages.append({"role": "assistant", "content": ayuda})
+            timestamp = datetime.datetime.now().strftime("%H:%M:%S")
+            st.session_state.messages.append({"role": "assistant", "content": ayuda, "time": timestamp})
             session_manager.save_session(st.session_state.current_session_id, {"id": st.session_state.current_session_id, "name": sesiones_dict.get(st.session_state.current_session_id, "Sesión"), "messages": st.session_state.messages})
             st.rerun()
         elif comando == "/clear":
@@ -140,21 +146,33 @@ if prompt:
     
     # 2. Flujo normal de chat (Enviar al Agente)
     else:
-        st.session_state.messages.append({"role": "user", "content": prompt})
+        timestamp = datetime.datetime.now().strftime("%H:%M:%S")
+        st.session_state.messages.append({"role": "user", "content": prompt, "time": timestamp})
         with st.chat_message("user"):
             st.markdown(prompt)
 
         with st.chat_message("assistant"):
+            respuesta = ""  # Inicializar para evitar NameError en el bloque finally
+            metricas = {"tiempo_segundos": 0, "agentes_usados": "-", "herramientas_activas": 0}
             with st.spinner(f"🧠 {agent_type} pensando con {provider} ({model_name})..."):
                 try:
-                    historial_texto = "Historial de la conversación:\n"
-                    for m in st.session_state.messages:
+                    # Ventana deslizante: solo los últimos 8 mensajes para evitar saturar el contexto
+                    mensajes_recientes = st.session_state.messages[-8:]
+                    historial_texto = "Historial reciente de la conversación:\n"
+                    for m in mensajes_recientes:
                         historial_texto += f"{m['role'].upper()}: {m['content']}\n"
+                    
+                    # Interceptar @workspace para inyectar contexto
+                    prompt_enviado = historial_texto
+                    if "@workspace" in prompt.lower() or "analiza este proyecto" in prompt.lower():
+                        import tools as mis_herramientas
+                        contexto = mis_herramientas.obtener_contexto_workspace()
+                        prompt_enviado = f"{contexto}\n\n{historial_texto}"
                     
                     with open(os.devnull, 'w') as devnull:
                         with contextlib.redirect_stdout(devnull):
-                            respuesta = ejecutar_agentes(
-                                user_prompt=historial_texto,
+                            respuesta, metricas = ejecutar_agentes(
+                                user_prompt=prompt_enviado,
                                 provider=provider,
                                 model_name=model_name,
                                 api_key=api_key,
@@ -163,7 +181,18 @@ if prompt:
                             )
                     
                     st.markdown(respuesta)
-                    st.session_state.messages.append({"role": "assistant", "content": respuesta})
+                    
+                    # Cuadro de observabilidad
+                    with st.expander("📊 Métricas de Ejecución"):
+                        st.write(f"⏱️ **Tiempo total:** {metricas['tiempo_segundos']} segundos")
+                        st.write(f"🤖 **Agentes Involucrados:** {metricas['agentes_usados']}")
+                        st.write(f"🛠️ **Herramientas Disponibles:** {metricas['herramientas_activas']}")
+                except Exception as e:
+                    respuesta = f"Error de ejecución: {e}\n\nAsegúrate de haber introducido tu API Key si no estás usando Ollama local."
+                    st.error(f"**Error:** {e}")
+                finally:
+                    timestamp = datetime.datetime.now().strftime("%H:%M:%S")
+                    st.session_state.messages.append({"role": "assistant", "content": respuesta, "time": timestamp})
                     
                     # Generar nombre automático para la sesión si es el primer mensaje
                     nombre_sesion = sesiones_dict.get(st.session_state.current_session_id, "Sesión")
@@ -175,8 +204,3 @@ if prompt:
                         st.session_state.current_session_id, 
                         {"id": st.session_state.current_session_id, "name": nombre_sesion, "messages": st.session_state.messages}
                     )
-                    
-                except Exception as e:
-                    # Capturar errores si faltan API keys o no hay conexión
-                    error_msg = f"**Error de ejecución:** {e}\n\n*Asegúrate de haber introducido tu API Key si no estás usando Ollama local.*"
-                    st.error(error_msg)

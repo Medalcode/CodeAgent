@@ -5,8 +5,8 @@ from crewai import Agent
 def get_llm(provider: str, model_name: str, api_key: str = ""):
     """Instancia dinámicamente el LLM según el proveedor elegido."""
     if provider == "Ollama (Local)":
-        from langchain_community.llms import Ollama
-        return Ollama(model=model_name, base_url="http://localhost:11434")
+        from langchain_community.chat_models import ChatOllama
+        return ChatOllama(model=model_name, base_url="http://localhost:11434")
     
     elif provider == "OpenAI":
         if not api_key: raise ValueError("Se requiere API Key para OpenAI.")
@@ -78,7 +78,8 @@ def create_agent(agent_type: str, llm, tools_list: list):
             backstory='Eres un Ingeniero de Software Senior. Tienes acceso al disco duro del usuario y la terminal. REGLAS: 1. Siempre usa "Listar Directorio Local" y "Leer Archivo Local" antes de intentar modificar algo. 2. Usa "Editar Archivo (Search/Replace)" para modificar código sin romperlo. 3. Usa "Ejecutar Comando Terminal" para probar.',
             tools=tools_list,
             llm=llm,
-            verbose=True
+            verbose=True,
+            max_iter=5
         )
     elif agent_type == "Analista de Código (Experto Github)":
         return Agent(
@@ -87,7 +88,8 @@ def create_agent(agent_type: str, llm, tools_list: list):
             backstory='Eres un experto en Github. REGLAS ESTRICTAS: 1. Si el usuario te da un token, USA INMEDIATAMENTE la herramienta "Consultar Github" para listar sus repositorios. 2. Si te piden analizar un repositorio (o varios), USA SIEMPRE "Leer Repositorio Github" pasándole el nombre completo (ej: usuario/repo1, usuario/repo2) y el token. NUNCA alucines o inventes el contenido de un repo, debes descargarlo con tu herramienta primero.',
             tools=tools_list,
             llm=llm,
-            verbose=True
+            verbose=True,
+            max_iter=5
         )
     elif agent_type == "Asistente de Eventos y Productividad":
         return Agent(
@@ -96,7 +98,8 @@ def create_agent(agent_type: str, llm, tools_list: list):
             backstory='Eres un asistente personal amigable. Usa tus herramientas de Base de Datos para consultar SQLite.',
             tools=tools_list,
             llm=llm,
-            verbose=True
+            verbose=True,
+            max_iter=5
         )
     elif agent_type == "Asistente General":
         return Agent(
@@ -105,7 +108,8 @@ def create_agent(agent_type: str, llm, tools_list: list):
             backstory='Eres una IA versátil. Respondes con claridad.',
             tools=tools_list,
             llm=llm,
-            verbose=True
+            verbose=True,
+            max_iter=5
         )
     
     # 2. Chequear si es un Subagente Dinámico (Markdown de Claude Code)
@@ -124,7 +128,8 @@ def create_agent(agent_type: str, llm, tools_list: list):
             backstory=backstory_mejorado,
             tools=tools_list,  # El main.py le inyectará las tools correctas
             llm=llm,
-            verbose=True
+            verbose=True,
+            max_iter=5
         )
         
     raise ValueError(f"Agente no encontrado: {agent_type}")
@@ -137,12 +142,20 @@ def route_prompt(prompt: str, llm) -> str:
     lista_opciones = []
     subagents = load_subagents_from_disk()
     
+    descripciones_fijas = {
+        "Ingeniero de Software Local": "Desarrollador general para programar, refactorizar y probar código localmente.",
+        "Analista de Código (Experto Github)": "Especialista en descargar, inspeccionar y analizar repositorios de GitHub usando tokens.",
+        "Asistente de Eventos y Productividad": "Asistente para gestionar agenda y base de datos local SQLite.",
+        "Asistente General": "Agente conversacional sin especialidad técnica."
+    }
+
     for agent in agentes_disponibles:
         if agent in subagents:
             desc = subagents[agent]["metadata"].get("description", "Especialista")
             lista_opciones.append(f'- "{agent}": {desc}')
         else:
-            lista_opciones.append(f'- "{agent}": Agente del sistema fijo.')
+            desc = descripciones_fijas.get(agent, "Agente del sistema fijo.")
+            lista_opciones.append(f'- "{agent}": {desc}')
 
     opciones_str = "\n".join(lista_opciones)
     
@@ -154,6 +167,16 @@ Responde ÚNICAMENTE con el nombre exacto del agente de la lista anterior. Nada 
 Petición del usuario: {prompt}
 Agente seleccionado:'''
     
+    # --- Fallback por palabras clave (más rápido y fiable que el LLM) ---
+    prompt_lower = prompt.lower()
+    if any(k in prompt for k in ["ghp_", "github.com"]) or any(k in prompt_lower for k in ["repositorio", "repo", "github", "token"]):
+        return "Analista de Código (Experto Github)"
+    if any(k in prompt_lower for k in ["agenda", "evento", "recordatorio", "tarea", "productividad"]):
+        return "Asistente de Eventos y Productividad"
+    if any(k in prompt_lower for k in ["código", "archivo", "función", "bug", "error", "refactor", "test", "implementa", "crea un", "modifica"]):
+        return "Ingeniero de Software Local"
+
+    # --- Si no hay match por keywords, preguntar al LLM ---
     try:
         response = llm.invoke(system_prompt)
         texto = response.content if hasattr(response, 'content') else str(response)
@@ -164,3 +187,15 @@ Agente seleccionado:'''
         return "Asistente General"
     except Exception:
         return "Asistente General"
+
+def create_planner_agent(llm):
+    from crewai import Agent
+    return Agent(
+        role='Arquitecto de Software (Planner)',
+        goal='Analizar la petición del usuario y crear un plan paso a paso.',
+        backstory='Eres un arquitecto de software experto. Tu trabajo es leer el requerimiento y el contexto, y dividir la solución en pasos claros, lógicos y secuenciales (Paso 1, Paso 2, etc.) que otro agente ejecutará. No escribes el código final ni usas herramientas de ejecución, solo entregas el PLAN.',
+        tools=[],  # El planner no usa herramientas, solo piensa.
+        llm=llm,
+        verbose=True,
+        max_iter=3
+    )

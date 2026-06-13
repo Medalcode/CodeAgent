@@ -1,6 +1,19 @@
 crewai
-langchain-community
 streamlit
-googlesearch-python
+requests
+pyyaml
+
+# LLM Providers
+langchain-community
+langchain-openai
+langchain-anthropic
+langchain-groq
+langchain-google-genai
+langchain-text-splitters
+
+# RAG / Vector DB
 chromadb
 sentence-transformers
+
+# Herramientas adicionales
+googlesearch-python
