@@ -35,8 +35,8 @@ def _modo_github(user_prompt: str, llm) -> tuple[str, dict]:
         return "❌ No encontré un token de GitHub válido en el mensaje (debe empezar con `ghp_`).", {}
     token = match.group(0)
 
-    # 2. Listar repos del usuario (llamada Python directa, sin LLM)
-    repos_raw = mis_herramientas.consultar_github(token)
+    # 2. Listar repos del usuario (.run() para herramientas de un solo argumento)
+    repos_raw = mis_herramientas.consultar_github.run(token)
 
     # 3. Identificar qué repo pidió el usuario comparando nombres
     prompt_lower = user_prompt.lower().replace("-", "").replace(" ", "")
@@ -50,9 +50,9 @@ def _modo_github(user_prompt: str, llm) -> tuple[str, dict]:
                 repo_solicitado = full_name
                 break
 
-    # 4. Leer el repo identificado (llamada Python directa, sin LLM)
+    # 4. Leer el repo identificado (.func() accede a la función Python subyacente)
     if repo_solicitado:
-        repo_info = mis_herramientas.leer_repositorio_github(
+        repo_info = mis_herramientas.leer_repositorio_github.func(
             token=token,
             nombres_repos=repo_solicitado
         )
@@ -105,7 +105,7 @@ def _modo_local(user_prompt: str, llm, selected_tools: list) -> tuple[str, dict]
         # Detectar rutas de archivo en el prompt
         rutas = re.findall(r'[\w./\\-]+\.(?:py|js|ts|json|md|txt|yaml|yml|css|html)', user_prompt)
         for ruta in rutas[:3]:  # máximo 3 archivos
-            contenido = mis_herramientas.leer_archivo_local(ruta)
+            contenido = mis_herramientas.leer_archivo_local.func(ruta_archivo=ruta)
             if "Error" not in contenido:
                 contexto_archivos += f"\n\n{contenido[:2000]}"
                 pasos_ejecutados.append(f"**📄 Archivo leído:** `{ruta}`")
