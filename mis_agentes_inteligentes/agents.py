@@ -1,3 +1,5 @@
+import os
+import yaml
 from crewai import Agent
 
 def get_llm(provider: str, model_name: str, api_key: str = ""):
@@ -28,13 +30,61 @@ def get_llm(provider: str, model_name: str, api_key: str = ""):
 
     raise ValueError(f"Proveedor desconocido: {provider}")
 
+def load_subagents_from_disk():
+    """Lee todos los archivos .md en la carpeta subagents/ y parsea su YAML frontmatter y su cuerpo."""
+    subagents = {}
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    subagents_dir = os.path.join(base_dir, "subagents")
+    
+    if not os.path.exists(subagents_dir):
+        return subagents
+        
+    for filename in os.listdir(subagents_dir):
+        if filename.endswith(".md"):
+            filepath = os.path.join(subagents_dir, filename)
+            with open(filepath, "r", encoding="utf-8") as f:
+                content = f.read()
+                
+            # Parsear el YAML Frontmatter
+            if content.startswith("---"):
+                parts = content.split("---", 2)
+                if len(parts) >= 3:
+                    try:
+                        metadata = yaml.safe_load(parts[1])
+                        body = parts[2].strip()
+                        if metadata and "name" in metadata:
+                            subagents[metadata["name"]] = {
+                                "metadata": metadata,
+                                "body": body
+                            }
+                    except Exception as e:
+                        print(f"Error parseando {filename}: {e}")
+    return subagents
+
+def get_available_agents():
+    """Devuelve la lista completa de agentes disponibles (Fijos + Dinámicos)."""
+    agentes_fijos = ["Ingeniero de Software Local", "Analista de Código (Experto Github)", "Asistente de Eventos y Productividad", "Asistente General"]
+    subagents = load_subagents_from_disk()
+    agentes_dinamicos = list(subagents.keys())
+    return agentes_fijos + agentes_dinamicos
+
 def create_agent(agent_type: str, llm, tools_list: list):
     """Fábrica de agentes dinámicos basada en el rol seleccionado."""
-    if agent_type == "Analista de Código (Experto Github)":
+    # 1. Chequear si es un agente fijo clásico
+    if agent_type == "Ingeniero de Software Local":
+        return Agent(
+            role='Ingeniero de Software Local',
+            goal='Desarrollar, refactorizar y probar código directamente en el disco duro del usuario.',
+            backstory='Eres un Ingeniero de Software Senior. Tienes acceso al disco duro del usuario y la terminal. REGLAS: 1. Siempre usa "Listar Directorio Local" y "Leer Archivo Local" antes de intentar modificar algo. 2. Usa "Editar Archivo (Search/Replace)" para modificar código sin romperlo. 3. Usa "Ejecutar Comando Terminal" para probar.',
+            tools=tools_list,
+            llm=llm,
+            verbose=True
+        )
+    elif agent_type == "Analista de Código (Experto Github)":
         return Agent(
             role='Analista de Código Senior',
-            goal='Hacer análisis profundos de código en repositorios y resolver dudas de desarrollo.',
-            backstory='Eres un arquitecto de software experto. Analizas el código, la estructura de archivos y los READMEs para dar feedback constructivo. NUNCA inventes información; usa SIEMPRE tus herramientas para leer repositorios.',
+            goal='Hacer análisis profundos de repositorios en GitHub.',
+            backstory='Eres un experto en Github. REGLAS ESTRICTAS: 1. Si el usuario te da un token, USA INMEDIATAMENTE la herramienta "Consultar Github" para listar sus repositorios. 2. Si te piden analizar un repositorio (o varios), USA SIEMPRE "Leer Repositorio Github" pasándole el nombre completo (ej: usuario/repo1, usuario/repo2) y el token. NUNCA alucines o inventes el contenido de un repo, debes descargarlo con tu herramienta primero.',
             tools=tools_list,
             llm=llm,
             verbose=True
@@ -43,17 +93,74 @@ def create_agent(agent_type: str, llm, tools_list: list):
         return Agent(
             role='Asistente de Productividad',
             goal='Gestionar la agenda del usuario y ayudarle con tareas del día a día.',
-            backstory='Eres un asistente personal amigable. Puedes conversar de cualquier tema, pero tu fuerte es consultar la base de datos de eventos y ayudar al usuario a priorizar su día.',
+            backstory='Eres un asistente personal amigable. Usa tus herramientas de Base de Datos para consultar SQLite.',
             tools=tools_list,
             llm=llm,
             verbose=True
         )
-    else: # "Asistente General"
+    elif agent_type == "Asistente General":
         return Agent(
             role='Asistente General Multiusos',
-            goal='Conversar amigablemente y utilizar cualquier herramienta que tengas a disposición si el usuario te lo pide explícitamente.',
-            backstory='Eres una IA versátil. Respondes con claridad y concisión. Estás equipado con varias herramientas y sabes usarlas proactivamente según el contexto de la conversación.',
+            goal='Conversar amigablemente y utilizar cualquier herramienta a disposición.',
+            backstory='Eres una IA versátil. Respondes con claridad.',
             tools=tools_list,
             llm=llm,
             verbose=True
         )
+    
+    # 2. Chequear si es un Subagente Dinámico (Markdown de Claude Code)
+    subagents = load_subagents_from_disk()
+    if agent_type in subagents:
+        agent_data = subagents[agent_type]
+        metadata = agent_data["metadata"]
+        body = agent_data["body"]
+        
+        # Inyectamos la regla de Aider a TODOS los subagentes para que no alucinen
+        backstory_mejorado = body + "\n\nCRITICAL RULES:\n- YOU MUST use the Edit File (Search/Replace) tool to modify existing code. DO NOT overwrite files entirely unless creating new ones."
+        
+        return Agent(
+            role=metadata.get("name", "Agente Especializado"),
+            goal=metadata.get("description", "Resolver la tarea encomendada por el usuario."),
+            backstory=backstory_mejorado,
+            tools=tools_list,  # El main.py le inyectará las tools correctas
+            llm=llm,
+            verbose=True
+        )
+        
+    raise ValueError(f"Agente no encontrado: {agent_type}")
+
+def route_prompt(prompt: str, llm) -> str:
+    """Clasifica el prompt y decide qué agente instanciar (Swarm Router)."""
+    agentes_disponibles = get_available_agents()
+    
+    # Preparamos un string con los agentes y sus descripciones cortas para el router
+    lista_opciones = []
+    subagents = load_subagents_from_disk()
+    
+    for agent in agentes_disponibles:
+        if agent in subagents:
+            desc = subagents[agent]["metadata"].get("description", "Especialista")
+            lista_opciones.append(f'- "{agent}": {desc}')
+        else:
+            lista_opciones.append(f'- "{agent}": Agente del sistema fijo.')
+
+    opciones_str = "\n".join(lista_opciones)
+    
+    system_prompt = f'''Eres un Enrutador Maestro de Tareas. Lee la petición del usuario y decide qué agente especializado debe atenderla de esta lista:
+{opciones_str}
+
+Responde ÚNICAMENTE con el nombre exacto del agente de la lista anterior. Nada más.
+
+Petición del usuario: {prompt}
+Agente seleccionado:'''
+    
+    try:
+        response = llm.invoke(system_prompt)
+        texto = response.content if hasattr(response, 'content') else str(response)
+        
+        for agent in agentes_disponibles:
+            if agent in texto:
+                return agent
+        return "Asistente General"
+    except Exception:
+        return "Asistente General"

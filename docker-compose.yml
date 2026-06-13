@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  opencode-hub:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: opencode-hub
+    ports:
+      - "8501:8501"
+    volumes:
+      # Montar la carpeta de sesiones para persistencia de datos fuera del contenedor
+      - ./mis_agentes_inteligentes/sesiones:/app/mis_agentes_inteligentes/sesiones
+      # Montar la base de datos local para que no se borre al reiniciar el contenedor
+      - ./mis_agentes_inteligentes/MisEventos.db:/app/mis_agentes_inteligentes/MisEventos.db
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    
+    # Si quieres que el contenedor pueda conectarse a un Ollama instalado nativamente en tu Host Local (Fuera de Docker)
+    # y estás en Linux, descomenta la siguiente línea:
+    network_mode: "host"

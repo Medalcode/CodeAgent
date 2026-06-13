@@ -24,7 +24,7 @@ with st.sidebar:
     
     # Modelos dinámicos
     if provider == "Ollama (Local)":
-        model_name = st.selectbox("Modelo", ["llama3.1:8b", "mistral", "gemma2", "qwen2"])
+        model_name = st.selectbox("Modelo", ["qwen2.5-coder:7b", "qwen2.5-coder:14b", "llama3.1:8b", "mistral", "gemma2", "qwen2"])
         api_key = ""
     elif provider == "OpenAI":
         model_name = st.selectbox("Modelo", ["gpt-4o", "gpt-4o-mini", "gpt-3.5-turbo"])
@@ -41,19 +41,35 @@ with st.sidebar:
         
     st.divider()
     
+    from agents import get_available_agents
+    
     st.header("🤖 Agente (Persona)")
-    agent_type = st.selectbox("Seleccionar Agente", ["Asistente General", "Analista de Código (Experto Github)", "Asistente de Eventos y Productividad"])
+    
+    # Cargamos dinámicamente los agentes (tanto fijos como subagentes markdown)
+    lista_agentes = ["Auto (Enrutador Automático) 🌟"] + get_available_agents()
+    agent_type = st.selectbox("Seleccionar Agente", lista_agentes)
     
     st.divider()
     
-    st.header("🔌 Skills / MCPs")
-    st.write("Activa las herramientas para este agente:")
-    use_db = st.checkbox("Base de Datos (SQLite)", value=True)
-    use_github = st.checkbox("GitHub API", value=True)
-    
-    selected_tools = []
-    if use_db: selected_tools.append("Base de Datos (SQLite)")
-    if use_github: selected_tools.append("GitHub API")
+    st.header("🛠️ Herramientas y Skills")
+    if agent_type == "Auto (Enrutador Automático) 🌟":
+        st.info("🪄 En modo Auto, el Ruteador asignará las herramientas ideales automáticamente según tu petición.")
+        selected_tools = []
+    else:
+        use_local_fs = st.checkbox("Archivos Locales (Leer/Escribir)", value=True, help="Permite al agente modificar código en tu PC")
+        use_terminal = st.checkbox("Terminal Integrada", value=True, help="Permite al agente ejecutar comandos en tu PC")
+        use_db = st.checkbox("Base de Datos (SQLite)", value=False)
+        use_github = st.checkbox("GitHub API", value=False)
+        use_websearch = st.checkbox("Búsqueda Web (Google)", value=False, help="Permite al agente buscar info en internet (Fase 4)")
+        use_rag = st.checkbox("Memoria RAG (Indexación Local)", value=False, help="Indexa y busca semánticamente en repositorios grandes (Fase 4)")
+        
+        selected_tools = []
+        if use_local_fs: selected_tools.append("Archivos Locales")
+        if use_terminal: selected_tools.append("Terminal Integrada")
+        if use_db: selected_tools.append("Base de Datos (SQLite)")
+        if use_github: selected_tools.append("GitHub API")
+        if use_websearch: selected_tools.append("Búsqueda Web")
+        if use_rag: selected_tools.append("Memoria RAG")
     
     st.divider()
     

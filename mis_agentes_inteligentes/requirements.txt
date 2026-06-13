@@ -1,3 +1,6 @@
 crewai
 langchain-community
 streamlit
+googlesearch-python
+chromadb
+sentence-transformers

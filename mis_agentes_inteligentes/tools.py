@@ -31,7 +31,7 @@ def consultar_github(token: str):
     """
     headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
     try:
-        response = requests.get("https://api.github.com/user/repos?sort=updated&per_page=5", headers=headers)
+        response = requests.get("https://api.github.com/user/repos?sort=updated&per_page=100", headers=headers)
         if response.status_code == 200:
             repos = response.json()
             if not repos:
@@ -95,3 +95,105 @@ def leer_repositorio_github(token: str, nombres_repos: str):
             resultado_final += f"Error al intentar leer el repositorio {full_name}: {str(e)}\n\n"
             
     return resultado_final
+import os
+import subprocess
+
+@tool("Listar Directorio Local")
+def listar_directorio_local(ruta: str = "."):
+    """Lista los archivos y carpetas de un directorio local. Útil para entender la estructura del proyecto. Por defecto usa la carpeta actual '.'"""
+    try:
+        archivos = os.listdir(ruta)
+        return f"Contenido de {os.path.abspath(ruta)}:\n" + "\n".join(archivos)
+    except Exception as e:
+        return f"Error al listar {ruta}: {e}"
+
+@tool("Leer Archivo Local")
+def leer_archivo_local(ruta_archivo: str):
+    """Lee el contenido de un archivo local en tu disco duro para poder analizar su código. Debes pasarle la ruta completa o relativa al archivo."""
+    try:
+        with open(ruta_archivo, 'r', encoding='utf-8') as f:
+            return f"Contenido de {ruta_archivo}:\n\n" + f.read()
+    except Exception as e:
+        return f"Error al leer {ruta_archivo}: {e}"
+
+@tool("Escribir Archivo Local")
+def escribir_archivo_local(ruta_archivo: str, contenido: str):
+    """Crea o sobreescribe un archivo local con el contenido proporcionado. Útil para programar, refactorizar o crear tests."""
+    try:
+        # Crear directorios si no existen
+        directorio = os.path.dirname(os.path.abspath(ruta_archivo))
+        if directorio:
+            os.makedirs(directorio, exist_ok=True)
+        with open(ruta_archivo, 'w', encoding='utf-8') as f:
+            f.write(contenido)
+        return f"Éxito: Archivo {ruta_archivo} guardado correctamente."
+    except Exception as e:
+        return f"Error al escribir {ruta_archivo}: {e}"
+
+@tool("Ejecutar Comando Terminal")
+def ejecutar_comando_terminal(comando: str):
+    """Ejecuta un comando en la terminal del sistema operativo (ej. pytest, ls, npm install, python script.py). Úsalo para probar el código o instalar dependencias."""
+    try:
+        result = subprocess.run(comando, shell=True, capture_output=True, text=True, timeout=30)
+        salida = result.stdout if result.stdout else ""
+        error = result.stderr if result.stderr else ""
+        
+        if result.returncode == 0:
+            return f"Comando ejecutado con éxito.\nSalida:\n{salida}"
+        else:
+            return f"El comando falló con código {result.returncode}.\nError:\n{error}\nSalida:\n{salida}"
+    except subprocess.TimeoutExpired:
+        return "Error: El comando tardó demasiado en ejecutarse (Timeout de 30 segundos)."
+    except Exception as e:
+        return f"Error de ejecución crítica: {e}"
+
+try:
+    from googlesearch import search
+except ImportError:
+    search = None
+
+@tool("Buscar en Internet")
+def buscar_en_internet(query: str):
+    """Realiza una búsqueda en internet usando Google para obtener información actualizada (noticias, documentación, soluciones a errores)."""
+    if search is None:
+        return "Error: El módulo googlesearch-python no está instalado."
+    
+    try:
+        # advanced=True permite obtener título, url y descripción
+        resultados = list(search(query, num_results=5, advanced=True))
+        
+        if not resultados:
+            return f"No se encontraron resultados en Google para la búsqueda: {query}"
+            
+        formateado = f"Resultados de Google para '{query}':\n\n"
+        for i, r in enumerate(resultados, 1):
+            formateado += f"{i}. Título: {r.title}\n"
+            formateado += f"   Enlace: {r.url}\n"
+            formateado += f"   Resumen: {r.description}\n\n"
+        
+        return formateado
+    except Exception as e:
+        return f"Error al intentar buscar en Google: {e}"
+
+@tool("Editar Archivo (Search/Replace)")
+def editar_archivo_search_replace(ruta_archivo: str, busqueda: str, reemplazo: str):
+    """
+    IMPORTANTE: Úsala para modificar partes de un archivo SIN reescribirlo todo.
+    Busca el bloque exacto de código en 'busqueda' y lo reemplaza con 'reemplazo'.
+    'busqueda' debe coincidir EXACTAMENTE con el contenido actual del archivo (incluyendo espacios).
+    """
+    try:
+        with open(ruta_archivo, 'r', encoding='utf-8') as f:
+            contenido = f.read()
+            
+        if busqueda not in contenido:
+            return "Error: No se encontró el bloque exacto de 'busqueda' en el archivo. Asegúrate de incluir los espacios en blanco e indentación correctos."
+            
+        nuevo_contenido = contenido.replace(busqueda, reemplazo, 1)
+        
+        with open(ruta_archivo, 'w', encoding='utf-8') as f:
+            f.write(nuevo_contenido)
+            
+        return f"Éxito: Archivo {ruta_archivo} editado correctamente."
+    except Exception as e:
+        return f"Error al editar {ruta_archivo}: {e}"
