@@ -69,12 +69,13 @@ import base64
 @tool
 def leer_repositorio_github(token: str, nombres_repos: str) -> str:
     """Usa esta herramienta para analizar a fondo uno o VARIOS repositorios. 
-    Debes pasarle el token y el nombre completo de los repositorios separados por comas (ejemplo: 'usuario/repo1, usuario/repo2').
-    Devolverá el contenido del archivo README.md y la lista de archivos de TODOS los repositorios solicitados para que puedas analizarlos a todos a la vez.
+    Debes pasarle el token y el nombre del repositorio (ejemplo: 'steam-hunter'). La herramienta encontrará automáticamente el usuario.
+    NO es necesario usar consultar_github antes para obtener el nombre exacto.
+    Devolverá el contenido del archivo README.md y la lista de archivos.
     
     Args:
         token: Token de acceso personal de GitHub.
-        nombres_repos: Nombre completo de los repositorios separados por comas.
+        nombres_repos: Nombre del repositorio (ej: 'steam-hunter').
     """
     headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
     resultado_final = ""
@@ -86,17 +87,19 @@ def leer_repositorio_github(token: str, nombres_repos: str) -> str:
         if not full_name:
             continue
             
-        # Intentar auto-completar el nombre si el LLM solo mandó "Steam-hunter" en vez de "usuario/Steam-hunter"
-        if "/" not in full_name:
-            try:
-                r_search = requests.get("https://api.github.com/user/repos?per_page=100", headers=headers)
-                if r_search.status_code == 200:
-                    for repo in r_search.json():
-                        if repo["name"].lower() == full_name.lower():
-                            full_name = repo["full_name"]
-                            break
-            except Exception:
-                pass
+        # Lógica Robusta: Si el LLM manda "usuario/steam-hunter", "username/steam-hunter", o solo "steam-hunter"
+        nombre_buscar = full_name.split("/")[-1].lower() # Ej: 'steam-hunter'
+        
+        try:
+            # Obtener repositorios del usuario para encontrar el nombre completo real
+            r_search = requests.get("https://api.github.com/user/repos?per_page=100", headers=headers)
+            if r_search.status_code == 200:
+                for repo in r_search.json():
+                    if repo["name"].lower() == nombre_buscar:
+                        full_name = repo["full_name"]
+                        break
+        except Exception:
+            pass
                 
         resultado = f"--- Análisis profundo del repositorio: {full_name} ---\n\n"
         try:
@@ -131,14 +134,28 @@ def leer_repositorio_github(token: str, nombres_repos: str) -> str:
 @tool
 def leer_archivo_github(token: str, repo_full_name: str, ruta_archivo: str) -> str:
     """Lee el contenido de un archivo específico de un repositorio de GitHub.
-    Pasa el token, el nombre completo del repo (ej: 'usuario/repo') y la ruta del archivo dentro del repo (ej: 'src/main.py').
+    Pasa el token, el nombre del repo (ej: 'steam-hunter') y la ruta del archivo dentro del repo (ej: 'src/main.py'). 
+    La herramienta encontrará el repositorio automáticamente. NO es necesario usar consultar_github antes.
     
     Args:
         token: Token de acceso personal de GitHub.
-        repo_full_name: Nombre completo del repositorio.
+        repo_full_name: Nombre corto del repositorio (ej: 'steam-hunter').
         ruta_archivo: Ruta del archivo dentro del repositorio.
     """
     headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
+    
+    # Lógica Robusta: resolver nombre real del repo
+    nombre_buscar = repo_full_name.split("/")[-1].lower()
+    try:
+        r_search = requests.get("https://api.github.com/user/repos?per_page=100", headers=headers)
+        if r_search.status_code == 200:
+            for repo in r_search.json():
+                if repo["name"].lower() == nombre_buscar:
+                    repo_full_name = repo["full_name"]
+                    break
+    except Exception:
+        pass
+
     try:
         url = f"https://api.github.com/repos/{repo_full_name}/contents/{ruta_archivo}"
         resp = requests.get(url, headers=headers)
