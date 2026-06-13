@@ -1,4 +1,5 @@
-crewai
+smolagents
+litellm
 streamlit
 requests
 pyyaml

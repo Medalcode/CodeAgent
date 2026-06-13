@@ -1,11 +1,15 @@
 import sqlite3
 import requests
 from datetime import date
-from langchain.tools import tool
+from smolagents import tool
 
-@tool("Consultar base de datos")
-def consultar_db(query: str):
-    """Extrae eventos desde MisEventos.db. La base de datos tiene una tabla 'eventos' con columnas: id, fecha, titulo, descripcion, prioridad. Solo se permiten consultas SELECT."""
+@tool
+def consultar_db(query: str) -> str:
+    """Extrae eventos desde MisEventos.db. La base de datos tiene una tabla 'eventos' con columnas: id, fecha, titulo, descripcion, prioridad. Solo se permiten consultas SELECT.
+    
+    Args:
+        query: La consulta SQL SELECT.
+    """
     # Protección contra SQL injection: solo SELECT
     query_upper = query.strip().upper()
     if not query_upper.startswith("SELECT"):
@@ -21,17 +25,24 @@ def consultar_db(query: str):
         conn.close()
     return data
 
-@tool("Guardar reporte")
-def guardar_reporte(analisis: str):
-    """Archiva el análisis para memoria a largo plazo."""
+@tool
+def guardar_reporte(analisis: str) -> str:
+    """Archiva el análisis para memoria a largo plazo.
+    
+    Args:
+        analisis: El texto del reporte a guardar.
+    """
     with open("historial_analisis.txt", "a", encoding="utf-8") as f:
         f.write(f"\n--- {date.today()} ---\n{analisis}\n")
     return "Reporte guardado con éxito."
 
-@tool("Consultar Github")
-def consultar_github(token: str):
+@tool
+def consultar_github(token: str) -> str:
     """Usa esta herramienta cuando el usuario te proporcione un token de Github para acceder a sus repositorios.
     Le pasas el token como argumento y te devolverá la lista de repositorios del usuario.
+    
+    Args:
+        token: Token de acceso personal de GitHub.
     """
     headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
     try:
@@ -55,11 +66,15 @@ def consultar_github(token: str):
 
 import base64
 
-@tool("Leer Repositorio Github")
-def leer_repositorio_github(token: str, nombres_repos: str):
+@tool
+def leer_repositorio_github(token: str, nombres_repos: str) -> str:
     """Usa esta herramienta para analizar a fondo uno o VARIOS repositorios. 
     Debes pasarle el token y el nombre completo de los repositorios separados por comas (ejemplo: 'usuario/repo1, usuario/repo2').
     Devolverá el contenido del archivo README.md y la lista de archivos de TODOS los repositorios solicitados para que puedas analizarlos a todos a la vez.
+    
+    Args:
+        token: Token de acceso personal de GitHub.
+        nombres_repos: Nombre completo de los repositorios separados por comas.
     """
     headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
     resultado_final = ""
@@ -113,10 +128,15 @@ def leer_repositorio_github(token: str, nombres_repos: str):
             
     return resultado_final
 
-@tool("Leer Archivo Github")
-def leer_archivo_github(token: str, repo_full_name: str, ruta_archivo: str):
+@tool
+def leer_archivo_github(token: str, repo_full_name: str, ruta_archivo: str) -> str:
     """Lee el contenido de un archivo específico de un repositorio de GitHub.
     Pasa el token, el nombre completo del repo (ej: 'usuario/repo') y la ruta del archivo dentro del repo (ej: 'src/main.py').
+    
+    Args:
+        token: Token de acceso personal de GitHub.
+        repo_full_name: Nombre completo del repositorio.
+        ruta_archivo: Ruta del archivo dentro del repositorio.
     """
     headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
     try:
@@ -143,27 +163,40 @@ def leer_archivo_github(token: str, repo_full_name: str, ruta_archivo: str):
 import os
 import subprocess
 
-@tool("Listar Directorio Local")
-def listar_directorio_local(ruta: str = "."):
-    """Lista los archivos y carpetas de un directorio local. Útil para entender la estructura del proyecto. Por defecto usa la carpeta actual '.'"""
+@tool
+def listar_directorio_local(ruta: str = ".") -> str:
+    """Lista los archivos y carpetas de un directorio local. Útil para entender la estructura del proyecto. Por defecto usa la carpeta actual '.'
+    
+    Args:
+        ruta: Ruta al directorio local a listar.
+    """
     try:
         archivos = os.listdir(ruta)
         return f"Contenido de {os.path.abspath(ruta)}:\n" + "\n".join(archivos)
     except Exception as e:
         return f"Error al listar {ruta}: {e}"
 
-@tool("Leer Archivo Local")
-def leer_archivo_local(ruta_archivo: str):
-    """Lee el contenido de un archivo local en tu disco duro para poder analizar su código. Debes pasarle la ruta completa o relativa al archivo."""
+@tool
+def leer_archivo_local(ruta_archivo: str) -> str:
+    """Lee el contenido de un archivo local en tu disco duro para poder analizar su código. Debes pasarle la ruta completa o relativa al archivo.
+    
+    Args:
+        ruta_archivo: Ruta al archivo local a leer.
+    """
     try:
         with open(ruta_archivo, 'r', encoding='utf-8') as f:
             return f"Contenido de {ruta_archivo}:\n\n" + f.read()
     except Exception as e:
         return f"Error al leer {ruta_archivo}: {e}"
 
-@tool("Escribir Archivo Local")
-def escribir_archivo_local(ruta_archivo: str, contenido: str):
-    """Crea o sobreescribe un archivo local con el contenido proporcionado. Útil para programar, refactorizar o crear tests."""
+@tool
+def escribir_archivo_local(ruta_archivo: str, contenido: str) -> str:
+    """Crea o sobreescribe un archivo local con el contenido proporcionado. Útil para programar, refactorizar o crear tests.
+    
+    Args:
+        ruta_archivo: Ruta del archivo a escribir.
+        contenido: Contenido a escribir en el archivo.
+    """
     try:
         # Crear directorios si no existen
         directorio = os.path.dirname(os.path.abspath(ruta_archivo))
@@ -175,9 +208,13 @@ def escribir_archivo_local(ruta_archivo: str, contenido: str):
     except Exception as e:
         return f"Error al escribir {ruta_archivo}: {e}"
 
-@tool("Ejecutar Comando Terminal")
-def ejecutar_comando_terminal(comando: str):
-    """Ejecuta un comando en la terminal del sistema operativo (ej. pytest, ls, npm install, python script.py). Úsalo para probar el código o instalar dependencias."""
+@tool
+def ejecutar_comando_terminal(comando: str) -> str:
+    """Ejecuta un comando en la terminal del sistema operativo (ej. pytest, ls, npm install, python script.py). Úsalo para probar el código o instalar dependencias.
+    
+    Args:
+        comando: Comando de terminal a ejecutar.
+    """
     try:
         result = subprocess.run(comando, shell=True, capture_output=True, text=True, timeout=30)
         salida = result.stdout if result.stdout else ""
@@ -197,9 +234,13 @@ try:
 except ImportError:
     search = None
 
-@tool("Buscar en Internet")
-def buscar_en_internet(query: str):
-    """Realiza una búsqueda en internet usando Google para obtener información actualizada (noticias, documentación, soluciones a errores)."""
+@tool
+def buscar_en_internet(query: str) -> str:
+    """Realiza una búsqueda en internet usando Google para obtener información actualizada (noticias, documentación, soluciones a errores).
+    
+    Args:
+        query: Búsqueda a realizar en Google.
+    """
     if search is None:
         return "Error: El módulo googlesearch-python no está instalado."
     
@@ -220,11 +261,16 @@ def buscar_en_internet(query: str):
     except Exception as e:
         return f"Error al intentar buscar en Google: {e}"
 
-@tool("Editar Archivo (Search/Replace)")
-def editar_archivo_search_replace(ruta_archivo: str, busqueda: str, reemplazo: str):
+@tool
+def editar_archivo_search_replace(ruta_archivo: str, busqueda: str, reemplazo: str) -> str:
     """
     IMPORTANTE: Úsala para modificar partes de un archivo SIN reescribirlo todo.
     Busca el bloque exacto de código en 'busqueda' y lo reemplaza con 'reemplazo'.
+    
+    Args:
+        ruta_archivo: Ruta del archivo a editar.
+        busqueda: Texto a buscar.
+        reemplazo: Texto de reemplazo.
     """
     import difflib
     try:
@@ -254,27 +300,40 @@ def editar_archivo_search_replace(ruta_archivo: str, busqueda: str, reemplazo: s
     except Exception as e:
         return f"Error al editar {ruta_archivo}: {e}"
 
-@tool("Git Status")
-def git_status(ruta_repo: str = "."):
-    """Muestra el estado del repositorio Git (archivos modificados, untracked, etc)."""
+@tool
+def git_status(ruta_repo: str = ".") -> str:
+    """Muestra el estado del repositorio Git (archivos modificados, untracked, etc).
+    
+    Args:
+        ruta_repo: Ruta del repositorio git local.
+    """
     try:
         result = subprocess.run(["git", "status"], cwd=ruta_repo, capture_output=True, text=True)
         return result.stdout if result.returncode == 0 else f"Error: {result.stderr}"
     except Exception as e:
         return f"Error ejecutando git status: {e}"
 
-@tool("Git Diff")
-def git_diff(ruta_repo: str = "."):
-    """Muestra los cambios no commiteados en el repositorio."""
+@tool
+def git_diff(ruta_repo: str = ".") -> str:
+    """Muestra los cambios no commiteados en el repositorio.
+    
+    Args:
+        ruta_repo: Ruta del repositorio git local.
+    """
     try:
         result = subprocess.run(["git", "diff"], cwd=ruta_repo, capture_output=True, text=True)
         return result.stdout if result.stdout else "No hay cambios no commiteados."
     except Exception as e:
         return f"Error ejecutando git diff: {e}"
 
-@tool("Git Add")
-def git_add(archivos: str, ruta_repo: str = "."):
-    """Añade archivos al staging area de Git. Pasa los archivos separados por espacios, o '.' para añadir todos."""
+@tool
+def git_add(archivos: str, ruta_repo: str = ".") -> str:
+    """Añade archivos al staging area de Git. Pasa los archivos separados por espacios, o '.' para añadir todos.
+    
+    Args:
+        archivos: Archivos a agregar al stage (separados por espacios).
+        ruta_repo: Ruta del repositorio git local.
+    """
     try:
         args = ["git", "add"] + archivos.split()
         result = subprocess.run(args, cwd=ruta_repo, capture_output=True, text=True)
@@ -282,18 +341,28 @@ def git_add(archivos: str, ruta_repo: str = "."):
     except Exception as e:
         return f"Error ejecutando git add: {e}"
 
-@tool("Git Commit")
-def git_commit(mensaje: str, ruta_repo: str = "."):
-    """Crea un commit con los archivos en el staging area."""
+@tool
+def git_commit(mensaje: str, ruta_repo: str = ".") -> str:
+    """Crea un commit con los archivos en el staging area.
+    
+    Args:
+        mensaje: Mensaje del commit.
+        ruta_repo: Ruta del repositorio git local.
+    """
     try:
         result = subprocess.run(["git", "commit", "-m", mensaje], cwd=ruta_repo, capture_output=True, text=True)
         return result.stdout if result.returncode == 0 else f"Error: {result.stderr}"
     except Exception as e:
         return f"Error ejecutando git commit: {e}"
 
-@tool("Git Push")
-def git_push(ruta_repo: str = ".", rama: str = "main"):
-    """Sube los commits locales al repositorio remoto (GitHub). Opcionalmente especifica la rama."""
+@tool
+def git_push(ruta_repo: str = ".", rama: str = "main") -> str:
+    """Sube los commits locales al repositorio remoto (GitHub). Opcionalmente especifica la rama.
+    
+    Args:
+        ruta_repo: Ruta del repositorio git local.
+        rama: Rama a pushear (por defecto 'main').
+    """
     try:
         result = subprocess.run(["git", "push", "origin", rama], cwd=ruta_repo, capture_output=True, text=True)
         if result.returncode == 0:
