@@ -1,8 +1,88 @@
 from crewai import Task, Crew, Process
 from agents import get_llm, create_agent, route_prompt
 import tools as mis_herramientas
+import re
+import time
 
-def ejecutar_agentes(user_prompt: str, provider: str, model_name: str, api_key: str, agent_type: str, selected_tools: list) -> str:
+# ─────────────────────────────────────────────────────────────────────────────
+# MODO DIRECTO: ejecuta herramientas en Python y pasa resultados al LLM
+# Bypasea CrewAI por completo — no depende de que el modelo formatee tool calls
+# ─────────────────────────────────────────────────────────────────────────────
+def ejecutar_modo_directo_github(user_prompt: str, llm) -> tuple[str, dict]:
+    """Extrae el token y el repo del prompt, llama las herramientas directamente y pide análisis al LLM."""
+    import time
+    start = time.time()
+
+    # Extraer token ghp_ del prompt
+    token_match = re.search(r'ghp_[A-Za-z0-9]+', user_prompt)
+    token = token_match.group(0) if token_match else ""
+
+    if not token:
+        return "No se encontró un token de GitHub válido (debe empezar por ghp_) en el mensaje.", {}
+
+    # ── Paso 1: listar repositorios del usuario ──────────────────────────────
+    repos_raw = mis_herramientas.consultar_github.run(token)
+
+    # Intentar identificar el repo solicitado
+    repo_solicitado = None
+    prompt_lower = user_prompt.lower()
+    # Buscar nombre de repo mencionado en el prompt
+    for linea in repos_raw.splitlines():
+        match = re.search(r'Nombre completo: ([^\|]+)', linea)
+        if match:
+            full_name = match.group(1).strip()
+            repo_name = full_name.split("/")[-1].lower()
+            if repo_name in prompt_lower or repo_name.replace("-", "") in prompt_lower.replace("-", ""):
+                repo_solicitado = full_name
+                break
+
+    # ── Paso 2: leer el repo identificado ───────────────────────────────────
+    repo_contenido = ""
+    if repo_solicitado:
+        repo_contenido = mis_herramientas.leer_repositorio_github.run(
+            f'{{"token": "{token}", "nombres_repos": "{repo_solicitado}"}}'
+        )
+    else:
+        repo_contenido = f"Repositorios disponibles:\n{repos_raw}\n\nNo se identificó un repositorio específico en el mensaje. Por favor especifica el nombre exacto."
+
+    # ── Paso 3: pedir análisis al LLM con los datos reales ──────────────────
+    system_msg = """Eres un experto en revisión de código y análisis de repositorios GitHub.
+Se te proporcionará la estructura y el README de un repositorio. Tu trabajo es:
+1. Analizar la calidad del proyecto (estructura, tecnologías, documentación)
+2. Identificar fortalezas
+3. Identificar debilidades y riesgos
+4. Proponer mejoras concretas y accionables
+Sé específico, técnico y útil. Responde en español."""
+
+    user_msg = f"""El usuario solicitó: "{user_prompt}"
+
+Datos reales del repositorio obtenidos de la API de GitHub:
+{repo_contenido}
+
+Por favor realiza un análisis completo y detallado."""
+
+    try:
+        from langchain_core.messages import SystemMessage, HumanMessage
+        response = llm.invoke([SystemMessage(content=system_msg), HumanMessage(content=user_msg)])
+        resultado = response.content if hasattr(response, 'content') else str(response)
+    except Exception:
+        # Fallback si el LLM no acepta mensajes estructurados
+        response = llm.invoke(f"{system_msg}\n\n{user_msg}")
+        resultado = response.content if hasattr(response, 'content') else str(response)
+
+    elapsed = round(time.time() - start, 2)
+    metricas = {
+        "tiempo_segundos": elapsed,
+        "agentes_usados": "Modo Directo (GitHub)",
+        "herramientas_activas": 2
+    }
+    return resultado, metricas
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# MODO CREWAI: para tareas locales (archivos, código, git, terminal)
+# ─────────────────────────────────────────────────────────────────────────────
+def ejecutar_agentes(user_prompt: str, provider: str, model_name: str, api_key: str, agent_type: str, selected_tools: list) -> tuple[str, dict]:
     """Ejecuta el equipo de agentes basándose en la configuración dinámica seleccionada en la UI."""
     
     # 1. Inicializar el Modelo de Lenguaje
@@ -24,14 +104,15 @@ def ejecutar_agentes(user_prompt: str, provider: str, model_name: str, api_key: 
         elif agent_type == "Asistente de Eventos y Productividad":
             selected_tools.extend(["Base de Datos (SQLite)"])
 
-    # Si el agente seleccionado (manualmente o por Auto) es un subagente dinámico,
-    # mapeamos sus herramientas requeridas (Read, Write, Edit, Bash) a las nuestras.
+    # ── MODO DIRECTO: si hay token de GitHub, bypass CrewAI ─────────────────
+    if "ghp_" in user_prompt or (agent_type == "Analista de Código (Experto Github)" and "github.com" in user_prompt):
+        return ejecutar_modo_directo_github(user_prompt, llm)
+
+    # Si el agente seleccionado es un subagente dinámico, mapeamos sus herramientas
     if agent_type in subagents:
         agent_tools_str = subagents[agent_type]["metadata"].get("tools", "")
-        # Parseamos algo como "Read, Write, Edit, Bash, Glob, Grep"
         agent_tools = [t.strip().lower() for t in agent_tools_str.split(",")]
         
-        # Mapeo de Claude Code Tools a OpenCode Hub Tools
         for t in agent_tools:
             if t in ["read", "write", "glob", "grep", "edit"]:
                 if "Archivos Locales" not in selected_tools:
@@ -43,12 +124,12 @@ def ejecutar_agentes(user_prompt: str, provider: str, model_name: str, api_key: 
                 if "Búsqueda Web" not in selected_tools:
                     selected_tools.append("Búsqueda Web")
                     
-    # 1.5 Auto-activar GitHub si el usuario provee un token o link
-    if "ghp_" in user_prompt or "github.com" in user_prompt:
+    # Auto-activar GitHub si el usuario provee un link (sin token)
+    if "github.com" in user_prompt:
         if "GitHub API" not in selected_tools:
             selected_tools.append("GitHub API")
             
-    # 2. Cargar las herramientas (Skills / MCPs simulados) seleccionadas
+    # 2. Cargar las herramientas seleccionadas
     herramientas_activas = []
     if "Base de Datos (SQLite)" in selected_tools:
         herramientas_activas.append(mis_herramientas.consultar_db)
@@ -80,7 +161,7 @@ def ejecutar_agentes(user_prompt: str, provider: str, model_name: str, api_key: 
         except ImportError:
             pass
         
-    # 3. Crear el agente Ejecutor y el Planner
+    # 3. Crear agentes
     from agents import create_planner_agent
     agente_ejecutor = create_agent(agent_type, llm, herramientas_activas)
     agente_planner = create_planner_agent(llm)
@@ -110,14 +191,13 @@ Plan
 INSTRUCCIÓN CRÍTICA:
 Tu trabajo es EJECUTAR el plan elaborado por el Arquitecto.
 TIENES HERRAMIENTAS REALES DISPONIBLES. ¡ÚSALAS!
-NO le digas al usuario "Clona el repositorio" o "Navega al directorio". Hazlo tú mismo usando tus herramientas (Ejecutar Comando Terminal, Leer Archivo, Leer Repositorio Github, etc.).
+NO le digas al usuario "Clona el repositorio" o "Navega al directorio". Hazlo tú mismo.
 SIEMPRE ejecuta las acciones por ti mismo usando las tools provistas. NUNCA delegues el trabajo al usuario.
 PIENSA PASO A PASO. NUNCA alucines.''',
-        expected_output='Tu respuesta final debe ser el resultado real de haber ejecutado las tareas y usado las herramientas, mostrando la salida o análisis obtenido.',
+        expected_output='Tu respuesta final debe ser el resultado real de haber ejecutado las tareas y usado las herramientas.',
         agent=agente_ejecutor
     )
 
-    import time
     start_time = time.time()
     
     # 5. Formar el equipo y ejecutar
