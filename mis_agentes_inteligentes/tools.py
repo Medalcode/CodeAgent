@@ -10,19 +10,19 @@ def consultar_db(query: str) -> str:
     Args:
         query: La consulta SQL SELECT.
     """
-    # Protección contra SQL injection: solo SELECT
-    query_upper = query.strip().upper()
-    if not query_upper.startswith("SELECT"):
-        return "Error: Solo se permiten consultas de lectura (SELECT). Operaciones de escritura no están permitidas."
-    conn = sqlite3.connect('MisEventos.db')
-    cursor = conn.cursor()
+    # Conectar en modo estricto de solo lectura usando URI
     try:
+        conn = sqlite3.connect('file:MisEventos.db?mode=ro', uri=True)
+        cursor = conn.cursor()
         cursor.execute(query)
         data = str(cursor.fetchall())
+    except sqlite3.OperationalError as e:
+        data = f"Error: Operación no permitida o base de datos bloqueada. (Detalle: {e})"
     except Exception as e:
         data = f"Error al ejecutar la consulta: {e}"
     finally:
-        conn.close()
+        if 'conn' in locals():
+            conn.close()
     return data
 
 @tool
@@ -202,7 +202,11 @@ def leer_archivo_local(ruta_archivo: str) -> str:
     """
     try:
         with open(ruta_archivo, 'r', encoding='utf-8') as f:
-            return f"Contenido de {ruta_archivo}:\n\n" + f.read()
+            # Leer hasta ~3000 líneas o 150KB para no saturar el contexto
+            contenido = f.read(150000)
+            if f.read(1):  # Si hay más caracteres después del límite
+                contenido += "\n\n... [CONTENIDO TRUNCADO POR LÍMITE DE TAMAÑO (150KB)]"
+            return f"Contenido de {ruta_archivo}:\n\n" + contenido
     except Exception as e:
         return f"Error al leer {ruta_archivo}: {e}"
 
@@ -233,6 +237,10 @@ def ejecutar_comando_terminal(comando: str) -> str:
         comando: Comando de terminal a ejecutar.
     """
     try:
+        blacklist = ['rm -rf', 'mkfs', 'dd ', 'sudo ', 'format ', 'shutdown', 'reboot', 'mv /', 'cp /']
+        if any(b in comando.lower() for b in blacklist):
+            return "Error de Seguridad: El comando contiene operaciones destructivas o de sistema que están bloqueadas."
+            
         result = subprocess.run(comando, shell=True, capture_output=True, text=True, timeout=30)
         salida = result.stdout if result.stdout else ""
         error = result.stderr if result.stderr else ""

@@ -4,7 +4,7 @@ try:
     from langchain_community.vectorstores import Chroma
     from langchain_community.embeddings import HuggingFaceEmbeddings
     from langchain_text_splitters import RecursiveCharacterTextSplitter
-    from langchain.tools import tool
+    from smolagents import tool
 except ImportError:
     Chroma = None
 
