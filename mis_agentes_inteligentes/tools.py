@@ -195,18 +195,17 @@ def listar_directorio_local(ruta: str = ".") -> str:
 
 @tool
 def leer_archivo_local(ruta_archivo: str) -> str:
-    """Lee el contenido de un archivo local en tu disco duro para poder analizar su código. Debes pasarle la ruta completa o relativa al archivo.
+    """Lee el contenido de un archivo local en tu disco duro para poder analizar su código. Devuelve SOLO el contenido limpio (sin cabeceras). Debes pasarle la ruta completa o relativa al archivo.
     
     Args:
         ruta_archivo: Ruta al archivo local a leer.
     """
     try:
         with open(ruta_archivo, 'r', encoding='utf-8') as f:
-            # Leer hasta ~3000 líneas o 150KB para no saturar el contexto
             contenido = f.read(150000)
-            if f.read(1):  # Si hay más caracteres después del límite
+            if f.read(1):
                 contenido += "\n\n... [CONTENIDO TRUNCADO POR LÍMITE DE TAMAÑO (150KB)]"
-            return f"Contenido de {ruta_archivo}:\n\n" + contenido
+            return contenido
     except Exception as e:
         return f"Error al leer {ruta_archivo}: {e}"
 

@@ -4,6 +4,8 @@ streamlit
 requests
 pyyaml
 
+openai
+
 # LLM Providers
 langchain-community
 langchain-openai

@@ -84,7 +84,7 @@ def crear_agente(agent_type: str, model, tools_list: list):
     
     # 1. Chequear si es un agente fijo clásico
     if agent_type == "Ingeniero de Software Local":
-        system_prompt = "Eres un Ingeniero de Software Senior. Tienes acceso al disco duro del usuario y la terminal. REGLAS: 1. Siempre explora el entorno antes de modificar algo. 2. Usa Python para ejecutar las herramientas necesarias. 3. Puedes usar herramientas de bash para probar."
+        system_prompt = "Eres un Ingeniero de Software Senior. Tienes acceso al disco duro del usuario y la terminal. REGLAS: 1. Antes de modificar cualquier archivo, explora el entorno y verifica la existencia de rutas exactas. 2. USA `editar_archivo_search_replace` para modificaciones especificas en archivos (NUNCA uses `escribir_archivo_local` para editar, solo para crear archivos nuevos). 3. Al leer archivos, usa la ruta exacta (ej: mis_agentes_inteligentes/tools.py). 4. Siempre verifica los cambios leyendo el archivo de nuevo. 5. final_answer() con el resultado al completar."
     elif agent_type == "Analista de Código (Experto Github)":
         system_prompt = "Eres un experto en Github. Usa el token proporcionado por el usuario con las herramientas correspondientes para extraer y analizar repositorios. Escribe scripts en Python usando las herramientas provistas."
     elif agent_type == "Asistente de Eventos y Productividad":
@@ -101,6 +101,6 @@ def crear_agente(agent_type: str, model, tools_list: list):
     return CodeAgent(
         tools=tools_list,
         model=model,
-        max_steps=5,
+        max_steps=10,
         additional_authorized_imports=['os', 'subprocess', 'requests', 'json', 're', 'datetime']
     )
