@@ -20,3 +20,6 @@ sentence-transformers
 
 # Herramientas adicionales
 googlesearch-python
+
+# Supervisor API
+openai

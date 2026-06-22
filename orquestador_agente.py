@@ -181,14 +181,15 @@ def supervisor(prompt, system):
         {"role": "system", "content": system},
         {"role": "user", "content": prompt}
     ], "temperature": TEMP}
+    # response_format no siempre disponible en todos los modelos/providers
     try:
         resp = client.chat.completions.create(**kwargs, response_format={"type": "json_object"})
     except Exception:
         resp = client.chat.completions.create(**kwargs)
     return json.loads(resp.choices[0].message.content)
 
-
 def backup_archivos_trabajo():
+    """Guarda backups de archivos que los benchmarks pueden modificar."""
     global BACKUP_ARCHIVOS
     for archivo in ["tools.py", "main.py", "session_manager.py"]:
         fp = os.path.join(CODEAGENT_DIR, archivo)
@@ -196,12 +197,14 @@ def backup_archivos_trabajo():
             with open(fp) as f:
                 BACKUP_ARCHIVOS[archivo] = f.read()
 
-
 def restaurar_archivos_trabajo():
+    """Restaura archivos de trabajo a su estado original."""
     for archivo, contenido in BACKUP_ARCHIVOS.items():
         fp = os.path.join(CODEAGENT_DIR, archivo)
         with open(fp, "w") as f:
             f.write(contenido)
+    # Limpiar cache de Python
+    import shutil
     pycache = os.path.join(CODEAGENT_DIR, "__pycache__")
     if os.path.exists(pycache):
         shutil.rmtree(pycache)
@@ -347,8 +350,10 @@ def aplicar(cambios):
         if c["buscar"] not in con:
             print(f"       NO APLICADO: texto no encontrado en {c['archivo']}")
             continue
+        # backup antes del primer cambio
         if BACKUP_AGENTS is None:
             BACKUP_AGENTS = con
+        # sintaxis del resultado
         nuevo = con.replace(c["buscar"], c["reemplazar"], 1)
         with open(fp + ".tmp", "w") as f:
             f.write(nuevo)
@@ -360,8 +365,8 @@ def aplicar(cambios):
         HISTORIAL.append(f"[{c['archivo']}] {c['razon'][:100]}")
         print(f"       APLICADO en {c['archivo']}: {c['razon'][:80]}")
 
-
 def restaurar_agents(fp):
+    """Restaura agents.py desde BACKUP_AGENTS si existe."""
     global BACKUP_AGENTS
     if BACKUP_AGENTS:
         with open(fp, "w") as fw:
@@ -384,6 +389,7 @@ def main():
     total_ok = 0
     total_fail = 0
 
+    # Backup inicial de archivos de trabajo
     backup_archivos_trabajo()
 
     for nivel in ["baja", "media", "alta"]:
@@ -398,9 +404,11 @@ def main():
             print(f"{'─'*50}")
             aprobado = False
 
+            # Restaurar archivos al inicio de cada benchmark
             restaurar_archivos_trabajo()
 
             for it in range(1, MAX_ITER + 1):
+                # Restaurar archivos al inicio de cada iteracion
                 if it > 1:
                     restaurar_archivos_trabajo()
                 print(f"\n  [{it}/{MAX_ITER}] Ejecutando...")
@@ -457,6 +465,7 @@ def main():
 
             if aprobado:
                 continue
+            # Restaurar backup entre benchmarks si hubo cambios
             fp = os.path.join(CODEAGENT_DIR, "agents.py")
             if BACKUP_AGENTS:
                 with open(fp) as f:

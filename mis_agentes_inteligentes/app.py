@@ -81,9 +81,14 @@ with st.sidebar:
         new_id = session_manager.create_new_session("Sesión " + str(dt.now().strftime("%H:%M:%S")))
         st.session_state.current_session_id = new_id
         st.session_state.messages = []
+        st.cache_data.clear()
         st.rerun()
 
-    sesiones = session_manager.list_sessions()
+    @st.cache_data
+    def get_cached_sessions():
+        return session_manager.list_sessions()
+        
+    sesiones = get_cached_sessions()
     sesiones_dict = {s["id"]: s["name"] for s in sesiones}
     
     if sesiones:
@@ -106,12 +111,14 @@ with st.sidebar:
                 session_manager.delete_session(st.session_state.current_session_id)
                 st.session_state.current_session_id = None
                 st.session_state.messages = []
+                st.cache_data.clear()
                 st.rerun()
 
 # Si no hay sesión activa, crear una por defecto
 if not st.session_state.current_session_id:
     new_id = session_manager.create_new_session("Sesión " + str(dt.now().strftime("%H:%M:%S")))
     st.session_state.current_session_id = new_id
+    st.cache_data.clear()
 
 # --- MAIN UI ---
 st.title("💻 OpenCode Hub")
@@ -169,16 +176,14 @@ if prompt:
                         contexto = mis_herramientas.obtener_contexto_workspace()
                         prompt_enviado = f"{contexto}\n\n{historial_texto}"
                     
-                    with open(os.devnull, 'w') as devnull:
-                        with contextlib.redirect_stdout(devnull):
-                            respuesta, metricas = ejecutar_agentes(
-                                user_prompt=prompt_enviado,
-                                provider=provider,
-                                model_name=model_name,
-                                api_key=api_key,
-                                agent_type=agent_type,
-                                selected_tools=selected_tools
-                            )
+                    respuesta, metricas = ejecutar_agentes(
+                        user_prompt=prompt_enviado,
+                        provider=provider,
+                        model_name=model_name,
+                        api_key=api_key,
+                        agent_type=agent_type,
+                        selected_tools=selected_tools
+                    )
                     
                     st.markdown(respuesta)
                     
@@ -198,6 +203,7 @@ if prompt:
                     nombre_sesion = sesiones_dict.get(st.session_state.current_session_id, "Sesión")
                     if len(st.session_state.messages) <= 2:  # Solo 1 par de mensajes
                         nombre_sesion = prompt[:20] + "..."
+                        st.cache_data.clear()
                         
                     # Guardar sesión en disco
                     session_manager.save_session(

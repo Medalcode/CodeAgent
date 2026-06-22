@@ -7,7 +7,7 @@ def get_model(provider: str, model_name: str, api_key: str = ""):
     if provider == "Ollama (Local)":
         return LiteLLMModel(
             model_id=f"ollama_chat/{model_name}",
-            api_base="http://localhost:11434"
+            api_base=os.environ.get("OLLAMA_API_BASE", "http://localhost:11434")
         )
     
     elif provider == "OpenAI":
@@ -62,7 +62,7 @@ def load_subagents_from_disk():
 
 def get_available_agents():
     """Devuelve la lista completa de agentes disponibles (Fijos + Dinámicos)."""
-    agentes_fijos = ["Ingeniero de Software Local", "Analista de Código (Experto Github)", "Asistente de Eventos y Productividad", "Asistente General"]
+    agentes_fijos = ["Agente de Edición de Código", "Analista de Código (Experto Github)", "Asistente de Eventos y Productividad", "Asistente General"]
     subagents = load_subagents_from_disk()
     agentes_dinamicos = list(subagents.keys())
     return agentes_fijos + agentes_dinamicos
@@ -75,7 +75,7 @@ def route_prompt(prompt: str) -> str:
     if any(k in prompt_lower for k in ["agenda", "evento", "recordatorio", "tarea", "productividad"]):
         return "Asistente de Eventos y Productividad"
     if any(k in prompt_lower for k in ["código", "archivo", "función", "bug", "error", "refactor", "test", "implementa", "crea un", "modifica"]):
-        return "Ingeniero de Software Local"
+        return "Agente de Edición de Código"
     return "Asistente General"
 
 def crear_agente(agent_type: str, model, tools_list: list):
@@ -83,7 +83,7 @@ def crear_agente(agent_type: str, model, tools_list: list):
     system_prompt = "Eres un asistente inteligente. Utiliza Python y las herramientas para resolver las peticiones del usuario."
     
     # 1. Chequear si es un agente fijo clásico
-    if agent_type == "Ingeniero de Software Local":
+    if agent_type == "Agente de Edición de Código" or agent_type == "Arquitecto de Agentes Smolagents":
         system_prompt = "Eres un Ingeniero de Software Senior. Tienes acceso al disco duro del usuario y la terminal. REGLAS: 1. Antes de modificar cualquier archivo, explora el entorno y verifica la existencia de rutas exactas. 2. USA `editar_archivo_search_replace` para modificaciones especificas en archivos (NUNCA uses `escribir_archivo_local` para editar, solo para crear archivos nuevos). 3. Al leer archivos, usa la ruta exacta (ej: mis_agentes_inteligentes/tools.py). 4. Siempre verifica los cambios leyendo el archivo de nuevo. 5. final_answer() con el resultado al completar."
     elif agent_type == "Analista de Código (Experto Github)":
         system_prompt = "Eres un experto en Github. Usa el token proporcionado por el usuario con las herramientas correspondientes para extraer y analizar repositorios. Escribe scripts en Python usando las herramientas provistas."

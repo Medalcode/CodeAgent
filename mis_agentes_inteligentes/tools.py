@@ -359,7 +359,8 @@ def git_add(archivos: str, ruta_repo: str = ".") -> str:
         ruta_repo: Ruta del repositorio git local.
     """
     try:
-        args = ["git", "add"] + archivos.split()
+        import shlex
+        args = ["git", "add"] + shlex.split(archivos)
         result = subprocess.run(args, cwd=ruta_repo, capture_output=True, text=True)
         return f"Archivos añadidos al stage: {archivos}" if result.returncode == 0 else f"Error: {result.stderr}"
     except Exception as e:
