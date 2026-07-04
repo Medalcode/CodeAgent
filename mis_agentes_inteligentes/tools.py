@@ -229,27 +229,47 @@ def escribir_archivo_local(ruta_archivo: str, contenido: str) -> str:
         return f"Error al escribir {ruta_archivo}: {e}"
 
 @tool
-def ejecutar_comando_terminal(comando: str) -> str:
-    """Ejecuta un comando en la terminal del sistema operativo (ej. pytest, ls, npm install, python script.py). Úsalo para probar el código o instalar dependencias.
-    
+def ejecutar_comando_terminal(comando: str, directorio: str = "") -> str:
+    """Ejecuta un comando en la terminal del sistema operativo (ej. pytest, ls, pip install, python script.py).
+    Úsalo para probar el código, instalar dependencias o verificar resultados.
+
     Args:
         comando: Comando de terminal a ejecutar.
+        directorio: Directorio de trabajo donde ejecutar el comando (opcional). Si está vacío, usa el directorio actual.
     """
     try:
-        blacklist = ['rm -rf', 'mkfs', 'dd ', 'sudo ', 'format ', 'shutdown', 'reboot', 'mv /', 'cp /']
+        # BUG 3 FIX: blacklist ampliada para Windows y Unix
+        blacklist = [
+            'rm -rf', 'mkfs', 'dd ', 'sudo rm', 'format c:', 'format d:',
+            'shutdown', 'reboot', 'del /f /s /q c:', 'rmdir /s /q c:',
+            'mv /', 'cp /', ':(){:|:&};:',  # fork bomb
+        ]
         if any(b in comando.lower() for b in blacklist):
-            return "Error de Seguridad: El comando contiene operaciones destructivas o de sistema que están bloqueadas."
-            
-        result = subprocess.run(comando, shell=True, capture_output=True, text=True, timeout=30)
-        salida = result.stdout if result.stdout else ""
-        error = result.stderr if result.stderr else ""
-        
+            return "Error de Seguridad: El comando contiene operaciones destructivas que están bloqueadas."
+
+        # BUG 3 FIX: usar directorio de trabajo si se proporcionó
+        cwd = directorio if directorio and os.path.isdir(directorio) else os.getcwd()
+
+        result = subprocess.run(
+            comando,
+            shell=True,
+            capture_output=True,
+            text=True,
+            timeout=60,  # Aumentado de 30 a 60 segundos
+            cwd=cwd,
+            encoding='utf-8',
+            errors='replace',
+        )
+        salida = result.stdout.strip() if result.stdout else ""
+        error = result.stderr.strip() if result.stderr else ""
+
+        header = f"[Ejecutado en: {cwd}]\n"
         if result.returncode == 0:
-            return f"Comando ejecutado con éxito.\nSalida:\n{salida}"
+            return f"{header}✅ Éxito (código 0)\n{salida}"
         else:
-            return f"El comando falló con código {result.returncode}.\nError:\n{error}\nSalida:\n{salida}"
+            return f"{header}❌ Falló (código {result.returncode})\nSTDERR:\n{error}\nSTDOUT:\n{salida}"
     except subprocess.TimeoutExpired:
-        return "Error: El comando tardó demasiado en ejecutarse (Timeout de 30 segundos)."
+        return "Error: Timeout de 60 segundos superado. El comando tardó demasiado."
     except Exception as e:
         return f"Error de ejecución crítica: {e}"
 

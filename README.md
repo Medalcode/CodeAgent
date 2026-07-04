@@ -11,7 +11,18 @@ Un Centro de Mando Avanzado para Agentes Inteligentes, construido con **Python, 
 - **🧬 Subagentes Dinámicos:** Soporta la importación dinámica de subagentes desde la comunidad. Simplemente arrastra un archivo `.md` (con YAML frontmatter) a la carpeta `subagents/` y la interfaz lo asimilará como un nuevo agente nativo.
 - **⚡ Alto Rendimiento en UI:** Implementación de `@st.cache_data` para el parseo de sesiones JSON, logrando una interfaz gráfica responsiva que no bloquea el hilo principal al cargar el historial.
 - **👀 Observabilidad Total:** Integración transparente sin silenciar flujos en el *backend*, lo que permite monitorear toda la Cadena de Pensamientos (CoT) y llamadas a herramientas del agente en la terminal de forma nativa.
+- **🌐 Integración con Graphify:** Conocimiento estructural del código mediante un knowledge graph de AST. Compatible con asistentes como Claude, Cursor y OpenCode para exploraciones más inteligentes.
 - **🛠️ Configuración Desacoplada:** El LLM local (Ollama) ya no está fijo al localhost, permitiendo despliegues en clúster utilizando la variable de entorno `OLLAMA_API_BASE`.
+
+### 🛡️ Últimas Mejoras de Fiabilidad y UX (v2.0)
+- **Roles Estrictos:** Inyección correcta de `system_prompt` en el `CodeAgent` para asegurar que el agente asuma el rol seleccionado.
+- **Contexto de Workspace:** El agente ahora es consciente del directorio de trabajo actual y su estructura antes de responder.
+- **Enrutador Inteligente:** Nuevo enrutador automático con *scoring ponderado* (evalúa palabras clave y su peso) para elegir el mejor agente según el prompt.
+- **Gestión de Sesiones Robusta:** Caché invalidada en tiempo real para mantener la UI sincronizada, historial separado del system prompt para evitar alucinaciones en modelos de 7B, y capacidad para exportar sesiones a Markdown.
+- **Soporte `.env`:** Carga automática de variables de entorno para mayor seguridad de las API Keys (con plantilla `.env.example`).
+- **Nuevos Comandos UI:** Slash commands integrados (`/help`, `/status`, `/clear`, `/export`) directamente en el chat.
+- **Terminal Segura:** Directorio de trabajo (`cwd`) garantizado por comando, timeout ampliado a 60s, y blacklist fortalecida.
+
 - **🤖 Agentes (Personas) Preconfigurados:** 
   - *Ingeniero de Software Local / Agente de Edición de Código:* Puede listar directorios, leer archivos, modificar código de forma segura y ejecutar comandos en tu PC.
   - *Analista de Código:* Lee repositorios de GitHub reales, descarga `README.md` y estructura de archivos para análisis. Detecta inteligentemente el nombre real del repositorio sin que el LLM tenga que adivinarlo.
@@ -62,13 +73,23 @@ python3 orquestador_agente.py
 
 ## 🚀 Instalación y Ejecución
 
+### Opción 1: Arranque Rápido (Recomendado para Windows)
+Simplemente haz **doble clic en el archivo `Iniciar_OpenCode.bat`**. 
+Este script se encargará automáticamente de:
+- Detectar o crear el entorno virtual.
+- Instalar todas las dependencias necesarias.
+- Iniciar la aplicación y abrirla en tu navegador.
+
+### Opción 2: Ejecución Manual
 1. Clona el repositorio e ingresa a la carpeta principal de la aplicación:
    ```bash
    cd mis_agentes_inteligentes
    ```
-2. Activa el entorno virtual:
+2. Crea y activa un entorno virtual (opcional pero recomendado):
    ```bash
-   source venv/bin/activate
+   python -m venv venv
+   source venv/bin/activate  # En Linux/Mac
+   venv\Scripts\activate     # En Windows
    ```
 3. Instala las dependencias:
    ```bash

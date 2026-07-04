@@ -1,49 +1,119 @@
 import os
 import yaml
+
+# Soporte para .env
+try:
+    from dotenv import load_dotenv
+    load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"))
+except ImportError:
+    pass
+
 from smolagents import CodeAgent, LiteLLMModel
+
+# System prompts por agente — definidos aquí para que sean el source of truth
+SYSTEM_PROMPTS = {
+    "Agente de Edición de Código": (
+        "Eres un Ingeniero de Software Senior trabajando en el sistema operativo del usuario. "
+        "Tienes acceso total al disco duro y a la terminal.\n\n"
+        "REGLAS ESTRICTAS:\n"
+        "1. SIEMPRE empieza explorando el entorno: lista el directorio de trabajo antes de modificar nada.\n"
+        "2. USA `editar_archivo_search_replace` para modificaciones parciales. "
+        "USA `escribir_archivo_local` SOLO para crear archivos nuevos desde cero.\n"
+        "3. Usa RUTAS ABSOLUTAS o rutas relativas verificadas. Nunca asumas una ruta.\n"
+        "4. Después de cada modificación, LEE el archivo para verificar que el cambio es correcto.\n"
+        "5. Usa la terminal para ejecutar tests, instalar dependencias o verificar resultados.\n"
+        "6. Termina con `final_answer()` describiendo exactamente qué hiciste y qué archivos cambiaste.\n"
+        "7. Si un comando falla, lee el error completo y corrígelo antes de continuar.\n"
+        "8. Nunca ejecutes comandos destructivos (rm -rf, format, etc).\n"
+    ),
+    "Arquitecto de Agentes Smolagents": (
+        "Eres un arquitecto experto en smolagents de HuggingFace. "
+        "Diseñas, depuras y optimizas pipelines de agentes con CodeAgent, ToolCallingAgent y modelos LiteLLM. "
+        "Cuando modificas system_prompts de agentes, siempre validas la sintaxis Python antes de guardar. "
+        "Documenta cada cambio con comentarios y usa editar_archivo_search_replace para modificaciones puntuales."
+    ),
+    "Analista de Código (Experto Github)": (
+        "Eres un experto en análisis de repositorios GitHub. "
+        "Cuando el usuario te proporciona un token (ghp_...) y un nombre de repositorio, "
+        "usas las herramientas de GitHub para extraer el README, la estructura y los archivos clave. "
+        "Sintetiza los hallazgos en un reporte estructurado con: propósito, tecnologías, arquitectura y puntos de mejora."
+    ),
+    "Asistente de Eventos y Productividad": (
+        "Eres un Asistente de Productividad Personal. "
+        "Usas la herramienta de base de datos SQLite para consultar eventos, tareas y recordatorios. "
+        "SOLO puedes hacer SELECT. Nunca INSERT, UPDATE ni DELETE. "
+        "Presenta los datos de forma clara con emojis y formato de tabla cuando sea posible."
+    ),
+    "Asistente General": (
+        "Eres un asistente inteligente y versátil. Responde en el mismo idioma del usuario. "
+        "Si tienes herramientas disponibles, úsalas activamente para dar respuestas más completas. "
+        "Sé conciso pero completo."
+    ),
+}
+
+DEFAULT_PROMPT = (
+    "Eres un asistente inteligente. Utiliza las herramientas disponibles para resolver "
+    "las peticiones del usuario de forma precisa y eficiente."
+)
+
 
 def get_model(provider: str, model_name: str, api_key: str = ""):
     """Instancia dinámicamente el modelo LiteLLMModel según el proveedor elegido."""
+    # Priorizar API key desde .env si no se pasó explícitamente
+    if not api_key:
+        env_keys = {
+            "OpenAI": "OPENAI_API_KEY",
+            "Anthropic": "ANTHROPIC_API_KEY",
+            "Groq": "GROQ_API_KEY",
+            "Gemini (Google)": "GOOGLE_API_KEY",
+        }
+        if provider in env_keys:
+            api_key = os.environ.get(env_keys[provider], "")
+
     if provider == "Ollama (Local)":
         return LiteLLMModel(
             model_id=f"ollama_chat/{model_name}",
             api_base=os.environ.get("OLLAMA_API_BASE", "http://localhost:11434")
         )
-    
+
     elif provider == "OpenAI":
-        if not api_key: raise ValueError("Se requiere API Key para OpenAI.")
+        if not api_key:
+            raise ValueError("Se requiere API Key para OpenAI (en .env o en el sidebar).")
         return LiteLLMModel(model_id=model_name, api_key=api_key)
-        
+
     elif provider == "Anthropic":
-        if not api_key: raise ValueError("Se requiere API Key para Anthropic.")
-        # LiteLLM maneja anthropic models
+        if not api_key:
+            raise ValueError("Se requiere API Key para Anthropic (en .env o en el sidebar).")
         return LiteLLMModel(model_id=f"anthropic/{model_name}", api_key=api_key)
-        
+
     elif provider == "Groq":
-        if not api_key: raise ValueError("Se requiere API Key para Groq.")
+        if not api_key:
+            raise ValueError("Se requiere API Key para Groq (en .env o en el sidebar).")
         return LiteLLMModel(model_id=f"groq/{model_name}", api_key=api_key)
-    
+
     elif provider == "Gemini (Google)":
-        if not api_key: raise ValueError("Se requiere API Key para Google Gemini.")
+        if not api_key:
+            raise ValueError("Se requiere API Key para Google Gemini (en .env o en el sidebar).")
         return LiteLLMModel(model_id=f"gemini/{model_name}", api_key=api_key)
 
     raise ValueError(f"Proveedor desconocido: {provider}")
+
 
 def load_subagents_from_disk():
     """Lee todos los archivos .md en la carpeta subagents/ y parsea su YAML frontmatter y su cuerpo."""
     subagents = {}
     base_dir = os.path.dirname(os.path.abspath(__file__))
     subagents_dir = os.path.join(base_dir, "subagents")
-    
+
     if not os.path.exists(subagents_dir):
         return subagents
-        
+
     for filename in os.listdir(subagents_dir):
         if filename.endswith(".md"):
             filepath = os.path.join(subagents_dir, filename)
             with open(filepath, "r", encoding="utf-8") as f:
                 content = f.read()
-                
+
             # Parsear el YAML Frontmatter
             if content.startswith("---"):
                 parts = content.split("---", 2)
@@ -60,47 +130,86 @@ def load_subagents_from_disk():
                         print(f"Error parseando {filename}: {e}")
     return subagents
 
+
 def get_available_agents():
     """Devuelve la lista completa de agentes disponibles (Fijos + Dinámicos)."""
-    agentes_fijos = ["Agente de Edición de Código", "Analista de Código (Experto Github)", "Asistente de Eventos y Productividad", "Asistente General"]
+    agentes_fijos = [
+        "Agente de Edición de Código",
+        "Analista de Código (Experto Github)",
+        "Asistente de Eventos y Productividad",
+        "Asistente General",
+    ]
     subagents = load_subagents_from_disk()
     agentes_dinamicos = list(subagents.keys())
     return agentes_fijos + agentes_dinamicos
 
-def route_prompt(prompt: str) -> str:
-    """Enrutador automático por palabras clave."""
-    prompt_lower = prompt.lower()
-    if any(k in prompt for k in ["ghp_", "github.com"]) or any(k in prompt_lower for k in ["repositorio", "repo", "github", "token"]):
-        return "Analista de Código (Experto Github)"
-    if any(k in prompt_lower for k in ["agenda", "evento", "recordatorio", "tarea", "productividad"]):
-        return "Asistente de Eventos y Productividad"
-    if any(k in prompt_lower for k in ["código", "archivo", "función", "bug", "error", "refactor", "test", "implementa", "crea un", "modifica"]):
-        return "Agente de Edición de Código"
-    return "Asistente General"
 
-def crear_agente(agent_type: str, model, tools_list: list):
-    """Crea el CodeAgent de smolagents. El system_prompt puede personalizarse según el agent_type."""
-    system_prompt = "Eres un asistente inteligente. Utiliza Python y las herramientas para resolver las peticiones del usuario."
-    
-    # 1. Chequear si es un agente fijo clásico
-    if agent_type == "Agente de Edición de Código" or agent_type == "Arquitecto de Agentes Smolagents":
-        system_prompt = "Eres un Ingeniero de Software Senior. Tienes acceso al disco duro del usuario y la terminal. REGLAS: 1. Antes de modificar cualquier archivo, explora el entorno y verifica la existencia de rutas exactas. 2. USA `editar_archivo_search_replace` para modificaciones especificas en archivos (NUNCA uses `escribir_archivo_local` para editar, solo para crear archivos nuevos). 3. Al leer archivos, usa la ruta exacta (ej: mis_agentes_inteligentes/tools.py). 4. Siempre verifica los cambios leyendo el archivo de nuevo. 5. final_answer() con el resultado al completar."
-    elif agent_type == "Analista de Código (Experto Github)":
-        system_prompt = "Eres un experto en Github. Usa el token proporcionado por el usuario con las herramientas correspondientes para extraer y analizar repositorios. Escribe scripts en Python usando las herramientas provistas."
-    elif agent_type == "Asistente de Eventos y Productividad":
-        system_prompt = "Eres un Asistente de Productividad. Utiliza tus herramientas de BD para SQLite para consultar eventos y agendar."
-    elif agent_type == "Asistente General":
-        system_prompt = "Eres un asistente general versátil. Si tienes herramientas, úsalas escribiendo código Python."
-    else:
-        # 2. Chequear si es un Subagente Dinámico
+def route_prompt(prompt: str) -> str:
+    """Enrutador automático mejorado con scoring ponderado."""
+    prompt_lower = prompt.lower()
+    scores = {
+        "Analista de Código (Experto Github)": 0,
+        "Agente de Edición de Código": 0,
+        "Asistente de Eventos y Productividad": 0,
+        "Asistente General": 0,
+    }
+
+    # Señales fuertes (peso 10)
+    if any(k in prompt for k in ["ghp_", "github.com/"]):
+        scores["Analista de Código (Experto Github)"] += 10
+    if any(k in prompt_lower for k in ["repositorio", "repo github", "pull request", "branch"]):
+        scores["Analista de Código (Experto Github)"] += 5
+
+    # Señales de edición de código (peso variable)
+    edit_keywords = {
+        "refactor": 8, "implementa": 8, "crea un archivo": 8, "modifica": 7,
+        "bug": 6, "error": 5, "arregla": 7, "test": 6, "función": 5,
+        "código": 4, "archivo": 3, "clase": 5, "import": 4,
+    }
+    for kw, weight in edit_keywords.items():
+        if kw in prompt_lower:
+            scores["Agente de Edición de Código"] += weight
+
+    # Señales de productividad
+    prod_keywords = ["agenda", "evento", "recordatorio", "tarea", "productividad", "calendario"]
+    for kw in prod_keywords:
+        if kw in prompt_lower:
+            scores["Asistente de Eventos y Productividad"] += 8
+
+    best = max(scores, key=scores.get)
+    # Si ninguno supera el umbral mínimo, usar Asistente General
+    if scores[best] < 4:
+        return "Asistente General"
+    return best
+
+
+def crear_agente(agent_type: str, model, tools_list: list, workspace_context: str = ""):
+    """
+    Crea el CodeAgent de smolagents.
+    FIX: system_prompt ahora se pasa correctamente al constructor.
+    FIX: max_steps aumentado a 20 para tareas complejas.
+    """
+    # 1. Obtener system_prompt base del tipo de agente
+    system_prompt = SYSTEM_PROMPTS.get(agent_type, "")
+
+    # 2. Chequear subagentes dinámicos si no es un agente fijo
+    if not system_prompt:
         subagents = load_subagents_from_disk()
         if agent_type in subagents:
-            agent_data = subagents[agent_type]
-            system_prompt = agent_data["body"]
-    
+            system_prompt = subagents[agent_type]["body"]
+        else:
+            system_prompt = DEFAULT_PROMPT
+
+    # 3. Inyectar contexto de workspace si está disponible
+    if workspace_context:
+        system_prompt = f"{system_prompt}\n\n{workspace_context}"
+
     return CodeAgent(
         tools=tools_list,
         model=model,
-        max_steps=10,
-        additional_authorized_imports=['os', 'subprocess', 'requests', 'json', 're', 'datetime']
+        system_prompt=system_prompt,  # FIX: ahora se pasa correctamente
+        max_steps=20,                 # FIX: aumentado de 10 a 20
+        additional_authorized_imports=[
+            'os', 'subprocess', 'requests', 'json', 're', 'datetime', 'pathlib'
+        ]
     )
