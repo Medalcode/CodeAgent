@@ -1,2533 +1,1237 @@
 {
-  "directed": false,
-  "multigraph": false,
-  "graph": {},
   "nodes": [
     {
-      "label": "graphify.js",
-      "file_type": "code",
-      "source_file": ".opencode/plugins/graphify.js",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "opencode_plugins_graphify",
-      "community": 24,
-      "norm_label": "graphify.js"
-    },
-    {
-      "label": "GraphifyPlugin()",
-      "file_type": "code",
-      "source_file": ".opencode/plugins/graphify.js",
-      "source_location": "L12",
-      "_origin": "ast",
-      "id": "opencode_plugins_graphify_graphifyplugin",
-      "community": 24,
-      "norm_label": "graphifyplugin()"
-    },
-    {
-      "label": "IMPORTANT: keep the reminder string free of backticks and $(...) constructs.",
-      "file_type": "rationale",
-      "source_file": ".opencode/plugins/graphify.js",
-      "source_location": "L4",
-      "_origin": "ast",
-      "id": "opencode_plugins_graphify_rationale_4",
-      "community": 24,
-      "norm_label": "important: keep the reminder string free of backticks and $(...) constructs."
-    },
-    {
-      "label": "agents.py",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/agents.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_agents",
-      "community": 0,
-      "norm_label": "agents.py"
-    },
-    {
-      "label": "get_model()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/agents.py",
-      "source_location": "L60",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_agents_get_model",
-      "community": 0,
-      "norm_label": "get_model()"
-    },
-    {
-      "label": "load_subagents_from_disk()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/agents.py",
-      "source_location": "L102",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_agents_load_subagents_from_disk",
-      "community": 0,
-      "norm_label": "load_subagents_from_disk()"
-    },
-    {
-      "label": "get_available_agents()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/agents.py",
-      "source_location": "L134",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_agents_get_available_agents",
-      "community": 0,
-      "norm_label": "get_available_agents()"
-    },
-    {
-      "label": "route_prompt()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/agents.py",
-      "source_location": "L147",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_agents_route_prompt",
-      "community": 0,
-      "norm_label": "route_prompt()"
-    },
-    {
-      "label": "crear_agente()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/agents.py",
-      "source_location": "L186",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_agents_crear_agente",
-      "community": 0,
-      "norm_label": "crear_agente()"
-    },
-    {
-      "label": "Instancia din\u00e1micamente el modelo LiteLLMModel seg\u00fan el proveedor elegido.",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/agents.py",
-      "source_location": "L61",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_agents_rationale_61",
-      "community": 0,
-      "norm_label": "instancia dinamicamente el modelo litellmmodel segun el proveedor elegido."
-    },
-    {
-      "label": "Lee todos los archivos .md en la carpeta subagents/ y parsea su YAML frontmatter",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/agents.py",
-      "source_location": "L103",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_agents_rationale_103",
-      "community": 0,
-      "norm_label": "lee todos los archivos .md en la carpeta subagents/ y parsea su yaml frontmatter"
-    },
-    {
-      "label": "Devuelve la lista completa de agentes disponibles (Fijos + Din\u00e1micos).",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/agents.py",
-      "source_location": "L135",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_agents_rationale_135",
-      "community": 0,
-      "norm_label": "devuelve la lista completa de agentes disponibles (fijos + dinamicos)."
-    },
-    {
-      "label": "Enrutador autom\u00e1tico mejorado con scoring ponderado.",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/agents.py",
-      "source_location": "L148",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_agents_rationale_148",
-      "community": 0,
-      "norm_label": "enrutador automatico mejorado con scoring ponderado."
-    },
-    {
-      "label": "Crea el CodeAgent de smolagents.     FIX: system_prompt ahora se pasa correctame",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/agents.py",
-      "source_location": "L187",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_agents_rationale_187",
-      "community": 0,
-      "norm_label": "crea el codeagent de smolagents.     fix: system_prompt ahora se pasa correctame"
-    },
-    {
-      "label": "app.py",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/app.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_app",
-      "community": 22,
-      "norm_label": "app.py"
-    },
-    {
-      "label": "get_sessions_list()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/app.py",
-      "source_location": "L128",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_app_get_sessions_list",
-      "community": 22,
-      "norm_label": "get_sessions_list()"
-    },
-    {
-      "label": "main.py",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/main.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_main",
-      "community": 22,
-      "norm_label": "main.py"
-    },
-    {
-      "label": "get_herramientas()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/main.py",
-      "source_location": "L39",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_main_get_herramientas",
-      "community": 22,
-      "norm_label": "get_herramientas()"
-    },
-    {
-      "label": "_construir_contexto_workspace()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/main.py",
-      "source_location": "L55",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_main_construir_contexto_workspace",
-      "community": 22,
-      "norm_label": "_construir_contexto_workspace()"
-    },
-    {
-      "label": "ejecutar_agentes()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/main.py",
-      "source_location": "L79",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_main_ejecutar_agentes",
-      "community": 22,
-      "norm_label": "ejecutar_agentes()"
-    },
-    {
-      "label": "Pipeline de agentes con smolagents de HuggingFace. El LLM usa CodeAgent para gen",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/main.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_main_rationale_1",
-      "community": 22,
-      "norm_label": "pipeline de agentes con smolagents de huggingface. el llm usa codeagent para gen"
-    },
-    {
-      "label": "Convierte los nombres del UI en la lista de funciones @tool.",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/main.py",
-      "source_location": "L40",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_main_rationale_40",
-      "community": 22,
-      "norm_label": "convierte los nombres del ui en la lista de funciones @tool."
-    },
-    {
-      "label": "Genera un bloque de contexto del workspace actual para inyectar en el system_pro",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/main.py",
-      "source_location": "L56",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_main_rationale_56",
-      "community": 22,
-      "norm_label": "genera un bloque de contexto del workspace actual para inyectar en el system_pro"
-    },
-    {
-      "label": "Pipeline principal usando smolagents.     FIX: el historial ya no se manda como",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/main.py",
-      "source_location": "L88",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_main_rationale_88",
-      "community": 22,
-      "norm_label": "pipeline principal usando smolagents.     fix: el historial ya no se manda como"
-    },
-    {
-      "label": "rag_tools.py",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/rag_tools.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_rag_tools",
-      "community": 2,
-      "norm_label": "rag_tools.py"
-    },
-    {
-      "label": "init_chroma()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/rag_tools.py",
-      "source_location": "L18",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_rag_tools_init_chroma",
-      "community": 2,
-      "norm_label": "init_chroma()"
-    },
-    {
-      "label": "indexar_directorio_local()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/rag_tools.py",
-      "source_location": "L29",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_rag_tools_indexar_directorio_local",
-      "community": 2,
-      "norm_label": "indexar_directorio_local()"
-    },
-    {
-      "label": "preguntar_a_repositorio()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/rag_tools.py",
-      "source_location": "L86",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_rag_tools_preguntar_a_repositorio",
-      "community": 2,
-      "norm_label": "preguntar_a_repositorio()"
-    },
-    {
-      "label": "Inicializa la base de datos ChromaDB y el modelo de embeddings.",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/rag_tools.py",
-      "source_location": "L19",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_rag_tools_rationale_19",
-      "community": 2,
-      "norm_label": "inicializa la base de datos chromadb y el modelo de embeddings."
-    },
-    {
-      "label": "Escanea todos los archivos de c\u00f3digo en un directorio local y los indexa en Chro",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/rag_tools.py",
-      "source_location": "L30",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_rag_tools_rationale_30",
-      "community": 2,
-      "norm_label": "escanea todos los archivos de codigo en un directorio local y los indexa en chro"
-    },
-    {
-      "label": "Realiza una b\u00fasqueda sem\u00e1ntica sobre los archivos previamente indexados con inde",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/rag_tools.py",
-      "source_location": "L87",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_rag_tools_rationale_87",
-      "community": 2,
-      "norm_label": "realiza una busqueda semantica sobre los archivos previamente indexados con inde"
-    },
-    {
-      "label": "session_manager.py",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_session_manager",
-      "community": 3,
-      "norm_label": "session_manager.py"
-    },
-    {
-      "label": "init_sessions_dir()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L9",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_session_manager_init_sessions_dir",
-      "community": 3,
-      "norm_label": "init_sessions_dir()"
-    },
-    {
-      "label": "create_new_session()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L14",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_session_manager_create_new_session",
-      "community": 3,
-      "norm_label": "create_new_session()"
-    },
-    {
-      "label": "list_sessions()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L27",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_session_manager_list_sessions",
-      "community": 3,
-      "norm_label": "list_sessions()"
-    },
-    {
-      "label": "load_session()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L44",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_session_manager_load_session",
-      "community": 3,
-      "norm_label": "load_session()"
-    },
-    {
-      "label": "save_session()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L55",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_session_manager_save_session",
-      "community": 3,
-      "norm_label": "save_session()"
-    },
-    {
-      "label": "delete_session()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L64",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_session_manager_delete_session",
-      "community": 3,
-      "norm_label": "delete_session()"
-    },
-    {
-      "label": "rename_session()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L73",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_session_manager_rename_session",
-      "community": 3,
-      "norm_label": "rename_session()"
-    },
-    {
-      "label": "export_session_to_markdown()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L81",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_session_manager_export_session_to_markdown",
-      "community": 3,
-      "norm_label": "export_session_to_markdown()"
-    },
-    {
-      "label": "BUG 5 FIX: protegido contra session_id None o inv\u00e1lido.",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L65",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_session_manager_rationale_65",
-      "community": 3,
-      "norm_label": "bug 5 fix: protegido contra session_id none o invalido."
-    },
-    {
-      "label": "Renombra una sesi\u00f3n existente.",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L74",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_session_manager_rationale_74",
-      "community": 3,
-      "norm_label": "renombra una sesion existente."
-    },
-    {
-      "label": "Exporta una sesi\u00f3n como texto Markdown.",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L82",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_session_manager_rationale_82",
-      "community": 3,
-      "norm_label": "exporta una sesion como texto markdown."
-    },
-    {
-      "label": "setup_db.py",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/setup_db.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_setup_db",
-      "community": 5,
-      "norm_label": "setup_db.py"
-    },
-    {
-      "label": "create_dummy_db()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/setup_db.py",
-      "source_location": "L5",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_setup_db_create_dummy_db",
-      "community": 5,
-      "norm_label": "create_dummy_db()"
-    },
-    {
-      "label": "start_hub.sh",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/start_hub.sh",
-      "source_location": "L1",
-      "metadata": {
-        "language": "bash",
-        "kind": "file"
-      },
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_start_hub",
-      "community": 6,
-      "norm_label": "start_hub.sh"
-    },
-    {
-      "label": "start_hub.sh script",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/start_hub.sh",
-      "source_location": "L1",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_entrypoint"
-      },
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_start_hub_sh__entry",
-      "community": 6,
-      "norm_label": "start_hub.sh script"
-    },
-    {
-      "label": "tools.py",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools",
-      "community": 4,
-      "norm_label": "tools.py"
-    },
-    {
-      "label": "consultar_db()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L7",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_consultar_db",
-      "community": 7,
-      "norm_label": "consultar_db()"
-    },
-    {
-      "label": "guardar_reporte()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L29",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_guardar_reporte",
-      "community": 4,
-      "norm_label": "guardar_reporte()"
-    },
-    {
-      "label": "consultar_github()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L40",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_consultar_github",
-      "community": 8,
-      "norm_label": "consultar_github()"
-    },
-    {
-      "label": "leer_repositorio_github()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L70",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_leer_repositorio_github",
-      "community": 19,
-      "norm_label": "leer_repositorio_github()"
-    },
-    {
-      "label": "leer_archivo_github()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L135",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_leer_archivo_github",
-      "community": 17,
-      "norm_label": "leer_archivo_github()"
-    },
-    {
-      "label": "listar_directorio_local()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L184",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_listar_directorio_local",
-      "community": 20,
-      "norm_label": "listar_directorio_local()"
-    },
-    {
-      "label": "leer_archivo_local()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L197",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_leer_archivo_local",
-      "community": 18,
-      "norm_label": "leer_archivo_local()"
-    },
-    {
-      "label": "escribir_archivo_local()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L213",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_escribir_archivo_local",
-      "community": 11,
-      "norm_label": "escribir_archivo_local()"
-    },
-    {
-      "label": "ejecutar_comando_terminal()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L232",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_ejecutar_comando_terminal",
-      "community": 10,
-      "norm_label": "ejecutar_comando_terminal()"
-    },
-    {
-      "label": "buscar_en_internet()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L282",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_buscar_en_internet",
-      "community": 4,
-      "norm_label": "buscar_en_internet()"
-    },
-    {
-      "label": "editar_archivo_search_replace()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L309",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_editar_archivo_search_replace",
-      "community": 9,
-      "norm_label": "editar_archivo_search_replace()"
-    },
-    {
-      "label": "git_status()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L348",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_git_status",
-      "community": 16,
-      "norm_label": "git_status()"
-    },
-    {
-      "label": "git_diff()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L361",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_git_diff",
-      "community": 14,
-      "norm_label": "git_diff()"
-    },
-    {
-      "label": "git_add()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L374",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_git_add",
-      "community": 12,
-      "norm_label": "git_add()"
-    },
-    {
-      "label": "git_commit()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L390",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_git_commit",
-      "community": 13,
-      "norm_label": "git_commit()"
-    },
-    {
-      "label": "git_push()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L404",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_git_push",
-      "community": 15,
-      "norm_label": "git_push()"
-    },
-    {
-      "label": "obtener_contexto_workspace()",
-      "file_type": "code",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L420",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_obtener_contexto_workspace",
-      "community": 21,
-      "norm_label": "obtener_contexto_workspace()"
-    },
-    {
-      "label": "Extrae eventos desde MisEventos.db. La base de datos tiene una tabla 'eventos' c",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L8",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_rationale_8",
-      "community": 7,
-      "norm_label": "extrae eventos desde miseventos.db. la base de datos tiene una tabla 'eventos' c"
-    },
-    {
-      "label": "Archiva el an\u00e1lisis para memoria a largo plazo.          Args:         analis",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L30",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_rationale_30",
-      "community": 4,
-      "norm_label": "archiva el analisis para memoria a largo plazo.          args:         analis"
-    },
-    {
-      "label": "Usa esta herramienta cuando el usuario te proporcione un token de Github para ac",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L41",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_rationale_41",
-      "community": 8,
-      "norm_label": "usa esta herramienta cuando el usuario te proporcione un token de github para ac"
-    },
-    {
-      "label": "Usa esta herramienta para analizar a fondo uno o VARIOS repositorios.      Debe",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L71",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_rationale_71",
-      "community": 19,
-      "norm_label": "usa esta herramienta para analizar a fondo uno o varios repositorios.      debe"
-    },
-    {
-      "label": "Lee el contenido de un archivo espec\u00edfico de un repositorio de GitHub.     Pasa",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L136",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_rationale_136",
-      "community": 17,
-      "norm_label": "lee el contenido de un archivo especifico de un repositorio de github.     pasa"
-    },
-    {
-      "label": "Lista los archivos y carpetas de un directorio local. \u00datil para entender la estr",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L185",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_rationale_185",
-      "community": 20,
-      "norm_label": "lista los archivos y carpetas de un directorio local. util para entender la estr"
-    },
-    {
-      "label": "Lee el contenido de un archivo local en tu disco duro para poder analizar su c\u00f3d",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L198",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_rationale_198",
-      "community": 18,
-      "norm_label": "lee el contenido de un archivo local en tu disco duro para poder analizar su cod"
-    },
-    {
-      "label": "Crea o sobreescribe un archivo local con el contenido proporcionado. \u00datil para p",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L214",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_rationale_214",
-      "community": 11,
-      "norm_label": "crea o sobreescribe un archivo local con el contenido proporcionado. util para p"
-    },
-    {
-      "label": "Ejecuta un comando en la terminal del sistema operativo (ej. pytest, ls, pip ins",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L233",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_rationale_233",
-      "community": 10,
-      "norm_label": "ejecuta un comando en la terminal del sistema operativo (ej. pytest, ls, pip ins"
-    },
-    {
-      "label": "Realiza una b\u00fasqueda en internet usando Google para obtener informaci\u00f3n actualiz",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L283",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_rationale_283",
-      "community": 4,
-      "norm_label": "realiza una busqueda en internet usando google para obtener informacion actualiz"
-    },
-    {
-      "label": "IMPORTANTE: \u00dasala para modificar partes de un archivo SIN reescribirlo todo.",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L310",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_rationale_310",
-      "community": 9,
-      "norm_label": "importante: usala para modificar partes de un archivo sin reescribirlo todo."
-    },
-    {
-      "label": "Muestra el estado del repositorio Git (archivos modificados, untracked, etc).",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L349",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_rationale_349",
-      "community": 16,
-      "norm_label": "muestra el estado del repositorio git (archivos modificados, untracked, etc)."
-    },
-    {
-      "label": "Muestra los cambios no commiteados en el repositorio.          Args:",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L362",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_rationale_362",
-      "community": 14,
-      "norm_label": "muestra los cambios no commiteados en el repositorio.          args:"
-    },
-    {
-      "label": "A\u00f1ade archivos al staging area de Git. Pasa los archivos separados por espacios,",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L375",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_rationale_375",
-      "community": 12,
-      "norm_label": "anade archivos al staging area de git. pasa los archivos separados por espacios,"
-    },
-    {
-      "label": "Crea un commit con los archivos en el staging area.          Args:         me",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L391",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_rationale_391",
-      "community": 13,
-      "norm_label": "crea un commit con los archivos en el staging area.          args:         me"
-    },
-    {
-      "label": "Sube los commits locales al repositorio remoto (GitHub). Opcionalmente especific",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L405",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_rationale_405",
-      "community": 15,
-      "norm_label": "sube los commits locales al repositorio remoto (github). opcionalmente especific"
-    },
-    {
-      "label": "Funci\u00f3n de utilidad para el comando @workspace. Genera un resumen del entorno.",
-      "file_type": "rationale",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L421",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_tools_rationale_421",
-      "community": 21,
-      "norm_label": "funcion de utilidad para el comando @workspace. genera un resumen del entorno."
-    },
-    {
-      "label": "orquestador_agente.py",
-      "file_type": "code",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "orquestador_agente",
-      "community": 1,
-      "norm_label": "orquestador_agente.py"
-    },
-    {
-      "label": "supervisor()",
-      "file_type": "code",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L176",
-      "_origin": "ast",
-      "id": "orquestador_agente_supervisor",
-      "community": 1,
-      "norm_label": "supervisor()"
-    },
-    {
-      "label": "backup_archivos_trabajo()",
-      "file_type": "code",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L191",
-      "_origin": "ast",
-      "id": "orquestador_agente_backup_archivos_trabajo",
-      "community": 1,
-      "norm_label": "backup_archivos_trabajo()"
-    },
-    {
-      "label": "restaurar_archivos_trabajo()",
-      "file_type": "code",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L200",
-      "_origin": "ast",
-      "id": "orquestador_agente_restaurar_archivos_trabajo",
-      "community": 1,
-      "norm_label": "restaurar_archivos_trabajo()"
-    },
-    {
-      "label": "gen_script()",
-      "file_type": "code",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L213",
-      "_origin": "ast",
-      "id": "orquestador_agente_gen_script",
-      "community": 1,
-      "norm_label": "gen_script()"
-    },
-    {
-      "label": "probar()",
-      "file_type": "code",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L249",
-      "_origin": "ast",
-      "id": "orquestador_agente_probar",
-      "community": 1,
-      "norm_label": "probar()"
-    },
-    {
-      "label": "diagnosticar()",
-      "file_type": "code",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L268",
-      "_origin": "ast",
-      "id": "orquestador_agente_diagnosticar",
-      "community": 1,
-      "norm_label": "diagnosticar()"
-    },
-    {
-      "label": "generar_fix()",
-      "file_type": "code",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L294",
-      "_origin": "ast",
-      "id": "orquestador_agente_generar_fix",
-      "community": 1,
-      "norm_label": "generar_fix()"
-    },
-    {
-      "label": "validar_sintaxis()",
-      "file_type": "code",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L332",
-      "_origin": "ast",
-      "id": "orquestador_agente_validar_sintaxis",
-      "community": 1,
-      "norm_label": "validar_sintaxis()"
-    },
-    {
-      "label": "aplicar()",
-      "file_type": "code",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L342",
-      "_origin": "ast",
-      "id": "orquestador_agente_aplicar",
-      "community": 1,
-      "norm_label": "aplicar()"
-    },
-    {
-      "label": "restaurar_agents()",
-      "file_type": "code",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L368",
-      "_origin": "ast",
-      "id": "orquestador_agente_restaurar_agents",
-      "community": 1,
-      "norm_label": "restaurar_agents()"
-    },
-    {
-      "label": "main()",
-      "file_type": "code",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L378",
-      "_origin": "ast",
-      "id": "orquestador_agente_main",
-      "community": 1,
-      "norm_label": "main()"
-    },
-    {
-      "label": "Guarda backups de archivos que los benchmarks pueden modificar.",
-      "file_type": "rationale",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L192",
-      "_origin": "ast",
-      "id": "orquestador_agente_rationale_192",
-      "community": 1,
-      "norm_label": "guarda backups de archivos que los benchmarks pueden modificar."
-    },
-    {
-      "label": "Restaura archivos de trabajo a su estado original.",
-      "file_type": "rationale",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L201",
-      "_origin": "ast",
-      "id": "orquestador_agente_rationale_201",
-      "community": 1,
-      "norm_label": "restaura archivos de trabajo a su estado original."
-    },
-    {
-      "label": "Restaura agents.py desde BACKUP_AGENTS si existe.",
-      "file_type": "rationale",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L369",
-      "_origin": "ast",
-      "id": "orquestador_agente_rationale_369",
-      "community": 1,
-      "norm_label": "restaura agents.py desde backup_agents si existe."
-    },
-    {
-      "label": "graphify.md",
-      "file_type": "document",
-      "source_file": ".agents/rules/graphify.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "agents_rules_graphify",
-      "community": 25,
-      "norm_label": "graphify.md"
-    },
-    {
-      "label": "graphify",
-      "file_type": "document",
-      "source_file": ".agents/rules/graphify.md",
-      "source_location": "L6",
-      "_origin": "ast",
-      "id": "agents_rules_graphify_graphify",
-      "community": 25,
-      "norm_label": "graphify"
-    },
-    {
-      "label": "graphify.md",
-      "file_type": "document",
-      "source_file": ".agents/workflows/graphify.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "agents_workflows_graphify",
-      "community": 26,
-      "norm_label": "graphify.md"
-    },
-    {
-      "label": "Workflow: graphify",
-      "file_type": "document",
-      "source_file": ".agents/workflows/graphify.md",
-      "source_location": "L6",
-      "_origin": "ast",
-      "id": "agents_workflows_graphify_workflow_graphify",
-      "community": 26,
-      "norm_label": "workflow: graphify"
-    },
-    {
-      "label": "AGENTS.md",
-      "file_type": "document",
-      "source_file": "AGENTS.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "agents",
-      "community": 22,
-      "norm_label": "agents.md"
-    },
-    {
-      "label": "graphify",
-      "file_type": "document",
-      "source_file": "AGENTS.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "agents_graphify",
-      "community": 22,
-      "norm_label": "graphify"
-    },
-    {
-      "label": "README.md",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "readme",
-      "community": 23,
-      "norm_label": "readme.md"
-    },
-    {
-      "label": "\ud83d\udcbb OpenCode Hub (CodeAgent)",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "readme_opencode_hub_codeagent",
-      "community": 23,
-      "norm_label": "\ud83d\udcbb opencode hub (codeagent)"
-    },
-    {
-      "label": "\u2728 Caracter\u00edsticas Principales (Fases 1 a 6)",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L5",
-      "_origin": "ast",
-      "id": "readme_caracter\u00edsticas_principales_fases_1_a_6",
-      "community": 23,
-      "norm_label": "\u2728 caracteristicas principales (fases 1 a 6)"
-    },
-    {
-      "label": "\ud83e\uddea Orquestador Supervisor-Agente",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L28",
-      "_origin": "ast",
-      "id": "readme_orquestador_supervisor_agente",
-      "community": 23,
-      "norm_label": "\ud83e\uddea orquestador supervisor-agente"
-    },
-    {
-      "label": "Benchmarks (3 niveles)",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L32",
-      "_origin": "ast",
-      "id": "readme_benchmarks_3_niveles",
-      "community": 23,
-      "norm_label": "benchmarks (3 niveles)"
-    },
-    {
-      "label": "Uso",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L40",
-      "_origin": "ast",
-      "id": "readme_uso",
-      "community": 23,
-      "norm_label": "uso"
-    },
-    {
-      "label": "Arquitectura",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L56",
-      "_origin": "ast",
-      "id": "readme_arquitectura",
-      "community": 23,
-      "norm_label": "arquitectura"
-    },
-    {
-      "label": "\ud83d\ude80 Instalaci\u00f3n y Ejecuci\u00f3n",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L64",
-      "_origin": "ast",
-      "id": "readme_instalaci\u00f3n_y_ejecuci\u00f3n",
-      "community": 23,
-      "norm_label": "\ud83d\ude80 instalacion y ejecucion"
-    },
-    {
-      "label": "\ud83d\udee0\ufe0f Tecnolog\u00edas Utilizadas",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L83",
-      "_origin": "ast",
-      "id": "readme_tecnolog\u00edas_utilizadas",
-      "community": 23,
-      "norm_label": "\ud83d\udee0\ufe0f tecnologias utilizadas"
-    },
-    {
-      "label": "code-reviewer.md",
-      "file_type": "document",
-      "source_file": "mis_agentes_inteligentes/subagents/code-reviewer.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_subagents_code_reviewer",
-      "community": 27,
-      "norm_label": "code-reviewer.md"
-    },
-    {
-      "label": "frontend-developer.md",
-      "file_type": "document",
-      "source_file": "mis_agentes_inteligentes/subagents/frontend-developer.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_subagents_frontend_developer",
-      "community": 28,
-      "norm_label": "frontend-developer.md"
-    },
-    {
-      "label": "python-pro.md",
-      "file_type": "document",
-      "source_file": "mis_agentes_inteligentes/subagents/python-pro.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_subagents_python_pro",
-      "community": 29,
-      "norm_label": "python-pro.md"
-    },
-    {
-      "label": "security-auditor.md",
-      "file_type": "document",
-      "source_file": "mis_agentes_inteligentes/subagents/security-auditor.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "mis_agentes_inteligentes_subagents_security_auditor",
-      "community": 30,
-      "norm_label": "security-auditor.md"
+      "id": 1,
+      "name": "CodeAgent",
+      "type": "module",
+      "file": null,
+      "doc": null
+    },
+    {
+      "id": 2,
+      "name": "mis_agentes_inteligentes/agents",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/agents.py",
+      "doc": null
+    },
+    {
+      "id": 3,
+      "name": "agents.get_model",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/agents.py",
+      "doc": "Instancia din\u00e1micamente el modelo LiteLLMModel seg\u00fan el proveedor elegido."
+    },
+    {
+      "id": 4,
+      "name": "agents.load_subagents_from_disk",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/agents.py",
+      "doc": "Lee todos los archivos .md en la carpeta subagents/ y parsea su YAML frontmatter y su cuerpo."
+    },
+    {
+      "id": 5,
+      "name": "agents.get_available_agents",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/agents.py",
+      "doc": "Devuelve la lista completa de agentes disponibles (Fijos + Din\u00e1micos)."
+    },
+    {
+      "id": 6,
+      "name": "agents.route_prompt",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/agents.py",
+      "doc": "Enrutador autom\u00e1tico mejorado con scoring ponderado."
+    },
+    {
+      "id": 7,
+      "name": "agents.crear_agente",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/agents.py",
+      "doc": "Crea el CodeAgent de smolagents.\nFIX: system_prompt ahora se pasa correctamente al constructor.\nFIX: max_steps aumentado a 20 para tareas complejas."
+    },
+    {
+      "id": 8,
+      "name": "mis_agentes_inteligentes/app",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/app.py",
+      "doc": null
+    },
+    {
+      "id": 9,
+      "name": "app.get_sessions_list",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/app.py",
+      "doc": ""
+    },
+    {
+      "id": 10,
+      "name": "mis_agentes_inteligentes/main",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/main.py",
+      "doc": null
+    },
+    {
+      "id": 11,
+      "name": "main.get_herramientas",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/main.py",
+      "doc": "Convierte los nombres del UI en la lista de funciones @tool."
+    },
+    {
+      "id": 12,
+      "name": "main._construir_contexto_workspace",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/main.py",
+      "doc": "Genera un bloque de contexto del workspace actual para inyectar en el system_prompt.\nInforma al agente en qu\u00e9 directorio est\u00e1 y qu\u00e9 estructura de proyecto tiene."
+    },
+    {
+      "id": 13,
+      "name": "main.ejecutar_agentes",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/main.py",
+      "doc": "Pipeline principal usando smolagents.\nFIX: el historial ya no se manda como prompt \u2014 eso lo maneja app.py.\nNUEVO: acepta step_callback para streaming de pasos en la UI."
+    },
+    {
+      "id": 14,
+      "name": "mis_agentes_inteligentes/rag_tools",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/rag_tools.py",
+      "doc": null
+    },
+    {
+      "id": 15,
+      "name": "rag_tools.init_chroma",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/rag_tools.py",
+      "doc": "Inicializa la base de datos ChromaDB y el modelo de embeddings."
+    },
+    {
+      "id": 16,
+      "name": "rag_tools.indexar_directorio_local",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/rag_tools.py",
+      "doc": "Escanea todos los archivos de c\u00f3digo en un directorio local y los indexa en ChromaDB para b\u00fasquedas sem\u00e1nticas futuras.\n\nArgs:\n    ruta: Ruta al directorio a indexar."
+    },
+    {
+      "id": 17,
+      "name": "rag_tools.preguntar_a_repositorio",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/rag_tools.py",
+      "doc": "Realiza una b\u00fasqueda sem\u00e1ntica sobre los archivos previamente indexados con indexar_directorio_local.\n\nArgs:\n    pregunta: Pregunta o b\u00fasqueda a realizar sobre el c\u00f3digo indexado."
+    },
+    {
+      "id": 18,
+      "name": "mis_agentes_inteligentes/session_manager",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": null
+    },
+    {
+      "id": 19,
+      "name": "session_manager.init_sessions_dir",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": ""
+    },
+    {
+      "id": 20,
+      "name": "session_manager.create_new_session",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": ""
+    },
+    {
+      "id": 21,
+      "name": "session_manager.list_sessions",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": ""
+    },
+    {
+      "id": 22,
+      "name": "session_manager.load_session",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": ""
+    },
+    {
+      "id": 23,
+      "name": "session_manager.save_session",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": ""
+    },
+    {
+      "id": 24,
+      "name": "session_manager.delete_session",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": "BUG 5 FIX: protegido contra session_id None o inv\u00e1lido."
+    },
+    {
+      "id": 25,
+      "name": "session_manager.rename_session",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": "Renombra una sesi\u00f3n existente."
+    },
+    {
+      "id": 26,
+      "name": "session_manager.export_session_to_markdown",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": "Exporta una sesi\u00f3n como texto Markdown."
+    },
+    {
+      "id": 27,
+      "name": "mis_agentes_inteligentes/setup_db",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/setup_db.py",
+      "doc": null
+    },
+    {
+      "id": 28,
+      "name": "setup_db.create_dummy_db",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/setup_db.py",
+      "doc": ""
+    },
+    {
+      "id": 29,
+      "name": "mis_agentes_inteligentes/tools",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": null
+    },
+    {
+      "id": 30,
+      "name": "tools.consultar_db",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Extrae eventos desde MisEventos.db. La base de datos tiene una tabla 'eventos' con columnas: id, fecha, titulo, descripcion, prioridad. Solo se permiten consultas SELECT.\n\nArgs:\n    query: La consulta"
+    },
+    {
+      "id": 31,
+      "name": "tools.guardar_reporte",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Archiva el an\u00e1lisis para memoria a largo plazo.\n\nArgs:\n    analisis: El texto del reporte a guardar."
+    },
+    {
+      "id": 32,
+      "name": "tools.consultar_github",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Usa esta herramienta cuando el usuario te proporcione un token de Github para acceder a sus repositorios.\nLe pasas el token como argumento y te devolver\u00e1 la lista de repositorios del usuario.\n\nArgs:\n "
+    },
+    {
+      "id": 33,
+      "name": "tools.leer_repositorio_github",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Usa esta herramienta para analizar a fondo uno o VARIOS repositorios. \nDebes pasarle el token y el nombre del repositorio (ejemplo: 'steam-hunter'). La herramienta encontrar\u00e1 autom\u00e1ticamente el usuari"
+    },
+    {
+      "id": 34,
+      "name": "tools.leer_archivo_github",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Lee el contenido de un archivo espec\u00edfico de un repositorio de GitHub.\nPasa el token, el nombre del repo (ej: 'steam-hunter') y la ruta del archivo dentro del repo (ej: 'src/main.py'). \nLa herramienta"
+    },
+    {
+      "id": 35,
+      "name": "tools.listar_directorio_local",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Lista los archivos y carpetas de un directorio local. \u00datil para entender la estructura del proyecto. Por defecto usa la carpeta actual '.'\n\nArgs:\n    ruta: Ruta al directorio local a listar."
+    },
+    {
+      "id": 36,
+      "name": "tools.leer_archivo_local",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Lee el contenido de un archivo local en tu disco duro para poder analizar su c\u00f3digo. Devuelve SOLO el contenido limpio (sin cabeceras). Debes pasarle la ruta completa o relativa al archivo.\n\nArgs:\n   "
+    },
+    {
+      "id": 37,
+      "name": "tools.escribir_archivo_local",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Crea o sobreescribe un archivo local con el contenido proporcionado. \u00datil para programar, refactorizar o crear tests.\n\nArgs:\n    ruta_archivo: Ruta del archivo a escribir.\n    contenido: Contenido a e"
+    },
+    {
+      "id": 38,
+      "name": "tools.ejecutar_comando_terminal",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Ejecuta un comando en la terminal del sistema operativo (ej. pytest, ls, pip install, python script.py).\n\u00dasalo para probar el c\u00f3digo, instalar dependencias o verificar resultados.\n\nArgs:\n    comando: "
+    },
+    {
+      "id": 39,
+      "name": "tools.buscar_en_internet",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Realiza una b\u00fasqueda en internet usando Google para obtener informaci\u00f3n actualizada (noticias, documentaci\u00f3n, soluciones a errores).\n\nArgs:\n    query: B\u00fasqueda a realizar en Google."
+    },
+    {
+      "id": 40,
+      "name": "tools.editar_archivo_search_replace",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "IMPORTANTE: \u00dasala para modificar partes de un archivo SIN reescribirlo todo.\nBusca el bloque exacto de c\u00f3digo en 'busqueda' y lo reemplaza con 'reemplazo'.\n\nArgs:\n    ruta_archivo: Ruta del archivo a "
+    },
+    {
+      "id": 41,
+      "name": "tools.git_status",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Muestra el estado del repositorio Git (archivos modificados, untracked, etc).\n\nArgs:\n    ruta_repo: Ruta del repositorio git local."
+    },
+    {
+      "id": 42,
+      "name": "tools.git_diff",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Muestra los cambios no commiteados en el repositorio.\n\nArgs:\n    ruta_repo: Ruta del repositorio git local."
+    },
+    {
+      "id": 43,
+      "name": "tools.git_add",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "A\u00f1ade archivos al staging area de Git. Pasa los archivos separados por espacios, o '.' para a\u00f1adir todos.\n\nArgs:\n    archivos: Archivos a agregar al stage (separados por espacios).\n    ruta_repo: Ruta"
+    },
+    {
+      "id": 44,
+      "name": "tools.git_commit",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Crea un commit con los archivos en el staging area.\n\nArgs:\n    mensaje: Mensaje del commit.\n    ruta_repo: Ruta del repositorio git local."
+    },
+    {
+      "id": 45,
+      "name": "tools.git_push",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Sube los commits locales al repositorio remoto (GitHub). Opcionalmente especifica la rama.\n\nArgs:\n    ruta_repo: Ruta del repositorio git local.\n    rama: Rama a pushear (por defecto 'main')."
+    },
+    {
+      "id": 46,
+      "name": "tools.obtener_contexto_workspace",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Funci\u00f3n de utilidad para el comando @workspace. Genera un resumen del entorno."
+    },
+    {
+      "id": 47,
+      "name": "mis_agentes_inteligentes.agents",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/agents.py",
+      "doc": null
+    },
+    {
+      "id": 48,
+      "name": "mis_agentes_inteligentes.agents.get_model",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/agents.py",
+      "doc": "Instancia din\u00e1micamente el modelo LiteLLMModel seg\u00fan el proveedor elegido."
+    },
+    {
+      "id": 49,
+      "name": "mis_agentes_inteligentes.agents.load_subagents_from_disk",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/agents.py",
+      "doc": "Lee todos los archivos .md en la carpeta subagents/ y parsea su YAML frontmatter y su cuerpo."
+    },
+    {
+      "id": 50,
+      "name": "mis_agentes_inteligentes.agents.get_available_agents",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/agents.py",
+      "doc": "Devuelve la lista completa de agentes disponibles (Fijos + Din\u00e1micos)."
+    },
+    {
+      "id": 51,
+      "name": "mis_agentes_inteligentes.agents.route_prompt",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/agents.py",
+      "doc": "Enrutador autom\u00e1tico mejorado con scoring ponderado."
+    },
+    {
+      "id": 52,
+      "name": "mis_agentes_inteligentes.agents.crear_agente",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/agents.py",
+      "doc": "Crea el CodeAgent de smolagents.\nFIX: system_prompt ahora se pasa correctamente al constructor.\nFIX: max_steps aumentado a 20 para tareas complejas."
+    },
+    {
+      "id": 53,
+      "name": "mis_agentes_inteligentes.app",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/app.py",
+      "doc": null
+    },
+    {
+      "id": 54,
+      "name": "mis_agentes_inteligentes.app.get_sessions_list",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/app.py",
+      "doc": ""
+    },
+    {
+      "id": 55,
+      "name": "mis_agentes_inteligentes.main",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/main.py",
+      "doc": null
+    },
+    {
+      "id": 56,
+      "name": "mis_agentes_inteligentes.main.get_herramientas",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/main.py",
+      "doc": "Convierte los nombres del UI en la lista de funciones @tool."
+    },
+    {
+      "id": 57,
+      "name": "mis_agentes_inteligentes.main._construir_contexto_workspace",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/main.py",
+      "doc": "Genera un bloque de contexto del workspace actual para inyectar en el system_prompt.\nInforma al agente en qu\u00e9 directorio est\u00e1 y qu\u00e9 estructura de proyecto tiene."
+    },
+    {
+      "id": 58,
+      "name": "mis_agentes_inteligentes.main.ejecutar_agentes",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/main.py",
+      "doc": "Pipeline principal usando smolagents.\nFIX: el historial ya no se manda como prompt \u2014 eso lo maneja app.py.\nNUEVO: acepta step_callback para streaming de pasos en la UI."
+    },
+    {
+      "id": 59,
+      "name": "mis_agentes_inteligentes.rag_tools",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/rag_tools.py",
+      "doc": null
+    },
+    {
+      "id": 60,
+      "name": "mis_agentes_inteligentes.rag_tools.init_chroma",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/rag_tools.py",
+      "doc": "Inicializa la base de datos ChromaDB y el modelo de embeddings."
+    },
+    {
+      "id": 61,
+      "name": "mis_agentes_inteligentes.rag_tools.indexar_directorio_local",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/rag_tools.py",
+      "doc": "Escanea todos los archivos de c\u00f3digo en un directorio local y los indexa en ChromaDB para b\u00fasquedas sem\u00e1nticas futuras.\n\nArgs:\n    ruta: Ruta al directorio a indexar."
+    },
+    {
+      "id": 62,
+      "name": "mis_agentes_inteligentes.rag_tools.preguntar_a_repositorio",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/rag_tools.py",
+      "doc": "Realiza una b\u00fasqueda sem\u00e1ntica sobre los archivos previamente indexados con indexar_directorio_local.\n\nArgs:\n    pregunta: Pregunta o b\u00fasqueda a realizar sobre el c\u00f3digo indexado."
+    },
+    {
+      "id": 63,
+      "name": "mis_agentes_inteligentes.session_manager",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": null
+    },
+    {
+      "id": 64,
+      "name": "mis_agentes_inteligentes.session_manager.init_sessions_dir",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": ""
+    },
+    {
+      "id": 65,
+      "name": "mis_agentes_inteligentes.session_manager.create_new_session",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": ""
+    },
+    {
+      "id": 66,
+      "name": "mis_agentes_inteligentes.session_manager.list_sessions",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": ""
+    },
+    {
+      "id": 67,
+      "name": "mis_agentes_inteligentes.session_manager.load_session",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": ""
+    },
+    {
+      "id": 68,
+      "name": "mis_agentes_inteligentes.session_manager.save_session",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": ""
+    },
+    {
+      "id": 69,
+      "name": "mis_agentes_inteligentes.session_manager.delete_session",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": "BUG 5 FIX: protegido contra session_id None o inv\u00e1lido."
+    },
+    {
+      "id": 70,
+      "name": "mis_agentes_inteligentes.session_manager.rename_session",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": "Renombra una sesi\u00f3n existente."
+    },
+    {
+      "id": 71,
+      "name": "mis_agentes_inteligentes.session_manager.export_session_to_markdown",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": "Exporta una sesi\u00f3n como texto Markdown."
+    },
+    {
+      "id": 72,
+      "name": "mis_agentes_inteligentes.setup_db",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/setup_db.py",
+      "doc": null
+    },
+    {
+      "id": 73,
+      "name": "mis_agentes_inteligentes.setup_db.create_dummy_db",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/setup_db.py",
+      "doc": ""
+    },
+    {
+      "id": 74,
+      "name": "mis_agentes_inteligentes.tools",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": null
+    },
+    {
+      "id": 75,
+      "name": "mis_agentes_inteligentes.tools.consultar_db",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Extrae eventos desde MisEventos.db. La base de datos tiene una tabla 'eventos' con columnas: id, fecha, titulo, descripcion, prioridad. Solo se permiten consultas SELECT.\n\nArgs:\n    query: La consulta"
+    },
+    {
+      "id": 76,
+      "name": "mis_agentes_inteligentes.tools.guardar_reporte",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Archiva el an\u00e1lisis para memoria a largo plazo.\n\nArgs:\n    analisis: El texto del reporte a guardar."
+    },
+    {
+      "id": 77,
+      "name": "mis_agentes_inteligentes.tools.consultar_github",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Usa esta herramienta cuando el usuario te proporcione un token de Github para acceder a sus repositorios.\nLe pasas el token como argumento y te devolver\u00e1 la lista de repositorios del usuario.\n\nArgs:\n "
+    },
+    {
+      "id": 78,
+      "name": "mis_agentes_inteligentes.tools.leer_repositorio_github",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Usa esta herramienta para analizar a fondo uno o VARIOS repositorios. \nDebes pasarle el token y el nombre del repositorio (ejemplo: 'steam-hunter'). La herramienta encontrar\u00e1 autom\u00e1ticamente el usuari"
+    },
+    {
+      "id": 79,
+      "name": "mis_agentes_inteligentes.tools.leer_archivo_github",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Lee el contenido de un archivo espec\u00edfico de un repositorio de GitHub.\nPasa el token, el nombre del repo (ej: 'steam-hunter') y la ruta del archivo dentro del repo (ej: 'src/main.py'). \nLa herramienta"
+    },
+    {
+      "id": 80,
+      "name": "mis_agentes_inteligentes.tools.listar_directorio_local",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Lista los archivos y carpetas de un directorio local. \u00datil para entender la estructura del proyecto. Por defecto usa la carpeta actual '.'\n\nArgs:\n    ruta: Ruta al directorio local a listar."
+    },
+    {
+      "id": 81,
+      "name": "mis_agentes_inteligentes.tools.leer_archivo_local",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Lee el contenido de un archivo local en tu disco duro para poder analizar su c\u00f3digo. Devuelve SOLO el contenido limpio (sin cabeceras). Debes pasarle la ruta completa o relativa al archivo.\n\nArgs:\n   "
+    },
+    {
+      "id": 82,
+      "name": "mis_agentes_inteligentes.tools.escribir_archivo_local",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Crea o sobreescribe un archivo local con el contenido proporcionado. \u00datil para programar, refactorizar o crear tests.\n\nArgs:\n    ruta_archivo: Ruta del archivo a escribir.\n    contenido: Contenido a e"
+    },
+    {
+      "id": 83,
+      "name": "mis_agentes_inteligentes.tools.ejecutar_comando_terminal",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Ejecuta un comando en la terminal del sistema operativo (ej. pytest, ls, pip install, python script.py).\n\u00dasalo para probar el c\u00f3digo, instalar dependencias o verificar resultados.\n\nArgs:\n    comando: "
+    },
+    {
+      "id": 84,
+      "name": "mis_agentes_inteligentes.tools.buscar_en_internet",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Realiza una b\u00fasqueda en internet usando Google para obtener informaci\u00f3n actualizada (noticias, documentaci\u00f3n, soluciones a errores).\n\nArgs:\n    query: B\u00fasqueda a realizar en Google."
+    },
+    {
+      "id": 85,
+      "name": "mis_agentes_inteligentes.tools.editar_archivo_search_replace",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "IMPORTANTE: \u00dasala para modificar partes de un archivo SIN reescribirlo todo.\nBusca el bloque exacto de c\u00f3digo en 'busqueda' y lo reemplaza con 'reemplazo'.\n\nArgs:\n    ruta_archivo: Ruta del archivo a "
+    },
+    {
+      "id": 86,
+      "name": "mis_agentes_inteligentes.tools.git_status",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Muestra el estado del repositorio Git (archivos modificados, untracked, etc).\n\nArgs:\n    ruta_repo: Ruta del repositorio git local."
+    },
+    {
+      "id": 87,
+      "name": "mis_agentes_inteligentes.tools.git_diff",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Muestra los cambios no commiteados en el repositorio.\n\nArgs:\n    ruta_repo: Ruta del repositorio git local."
+    },
+    {
+      "id": 88,
+      "name": "mis_agentes_inteligentes.tools.git_add",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "A\u00f1ade archivos al staging area de Git. Pasa los archivos separados por espacios, o '.' para a\u00f1adir todos.\n\nArgs:\n    archivos: Archivos a agregar al stage (separados por espacios).\n    ruta_repo: Ruta"
+    },
+    {
+      "id": 89,
+      "name": "mis_agentes_inteligentes.tools.git_commit",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Crea un commit con los archivos en el staging area.\n\nArgs:\n    mensaje: Mensaje del commit.\n    ruta_repo: Ruta del repositorio git local."
+    },
+    {
+      "id": 90,
+      "name": "mis_agentes_inteligentes.tools.git_push",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Sube los commits locales al repositorio remoto (GitHub). Opcionalmente especifica la rama.\n\nArgs:\n    ruta_repo: Ruta del repositorio git local.\n    rama: Rama a pushear (por defecto 'main')."
+    },
+    {
+      "id": 91,
+      "name": "mis_agentes_inteligentes.tools.obtener_contexto_workspace",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Funci\u00f3n de utilidad para el comando @workspace. Genera un resumen del entorno."
+    },
+    {
+      "id": 92,
+      "name": "orquestador_agente",
+      "type": "module",
+      "file": "orquestador_agente.py",
+      "doc": null
+    },
+    {
+      "id": 93,
+      "name": "orquestador_agente.supervisor",
+      "type": "function",
+      "file": "orquestador_agente.py",
+      "doc": ""
+    },
+    {
+      "id": 94,
+      "name": "orquestador_agente.backup_archivos_trabajo",
+      "type": "function",
+      "file": "orquestador_agente.py",
+      "doc": "Guarda backups de archivos que los benchmarks pueden modificar."
+    },
+    {
+      "id": 95,
+      "name": "orquestador_agente.restaurar_archivos_trabajo",
+      "type": "function",
+      "file": "orquestador_agente.py",
+      "doc": "Restaura archivos de trabajo a su estado original."
+    },
+    {
+      "id": 96,
+      "name": "orquestador_agente.gen_script",
+      "type": "function",
+      "file": "orquestador_agente.py",
+      "doc": ""
+    },
+    {
+      "id": 97,
+      "name": "orquestador_agente.probar",
+      "type": "function",
+      "file": "orquestador_agente.py",
+      "doc": ""
+    },
+    {
+      "id": 98,
+      "name": "orquestador_agente.diagnosticar",
+      "type": "function",
+      "file": "orquestador_agente.py",
+      "doc": ""
+    },
+    {
+      "id": 99,
+      "name": "orquestador_agente.generar_fix",
+      "type": "function",
+      "file": "orquestador_agente.py",
+      "doc": ""
+    },
+    {
+      "id": 100,
+      "name": "orquestador_agente.validar_sintaxis",
+      "type": "function",
+      "file": "orquestador_agente.py",
+      "doc": ""
+    },
+    {
+      "id": 101,
+      "name": "orquestador_agente.aplicar",
+      "type": "function",
+      "file": "orquestador_agente.py",
+      "doc": ""
+    },
+    {
+      "id": 102,
+      "name": "orquestador_agente.restaurar_agents",
+      "type": "function",
+      "file": "orquestador_agente.py",
+      "doc": "Restaura agents.py desde BACKUP_AGENTS si existe."
+    },
+    {
+      "id": 103,
+      "name": "orquestador_agente.main",
+      "type": "function",
+      "file": "orquestador_agente.py",
+      "doc": ""
     }
   ],
-  "links": [
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".opencode/plugins/graphify.js",
-      "source_location": "L12",
-      "weight": 1.0,
-      "source": "opencode_plugins_graphify",
-      "target": "opencode_plugins_graphify_graphifyplugin",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": ".opencode/plugins/graphify.js",
-      "source_location": "L4",
-      "weight": 1.0,
-      "source": "opencode_plugins_graphify_rationale_4",
-      "target": "opencode_plugins_graphify",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/agents.py",
-      "source_location": "L186",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_agents",
-      "target": "mis_agentes_inteligentes_agents_crear_agente",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/agents.py",
-      "source_location": "L134",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_agents",
-      "target": "mis_agentes_inteligentes_agents_get_available_agents",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/agents.py",
-      "source_location": "L60",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_agents",
-      "target": "mis_agentes_inteligentes_agents_get_model",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/agents.py",
-      "source_location": "L102",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_agents",
-      "target": "mis_agentes_inteligentes_agents_load_subagents_from_disk",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/agents.py",
-      "source_location": "L147",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_agents",
-      "target": "mis_agentes_inteligentes_agents_route_prompt",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/agents.py",
-      "source_location": "L61",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_agents_rationale_61",
-      "target": "mis_agentes_inteligentes_agents_get_model",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "mis_agentes_inteligentes/main.py",
-      "source_location": "L117",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_main_ejecutar_agentes",
-      "target": "mis_agentes_inteligentes_agents_get_model"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/agents.py",
-      "source_location": "L197",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_agents_crear_agente",
-      "target": "mis_agentes_inteligentes_agents_load_subagents_from_disk",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/agents.py",
-      "source_location": "L142",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_agents_get_available_agents",
-      "target": "mis_agentes_inteligentes_agents_load_subagents_from_disk",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/agents.py",
-      "source_location": "L103",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_agents_rationale_103",
-      "target": "mis_agentes_inteligentes_agents_load_subagents_from_disk",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/agents.py",
-      "source_location": "L135",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_agents_rationale_135",
-      "target": "mis_agentes_inteligentes_agents_get_available_agents",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/agents.py",
-      "source_location": "L148",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_agents_rationale_148",
-      "target": "mis_agentes_inteligentes_agents_route_prompt",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "mis_agentes_inteligentes/main.py",
-      "source_location": "L97",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_main_ejecutar_agentes",
-      "target": "mis_agentes_inteligentes_agents_route_prompt"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/agents.py",
-      "source_location": "L187",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_agents_rationale_187",
-      "target": "mis_agentes_inteligentes_agents_crear_agente",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "mis_agentes_inteligentes/main.py",
-      "source_location": "L133",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_main_ejecutar_agentes",
-      "target": "mis_agentes_inteligentes_agents_crear_agente"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/app.py",
-      "source_location": "L84",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_app",
-      "target": "agents",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/app.py",
-      "source_location": "L14",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_app",
-      "target": "mis_agentes_inteligentes_main",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/app.py",
-      "source_location": "L128",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_app",
-      "target": "mis_agentes_inteligentes_app_get_sessions_list",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/app.py",
-      "source_location": "L13",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_app",
-      "target": "mis_agentes_inteligentes_session_manager",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/app.py",
-      "source_location": "L284",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_app",
-      "target": "mis_agentes_inteligentes_tools",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/main.py",
-      "source_location": "L8",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_main",
-      "target": "agents",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/main.py",
-      "source_location": "L55",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_main",
-      "target": "mis_agentes_inteligentes_main_construir_contexto_workspace",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/main.py",
-      "source_location": "L79",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_main",
-      "target": "mis_agentes_inteligentes_main_ejecutar_agentes",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/main.py",
-      "source_location": "L39",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_main",
-      "target": "mis_agentes_inteligentes_main_get_herramientas",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/main.py",
-      "source_location": "L9",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_main",
-      "target": "mis_agentes_inteligentes_tools",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/main.py",
-      "source_location": "L1",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_main_rationale_1",
-      "target": "mis_agentes_inteligentes_main",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/main.py",
-      "source_location": "L118",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_main_ejecutar_agentes",
-      "target": "mis_agentes_inteligentes_main_get_herramientas",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/main.py",
-      "source_location": "L40",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_main_rationale_40",
-      "target": "mis_agentes_inteligentes_main_get_herramientas",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/main.py",
-      "source_location": "L129",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_main_ejecutar_agentes",
-      "target": "mis_agentes_inteligentes_main_construir_contexto_workspace",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/main.py",
-      "source_location": "L56",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_main_rationale_56",
-      "target": "mis_agentes_inteligentes_main_construir_contexto_workspace",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/main.py",
-      "source_location": "L88",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_main_rationale_88",
-      "target": "mis_agentes_inteligentes_main_ejecutar_agentes",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/rag_tools.py",
-      "source_location": "L29",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_rag_tools",
-      "target": "mis_agentes_inteligentes_rag_tools_indexar_directorio_local",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/rag_tools.py",
-      "source_location": "L18",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_rag_tools",
-      "target": "mis_agentes_inteligentes_rag_tools_init_chroma",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/rag_tools.py",
-      "source_location": "L86",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_rag_tools",
-      "target": "mis_agentes_inteligentes_rag_tools_preguntar_a_repositorio",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/rag_tools.py",
-      "source_location": "L41",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_rag_tools_indexar_directorio_local",
-      "target": "mis_agentes_inteligentes_rag_tools_init_chroma",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/rag_tools.py",
-      "source_location": "L95",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_rag_tools_preguntar_a_repositorio",
-      "target": "mis_agentes_inteligentes_rag_tools_init_chroma",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/rag_tools.py",
-      "source_location": "L19",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_rag_tools_rationale_19",
-      "target": "mis_agentes_inteligentes_rag_tools_init_chroma",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/rag_tools.py",
-      "source_location": "L30",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_rag_tools_rationale_30",
-      "target": "mis_agentes_inteligentes_rag_tools_indexar_directorio_local",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/rag_tools.py",
-      "source_location": "L87",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_rag_tools_rationale_87",
-      "target": "mis_agentes_inteligentes_rag_tools_preguntar_a_repositorio",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L14",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_session_manager",
-      "target": "mis_agentes_inteligentes_session_manager_create_new_session",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L64",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_session_manager",
-      "target": "mis_agentes_inteligentes_session_manager_delete_session",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L81",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_session_manager",
-      "target": "mis_agentes_inteligentes_session_manager_export_session_to_markdown",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L9",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_session_manager",
-      "target": "mis_agentes_inteligentes_session_manager_init_sessions_dir",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L27",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_session_manager",
-      "target": "mis_agentes_inteligentes_session_manager_list_sessions",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L44",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_session_manager",
-      "target": "mis_agentes_inteligentes_session_manager_load_session",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L73",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_session_manager",
-      "target": "mis_agentes_inteligentes_session_manager_rename_session",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L55",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_session_manager",
-      "target": "mis_agentes_inteligentes_session_manager_save_session",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L15",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_session_manager_create_new_session",
-      "target": "mis_agentes_inteligentes_session_manager_init_sessions_dir",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L28",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_session_manager_list_sessions",
-      "target": "mis_agentes_inteligentes_session_manager_init_sessions_dir",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L47",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_session_manager_load_session",
-      "target": "mis_agentes_inteligentes_session_manager_init_sessions_dir",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L58",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_session_manager_save_session",
-      "target": "mis_agentes_inteligentes_session_manager_init_sessions_dir",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L23",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_session_manager_create_new_session",
-      "target": "mis_agentes_inteligentes_session_manager_save_session",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L83",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_session_manager_export_session_to_markdown",
-      "target": "mis_agentes_inteligentes_session_manager_load_session",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L75",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_session_manager_rename_session",
-      "target": "mis_agentes_inteligentes_session_manager_load_session",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L78",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_session_manager_rename_session",
-      "target": "mis_agentes_inteligentes_session_manager_save_session",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L65",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_session_manager_rationale_65",
-      "target": "mis_agentes_inteligentes_session_manager_delete_session",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L74",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_session_manager_rationale_74",
-      "target": "mis_agentes_inteligentes_session_manager_rename_session",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/session_manager.py",
-      "source_location": "L82",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_session_manager_rationale_82",
-      "target": "mis_agentes_inteligentes_session_manager_export_session_to_markdown",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/setup_db.py",
-      "source_location": "L5",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_setup_db",
-      "target": "mis_agentes_inteligentes_setup_db_create_dummy_db",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/start_hub.sh",
-      "source_location": "L1",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_start_hub",
-      "target": "mis_agentes_inteligentes_start_hub_sh__entry",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L282",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools",
-      "target": "mis_agentes_inteligentes_tools_buscar_en_internet",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L7",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools",
-      "target": "mis_agentes_inteligentes_tools_consultar_db",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L40",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools",
-      "target": "mis_agentes_inteligentes_tools_consultar_github",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L309",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools",
-      "target": "mis_agentes_inteligentes_tools_editar_archivo_search_replace",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L232",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools",
-      "target": "mis_agentes_inteligentes_tools_ejecutar_comando_terminal",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L213",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools",
-      "target": "mis_agentes_inteligentes_tools_escribir_archivo_local",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L374",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools",
-      "target": "mis_agentes_inteligentes_tools_git_add",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L390",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools",
-      "target": "mis_agentes_inteligentes_tools_git_commit",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L361",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools",
-      "target": "mis_agentes_inteligentes_tools_git_diff",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L404",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools",
-      "target": "mis_agentes_inteligentes_tools_git_push",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L348",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools",
-      "target": "mis_agentes_inteligentes_tools_git_status",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L29",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools",
-      "target": "mis_agentes_inteligentes_tools_guardar_reporte",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L135",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools",
-      "target": "mis_agentes_inteligentes_tools_leer_archivo_github",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L197",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools",
-      "target": "mis_agentes_inteligentes_tools_leer_archivo_local",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L70",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools",
-      "target": "mis_agentes_inteligentes_tools_leer_repositorio_github",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L184",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools",
-      "target": "mis_agentes_inteligentes_tools_listar_directorio_local",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L420",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools",
-      "target": "mis_agentes_inteligentes_tools_obtener_contexto_workspace",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L8",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools_rationale_8",
-      "target": "mis_agentes_inteligentes_tools_consultar_db",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L30",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools_rationale_30",
-      "target": "mis_agentes_inteligentes_tools_guardar_reporte",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L41",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools_rationale_41",
-      "target": "mis_agentes_inteligentes_tools_consultar_github",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L71",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools_rationale_71",
-      "target": "mis_agentes_inteligentes_tools_leer_repositorio_github",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L136",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools_rationale_136",
-      "target": "mis_agentes_inteligentes_tools_leer_archivo_github",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L185",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools_rationale_185",
-      "target": "mis_agentes_inteligentes_tools_listar_directorio_local",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L198",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools_rationale_198",
-      "target": "mis_agentes_inteligentes_tools_leer_archivo_local",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L214",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools_rationale_214",
-      "target": "mis_agentes_inteligentes_tools_escribir_archivo_local",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L233",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools_rationale_233",
-      "target": "mis_agentes_inteligentes_tools_ejecutar_comando_terminal",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L283",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools_rationale_283",
-      "target": "mis_agentes_inteligentes_tools_buscar_en_internet",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L310",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools_rationale_310",
-      "target": "mis_agentes_inteligentes_tools_editar_archivo_search_replace",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L349",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools_rationale_349",
-      "target": "mis_agentes_inteligentes_tools_git_status",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L362",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools_rationale_362",
-      "target": "mis_agentes_inteligentes_tools_git_diff",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L375",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools_rationale_375",
-      "target": "mis_agentes_inteligentes_tools_git_add",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L391",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools_rationale_391",
-      "target": "mis_agentes_inteligentes_tools_git_commit",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L405",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools_rationale_405",
-      "target": "mis_agentes_inteligentes_tools_git_push",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "mis_agentes_inteligentes/tools.py",
-      "source_location": "L421",
-      "weight": 1.0,
-      "source": "mis_agentes_inteligentes_tools_rationale_421",
-      "target": "mis_agentes_inteligentes_tools_obtener_contexto_workspace",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L342",
-      "weight": 1.0,
-      "source": "orquestador_agente",
-      "target": "orquestador_agente_aplicar",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L191",
-      "weight": 1.0,
-      "source": "orquestador_agente",
-      "target": "orquestador_agente_backup_archivos_trabajo",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L268",
-      "weight": 1.0,
-      "source": "orquestador_agente",
-      "target": "orquestador_agente_diagnosticar",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L213",
-      "weight": 1.0,
-      "source": "orquestador_agente",
-      "target": "orquestador_agente_gen_script",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L294",
-      "weight": 1.0,
-      "source": "orquestador_agente",
-      "target": "orquestador_agente_generar_fix",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L378",
-      "weight": 1.0,
-      "source": "orquestador_agente",
-      "target": "orquestador_agente_main",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L249",
-      "weight": 1.0,
-      "source": "orquestador_agente",
-      "target": "orquestador_agente_probar",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L368",
-      "weight": 1.0,
-      "source": "orquestador_agente",
-      "target": "orquestador_agente_restaurar_agents",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L200",
-      "weight": 1.0,
-      "source": "orquestador_agente",
-      "target": "orquestador_agente_restaurar_archivos_trabajo",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L176",
-      "weight": 1.0,
-      "source": "orquestador_agente",
-      "target": "orquestador_agente_supervisor",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L332",
-      "weight": 1.0,
-      "source": "orquestador_agente",
-      "target": "orquestador_agente_validar_sintaxis",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L291",
-      "weight": 1.0,
-      "source": "orquestador_agente_diagnosticar",
-      "target": "orquestador_agente_supervisor",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L328",
-      "weight": 1.0,
-      "source": "orquestador_agente_generar_fix",
-      "target": "orquestador_agente_supervisor",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L393",
-      "weight": 1.0,
-      "source": "orquestador_agente_main",
-      "target": "orquestador_agente_backup_archivos_trabajo",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L192",
-      "weight": 1.0,
-      "source": "orquestador_agente_rationale_192",
-      "target": "orquestador_agente_backup_archivos_trabajo",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L408",
-      "weight": 1.0,
-      "source": "orquestador_agente_main",
-      "target": "orquestador_agente_restaurar_archivos_trabajo",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L201",
-      "weight": 1.0,
-      "source": "orquestador_agente_rationale_201",
-      "target": "orquestador_agente_restaurar_archivos_trabajo",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L250",
-      "weight": 1.0,
-      "source": "orquestador_agente_probar",
-      "target": "orquestador_agente_gen_script",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L415",
-      "weight": 1.0,
-      "source": "orquestador_agente_main",
-      "target": "orquestador_agente_probar",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L443",
-      "weight": 1.0,
-      "source": "orquestador_agente_main",
-      "target": "orquestador_agente_diagnosticar",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L456",
-      "weight": 1.0,
-      "source": "orquestador_agente_main",
-      "target": "orquestador_agente_generar_fix",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L360",
-      "weight": 1.0,
-      "source": "orquestador_agente_aplicar",
-      "target": "orquestador_agente_validar_sintaxis",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L458",
-      "weight": 1.0,
-      "source": "orquestador_agente_main",
-      "target": "orquestador_agente_aplicar",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L421",
-      "weight": 1.0,
-      "source": "orquestador_agente_main",
-      "target": "orquestador_agente_restaurar_agents",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "orquestador_agente.py",
-      "source_location": "L369",
-      "weight": 1.0,
-      "source": "orquestador_agente_rationale_369",
-      "target": "orquestador_agente_restaurar_agents",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".agents/rules/graphify.md",
-      "source_location": "L6",
-      "weight": 1.0,
-      "source": "agents_rules_graphify",
-      "target": "agents_rules_graphify_graphify",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".agents/workflows/graphify.md",
-      "source_location": "L6",
-      "weight": 1.0,
-      "source": "agents_workflows_graphify",
-      "target": "agents_workflows_graphify_workflow_graphify",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "AGENTS.md",
-      "source_location": "L1",
-      "weight": 1.0,
-      "source": "agents",
-      "target": "agents_graphify",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L1",
-      "weight": 1.0,
-      "source": "readme",
-      "target": "readme_opencode_hub_codeagent",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L5",
-      "weight": 1.0,
-      "source": "readme_opencode_hub_codeagent",
-      "target": "readme_caracter\u00edsticas_principales_fases_1_a_6",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L64",
-      "weight": 1.0,
-      "source": "readme_opencode_hub_codeagent",
-      "target": "readme_instalaci\u00f3n_y_ejecuci\u00f3n",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L28",
-      "weight": 1.0,
-      "source": "readme_opencode_hub_codeagent",
-      "target": "readme_orquestador_supervisor_agente",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L83",
-      "weight": 1.0,
-      "source": "readme_opencode_hub_codeagent",
-      "target": "readme_tecnolog\u00edas_utilizadas",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L56",
-      "weight": 1.0,
-      "source": "readme_orquestador_supervisor_agente",
-      "target": "readme_arquitectura",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L32",
-      "weight": 1.0,
-      "source": "readme_orquestador_supervisor_agente",
-      "target": "readme_benchmarks_3_niveles",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L40",
-      "weight": 1.0,
-      "source": "readme_orquestador_supervisor_agente",
-      "target": "readme_uso",
-      "confidence_score": 1.0
+  "edges": [
+    {
+      "source": 1,
+      "target": 2,
+      "label": "contains"
+    },
+    {
+      "source": 2,
+      "target": 3,
+      "label": "defines"
+    },
+    {
+      "source": 2,
+      "target": 4,
+      "label": "defines"
+    },
+    {
+      "source": 2,
+      "target": 5,
+      "label": "defines"
+    },
+    {
+      "source": 2,
+      "target": 6,
+      "label": "defines"
+    },
+    {
+      "source": 2,
+      "target": 7,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 8,
+      "label": "contains"
+    },
+    {
+      "source": 8,
+      "target": 9,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 10,
+      "label": "contains"
+    },
+    {
+      "source": 10,
+      "target": 11,
+      "label": "defines"
+    },
+    {
+      "source": 10,
+      "target": 12,
+      "label": "defines"
+    },
+    {
+      "source": 10,
+      "target": 13,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 14,
+      "label": "contains"
+    },
+    {
+      "source": 14,
+      "target": 15,
+      "label": "defines"
+    },
+    {
+      "source": 14,
+      "target": 16,
+      "label": "defines"
+    },
+    {
+      "source": 14,
+      "target": 17,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 18,
+      "label": "contains"
+    },
+    {
+      "source": 18,
+      "target": 19,
+      "label": "defines"
+    },
+    {
+      "source": 18,
+      "target": 20,
+      "label": "defines"
+    },
+    {
+      "source": 18,
+      "target": 21,
+      "label": "defines"
+    },
+    {
+      "source": 18,
+      "target": 22,
+      "label": "defines"
+    },
+    {
+      "source": 18,
+      "target": 23,
+      "label": "defines"
+    },
+    {
+      "source": 18,
+      "target": 24,
+      "label": "defines"
+    },
+    {
+      "source": 18,
+      "target": 25,
+      "label": "defines"
+    },
+    {
+      "source": 18,
+      "target": 26,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 27,
+      "label": "contains"
+    },
+    {
+      "source": 27,
+      "target": 28,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 29,
+      "label": "contains"
+    },
+    {
+      "source": 29,
+      "target": 30,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 31,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 32,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 33,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 34,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 35,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 36,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 37,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 38,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 39,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 40,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 41,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 42,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 43,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 44,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 45,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 46,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 47,
+      "label": "contains"
+    },
+    {
+      "source": 47,
+      "target": 48,
+      "label": "defines"
+    },
+    {
+      "source": 47,
+      "target": 49,
+      "label": "defines"
+    },
+    {
+      "source": 47,
+      "target": 50,
+      "label": "defines"
+    },
+    {
+      "source": 47,
+      "target": 51,
+      "label": "defines"
+    },
+    {
+      "source": 47,
+      "target": 52,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 53,
+      "label": "contains"
+    },
+    {
+      "source": 53,
+      "target": 54,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 55,
+      "label": "contains"
+    },
+    {
+      "source": 55,
+      "target": 56,
+      "label": "defines"
+    },
+    {
+      "source": 55,
+      "target": 57,
+      "label": "defines"
+    },
+    {
+      "source": 55,
+      "target": 58,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 59,
+      "label": "contains"
+    },
+    {
+      "source": 59,
+      "target": 60,
+      "label": "defines"
+    },
+    {
+      "source": 59,
+      "target": 61,
+      "label": "defines"
+    },
+    {
+      "source": 59,
+      "target": 62,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 63,
+      "label": "contains"
+    },
+    {
+      "source": 63,
+      "target": 64,
+      "label": "defines"
+    },
+    {
+      "source": 63,
+      "target": 65,
+      "label": "defines"
+    },
+    {
+      "source": 63,
+      "target": 66,
+      "label": "defines"
+    },
+    {
+      "source": 63,
+      "target": 67,
+      "label": "defines"
+    },
+    {
+      "source": 63,
+      "target": 68,
+      "label": "defines"
+    },
+    {
+      "source": 63,
+      "target": 69,
+      "label": "defines"
+    },
+    {
+      "source": 63,
+      "target": 70,
+      "label": "defines"
+    },
+    {
+      "source": 63,
+      "target": 71,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 72,
+      "label": "contains"
+    },
+    {
+      "source": 72,
+      "target": 73,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 74,
+      "label": "contains"
+    },
+    {
+      "source": 74,
+      "target": 75,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 76,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 77,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 78,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 79,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 80,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 81,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 82,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 83,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 84,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 85,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 86,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 87,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 88,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 89,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 90,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 91,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 92,
+      "label": "contains"
+    },
+    {
+      "source": 92,
+      "target": 93,
+      "label": "defines"
+    },
+    {
+      "source": 92,
+      "target": 94,
+      "label": "defines"
+    },
+    {
+      "source": 92,
+      "target": 95,
+      "label": "defines"
+    },
+    {
+      "source": 92,
+      "target": 96,
+      "label": "defines"
+    },
+    {
+      "source": 92,
+      "target": 97,
+      "label": "defines"
+    },
+    {
+      "source": 92,
+      "target": 98,
+      "label": "defines"
+    },
+    {
+      "source": 92,
+      "target": 99,
+      "label": "defines"
+    },
+    {
+      "source": 92,
+      "target": 100,
+      "label": "defines"
+    },
+    {
+      "source": 92,
+      "target": 101,
+      "label": "defines"
+    },
+    {
+      "source": 92,
+      "target": 102,
+      "label": "defines"
+    },
+    {
+      "source": 92,
+      "target": 103,
+      "label": "defines"
     }
-  ],
-  "hyperedges": [],
-  "built_at_commit": "760f9a0111700a3976b7d82adfc2f084ce27d3c6"
+  ]
 }

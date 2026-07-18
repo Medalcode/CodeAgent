@@ -1,12 +1,17 @@
+import base64
+import os
 import sqlite3
-import requests
+import subprocess
 from datetime import date
+
+import requests
 from smolagents import tool
+
 
 @tool
 def consultar_db(query: str) -> str:
     """Extrae eventos desde MisEventos.db. La base de datos tiene una tabla 'eventos' con columnas: id, fecha, titulo, descripcion, prioridad. Solo se permiten consultas SELECT.
-    
+
     Args:
         query: La consulta SQL SELECT.
     """
@@ -28,7 +33,7 @@ def consultar_db(query: str) -> str:
 @tool
 def guardar_reporte(analisis: str) -> str:
     """Archiva el análisis para memoria a largo plazo.
-    
+
     Args:
         analisis: El texto del reporte a guardar.
     """
@@ -40,7 +45,7 @@ def guardar_reporte(analisis: str) -> str:
 def consultar_github(token: str) -> str:
     """Usa esta herramienta cuando el usuario te proporcione un token de Github para acceder a sus repositorios.
     Le pasas el token como argumento y te devolverá la lista de repositorios del usuario.
-    
+
     Args:
         token: Token de acceso personal de GitHub.
     """
@@ -51,11 +56,11 @@ def consultar_github(token: str) -> str:
             repos = response.json()
             if not repos:
                 return "El usuario no tiene repositorios públicos o el token no tiene permisos suficientes."
-            
+
             repo_info = ["Repositorios más recientes del usuario (Top 10):"]
             for r in repos:
                 repo_info.append(f"- Nombre completo: {r.get('full_name')} | Lenguaje: {r.get('language')}")
-            
+
             return "\n".join(repo_info)
         elif response.status_code == 401:
             return "Error: El token de GitHub proporcionado es inválido o ha expirado."
@@ -64,32 +69,31 @@ def consultar_github(token: str) -> str:
     except Exception as e:
         return f"Error de red o conexión al intentar consultar Github: {str(e)}"
 
-import base64
 
 @tool
 def leer_repositorio_github(token: str, nombres_repos: str) -> str:
-    """Usa esta herramienta para analizar a fondo uno o VARIOS repositorios. 
+    """Usa esta herramienta para analizar a fondo uno o VARIOS repositorios.
     Debes pasarle el token y el nombre del repositorio (ejemplo: 'steam-hunter'). La herramienta encontrará automáticamente el usuario.
     NO es necesario usar consultar_github antes para obtener el nombre exacto.
     Devolverá el contenido del archivo README.md y la lista de archivos.
-    
+
     Args:
         token: Token de acceso personal de GitHub.
         nombres_repos: Nombre del repositorio (ej: 'steam-hunter').
     """
     headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
     resultado_final = ""
-    
+
     # Procesar cada repo separado por comas
     lista_repos = [r.strip() for r in nombres_repos.split(",")]
-    
+
     for full_name in lista_repos:
         if not full_name:
             continue
-            
+
         # Lógica Robusta: Si el LLM manda "usuario/steam-hunter", "username/steam-hunter", o solo "steam-hunter"
         nombre_buscar = full_name.split("/")[-1].lower() # Ej: 'steam-hunter'
-        
+
         try:
             # Obtener repositorios del usuario para encontrar el nombre completo real
             r_search = requests.get("https://api.github.com/user/repos?per_page=100", headers=headers)
@@ -100,7 +104,7 @@ def leer_repositorio_github(token: str, nombres_repos: str) -> str:
                         break
         except Exception:
             pass
-                
+
         resultado = f"--- Análisis profundo del repositorio: {full_name} ---\n\n"
         try:
             # 1. Obtener la lista de archivos (Contents)
@@ -124,26 +128,26 @@ def leer_repositorio_github(token: str, nombres_repos: str) -> str:
                     resultado += f"Contenido del README.md:\n{contenido_decodificado[:1000]}...\n"
             else:
                 resultado += "No se encontró un archivo README.md o no se pudo acceder a él.\n"
-                
+
             resultado_final += resultado + "\n\n"
         except Exception as e:
             resultado_final += f"Error al intentar leer el repositorio {full_name}: {str(e)}\n\n"
-            
+
     return resultado_final
 
 @tool
 def leer_archivo_github(token: str, repo_full_name: str, ruta_archivo: str) -> str:
     """Lee el contenido de un archivo específico de un repositorio de GitHub.
-    Pasa el token, el nombre del repo (ej: 'steam-hunter') y la ruta del archivo dentro del repo (ej: 'src/main.py'). 
+    Pasa el token, el nombre del repo (ej: 'steam-hunter') y la ruta del archivo dentro del repo (ej: 'src/main.py').
     La herramienta encontrará el repositorio automáticamente. NO es necesario usar consultar_github antes.
-    
+
     Args:
         token: Token de acceso personal de GitHub.
         repo_full_name: Nombre corto del repositorio (ej: 'steam-hunter').
         ruta_archivo: Ruta del archivo dentro del repositorio.
     """
     headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
-    
+
     # Lógica Robusta: resolver nombre real del repo
     nombre_buscar = repo_full_name.split("/")[-1].lower()
     try:
@@ -177,13 +181,12 @@ def leer_archivo_github(token: str, repo_full_name: str, ruta_archivo: str) -> s
             return f"Error HTTP {resp.status_code} al leer {ruta_archivo}"
     except Exception as e:
         return f"Error al leer archivo de GitHub: {e}"
-import os
-import subprocess
+
 
 @tool
 def listar_directorio_local(ruta: str = ".") -> str:
     """Lista los archivos y carpetas de un directorio local. Útil para entender la estructura del proyecto. Por defecto usa la carpeta actual '.'
-    
+
     Args:
         ruta: Ruta al directorio local a listar.
     """
@@ -196,12 +199,12 @@ def listar_directorio_local(ruta: str = ".") -> str:
 @tool
 def leer_archivo_local(ruta_archivo: str) -> str:
     """Lee el contenido de un archivo local en tu disco duro para poder analizar su código. Devuelve SOLO el contenido limpio (sin cabeceras). Debes pasarle la ruta completa o relativa al archivo.
-    
+
     Args:
         ruta_archivo: Ruta al archivo local a leer.
     """
     try:
-        with open(ruta_archivo, 'r', encoding='utf-8') as f:
+        with open(ruta_archivo, encoding='utf-8') as f:
             contenido = f.read(150000)
             if f.read(1):
                 contenido += "\n\n... [CONTENIDO TRUNCADO POR LÍMITE DE TAMAÑO (150KB)]"
@@ -212,7 +215,7 @@ def leer_archivo_local(ruta_archivo: str) -> str:
 @tool
 def escribir_archivo_local(ruta_archivo: str, contenido: str) -> str:
     """Crea o sobreescribe un archivo local con el contenido proporcionado. Útil para programar, refactorizar o crear tests.
-    
+
     Args:
         ruta_archivo: Ruta del archivo a escribir.
         contenido: Contenido a escribir en el archivo.
@@ -281,26 +284,26 @@ except ImportError:
 @tool
 def buscar_en_internet(query: str) -> str:
     """Realiza una búsqueda en internet usando Google para obtener información actualizada (noticias, documentación, soluciones a errores).
-    
+
     Args:
         query: Búsqueda a realizar en Google.
     """
     if search is None:
         return "Error: El módulo googlesearch-python no está instalado."
-    
+
     try:
         # advanced=True permite obtener título, url y descripción
         resultados = list(search(query, num_results=5, advanced=True))
-        
+
         if not resultados:
             return f"No se encontraron resultados en Google para la búsqueda: {query}"
-            
+
         formateado = f"Resultados de Google para '{query}':\n\n"
         for i, r in enumerate(resultados, 1):
             formateado += f"{i}. Título: {r.title}\n"
             formateado += f"   Enlace: {r.url}\n"
             formateado += f"   Resumen: {r.description}\n\n"
-        
+
         return formateado
     except Exception as e:
         return f"Error al intentar buscar en Google: {e}"
@@ -310,7 +313,7 @@ def editar_archivo_search_replace(ruta_archivo: str, busqueda: str, reemplazo: s
     """
     IMPORTANTE: Úsala para modificar partes de un archivo SIN reescribirlo todo.
     Busca el bloque exacto de código en 'busqueda' y lo reemplaza con 'reemplazo'.
-    
+
     Args:
         ruta_archivo: Ruta del archivo a editar.
         busqueda: Texto a buscar.
@@ -318,17 +321,17 @@ def editar_archivo_search_replace(ruta_archivo: str, busqueda: str, reemplazo: s
     """
     import difflib
     try:
-        with open(ruta_archivo, 'r', encoding='utf-8') as f:
+        with open(ruta_archivo, encoding='utf-8') as f:
             contenido = f.read()
-            
+
         if busqueda not in contenido:
             return "Error: No se encontró el bloque exacto de 'busqueda' en el archivo. Asegúrate de incluir los espacios en blanco e indentación correctos."
-            
+
         nuevo_contenido = contenido.replace(busqueda, reemplazo, 1)
-        
+
         with open(ruta_archivo, 'w', encoding='utf-8') as f:
             f.write(nuevo_contenido)
-            
+
         # Generar diff visual para confianza del usuario
         diff = list(difflib.unified_diff(
             contenido.splitlines(keepends=True),
@@ -337,9 +340,9 @@ def editar_archivo_search_replace(ruta_archivo: str, busqueda: str, reemplazo: s
             tofile=f"b/{ruta_archivo}",
             n=3
         ))
-        
+
         diff_str = "".join(diff)
-        
+
         return f"Éxito: Archivo {ruta_archivo} editado correctamente.\n\nA continuación el diff de los cambios (asegúrate de mostrarlo al usuario):\n```diff\n{diff_str}\n```"
     except Exception as e:
         return f"Error al editar {ruta_archivo}: {e}"
@@ -347,7 +350,7 @@ def editar_archivo_search_replace(ruta_archivo: str, busqueda: str, reemplazo: s
 @tool
 def git_status(ruta_repo: str = ".") -> str:
     """Muestra el estado del repositorio Git (archivos modificados, untracked, etc).
-    
+
     Args:
         ruta_repo: Ruta del repositorio git local.
     """
@@ -360,7 +363,7 @@ def git_status(ruta_repo: str = ".") -> str:
 @tool
 def git_diff(ruta_repo: str = ".") -> str:
     """Muestra los cambios no commiteados en el repositorio.
-    
+
     Args:
         ruta_repo: Ruta del repositorio git local.
     """
@@ -373,7 +376,7 @@ def git_diff(ruta_repo: str = ".") -> str:
 @tool
 def git_add(archivos: str, ruta_repo: str = ".") -> str:
     """Añade archivos al staging area de Git. Pasa los archivos separados por espacios, o '.' para añadir todos.
-    
+
     Args:
         archivos: Archivos a agregar al stage (separados por espacios).
         ruta_repo: Ruta del repositorio git local.
@@ -389,7 +392,7 @@ def git_add(archivos: str, ruta_repo: str = ".") -> str:
 @tool
 def git_commit(mensaje: str, ruta_repo: str = ".") -> str:
     """Crea un commit con los archivos en el staging area.
-    
+
     Args:
         mensaje: Mensaje del commit.
         ruta_repo: Ruta del repositorio git local.
@@ -403,7 +406,7 @@ def git_commit(mensaje: str, ruta_repo: str = ".") -> str:
 @tool
 def git_push(ruta_repo: str = ".", rama: str = "main") -> str:
     """Sube los commits locales al repositorio remoto (GitHub). Opcionalmente especifica la rama.
-    
+
     Args:
         ruta_repo: Ruta del repositorio git local.
         rama: Rama a pushear (por defecto 'main').
@@ -420,13 +423,13 @@ def git_push(ruta_repo: str = ".", rama: str = "main") -> str:
 def obtener_contexto_workspace(ruta="."):
     """Función de utilidad para el comando @workspace. Genera un resumen del entorno."""
     contexto = "### CONTEXTO AUTOMÁTICO DEL WORKSPACE ###\n\n"
-    
+
     # 1. Leer README.md si existe
     readme_path = os.path.join(ruta, "README.md")
     if os.path.exists(readme_path):
-        with open(readme_path, "r", encoding="utf-8") as f:
+        with open(readme_path, encoding="utf-8") as f:
             contexto += f"Contenido de README.md:\n{f.read()[:1500]}\n\n"
-            
+
     # 2. Detectar lenguaje por archivos clave
     archivos_clave = {
         "requirements.txt": "Python (Pip)",
@@ -438,16 +441,16 @@ def obtener_contexto_workspace(ruta="."):
         "pom.xml": "Java (Maven)",
         "build.gradle": "Java (Gradle)"
     }
-    
+
     archivos_locales = os.listdir(ruta)
     lenguajes_detectados = []
     for archivo, lang in archivos_clave.items():
         if archivo in archivos_locales:
             lenguajes_detectados.append(lang)
-            
+
     if lenguajes_detectados:
         contexto += f"Lenguajes/Entornos detectados: {', '.join(lenguajes_detectados)}\n\n"
-        
+
     # 3. Estructura de carpetas principal (1 nivel de profundidad)
     estructura = []
     for item in archivos_locales:
@@ -458,6 +461,6 @@ def obtener_contexto_workspace(ruta="."):
             estructura.append(f"📁 {item}/")
         else:
             estructura.append(f"📄 {item}")
-            
+
     contexto += "Estructura del directorio raíz:\n" + "\n".join(estructura) + "\n\n"
     return contexto

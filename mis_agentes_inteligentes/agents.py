@@ -1,4 +1,5 @@
 import os
+
 import yaml
 
 # Soporte para .env
@@ -111,7 +112,7 @@ def load_subagents_from_disk():
     for filename in os.listdir(subagents_dir):
         if filename.endswith(".md"):
             filepath = os.path.join(subagents_dir, filename)
-            with open(filepath, "r", encoding="utf-8") as f:
+            with open(filepath, encoding="utf-8") as f:
                 content = f.read()
 
             # Parsear el YAML Frontmatter
@@ -195,10 +196,7 @@ def crear_agente(agent_type: str, model, tools_list: list, workspace_context: st
     # 2. Chequear subagentes dinámicos si no es un agente fijo
     if not system_prompt:
         subagents = load_subagents_from_disk()
-        if agent_type in subagents:
-            system_prompt = subagents[agent_type]["body"]
-        else:
-            system_prompt = DEFAULT_PROMPT
+        system_prompt = subagents[agent_type]["body"] if agent_type in subagents else DEFAULT_PROMPT
 
     # 3. Inyectar contexto de workspace si está disponible
     if workspace_context:

@@ -4,8 +4,13 @@ Orquestador Supervisor-Agente para CodeAgent.
 Prueba el agente local en 3 niveles de exigencia (baja, media, alta).
 Con API key, el Supervisor diagnostica fallos y genera correcciones al system prompt.
 """
-import os, sys, json, subprocess, tempfile, traceback, shutil
-from pathlib import Path
+import contextlib
+import json
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
 
 try:
     from openai import OpenAI
@@ -204,7 +209,6 @@ def restaurar_archivos_trabajo():
         with open(fp, "w") as f:
             f.write(contenido)
     # Limpiar cache de Python
-    import shutil
     pycache = os.path.join(CODEAGENT_DIR, "__pycache__")
     if os.path.exists(pycache):
         shutil.rmtree(pycache)
@@ -261,8 +265,8 @@ def probar(b):
     except subprocess.TimeoutExpired:
         return {"err": "timeout", "nombre": b["nombre"], "res": ""}
     finally:
-        try: os.unlink(p)
-        except: pass
+        with contextlib.suppress(BaseException):
+            os.unlink(p)
 
 
 def diagnosticar(tr, b):
@@ -292,7 +296,8 @@ Responde JSON:
 
 
 def generar_fix(tr, b, diag):
-    agents = open(os.path.join(CODEAGENT_DIR, "agents.py")).read()
+    with open(os.path.join(CODEAGENT_DIR, "agents.py")) as f:
+        agents = f.read()
     hist = "\n".join(HISTORIAL[-5:]) if HISTORIAL else ""
     p = f"""El agente FALLO en nivel {b["nivel"]}: {b["nombre"]}
 
@@ -309,7 +314,7 @@ RESULTADO: {tr.get("res", "")}
 TRAZA:
 {json.dumps(tr, indent=2)[:2000]}
 
-{("HISTORIAL (NO repetir):\n" + hist) if hist else ""}
+{(("HISTORIAL (NO repetir):" + chr(10) + hist) if hist else "")}
 
 ARCHIVO MODIFICABLE (agents.py - funcion crear_agente):
 {agents[:2500]}
@@ -371,17 +376,17 @@ def restaurar_agents(fp):
     if BACKUP_AGENTS:
         with open(fp, "w") as fw:
             fw.write(BACKUP_AGENTS)
-        print(f"       RESTAURADO backup de agents.py")
+        print("       RESTAURADO backup de agents.py")
         BACKUP_AGENTS = None
 
 
 def main():
     tiene_api = bool(API_KEY)
     print(f"\n{'='*60}")
-    print(f"ORQUESTADOR SUPERVISOR-AGENTE")
+    print("ORQUESTADOR SUPERVISOR-AGENTE")
     print(f"Modelo: {MODELO_LOCAL}")
     print(f"Supervisor: {SUPERVISOR_MODEL} {'(activo)' if tiene_api else '(solo prueba)'}")
-    print(f"\nNiveles de exigencia:")
+    print("\nNiveles de exigencia:")
     for n, d in NIVELES.items():
         print(f"  {n}: {d}")
     print(f"{'='*60}")
@@ -417,14 +422,16 @@ def main():
                 if tr.get("err") and "no trace" in str(tr.get("err")):
                     print(f"     Error: {tr['err']}")
                     if BACKUP_AGENTS and it > 1:
-                        print(f"     NO TRACE tras cambio - restoring backup")
+                        print("     NO TRACE tras cambio - restoring backup")
                         restaurar_agents(os.path.join(CODEAGENT_DIR, "agents.py"))
-                    if it == MAX_ITER: break
+                    if it == MAX_ITER:
+                        break
                     continue
 
                 if tr.get("err"):
                     print(f"     Error: {tr['err'][:100]}")
-                    if "timeout" in str(tr.get("err")): break
+                    if "timeout" in str(tr.get("err")):
+                        break
                     continue
 
                 print(f"     Pasos: {tr.get('n', 0)}")
@@ -473,7 +480,7 @@ def main():
                         restaurar_agents(fp)
 
     print(f"\n{'='*60}")
-    print(f"RESUMEN FINAL")
+    print("RESUMEN FINAL")
     print(f"{'='*60}")
     for n, r in resumen.items():
         emoji = "PASS" if r["estado"] in ("APROBADO", "EJECUTADO") else "FAIL"

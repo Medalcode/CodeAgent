@@ -1,5 +1,5 @@
-import os
 import json
+import os
 import uuid
 from datetime import datetime
 
@@ -31,7 +31,7 @@ def list_sessions():
         if file.endswith(".json"):
             filepath = os.path.join(SESSIONS_DIR, file)
             try:
-                with open(filepath, "r", encoding="utf-8") as f:
+                with open(filepath, encoding="utf-8") as f:
                     data = json.load(f)
                     sessions.append(data)
             except Exception:
@@ -47,7 +47,7 @@ def load_session(session_id):
     init_sessions_dir()
     filepath = os.path.join(SESSIONS_DIR, f"{session_id}.json")
     if os.path.exists(filepath):
-        with open(filepath, "r", encoding="utf-8") as f:
+        with open(filepath, encoding="utf-8") as f:
             return json.load(f)
     return None
 

@@ -1,12 +1,13 @@
+import os
 import sqlite3
 from datetime import date
-import os
+
 
 def create_dummy_db():
     db_path = 'MisEventos.db'
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
-    
+
     # Crear tabla
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS eventos (
@@ -17,10 +18,10 @@ def create_dummy_db():
             prioridad TEXT
         )
     ''')
-    
+
     # Limpiar tabla si existe
     cursor.execute('DELETE FROM eventos')
-    
+
     # Insertar datos de prueba para hoy
     hoy = date.today().isoformat()
     eventos = [
@@ -29,12 +30,12 @@ def create_dummy_db():
         (hoy, 'Aprender Rust', 'Ver tutoriales sobre gestión de memoria en Rust', 'Baja'),
         ('2026-12-31', 'Fin de año', 'Fiesta de fin de año', 'Alta')
     ]
-    
+
     cursor.executemany('''
         INSERT INTO eventos (fecha, titulo, descripcion, prioridad)
         VALUES (?, ?, ?, ?)
     ''', eventos)
-    
+
     conn.commit()
     conn.close()
     print(f"Base de datos '{db_path}' inicializada con éxito.")

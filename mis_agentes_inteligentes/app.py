@@ -1,7 +1,7 @@
-import streamlit as st
 import os
-import datetime
 from datetime import datetime as dt
+
+import streamlit as st
 
 # ─── Soporte .env ────────────────────────────────────────────────────────────
 try:
@@ -103,13 +103,20 @@ with st.sidebar:
         use_rag = st.checkbox("Memoria RAG (Indexación Local)", value=False)
 
         selected_tools = []
-        if use_local_fs: selected_tools.append("Archivos Locales")
-        if use_git: selected_tools.append("Git")
-        if use_terminal: selected_tools.append("Terminal Integrada")
-        if use_db: selected_tools.append("Base de Datos (SQLite)")
-        if use_github: selected_tools.append("Github")
-        if use_websearch: selected_tools.append("Búsqueda Web")
-        if use_rag: selected_tools.append("Memoria RAG")
+        if use_local_fs:
+            selected_tools.append("Archivos Locales")
+        if use_git:
+            selected_tools.append("Git")
+        if use_terminal:
+            selected_tools.append("Terminal Integrada")
+        if use_db:
+            selected_tools.append("Base de Datos (SQLite)")
+        if use_github:
+            selected_tools.append("Github")
+        if use_websearch:
+            selected_tools.append("Búsqueda Web")
+        if use_rag:
+            selected_tools.append("Memoria RAG")
 
     st.divider()
 
@@ -242,7 +249,7 @@ if prompt:
             md = session_manager.export_session_to_markdown(st.session_state.current_session_id)
             st.session_state.messages.append({
                 "role": "assistant",
-                "content": f"📤 Sesión lista para exportar. Usa el botón **Exportar** en el sidebar.",
+                "content": "📤 Sesión lista para exportar. Usa el botón **Exportar** en el sidebar.",
                 "time": dt.now().strftime("%H:%M:%S")
             })
             st.rerun()
@@ -301,7 +308,6 @@ if prompt:
                     response_placeholder.markdown(respuesta)
 
                 except Exception as e:
-                    import traceback
                     respuesta = f"❌ **Error de ejecución:**\n```\n{e}\n```"
                     st.error(respuesta)
 

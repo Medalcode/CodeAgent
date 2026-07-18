@@ -107,3 +107,11 @@ Este script se encargará automáticamente de:
 - **[LiteLLM](https://litellm.vercel.app/):** Traductor universal que permite conectar OpenAI, Anthropic, Gemini, Groq y Ollama usando el mismo código.
 - **ChromaDB / HuggingFaceEmbeddings:** Para Memoria Semántica RAG.
 - **APIs de GitHub:** Para extracción y análisis de repositorios en modalidad *Deep Dive*.
+
+## Knowledge Graph
+
+`graphify-out/graph.json` contiene **103 nodos y 102 aristas** del AST del proyecto, permitiendo a agentes AI comprender la arquitectura sin escanear archivos.
+
+## Skills
+
+- **tdd** (skills.sh) — patrones de testing para mantener y expandir la cobertura

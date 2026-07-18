@@ -5,8 +5,9 @@ Compatible de forma nativa y robusta con modelos locales de 7B (como Qwen-Coder)
 """
 import os
 import time
-from agents import get_model, route_prompt, crear_agente
+
 import tools as mis_herramientas
+from agents import crear_agente, get_model, route_prompt
 
 # ─────────────────────────────────────────────────────────────────────────────
 # MAPEO DE HERRAMIENTAS
@@ -58,7 +59,7 @@ def _construir_contexto_workspace() -> str:
     Informa al agente en qué directorio está y qué estructura de proyecto tiene.
     """
     cwd = os.getcwd()
-    contexto = f"## Contexto del Workspace\n"
+    contexto = "## Contexto del Workspace\n"
     contexto += f"- **Directorio de trabajo actual:** `{cwd}`\n"
 
     try:
@@ -83,7 +84,7 @@ def ejecutar_agentes(
     api_key: str,
     agent_type: str,
     selected_tools: list,
-    step_callback=None,
+    _step_callback=None,
 ) -> tuple[str, dict]:
     """
     Pipeline principal usando smolagents.

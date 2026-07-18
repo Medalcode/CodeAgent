@@ -1,8 +1,8 @@
 import os
+
 try:
-    import chromadb
-    from langchain_community.vectorstores import Chroma
     from langchain_community.embeddings import HuggingFaceEmbeddings
+    from langchain_community.vectorstores import Chroma
     from langchain_text_splitters import RecursiveCharacterTextSplitter
     from smolagents import tool
     CHROMA_AVAILABLE = True
@@ -60,7 +60,7 @@ def indexar_directorio_local(ruta: str) -> str:
             if ext in ext_validas:
                 ruta_completa = os.path.join(root, file)
                 try:
-                    with open(ruta_completa, 'r', encoding='utf-8') as f:
+                    with open(ruta_completa, encoding='utf-8') as f:
                         contenido = f.read()
                         textos.append(contenido)
                         metadatos.append({"source": ruta_completa})
