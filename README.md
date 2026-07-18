@@ -14,6 +14,12 @@ Un Centro de Mando Avanzado para Agentes Inteligentes, construido con **Python, 
 - **🌐 Integración con Graphify:** Conocimiento estructural del código mediante un knowledge graph de AST. Compatible con asistentes como Claude, Cursor y OpenCode para exploraciones más inteligentes.
 - **🛠️ Configuración Desacoplada:** El LLM local (Ollama) ya no está fijo al localhost, permitiendo despliegues en clúster utilizando la variable de entorno `OLLAMA_API_BASE`.
 
+### 🛡️ Últimas Mejoras de Fiabilidad y UX (v2.1)
+- **Refactorización de Rutas:** Se resolvieron dependencias de `cwd` problemáticas para la base de datos `MisEventos.db` y el archivo de log.
+- **Principio DRY en GitHub API:** Consolidación de la lógica repetitiva de obtención del nombre real de repositorios.
+- **Optimización en `get_model`:** Simplificación de validaciones redundantes de API Keys.
+- **Suite de Pruebas Unitarias (TDD):** Nuevas pruebas automatizadas con `unittest` para los módulos clave (`tools.py` y `agents.py`).
+
 ### 🛡️ Últimas Mejoras de Fiabilidad y UX (v2.0)
 - **Roles Estrictos:** Inyección correcta de `system_prompt` en el `CodeAgent` para asegurar que el agente asuma el rol seleccionado.
 - **Contexto de Workspace:** El agente ahora es consciente del directorio de trabajo actual y su estructura antes de responder.

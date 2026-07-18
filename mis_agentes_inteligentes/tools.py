@@ -17,7 +17,8 @@ def consultar_db(query: str) -> str:
     """
     # Conectar en modo estricto de solo lectura usando URI
     try:
-        conn = sqlite3.connect('file:MisEventos.db?mode=ro', uri=True)
+        db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'MisEventos.db')
+        conn = sqlite3.connect(f'file:{db_path}?mode=ro', uri=True)
         cursor = conn.cursor()
         cursor.execute(query)
         data = str(cursor.fetchall())
@@ -37,9 +38,23 @@ def guardar_reporte(analisis: str) -> str:
     Args:
         analisis: El texto del reporte a guardar.
     """
-    with open("historial_analisis.txt", "a", encoding="utf-8") as f:
+    historial_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'historial_analisis.txt')
+    with open(historial_path, "a", encoding="utf-8") as f:
         f.write(f"\n--- {date.today()} ---\n{analisis}\n")
     return "Reporte guardado con éxito."
+
+def _resolver_nombre_repo(token: str, full_name: str) -> str:
+    headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
+    nombre_buscar = full_name.split("/")[-1].lower()
+    try:
+        r_search = requests.get("https://api.github.com/user/repos?per_page=100", headers=headers)
+        if r_search.status_code == 200:
+            for repo in r_search.json():
+                if repo["name"].lower() == nombre_buscar:
+                    return repo["full_name"]
+    except Exception:
+        pass
+    return full_name
 
 @tool
 def consultar_github(token: str) -> str:
@@ -91,19 +106,7 @@ def leer_repositorio_github(token: str, nombres_repos: str) -> str:
         if not full_name:
             continue
 
-        # Lógica Robusta: Si el LLM manda "usuario/steam-hunter", "username/steam-hunter", o solo "steam-hunter"
-        nombre_buscar = full_name.split("/")[-1].lower() # Ej: 'steam-hunter'
-
-        try:
-            # Obtener repositorios del usuario para encontrar el nombre completo real
-            r_search = requests.get("https://api.github.com/user/repos?per_page=100", headers=headers)
-            if r_search.status_code == 200:
-                for repo in r_search.json():
-                    if repo["name"].lower() == nombre_buscar:
-                        full_name = repo["full_name"]
-                        break
-        except Exception:
-            pass
+        full_name = _resolver_nombre_repo(token, full_name)
 
         resultado = f"--- Análisis profundo del repositorio: {full_name} ---\n\n"
         try:
@@ -148,17 +151,7 @@ def leer_archivo_github(token: str, repo_full_name: str, ruta_archivo: str) -> s
     """
     headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
 
-    # Lógica Robusta: resolver nombre real del repo
-    nombre_buscar = repo_full_name.split("/")[-1].lower()
-    try:
-        r_search = requests.get("https://api.github.com/user/repos?per_page=100", headers=headers)
-        if r_search.status_code == 200:
-            for repo in r_search.json():
-                if repo["name"].lower() == nombre_buscar:
-                    repo_full_name = repo["full_name"]
-                    break
-    except Exception:
-        pass
+    repo_full_name = _resolver_nombre_repo(token, repo_full_name)
 
     try:
         url = f"https://api.github.com/repos/{repo_full_name}/contents/{ruta_archivo}"

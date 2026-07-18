@@ -60,44 +60,30 @@ DEFAULT_PROMPT = (
 
 def get_model(provider: str, model_name: str, api_key: str = ""):
     """Instancia dinámicamente el modelo LiteLLMModel según el proveedor elegido."""
-    # Priorizar API key desde .env si no se pasó explícitamente
-    if not api_key:
-        env_keys = {
-            "OpenAI": "OPENAI_API_KEY",
-            "Anthropic": "ANTHROPIC_API_KEY",
-            "Groq": "GROQ_API_KEY",
-            "Gemini (Google)": "GOOGLE_API_KEY",
-        }
-        if provider in env_keys:
-            api_key = os.environ.get(env_keys[provider], "")
-
     if provider == "Ollama (Local)":
         return LiteLLMModel(
             model_id=f"ollama_chat/{model_name}",
             api_base=os.environ.get("OLLAMA_API_BASE", "http://localhost:11434")
         )
 
-    elif provider == "OpenAI":
-        if not api_key:
-            raise ValueError("Se requiere API Key para OpenAI (en .env o en el sidebar).")
-        return LiteLLMModel(model_id=model_name, api_key=api_key)
+    provider_map = {
+        "OpenAI": ("OPENAI_API_KEY", model_name),
+        "Anthropic": ("ANTHROPIC_API_KEY", f"anthropic/{model_name}"),
+        "Groq": ("GROQ_API_KEY", f"groq/{model_name}"),
+        "Gemini (Google)": ("GOOGLE_API_KEY", f"gemini/{model_name}"),
+    }
 
-    elif provider == "Anthropic":
-        if not api_key:
-            raise ValueError("Se requiere API Key para Anthropic (en .env o en el sidebar).")
-        return LiteLLMModel(model_id=f"anthropic/{model_name}", api_key=api_key)
+    if provider not in provider_map:
+        raise ValueError(f"Proveedor desconocido: {provider}")
 
-    elif provider == "Groq":
-        if not api_key:
-            raise ValueError("Se requiere API Key para Groq (en .env o en el sidebar).")
-        return LiteLLMModel(model_id=f"groq/{model_name}", api_key=api_key)
+    env_key, model_id = provider_map[provider]
+    if not api_key:
+        api_key = os.environ.get(env_key, "")
 
-    elif provider == "Gemini (Google)":
-        if not api_key:
-            raise ValueError("Se requiere API Key para Google Gemini (en .env o en el sidebar).")
-        return LiteLLMModel(model_id=f"gemini/{model_name}", api_key=api_key)
+    if not api_key:
+        raise ValueError(f"Se requiere API Key para {provider} (en .env o en el sidebar).")
 
-    raise ValueError(f"Proveedor desconocido: {provider}")
+    return LiteLLMModel(model_id=model_id, api_key=api_key)
 
 
 def load_subagents_from_disk():
