@@ -4,7 +4,8 @@ import unittest
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../mis_agentes_inteligentes')))
 
-from agents import route_prompt
+from agents import get_available_agents, get_model, load_subagents_from_disk, route_prompt
+
 
 class TestAgents(unittest.TestCase):
     def test_route_prompt_github(self):
@@ -30,6 +31,27 @@ class TestAgents(unittest.TestCase):
         prompt = "Hola, ¿cómo estás hoy?"
         result = route_prompt(prompt)
         self.assertEqual(result, "Asistente General")
+
+    def test_get_available_agents(self):
+        agents = get_available_agents()
+        self.assertIn("Agente de Edición de Código", agents)
+        self.assertIn("Analista de Código (Experto Github)", agents)
+        self.assertIn("Asistente de Eventos y Productividad", agents)
+        self.assertIn("Asistente General", agents)
+
+    def test_load_subagents_from_disk(self):
+        subagents = load_subagents_from_disk()
+        self.assertIsInstance(subagents, dict)
+
+    def test_get_model_invalid_provider(self):
+        with self.assertRaises(ValueError):
+            get_model("ProveedorInvalido", "model_name")
+
+    def test_route_prompt_subagents(self):
+        prompt = "Necesito un experto en python pro para refactorizar este módulo"
+        result = route_prompt(prompt)
+        self.assertEqual(result, "python-pro")
+
 
 if __name__ == '__main__':
     unittest.main()

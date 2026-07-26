@@ -56,22 +56,9 @@ def get_herramientas(nombres_seleccionados: list) -> list:
 def _construir_contexto_workspace() -> str:
     """
     Genera un bloque de contexto del workspace actual para inyectar en el system_prompt.
-    Informa al agente en qué directorio está y qué estructura de proyecto tiene.
+    Reutiliza la implementación centralizada de tools.py (DRY).
     """
-    cwd = os.getcwd()
-    contexto = "## Contexto del Workspace\n"
-    contexto += f"- **Directorio de trabajo actual:** `{cwd}`\n"
-
-    try:
-        items = os.listdir(cwd)
-        archivos_py = [f for f in items if f.endswith(".py")]
-        carpetas = [f for f in items if os.path.isdir(os.path.join(cwd, f)) and not f.startswith(".")]
-        contexto += f"- **Archivos Python en raíz:** {', '.join(archivos_py[:10]) or 'ninguno'}\n"
-        contexto += f"- **Subcarpetas:** {', '.join(carpetas[:10]) or 'ninguna'}\n"
-    except Exception:
-        pass
-
-    return contexto
+    return mis_herramientas.obtener_contexto_workspace()
 
 
 # ─────────────────────────────────────────────────────────────────────────────

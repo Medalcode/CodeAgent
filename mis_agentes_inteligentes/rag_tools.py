@@ -1,10 +1,17 @@
 import os
 
 try:
+    from smolagents import tool
+except ImportError:
+    def tool(func=None):
+        if func is None:
+            return lambda f: f
+        return func
+
+try:
     from langchain_community.embeddings import HuggingFaceEmbeddings
     from langchain_community.vectorstores import Chroma
     from langchain_text_splitters import RecursiveCharacterTextSplitter
-    from smolagents import tool
     CHROMA_AVAILABLE = True
 except ImportError:
     Chroma = None

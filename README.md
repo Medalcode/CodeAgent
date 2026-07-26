@@ -14,6 +14,14 @@ Un Centro de Mando Avanzado para Agentes Inteligentes, construido con **Python, 
 - **🌐 Integración con Graphify:** Conocimiento estructural del código mediante un knowledge graph de AST. Compatible con asistentes como Claude, Cursor y OpenCode para exploraciones más inteligentes.
 - **🛠️ Configuración Desacoplada:** El LLM local (Ollama) ya no está fijo al localhost, permitiendo despliegues en clúster utilizando la variable de entorno `OLLAMA_API_BASE`.
 
+### 🛡️ Últimas Mejoras de Fiabilidad, Seguridad y UX (v2.2)
+- **Seguridad SQL Estricta (`consultar_db`):** Validación en capa Python para restringir ejecuciones exclusivamente a consultas `SELECT`, `PRAGMA` y `EXPLAIN`.
+- **Eliminación de Duplicación (DRY Context & GitHub API):** Reutilización de `obtener_contexto_workspace` en `main.py` y creación de `_make_github_request` para llamadas HTTP autenticadas centralizadas.
+- **Edición por Diff Segura (`editar_archivo_search_replace`):** Verificación de coincidencias múltiples para evitar reemplazos ambiguos accidentales.
+- **Resiliencia en Carga de Sesiones:** Reemplazo de silencio de excepciones por logging de diagnósticos en `session_manager.py`.
+- **Suite de Pruebas Extendido:** Adición de `test_session_manager.py` y ampliación de `test_tools.py` y `test_agents.py` cubriendo CRUD de sesiones, seguridad y utilidades.
+- **Estructuración como Paquete Python:** Adición de `__init__.py` en `mis_agentes_inteligentes/`.
+
 ### 🛡️ Últimas Mejoras de Fiabilidad y UX (v2.1)
 - **Refactorización de Rutas:** Se resolvieron dependencias de `cwd` problemáticas para la base de datos `MisEventos.db` y el archivo de log.
 - **Principio DRY en GitHub API:** Consolidación de la lógica repetitiva de obtención del nombre real de repositorios.

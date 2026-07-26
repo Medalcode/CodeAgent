@@ -13,8 +13,17 @@ except ImportError:
 import session_manager
 from main import ejecutar_agentes
 
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 session_manager.init_sessions_dir()
+
+def _truncar_markdown(texto: str, max_chars: int = 400) -> str:
+    """Comprime texto y asegura la validez de los bloques de código markdown."""
+    if len(texto) <= max_chars:
+        return texto
+    truncado = texto[:max_chars]
+    if truncado.count("```") % 2 != 0:
+        truncado += "\n```"
+    return truncado + "... [resumido]"
 
 st.set_page_config(page_title="OpenCode Hub", page_icon="💻", layout="wide")
 
@@ -279,8 +288,8 @@ if prompt:
                     role_label = "Usuario" if m["role"] == "user" else "Asistente"
                     # Comprimir respuestas largas del asistente
                     contenido = m["content"]
-                    if m["role"] == "assistant" and len(contenido) > 400:
-                        contenido = contenido[:400] + "... [resumido]"
+                    if m["role"] == "assistant":
+                        contenido = _truncar_markdown(m["content"], 400)
                     contexto_historial += f"**{role_label}:** {contenido}\n\n"
                 prompt_final = f"{contexto_historial}\n---\n\n## Petición actual del usuario\n{prompt}"
             else:

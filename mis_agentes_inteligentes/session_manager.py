@@ -34,8 +34,9 @@ def list_sessions():
                 with open(filepath, encoding="utf-8") as f:
                     data = json.load(f)
                     sessions.append(data)
-            except Exception:
-                pass
+            except Exception as e:
+                import logging
+                logging.warning(f"Error cargando sesión desde {file}: {e}")
     # Ordenar por fecha de creación descendente
     sessions.sort(key=lambda x: x.get("created_at", ""), reverse=True)
     return sessions

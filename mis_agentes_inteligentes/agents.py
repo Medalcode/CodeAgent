@@ -114,7 +114,8 @@ def load_subagents_from_disk():
                                 "body": body
                             }
                     except Exception as e:
-                        print(f"Error parseando {filename}: {e}")
+                        import logging
+                        logging.warning(f"Error parseando subagente {filename}: {e}")
     return subagents
 
 
@@ -162,6 +163,16 @@ def route_prompt(prompt: str) -> str:
     for kw in prod_keywords:
         if kw in prompt_lower:
             scores["Asistente de Eventos y Productividad"] += 8
+
+    # Evaluar subagentes dinámicos desde disco
+    subagents = load_subagents_from_disk()
+    for name, data in subagents.items():
+        scores[name] = 0
+        desc = (data.get("metadata", {}).get("description", "") + " " + data.get("body", "")).lower()
+        words = [w for w in prompt_lower.split() if len(w) > 3]
+        matches = sum(1 for w in words if w in desc)
+        if matches > 0:
+            scores[name] += min(matches * 3, 9)
 
     best = max(scores, key=scores.get)
     # Si ninguno supera el umbral mínimo, usar Asistente General

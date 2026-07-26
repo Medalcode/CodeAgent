@@ -15,6 +15,11 @@ def consultar_db(query: str) -> str:
     Args:
         query: La consulta SQL SELECT.
     """
+    # Validar que sea únicamente una consulta de solo lectura
+    query_clean = query.strip().upper()
+    if not (query_clean.startswith("SELECT") or query_clean.startswith("PRAGMA") or query_clean.startswith("EXPLAIN")):
+        return "Error de Seguridad: Solo se permiten consultas SQL de solo lectura (SELECT, PRAGMA, EXPLAIN)."
+
     # Conectar en modo estricto de solo lectura usando URI
     try:
         db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'MisEventos.db')
@@ -38,16 +43,25 @@ def guardar_reporte(analisis: str) -> str:
     Args:
         analisis: El texto del reporte a guardar.
     """
-    historial_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'historial_analisis.txt')
-    with open(historial_path, "a", encoding="utf-8") as f:
-        f.write(f"\n--- {date.today()} ---\n{analisis}\n")
-    return "Reporte guardado con éxito."
+    try:
+        historial_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'historial_analisis.txt')
+        with open(historial_path, "a", encoding="utf-8") as f:
+            f.write(f"\n--- {date.today()} ---\n{analisis}\n")
+        return "Reporte guardado con éxito."
+    except Exception as e:
+        return f"Error al guardar el reporte en disco: {e}"
+
+GITHUB_API_TIMEOUT = int(os.getenv("GITHUB_API_TIMEOUT", "15"))
+
+def _make_github_request(url: str, token: str) -> requests.Response:
+    """Helper centralizado para llamadas HTTP autenticadas a la API de GitHub."""
+    headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
+    return requests.get(url, headers=headers, timeout=GITHUB_API_TIMEOUT)
 
 def _resolver_nombre_repo(token: str, full_name: str) -> str:
-    headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
     nombre_buscar = full_name.split("/")[-1].lower()
     try:
-        r_search = requests.get("https://api.github.com/user/repos?per_page=100", headers=headers)
+        r_search = _make_github_request("https://api.github.com/user/repos?per_page=100", token)
         if r_search.status_code == 200:
             for repo in r_search.json():
                 if repo["name"].lower() == nombre_buscar:
@@ -64,9 +78,8 @@ def consultar_github(token: str) -> str:
     Args:
         token: Token de acceso personal de GitHub.
     """
-    headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
     try:
-        response = requests.get("https://api.github.com/user/repos?sort=updated&per_page=10", headers=headers)
+        response = _make_github_request("https://api.github.com/user/repos?sort=updated&per_page=10", token)
         if response.status_code == 200:
             repos = response.json()
             if not repos:
@@ -96,7 +109,6 @@ def leer_repositorio_github(token: str, nombres_repos: str) -> str:
         token: Token de acceso personal de GitHub.
         nombres_repos: Nombre del repositorio (ej: 'steam-hunter').
     """
-    headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
     resultado_final = ""
 
     # Procesar cada repo separado por comas
@@ -111,7 +123,7 @@ def leer_repositorio_github(token: str, nombres_repos: str) -> str:
         resultado = f"--- Análisis profundo del repositorio: {full_name} ---\n\n"
         try:
             # 1. Obtener la lista de archivos (Contents)
-            resp_contents = requests.get(f"https://api.github.com/repos/{full_name}/contents", headers=headers)
+            resp_contents = _make_github_request(f"https://api.github.com/repos/{full_name}/contents", token)
             if resp_contents.status_code == 200:
                 contents = resp_contents.json()
                 if isinstance(contents, list):
@@ -121,12 +133,12 @@ def leer_repositorio_github(token: str, nombres_repos: str) -> str:
                 resultado += "No se pudo obtener la estructura de archivos.\n\n"
 
             # 2. Obtener el README.md
-            resp_readme = requests.get(f"https://api.github.com/repos/{full_name}/readme", headers=headers)
+            resp_readme = _make_github_request(f"https://api.github.com/repos/{full_name}/readme", token)
             if resp_readme.status_code == 200:
                 readme_data = resp_readme.json()
                 # GitHub devuelve el contenido en base64
                 if "content" in readme_data:
-                    contenido_decodificado = base64.b64decode(readme_data["content"]).decode("utf-8")
+                    contenido_decodificado = base64.b64decode(readme_data["content"]).decode("utf-8", errors="replace")
                     # Limitar el README a 1000 caracteres para no saturar al agente si son múltiples repos
                     resultado += f"Contenido del README.md:\n{contenido_decodificado[:1000]}...\n"
             else:
@@ -149,17 +161,15 @@ def leer_archivo_github(token: str, repo_full_name: str, ruta_archivo: str) -> s
         repo_full_name: Nombre corto del repositorio (ej: 'steam-hunter').
         ruta_archivo: Ruta del archivo dentro del repositorio.
     """
-    headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
-
     repo_full_name = _resolver_nombre_repo(token, repo_full_name)
 
     try:
         url = f"https://api.github.com/repos/{repo_full_name}/contents/{ruta_archivo}"
-        resp = requests.get(url, headers=headers)
+        resp = _make_github_request(url, token)
         if resp.status_code == 200:
             data = resp.json()
             if data.get("encoding") == "base64":
-                contenido = base64.b64decode(data["content"]).decode("utf-8")
+                contenido = base64.b64decode(data["content"]).decode("utf-8", errors="replace")
                 # Limitar a 3000 caracteres para no saturar el contexto
                 if len(contenido) > 3000:
                     contenido = contenido[:3000] + "\n... [TRUNCADO A 3000 CARACTERES]"
@@ -317,8 +327,11 @@ def editar_archivo_search_replace(ruta_archivo: str, busqueda: str, reemplazo: s
         with open(ruta_archivo, encoding='utf-8') as f:
             contenido = f.read()
 
-        if busqueda not in contenido:
+        ocurrencias = contenido.count(busqueda)
+        if ocurrencias == 0:
             return "Error: No se encontró el bloque exacto de 'busqueda' en el archivo. Asegúrate de incluir los espacios en blanco e indentación correctos."
+        if ocurrencias > 1:
+            return f"Error: Se encontraron {ocurrencias} coincidencias del bloque 'busqueda' en el archivo. Proporciona más líneas de contexto alrededor del texto para hacerlo único."
 
         nuevo_contenido = contenido.replace(busqueda, reemplazo, 1)
 
