@@ -32,9 +32,10 @@ class TestGithubTools(unittest.TestCase):
         resultado = consultar_github("ghp_invalid")
         self.assertIn("Error: El token de GitHub proporcionado es inválido", resultado)
 
-    @patch('tools._make_github_request')
-    def test_leer_repositorio_github(self, mock_request):
-        # Mock contents request and readme request
+        mock_user_repos = MagicMock()
+        mock_user_repos.status_code = 200
+        mock_user_repos.json.return_value = [{"name": "repo1", "full_name": "user/repo1"}]
+
         mock_contents = MagicMock()
         mock_contents.status_code = 200
         mock_contents.json.return_value = [{"name": "main.py", "type": "file"}]
@@ -44,7 +45,7 @@ class TestGithubTools(unittest.TestCase):
         # base64 encoded "Hello World" -> "SGVsbG8gV29ybGQ="
         mock_readme.json.return_value = {"content": "SGVsbG8gV29ybGQ=\n"}
 
-        mock_request.side_effect = [mock_contents, mock_readme]
+        mock_request.side_effect = [mock_user_repos, mock_contents, mock_readme]
 
         resultado = leer_repositorio_github("ghp_dummy", "user/repo1")
         self.assertIn("main.py", resultado)

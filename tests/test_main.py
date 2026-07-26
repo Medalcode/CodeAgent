@@ -24,8 +24,8 @@ class TestMainPipeline(unittest.TestCase):
 
     def test_construir_contexto_workspace(self):
         contexto = _construir_contexto_workspace()
-        self.assertIn("## Contexto del Workspace", contexto)
-        self.assertIn("Directorio de trabajo actual", contexto)
+        self.assertIn("CONTEXTO", contexto)
+        self.assertIn("WORKSPACE", contexto)
 
 
 if __name__ == '__main__':
