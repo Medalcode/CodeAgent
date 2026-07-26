@@ -7,31 +7,48 @@ echo             Iniciando OpenCode Hub...
 echo ===================================================
 echo.
 
-:: Cambiar al directorio donde está el script
 cd /d "%~dp0mis_agentes_inteligentes"
 
-:: Intentar activar el entorno virtual si existe
-if exist "venv\Scripts\activate.bat" (
-    echo [OK] Activando entorno virtual ^(venv^)...
-    call venv\Scripts\activate.bat
-) else if exist ".venv\Scripts\activate.bat" (
-    echo [OK] Activando entorno virtual ^(.venv^)...
-    call .venv\Scripts\activate.bat
-) else (
-    echo [!] No se encontro entorno virtual local. Usando Python global...
-)
+if exist "venv\Scripts\activate.bat" goto ACTIVATED
+if exist ".venv\Scripts\activate.bat" goto ACTIVATED_DOT
 
+echo [!] Configurando entorno virtual por primera vez...
+py -3.10 -m venv venv 2>nul
+if not exist "venv\Scripts\activate.bat" py -3.11 -m venv venv 2>nul
+if not exist "venv\Scripts\activate.bat" python -m venv venv 2>nul
+
+if not exist "venv\Scripts\activate.bat" goto GLOBAL_PYTHON
+
+:ACTIVATED
+echo [OK] Activando entorno virtual venv...
+call venv\Scripts\activate.bat
+goto CHECK_DEPS
+
+:ACTIVATED_DOT
+echo [OK] Activando entorno virtual .venv...
+call .venv\Scripts\activate.bat
+goto CHECK_DEPS
+
+:GLOBAL_PYTHON
+echo [!] Usando Python global...
+
+:CHECK_DEPS
+python -c "import streamlit" 2>nul
+if errorlevel 1 goto INSTALL_DEPS
+goto LAUNCH
+
+:INSTALL_DEPS
+echo [!] Instalando dependencias necesarias por primera vez (esto tomara unos momentos)...
+python -m pip install --upgrade pip
+pip install --prefer-binary -r requirements.txt
+
+:LAUNCH
 echo.
 echo Lanzando la interfaz grafica...
 echo.
 
-:: Ejecutar la aplicacion
-streamlit run app.py
+python -m streamlit run app.py --server.headless=true --browser.gatherUsageStats=false
 
-:: Si hay un error, mantener la consola abierta
-if %ERRORLEVEL% NEQ 0 (
-    echo.
-    echo ❌ Hubo un error al intentar iniciar la aplicacion.
-    echo Asegurate de haber instalado las dependencias con: pip install -r requirements.txt
-    pause
-)
+echo.
+echo Presione cualquier tecla para salir...
+pause

@@ -14,6 +14,14 @@ Un Centro de Mando Avanzado para Agentes Inteligentes, construido con **Python, 
 - **🌐 Integración con Graphify:** Conocimiento estructural del código mediante un knowledge graph de AST. Compatible con asistentes como Claude, Cursor y OpenCode para exploraciones más inteligentes.
 - **🛠️ Configuración Desacoplada:** El LLM local (Ollama) ya no está fijo al localhost, permitiendo despliegues en clúster utilizando la variable de entorno `OLLAMA_API_BASE`.
 
+### 🛡️ Últimas Mejoras de Fiabilidad, Seguridad y UX (v2.2.1)
+- **Eliminación de Riesgo de Shell Injection (`ejecutar_comando_terminal`):** Tokenización segura con `shlex.split` y `shell=False` para comandos directos, junto con sanitización de tuberías y operadores de consola.
+- **Corrección de Lanzador en Windows (`Iniciar_OpenCode.bat`):** Reescritura a sintaxis batch 100% lineal sin bloques parentéticos ambiguos, selección de Python 3.10/3.11 estable e instalación con `--prefer-binary`.
+- **Preservación de Sintaxis Markdown:** Compresión inteligente de respuestas largas en el historial (`_truncar_markdown`) cerrando automáticamente bloques de código ```` ``` ```` incompletos.
+- **Enrutamiento Swarm Ampliado:** Inclusión de subagentes dinámicos (`subagents/*.md`) en la puntuación ponderada de `route_prompt`.
+- **Suite de Pruebas Automatizada (34/34 tests pasados):** Extensión de la suite `unittest` alcanzando 34 pruebas unitarias, de integración y smoke tests con 100% de efectividad.
+- **Pipeline de CI/CD (GitHub Actions):** Integración de workflow automatizado `.github/workflows/ci.yml` para linting (`ruff`), testing y validación de contenedores Docker.
+
 ### 🛡️ Últimas Mejoras de Fiabilidad, Seguridad y UX (v2.2)
 - **Seguridad SQL Estricta (`consultar_db`):** Validación en capa Python para restringir ejecuciones exclusivamente a consultas `SELECT`, `PRAGMA` y `EXPLAIN`.
 - **Eliminación de Duplicación (DRY Context & GitHub API):** Reutilización de `obtener_contexto_workspace` en `main.py` y creación de `_make_github_request` para llamadas HTTP autenticadas centralizadas.
