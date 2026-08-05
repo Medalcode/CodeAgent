@@ -14,6 +14,13 @@ Un Centro de Mando Avanzado para Agentes Inteligentes, construido con **Python, 
 - **🌐 Integración con Graphify:** Conocimiento estructural del código mediante un knowledge graph de AST. Compatible con asistentes como Claude, Cursor y OpenCode para exploraciones más inteligentes.
 - **🛠️ Configuración Desacoplada:** El LLM local (Ollama) ya no está fijo al localhost, permitiendo despliegues en clúster utilizando la variable de entorno `OLLAMA_API_BASE`.
 
+### 🛡️ Últimas Mejoras de Fiabilidad, Calidad Técnica y QA (v2.3.0)
+- **Refactorización de Rutas Absolutas:** Anclamiento de `SESSIONS_DIR` en `session_manager.py` y `DB_DIR` en `rag_tools.py` al directorio raíz del módulo (`BASE_DIR`).
+- **Optimización por Caché (`mtime`):** Implementación de caché basada en modificación de archivos para la lectura de subagentes en disco (`load_subagents_from_disk()`).
+- **Manejo Seguro de Recursos (Context Manager):** Refactorización de `consultar_db` usando `with sqlite3.connect(...)` para asegurar el cierre de conexiones SQLite.
+- **Limpieza de Importaciones y Code Smells:** Promoción de importaciones internas (`difflib`, `shlex`, `traceback`, `logging`) al encabezado principal de los archivos y eliminación de silenciamientos de excepciones en favor de `logging.warning`.
+- **Extensión de Pruebas Automatizadas (41/41 tests pasados):** Adición de `tests/test_regression.py` y `tests/test_integration_pipeline.py` alcanzando 41 pruebas unitarias, de integración y regresión con 100% de éxito.
+
 ### 🛡️ Últimas Mejoras de Fiabilidad, Seguridad y UX (v2.2.1)
 - **Eliminación de Riesgo de Shell Injection (`ejecutar_comando_terminal`):** Tokenización segura con `shlex.split` y `shell=False` para comandos directos, junto con sanitización de tuberías y operadores de consola.
 - **Corrección de Lanzador en Windows (`Iniciar_OpenCode.bat`):** Reescritura a sintaxis batch 100% lineal sin bloques parentéticos ambiguos, selección de Python 3.10/3.11 estable e instalación con `--prefer-binary`.

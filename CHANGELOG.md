@@ -6,6 +6,23 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
 
 ---
 
+## [2.3.0] - 2026-08-04
+
+### Refactored
+- **refactor(session_manager):** Anclaje de `SESSIONS_DIR` a `BASE_DIR` del módulo para evitar rutas relativas dependientes del directorio de ejecución.
+- **refactor(rag_tools):** Anclaje de `DB_DIR` a `BASE_DIR` e inclusión de `logging.debug` en captura de errores de lectura durante indexación.
+- **refactor(tools):** Uso de context manager `with sqlite3.connect(...) as conn:` en `consultar_db` para liberación limpia de recursos SQLite.
+- **refactor(imports):** Elevación de importaciones internas (`difflib`, `shlex`, `traceback`, `logging`) al encabezado principal de los módulos `tools.py`, `main.py`, `agents.py` y `app.py`.
+
+### Performance
+- **perf(agents):** Implementación de caché basada en timestamp de modificación (`mtime`) en `load_subagents_from_disk()` para optimizar `route_prompt` y la instanciación de agentes.
+
+### Added
+- **test(qa):** Creación de `tests/test_regression.py` para validar truncamiento markdown, resiliencia de entradas nulas y operaciones Git.
+- **test(qa):** Creación de `tests/test_integration_pipeline.py` para pruebas de integración del pipeline `ejecutar_agentes` en `main.py`.
+
+---
+
 ## [2.2.1] - 2026-07-26
 
 ### Fixed
