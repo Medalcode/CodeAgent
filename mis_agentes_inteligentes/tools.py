@@ -1,5 +1,8 @@
 import base64
+import difflib
+import logging
 import os
+import shlex
 import sqlite3
 import subprocess
 from datetime import date
@@ -20,21 +23,18 @@ def consultar_db(query: str) -> str:
     if not (query_clean.startswith("SELECT") or query_clean.startswith("PRAGMA") or query_clean.startswith("EXPLAIN")):
         return "Error de Seguridad: Solo se permiten consultas SQL de solo lectura (SELECT, PRAGMA, EXPLAIN)."
 
-    # Conectar en modo estricto de solo lectura usando URI
+    # Conectar en modo estricto de solo lectura usando URI con context manager
+    db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'MisEventos.db')
     try:
-        db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'MisEventos.db')
-        conn = sqlite3.connect(f'file:{db_path}?mode=ro', uri=True)
-        cursor = conn.cursor()
-        cursor.execute(query)
-        data = str(cursor.fetchall())
+        with sqlite3.connect(f'file:{db_path}?mode=ro', uri=True) as conn:
+            cursor = conn.cursor()
+            cursor.execute(query)
+            return str(cursor.fetchall())
     except sqlite3.OperationalError as e:
-        data = f"Error: Operación no permitida o base de datos bloqueada. (Detalle: {e})"
+        return f"Error: Operación no permitida o base de datos bloqueada. (Detalle: {e})"
     except Exception as e:
-        data = f"Error al ejecutar la consulta: {e}"
-    finally:
-        if 'conn' in locals():
-            conn.close()
-    return data
+        return f"Error al ejecutar la consulta: {e}"
+
 
 @tool
 def guardar_reporte(analisis: str) -> str:
@@ -66,9 +66,10 @@ def _resolver_nombre_repo(token: str, full_name: str) -> str:
             for repo in r_search.json():
                 if repo["name"].lower() == nombre_buscar:
                     return repo["full_name"]
-    except Exception:
-        pass
+    except Exception as e:
+        logging.warning(f"No se pudo resolver el nombre exacto del repo GitHub {full_name}: {e}")
     return full_name
+
 
 @tool
 def consultar_github(token: str) -> str:
@@ -322,7 +323,6 @@ def editar_archivo_search_replace(ruta_archivo: str, busqueda: str, reemplazo: s
         busqueda: Texto a buscar.
         reemplazo: Texto de reemplazo.
     """
-    import difflib
     try:
         with open(ruta_archivo, encoding='utf-8') as f:
             contenido = f.read()
@@ -388,7 +388,6 @@ def git_add(archivos: str, ruta_repo: str = ".") -> str:
         ruta_repo: Ruta del repositorio git local.
     """
     try:
-        import shlex
         args = ["git", "add"] + shlex.split(archivos)
         result = subprocess.run(args, cwd=ruta_repo, capture_output=True, text=True)
         return f"Archivos añadidos al stage: {archivos}" if result.returncode == 0 else f"Error: {result.stderr}"

@@ -1,4 +1,6 @@
+import logging
 import os
+import time
 
 import yaml
 
@@ -10,6 +12,9 @@ except ImportError:
     pass
 
 from smolagents import CodeAgent, LiteLLMModel
+
+_SUBAGENTS_CACHE = {}
+_SUBAGENTS_LAST_MTIME = 0
 
 # System prompts por agente — definidos aquí para que sean el source of truth
 SYSTEM_PROMPTS = {
@@ -87,25 +92,38 @@ def get_model(provider: str, model_name: str, api_key: str = ""):
 
 
 def load_subagents_from_disk():
-    """Lee todos los archivos .md en la carpeta subagents/ y parsea su YAML frontmatter y su cuerpo."""
-    subagents = {}
+    """Lee todos los archivos .md en la carpeta subagents/ y parsea su YAML frontmatter y su cuerpo.
+    Utiliza almacenamiento en caché basado en mtime para maximizar el rendimiento.
+    """
+    global _SUBAGENTS_CACHE, _SUBAGENTS_LAST_MTIME
     base_dir = os.path.dirname(os.path.abspath(__file__))
     subagents_dir = os.path.join(base_dir, "subagents")
 
     if not os.path.exists(subagents_dir):
-        return subagents
+        _SUBAGENTS_CACHE = {}
+        _SUBAGENTS_LAST_MTIME = 0
+        return _SUBAGENTS_CACHE
 
+    try:
+        current_mtime = os.path.getmtime(subagents_dir)
+    except OSError:
+        current_mtime = time.time()
+
+    if _SUBAGENTS_CACHE and current_mtime == _SUBAGENTS_LAST_MTIME:
+        return _SUBAGENTS_CACHE
+
+    subagents = {}
     for filename in os.listdir(subagents_dir):
         if filename.endswith(".md"):
             filepath = os.path.join(subagents_dir, filename)
-            with open(filepath, encoding="utf-8") as f:
-                content = f.read()
+            try:
+                with open(filepath, encoding="utf-8") as f:
+                    content = f.read()
 
-            # Parsear el YAML Frontmatter
-            if content.startswith("---"):
-                parts = content.split("---", 2)
-                if len(parts) >= 3:
-                    try:
+                # Parsear el YAML Frontmatter
+                if content.startswith("---"):
+                    parts = content.split("---", 2)
+                    if len(parts) >= 3:
                         metadata = yaml.safe_load(parts[1])
                         body = parts[2].strip()
                         if metadata and "name" in metadata:
@@ -113,9 +131,11 @@ def load_subagents_from_disk():
                                 "metadata": metadata,
                                 "body": body
                             }
-                    except Exception as e:
-                        import logging
-                        logging.warning(f"Error parseando subagente {filename}: {e}")
+            except Exception as e:
+                logging.warning(f"Error parseando subagente {filename}: {e}")
+
+    _SUBAGENTS_CACHE = subagents
+    _SUBAGENTS_LAST_MTIME = current_mtime
     return subagents
 
 

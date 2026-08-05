@@ -12,9 +12,15 @@ except ImportError:
 
 import session_manager
 from main import ejecutar_agentes
+from tools import obtener_contexto_workspace
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 session_manager.init_sessions_dir()
+
+def _guardar_sesion_actual(session_id: str, name: str, messages: list):
+    """Guarda los datos de la sesión activa en disco."""
+    if session_id:
+        session_manager.save_session(session_id, {"id": session_id, "name": name, "messages": messages})
 
 def _truncar_markdown(texto: str, max_chars: int = 400) -> str:
     """Comprime texto y asegura la validez de los bloques de código markdown."""
@@ -297,8 +303,7 @@ if prompt:
 
             # Inyectar contexto @workspace si se menciona
             if "@workspace" in prompt.lower() or "analiza este proyecto" in prompt.lower():
-                import tools as mis_herramientas
-                contexto_ws = mis_herramientas.obtener_contexto_workspace()
+                contexto_ws = obtener_contexto_workspace()
                 prompt_final = f"{contexto_ws}\n\n{prompt_final}"
 
             status_placeholder = st.empty()

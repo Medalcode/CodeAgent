@@ -1,3 +1,4 @@
+import logging
 import os
 
 try:
@@ -19,7 +20,8 @@ except ImportError:
 
 # Configuración del motor de Embeddings ligero (Corre en CPU y ocupa poca RAM)
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
-DB_DIR = "./chroma_db"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_DIR = os.path.join(BASE_DIR, "chroma_db")
 
 
 def init_chroma():
@@ -72,8 +74,8 @@ def indexar_directorio_local(ruta: str) -> str:
                         textos.append(contenido)
                         metadatos.append({"source": ruta_completa})
                         archivos_procesados += 1
-                except Exception:
-                    pass  # Ignorar archivos binarios o que no se puedan leer
+                except Exception as e:
+                    logging.debug(f"Omite lectura del archivo {ruta_completa}: {e}")
 
     if not textos:
         return f"No se encontraron archivos de texto/código válidos en {ruta}."

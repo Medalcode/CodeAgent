@@ -1,9 +1,11 @@
 import json
+import logging
 import os
 import uuid
 from datetime import datetime
 
-SESSIONS_DIR = "sesiones"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+SESSIONS_DIR = os.path.join(BASE_DIR, "sesiones")
 
 
 def init_sessions_dir():
@@ -35,7 +37,6 @@ def list_sessions():
                     data = json.load(f)
                     sessions.append(data)
             except Exception as e:
-                import logging
                 logging.warning(f"Error cargando sesión desde {file}: {e}")
     # Ordenar por fecha de creación descendente
     sessions.sort(key=lambda x: x.get("created_at", ""), reverse=True)

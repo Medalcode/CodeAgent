@@ -3,8 +3,8 @@ Pipeline de agentes con smolagents de HuggingFace.
 El LLM usa CodeAgent para generar código Python y llamar herramientas.
 Compatible de forma nativa y robusta con modelos locales de 7B (como Qwen-Coder).
 """
-import os
 import time
+import traceback
 
 import tools as mis_herramientas
 from agents import crear_agente, get_model, route_prompt
@@ -44,13 +44,18 @@ def get_herramientas(nombres_seleccionados: list) -> list:
         if nombre in TOOLS_MAP:
             tools = TOOLS_MAP[nombre]
             if isinstance(tools, list):
-                herramientas_activas.extend(tools)
+                for t in tools:
+                    if t not in herramientas_activas:
+                        herramientas_activas.append(t)
             else:
-                herramientas_activas.append(tools)
+                if tools not in herramientas_activas:
+                    herramientas_activas.append(tools)
 
-    # Siempre añadir la herramienta de memoria base
-    herramientas_activas.append(mis_herramientas.guardar_reporte)
+    # Siempre añadir la herramienta de memoria base si no está presente
+    if mis_herramientas.guardar_reporte not in herramientas_activas:
+        herramientas_activas.append(mis_herramientas.guardar_reporte)
     return herramientas_activas
+
 
 
 def _construir_contexto_workspace() -> str:
@@ -129,7 +134,6 @@ def ejecutar_agentes(
         resultado = agente.run(user_prompt)
         resultado_str = str(resultado)
     except Exception as e:
-        import traceback
         resultado_str = (
             f"❌ Error en la ejecución del agente:\n```\n{e}\n```\n\n"
             f"**Traza completa:**\n```\n{traceback.format_exc()[-1500:]}\n```"
