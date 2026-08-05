@@ -20,18 +20,25 @@ class TestSmokeSystem(unittest.TestCase):
         self.assertIsNotNone(tools)
 
     def test_setup_dummy_db(self):
-        # Probar la función de inicialización de base de datos
-        db_path = os.path.join(os.path.dirname(__file__), '../mis_agentes_inteligentes/MisEventos.db')
-        setup_db.create_dummy_db()
-        self.assertTrue(os.path.exists(db_path))
+        import tempfile
+        original_cwd = os.getcwd()
+        with tempfile.TemporaryDirectory() as tmpdir:
+            try:
+                os.chdir(tmpdir)
+                setup_db.create_dummy_db()
+                db_path = os.path.join(tmpdir, 'MisEventos.db')
+                self.assertTrue(os.path.exists(db_path))
 
-        # Comprobar que contiene la tabla eventos y registros
-        conn = sqlite3.connect(db_path)
-        cursor = conn.cursor()
-        cursor.execute("SELECT COUNT(*) FROM eventos")
-        count = cursor.fetchone()[0]
-        conn.close()
-        self.assertTrue(count > 0)
+                conn = sqlite3.connect(db_path)
+                try:
+                    cursor = conn.cursor()
+                    cursor.execute("SELECT COUNT(*) FROM eventos")
+                    count = cursor.fetchone()[0]
+                    self.assertTrue(count > 0)
+                finally:
+                    conn.close()
+            finally:
+                os.chdir(original_cwd)
 
 
 if __name__ == '__main__':

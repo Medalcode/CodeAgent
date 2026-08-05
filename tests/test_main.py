@@ -4,8 +4,8 @@ import unittest
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../mis_agentes_inteligentes')))
 
-from main import TOOLS_MAP, _construir_contexto_workspace, get_herramientas
 import tools as mis_herramientas
+from main import _construir_contexto_workspace, get_herramientas
 
 
 class TestMainPipeline(unittest.TestCase):

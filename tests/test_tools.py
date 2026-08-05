@@ -45,7 +45,7 @@ class TestTools(unittest.TestCase):
 
             self.assertIn("Éxito", resultado)
             self.assertTrue(os.path.exists(file_path))
-            with open(file_path, 'r', encoding='utf-8') as f:
+            with open(file_path, encoding='utf-8') as f:
                 self.assertEqual(f.read(), "new content")
 
     def test_editar_archivo_search_replace_exito(self):
@@ -54,7 +54,7 @@ class TestTools(unittest.TestCase):
             escribir_archivo_local(file_path, "def foo():\n    return 'old'\n")
             res = editar_archivo_search_replace(file_path, "return 'old'", "return 'new'")
             self.assertIn("Éxito", res)
-            with open(file_path, 'r', encoding='utf-8') as f:
+            with open(file_path, encoding='utf-8') as f:
                 self.assertIn("return 'new'", f.read())
 
     def test_editar_archivo_search_replace_no_encontrado(self):
