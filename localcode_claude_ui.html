@@ -1292,9 +1292,12 @@
 
   $('sendBtn').addEventListener('click', sendMessage);
   $('chatInput').addEventListener('keydown', (e)=>{
-    if(e.key === 'Enter' && !e.shiftKey){
+    if((e.key === 'Enter' && !e.shiftKey) || (e.key === 'Enter' && (e.ctrlKey || e.metaKey))){
       e.preventDefault();
       sendMessage();
+    }else if(e.key === 'Escape'){
+      $('chatInput').value = '';
+      autoGrow($('chatInput'));
     }
   });
   function autoGrow(el){

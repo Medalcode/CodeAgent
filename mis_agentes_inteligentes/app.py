@@ -1,7 +1,13 @@
 import os
+import warnings
 from datetime import datetime as dt
 
+import session_manager
 import streamlit as st
+from main import ejecutar_agentes
+from tools import obtener_contexto_workspace
+
+warnings.warn("app.py (Streamlit) está deprecado a partir de v2.5.0. Por favor utiliza localcode_server.py y localcode_claude_ui.html.", DeprecationWarning, stacklevel=2)
 
 # ─── Soporte .env ────────────────────────────────────────────────────────────
 try:
@@ -9,10 +15,6 @@ try:
     load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"))
 except ImportError:
     pass
-
-import session_manager
-from main import ejecutar_agentes
-from tools import obtener_contexto_workspace
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 session_manager.init_sessions_dir()
