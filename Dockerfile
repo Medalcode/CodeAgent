@@ -34,7 +34,7 @@ RUN chown -R appuser:appuser /app
 # Cambiar a usuario sin privilegios
 USER appuser
 
-EXPOSE 8501
+EXPOSE 8501 8000
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
     CMD curl --fail http://localhost:8501/_stcore/health || exit 1

@@ -4,6 +4,22 @@ Todos los cambios notables realizados en este proyecto serán documentados en es
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/), y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2026-08-26
+
+### Fixed
+- **fix(ui):** Eliminación de redeclaración duplicada de `cleanHistory` en `sendMessage()` que causaba un `SyntaxError` e inhabilitaba controladores de eventos de botones en `localcode_claude_ui.html`.
+- **fix(deps):** Adición de polyfill de compatibilidad en `agents.py` para `typing.NotRequired` e inyección de `ChatCompletionReasoningSummaryTextBlock` con `model_rebuild()` en esquemas Pydantic v2 de LiteLLM.
+- **fix(proxy):** Incremento del timeout de proxy HTTP de 10s a 120s en `localcode_server.py` y solución a conexiones colgadas en socket local de Ollama (HTTP 502).
+
+### Refactored
+- **refactor(quality):** Centralización de `DEFAULT_AGENT_TOOLS` en `agents.py` como fuente única de verdad para la asignación predeterminada de herramientas.
+- **refactor(quality):** Estandarización de la resolución de rutas relativas dinámicas para `MisEventos.db` en `setup_db.py`.
+- **refactor(devops):** Actualización de `Iniciar_OpenCode.bat` para priorizar la detección del entorno virtual unificado de la raíz (`..\.venv` en Python 3.11+).
+
+### Added
+- **test(qa):** Creación de la suite de pruebas de integración HTTP `tests/test_localcode_server.py` para validar endpoints estáticos, tree de workspace y manejo de errores.
+- **test(qa):** Adición de casos borde en `tests/test_tools.py` para escrituras anidadas profundas y validación de seguridad en `ejecutar_comando_terminal` (46 tests totales pasando).
+
 ---
 
 ## [2.3.0] - 2026-08-04

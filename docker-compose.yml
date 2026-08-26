@@ -8,6 +8,7 @@ services:
     container_name: opencode-hub
     ports:
       - "8501:8501"
+      - "8000:8000"
     volumes:
       # Montar la carpeta de sesiones para persistencia de datos fuera del contenedor
       - ./mis_agentes_inteligentes/sesiones:/app/mis_agentes_inteligentes/sesiones
