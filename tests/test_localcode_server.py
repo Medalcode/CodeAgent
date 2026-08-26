@@ -74,6 +74,12 @@ class TestLocalCodeServer(unittest.TestCase):
         self.assertEqual(status, 200)
         self.assertIn(b'SwaggerUIBundle', data)
 
+    def test_prometheus_metrics_endpoint(self):
+        status, headers, data = self._make_request('GET', '/metrics')
+        self.assertEqual(status, 200)
+        self.assertIn(b'codeagent_uptime_seconds', data)
+        self.assertIn(b'codeagent_requests_total', data)
+
 
 if __name__ == '__main__':
     unittest.main()

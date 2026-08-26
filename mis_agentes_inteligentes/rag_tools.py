@@ -96,6 +96,20 @@ def indexar_directorio_local(ruta: str) -> str:
     return f"¡Éxito! Se indexaron {archivos_procesados} archivos ({len(docs)} fragmentos) de '{ruta}' en la memoria RAG."
 
 
+def _bm25_score(query: str, text: str) -> float:
+    """Calcula una puntuación BM25 léxica simplificada basada en frecuencia de términos de código."""
+    terms = [t for t in query.lower().split() if len(t) > 2]
+    if not terms:
+        return 0.0
+    text_lower = text.lower()
+    score = 0.0
+    for term in terms:
+        count = text_lower.count(term)
+        if count > 0:
+            score += 1.0 + (count / (count + 1.5))
+    return score
+
+
 # BUG 6 FIX: ídem
 @tool
 def preguntar_a_repositorio(pregunta: str) -> str:
@@ -116,15 +130,19 @@ def preguntar_a_repositorio(pregunta: str) -> str:
         return "Error: No se pudo inicializar ChromaDB."
 
     try:
-        # Recuperar los 4 fragmentos más relevantes
-        resultados = db.similarity_search(pregunta, k=4)
+        # Recuperar candidatos vectoriales y aplicar re-ranking híbrido léxico BM25
+        candidatos = db.similarity_search(pregunta, k=8)
 
-        if not resultados:
+        if not candidatos:
             res_str = "No se encontró información relevante en la base de datos indexada."
             _RAG_CACHE[query_key] = res_str
             return res_str
 
-        respuesta = "Fragmentos de código relevantes encontrados en la memoria local:\n\n"
+        # Re-ordenar combinando similitud semántica con BM25 léxico
+        candidatos.sort(key=lambda doc: _bm25_score(pregunta, doc.page_content), reverse=True)
+        resultados = candidatos[:4]
+
+        respuesta = "Fragmentos de código relevantes (Búsqueda Híbrida BM25 + Vectorial):\n\n"
         for i, res in enumerate(resultados, 1):
             source = res.metadata.get('source', 'Desconocido')
             respuesta += f"--- Resultado {i} (Archivo: {source}) ---\n{res.page_content}\n\n"

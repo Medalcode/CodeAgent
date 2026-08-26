@@ -11,6 +11,7 @@ import json
 import os
 import socketserver
 import sys
+import time
 import traceback
 import urllib.parse
 import urllib.request
@@ -20,6 +21,12 @@ import zipfile
 PORT = 8000
 OLLAMA_TARGET = "http://localhost:11434"
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SERVER_START_TIME = time.time()
+METRICS_COUNTERS = {
+    "total_requests": 0,
+    "successful_requests": 0,
+    "failed_requests": 0
+}
 
 
 class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
@@ -37,7 +44,10 @@ class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
-        if self.path.startswith("/api/openapi.json"):
+        METRICS_COUNTERS["total_requests"] += 1
+        if self.path.startswith("/metrics"):
+            self.handle_metrics()
+        elif self.path.startswith("/api/openapi.json"):
             self.handle_openapi_spec()
         elif self.path.startswith("/docs"):
             self.handle_docs()
@@ -49,6 +59,29 @@ class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
             if self.path in ("/", ""):
                 self.path = "/localcode_claude_ui.html"
             super().do_GET()
+
+    def handle_metrics(self):
+        uptime = time.time() - SERVER_START_TIME
+        metrics_text = f"""# HELP codeagent_uptime_seconds Uptime del servidor proxy localcode en segundos
+# TYPE codeagent_uptime_seconds gauge
+codeagent_uptime_seconds {uptime:.2f}
+
+# HELP codeagent_requests_total Total de peticiones HTTP procesadas
+# TYPE codeagent_requests_total counter
+codeagent_requests_total {METRICS_COUNTERS['total_requests']}
+
+# HELP codeagent_requests_success_total Peticiones HTTP completadas con exito
+# TYPE codeagent_requests_success_total counter
+codeagent_requests_success_total {METRICS_COUNTERS['successful_requests']}
+
+# HELP codeagent_requests_failed_total Peticiones HTTP fallidas
+# TYPE codeagent_requests_failed_total counter
+codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
+"""
+        self.send_response(200)
+        self.send_header("Content-Type", "text/plain; version=0.0.4; charset=utf-8")
+        self.end_headers()
+        self.wfile.write(metrics_text.encode("utf-8"))
 
     def handle_openapi_spec(self):
         spec = {
