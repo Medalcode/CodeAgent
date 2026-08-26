@@ -20,7 +20,7 @@ class TestAgents(unittest.TestCase):
     def test_route_prompt_editor(self):
         prompt = "Please refactor the code in tools.py to fix the bug"
         result = route_prompt(prompt)
-        self.assertIn(result, ["Claude Code (Local OpenCode)", "Agente de Edición de Código"])
+        self.assertIn(result, ["CodeAgent Developer", "Agente de Edición de Código"])
 
     def test_route_prompt_productivity(self):
         prompt = "Agrega un nuevo evento en mi agenda para mañana"

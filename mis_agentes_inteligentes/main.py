@@ -92,7 +92,7 @@ def ejecutar_agentes(
     # ── Forzar herramientas según el agente si no se seleccionaron ───────────
     if not selected_tools:
         if agent_type in (
-            "Claude Code (Local OpenCode)",
+            "CodeAgent Developer",
             "Agente de Edición de Código",
             "Arquitecto de Agentes Smolagents",
             "python-pro",
@@ -100,7 +100,7 @@ def ejecutar_agentes(
             "code-reviewer",
             "security-auditor",
         ):
-            selected_tools = ["Archivos Locales", "Terminal Integrada", "Git"]
+            selected_tools = ["Archivos Locales", "Terminal Integrada", "Git", "Github"]
         elif agent_type == "Analista de Código (Experto Github)" \
                 or "ghp_" in user_prompt \
                 or "github.com/" in user_prompt:

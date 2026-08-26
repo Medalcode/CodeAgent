@@ -31,7 +31,7 @@ except ImportError:
 
 
 def print_banner():
-    title = "💻 Claude Code Local (OpenCode CLI)"
+    title = "💻 CodeAgent Local CLI"
     sub = "Conectado a Ollama (Qwen 2.5 Coder / DeepSeek Coder) y smolagents"
     if HAS_RICH:
         console.print(Panel.fit(f"[bold cyan]{title}[/bold cyan]\n[dim]{sub}[/dim]", border_style="cyan"))
@@ -46,10 +46,10 @@ def main():
     print_banner()
 
     provider = os.getenv("DEFAULT_PROVIDER", "Ollama (Local)")
-    model_name = os.getenv("DEFAULT_MODEL", "qwen2.5-coder:7b")
+    model_name = os.getenv("DEFAULT_MODEL", "qwen2.5-coder:14b")
     api_key = os.getenv("OPENAI_API_KEY", "")
-    agent_type = "Claude Code (Local OpenCode)"
-    selected_tools = ["Archivos Locales", "Terminal Integrada", "Git"]
+    agent_type = "CodeAgent Developer"
+    selected_tools = ["Archivos Locales", "Terminal Integrada", "Git", "Github"]
 
     print(f"🤖 Agente activo: {agent_type}")
     print(f"🧠 Modelo: {provider} / {model_name}")
@@ -58,7 +58,7 @@ def main():
 
     while True:
         try:
-            prompt = input("\n\033[1;32mclaude-local>\033[0m ").strip()
+            prompt = input("\n\033[1;32mcodeagent>\033[0m ").strip()
         except (KeyboardInterrupt, EOFError):
             print("\n👋 ¡Hasta luego!")
             break

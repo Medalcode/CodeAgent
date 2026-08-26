@@ -228,7 +228,7 @@ class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
                 provider="Ollama (Local)",
                 model_name=model_name,
                 api_key="",
-                agent_type="Auto (Enrutador Automático) 🌟",
+                agent_type="CodeAgent Developer",
                 selected_tools=["Archivos Locales", "Terminal Integrada", "Git", "Github"]
             )
             self._send_json({"success": True, "response": respuesta, "metrics": metricas})

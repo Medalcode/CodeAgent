@@ -50,7 +50,7 @@ class TestIntegrationPipeline(unittest.TestCase):
 
         self.assertIn("Resultado de edición mock", resultado)
         self.assertTrue(
-            "Claude Code" in metricas["agentes_usados"] or "Agente de Edición" in metricas["agentes_usados"]
+            "CodeAgent Developer" in metricas["agentes_usados"] or "Agente de Edición" in metricas["agentes_usados"]
         )
 
 

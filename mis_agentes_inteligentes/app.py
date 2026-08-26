@@ -206,10 +206,10 @@ if not st.session_state.current_session_id:
 # ─────────────────────────────────────────────────────────────────────────────
 # MAIN UI & CLAUDE CODE 3-PANEL IDE LAYOUT
 # ─────────────────────────────────────────────────────────────────────────────
-st.title("💻 OpenCode Hub (Claude Code Edition)")
+st.title("💻 CodeAgent Hub")
 st.caption(f"🤖 **{agent_type}** · {provider} / `{model_name}` | `/help`, `/clear`, `/export`, `/status`")
 
-# Botones de Acción Rápida estilo Claude Code
+# Botones de Acción Rápida estilo CodeAgent
 col_q1, col_q2, col_q3, col_q4 = st.columns(4)
 action_prompt = None
 
@@ -226,8 +226,8 @@ with col_q4:
     if st.button("📊 Estado Git Diff", use_container_width=True):
         action_prompt = "Muestra el estado de git status y git diff de los archivos modificados."
 
-# Paneles visuales si la persona elegida es Claude Code (o en vista IDE)
-if agent_type in ("Claude Code (Local OpenCode)", "Agente de Edición de Código"):
+# Paneles visuales si la persona elegida es CodeAgent Developer (o en vista IDE)
+if agent_type in ("CodeAgent Developer", "Agente de Edición de Código"):
     col_workspace, col_chat = st.columns([1, 1])
 
     with col_workspace:
