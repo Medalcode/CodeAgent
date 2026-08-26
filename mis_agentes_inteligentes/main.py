@@ -92,6 +92,7 @@ def ejecutar_agentes(
     # ── Forzar herramientas según el agente si no se seleccionaron ───────────
     if not selected_tools:
         if agent_type in (
+            "Claude Code (Local OpenCode)",
             "Agente de Edición de Código",
             "Arquitecto de Agentes Smolagents",
             "python-pro",

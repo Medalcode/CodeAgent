@@ -44,11 +44,23 @@ pip install --prefer-binary -r requirements.txt
 
 :LAUNCH
 echo.
-echo Lanzando la interfaz grafica...
+echo Seleccione el modo de operacion:
+echo 1) Lanzar Interfaz Web (Streamlit UI de 3 Paneles - Claude Code Edition)
+echo 2) Lanzar CLI en Terminal (Claude Code Local CLI)
 echo.
+set /p M=Ingrese su opcion (1 o 2, por defecto 1): 
+if "%M%"=="2" goto LAUNCH_CLI
 
+echo Lanzando Interfaz Web Streamlit...
 python -m streamlit run app.py --server.headless=true --browser.gatherUsageStats=false
+goto END
 
+:LAUNCH_CLI
+echo Lanzando Claude Code Local CLI en Terminal...
+python claude_code_cli.py
+goto END
+
+:END
 echo.
 echo Presione cualquier tecla para salir...
 pause

@@ -40,6 +40,9 @@ if "current_session_id" not in st.session_state:
     st.session_state.current_session_id = None
 if "messages" not in st.session_state:
     st.session_state.messages = []
+if "active_file" not in st.session_state:
+    st.session_state.active_file = "README.md"
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # SIDEBAR: Configuración y Sesiones
@@ -201,22 +204,74 @@ if not st.session_state.current_session_id:
     st.session_state.current_session_id = new_id
 
 # ─────────────────────────────────────────────────────────────────────────────
-# MAIN UI
+# MAIN UI & CLAUDE CODE 3-PANEL IDE LAYOUT
 # ─────────────────────────────────────────────────────────────────────────────
-st.title("💻 OpenCode Hub")
-st.caption(f"🤖 **{agent_type}** · {provider} / `{model_name}` | `/help`, `/clear`, `/export`")
+st.title("💻 OpenCode Hub (Claude Code Edition)")
+st.caption(f"🤖 **{agent_type}** · {provider} / `{model_name}` | `/help`, `/clear`, `/export`, `/status`")
 
-# Mostrar historial de la sesión actual
-for msg in st.session_state.messages:
-    with st.chat_message(msg["role"]):
-        if msg.get("time"):
-            st.caption(f"🕒 {msg['time']}")
-        st.markdown(msg["content"])
+# Botones de Acción Rápida estilo Claude Code
+col_q1, col_q2, col_q3, col_q4 = st.columns(4)
+action_prompt = None
+
+with col_q1:
+    if st.button("🔍 Explora Workspace", use_container_width=True):
+        action_prompt = "@workspace Explora la estructura de archivos y tecnologías del proyecto actual."
+with col_q2:
+    if st.button("✏️ Sugiere Refactor", use_container_width=True):
+        action_prompt = "Analiza el código del proyecto y propone refactorizaciones o mejoras de Clean Code."
+with col_q3:
+    if st.button("🧪 Correr Tests", use_container_width=True):
+        action_prompt = "Ejecuta los tests unitarios del proyecto usando ejecutar_comando_terminal y reporta los resultados."
+with col_q4:
+    if st.button("📊 Estado Git Diff", use_container_width=True):
+        action_prompt = "Muestra el estado de git status y git diff de los archivos modificados."
+
+# Paneles visuales si la persona elegida es Claude Code (o en vista IDE)
+if agent_type in ("Claude Code (Local OpenCode)", "Agente de Edición de Código"):
+    col_workspace, col_chat = st.columns([1, 1])
+
+    with col_workspace:
+        st.subheader("📁 Explorador y Visor de Código")
+        archivos_disponibles = []
+        for root, dirs, files in os.walk("."):
+            dirs[:] = [d for d in dirs if d not in ['.git', '__pycache__', 'node_modules', 'venv', '.venv', 'chroma_db', 'graphify-out']]
+            for file in files:
+                if file.endswith(('.py', '.md', '.json', '.txt', '.yml', '.yaml', '.sh', '.bat', '.toml')):
+                    rel_path = os.path.relpath(os.path.join(root, file), ".")
+                    archivos_disponibles.append(rel_path)
+
+        archivos_disponibles.sort()
+        if archivos_disponibles:
+            selected_file = st.selectbox("Archivo Activo", archivos_disponibles, index=0 if st.session_state.active_file not in archivos_disponibles else archivos_disponibles.index(st.session_state.active_file))
+            st.session_state.active_file = selected_file
+
+            if os.path.exists(selected_file):
+                with open(selected_file, encoding='utf-8', errors='replace') as f:
+                    content = f.read(10000)
+                st.caption(f"📄 Vendo `{selected_file}` ({len(content)} caracteres)")
+                st.code(content, language="python" if selected_file.endswith(".py") else "markdown")
+
+    with col_chat:
+        st.subheader("💬 Chat con Asistente")
+        for msg in st.session_state.messages:
+            with st.chat_message(msg["role"]):
+                if msg.get("time"):
+                    st.caption(f"🕒 {msg['time']}")
+                st.markdown(msg["content"])
+else:
+    # Mostrar historial de la sesión actual en vista completa
+    for msg in st.session_state.messages:
+        with st.chat_message(msg["role"]):
+            if msg.get("time"):
+                st.caption(f"🕒 {msg['time']}")
+            st.markdown(msg["content"])
 
 # ─────────────────────────────────────────────────────────────────────────────
 # CAPTURA DE INPUT
 # ─────────────────────────────────────────────────────────────────────────────
-prompt = st.chat_input(f"Escribe tu petición a {agent_type} (/help para comandos)")
+chat_input_prompt = st.chat_input(f"Escribe tu petición a {agent_type} (/help para comandos)")
+prompt = action_prompt or chat_input_prompt
+
 
 if prompt:
     # ── Slash Commands ────────────────────────────────────────────────────────

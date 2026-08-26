@@ -18,6 +18,16 @@ _SUBAGENTS_LAST_MTIME = 0
 
 # System prompts por agente — definidos aquí para que sean el source of truth
 SYSTEM_PROMPTS = {
+    "Claude Code (Local OpenCode)": (
+        "Eres Claude Code, un Agente de Ingeniería de Software Autónomo experto operando en el entorno local del usuario. "
+        "Estás optimizado para modelos OpenCode locales (Qwen 2.5 Coder, DeepSeek Coder) sobre Ollama.\n\n"
+        "REGLAS DE OPERACIÓN CLAUDE CODE:\n"
+        "1. EXPLORACIÓN PROACTIVA: Inspecciona primero el directorio o archivo del proyecto usando `listar_directorio_local` y `leer_archivo_local` antes de planificar o modificar nada.\n"
+        "2. EDICIÓN DE CÓDIGO CON DIFFS: Para modificar archivos existentes, usa `editar_archivo_search_replace` incluyendo suficiente contexto alrededor del bloque de búsqueda para evitar ambigüedades. Usa `escribir_archivo_local` ÚNICAMENTE para crear archivos nuevos desde cero.\n"
+        "3. CICLO TDD Y AUTOVERIFICACIÓN: Tras realizar un cambio, ejecuta la suite de pruebas o verifica el código usando `ejecutar_comando_terminal`. Si falla, analiza el error completo, ajusta el código y vuelve a probar.\n"
+        "4. SEGURIDAD: Nunca ejecutes comandos destructivos de sistema (rm -rf, format, etc).\n"
+        "5. RESPUESTAS CONCISAS Y ESTRUCTURADAS: Proporciona explicaciones claras en español, muestra diffs de cambios y concluye con `final_answer()` resumiendo exactamente qué archivos fueron modificados o creados.\n"
+    ),
     "Agente de Edición de Código": (
         "Eres un Ingeniero de Software Senior trabajando en el sistema operativo del usuario. "
         "Tienes acceso total al disco duro y a la terminal.\n\n"
@@ -142,6 +152,7 @@ def load_subagents_from_disk():
 def get_available_agents():
     """Devuelve la lista completa de agentes disponibles (Fijos + Dinámicos)."""
     agentes_fijos = [
+        "Claude Code (Local OpenCode)",
         "Agente de Edición de Código",
         "Analista de Código (Experto Github)",
         "Asistente de Eventos y Productividad",
@@ -156,19 +167,24 @@ def route_prompt(prompt: str) -> str:
     """Enrutador automático mejorado con scoring ponderado."""
     prompt_lower = prompt.lower()
     scores = {
+        "Claude Code (Local OpenCode)": 0,
         "Analista de Código (Experto Github)": 0,
         "Agente de Edición de Código": 0,
         "Asistente de Eventos y Productividad": 0,
         "Asistente General": 0,
     }
 
-    # Señales fuertes (peso 10)
+    # Señales explícitas de Claude Code / OpenCode
+    if any(k in prompt_lower for k in ["claude", "claude code", "opencode", "qwen", "deepseek"]):
+        scores["Claude Code (Local OpenCode)"] += 12
+
+    # Señales fuertes de GitHub (peso 10)
     if any(k in prompt for k in ["ghp_", "github.com/"]):
         scores["Analista de Código (Experto Github)"] += 10
     if any(k in prompt_lower for k in ["repositorio", "repo github", "pull request", "branch"]):
         scores["Analista de Código (Experto Github)"] += 5
 
-    # Señales de edición de código (peso variable)
+    # Señales de edición de código y desarrollo de software
     edit_keywords = {
         "refactor": 8, "implementa": 8, "crea un archivo": 8, "modifica": 7,
         "bug": 6, "error": 5, "arregla": 7, "test": 6, "función": 5,
@@ -176,7 +192,8 @@ def route_prompt(prompt: str) -> str:
     }
     for kw, weight in edit_keywords.items():
         if kw in prompt_lower:
-            scores["Agente de Edición de Código"] += weight
+            scores["Claude Code (Local OpenCode)"] += weight
+            scores["Agente de Edición de Código"] += max(1, weight - 1)
 
     # Señales de productividad
     prod_keywords = ["agenda", "evento", "recordatorio", "tarea", "productividad", "calendario"]
