@@ -190,7 +190,7 @@ def leer_archivo_github(token: str, repo_full_name: str, ruta_archivo: str) -> s
 
 @tool
 def listar_directorio_local(ruta: str = ".") -> str:
-    """Lista los archivos y carpetas de un directorio local. Útil para entender la estructura del proyecto. Por defecto usa la carpeta actual '.'
+    """Lista los archivos y carpetas de un directorio local y devuelve el contenido como un texto formateado (str). Útil para entender la estructura del proyecto. Por defecto usa la carpeta actual '.'
 
     Args:
         ruta: Ruta al directorio local a listar.
