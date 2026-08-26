@@ -687,6 +687,23 @@
     $('reasoningAccordion').className = 'reasoning-accordion';
   });
 
+  function escapeHtml(str){
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function renderSafeMarkdown(content){
+    const parts = content.split(/```/);
+    let html = '';
+    for(let i=0; i<parts.length; i++){
+      if(i % 2 === 1){
+        html += `<pre><code>${escapeHtml(parts[i])}</code></pre>`;
+      }else{
+        html += escapeHtml(parts[i]).replace(/\n/g, '<br>');
+      }
+    }
+    return html;
+  }
+
   // ENVIAR MENSAJE AL AGENTE
   $('sendBtn').addEventListener('click', async () => {
     const text = $('chatInput').value.trim();
@@ -711,6 +728,7 @@
         body: JSON.stringify({
           prompt: text,
           agent_type: "CodeAgent Developer",
+          model: $('modelSelect').value,
           model_name: $('modelSelect').value
         })
       });
@@ -718,10 +736,14 @@
       const elapsed = Math.round((Date.now() - startTime) / 1000);
       $('reasoningHeader').innerHTML = `<span>Worked for ${elapsed}s</span><span>></span>`;
 
+      if(!res.ok || (data.success === false)){
+        throw new Error(data.error || `Error HTTP ${res.status}`);
+      }
+
       const botMsg = document.createElement('div');
       botMsg.className = 'msg-bubble-assistant';
-      const content = data.respuesta || data.response || "Tarea ejecutada correctamente.";
-      botMsg.innerHTML = content.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+      const rawContent = data.respuesta || data.response || "Tarea ejecutada correctamente.";
+      botMsg.innerHTML = renderSafeMarkdown(rawContent);
       $('messagesContainer').appendChild(botMsg);
     } catch(e) {
       const elapsed = Math.round((Date.now() - startTime) / 1000);
@@ -729,7 +751,8 @@
 
       const botMsg = document.createElement('div');
       botMsg.className = 'msg-bubble-assistant';
-      botMsg.textContent = "Agente procesó la solicitud en el servidor local Antigravity.";
+      botMsg.style.color = 'var(--red)';
+      botMsg.innerHTML = `<strong>❌ Error en CodeAgent:</strong> ${escapeHtml(e.message || e)}`;
       $('messagesContainer').appendChild(botMsg);
     }
     $('chatBody').scrollTop = $('chatBody').scrollHeight;

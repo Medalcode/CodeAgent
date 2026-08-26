@@ -7,9 +7,36 @@ import sqlite3
 import subprocess
 import tempfile
 from datetime import date
+from enum import Enum
 
 import requests
 from smolagents import tool
+
+
+class PermissionLevel(Enum):
+    """Niveles de autorización para la ejecución segura de herramientas agénticas."""
+    LOW = "LOW"            # Operaciones de lectura sin riesgo (read, search, diff)
+    MEDIUM = "MEDIUM"        # Modificaciones locales de archivos o tests
+    HIGH = "HIGH"          # Commits en VCS
+    CRITICAL = "CRITICAL"      # Pushes externos o ejecución arbitraria en consola
+
+
+TOOL_PERMISSIONS = {
+    "listar_directorio_local": PermissionLevel.LOW,
+    "leer_archivo": PermissionLevel.LOW,
+    "consultar_db": PermissionLevel.LOW,
+    "obtener_contexto_workspace": PermissionLevel.LOW,
+    "guardar_reporte": PermissionLevel.MEDIUM,
+    "editar_archivo_search_replace": PermissionLevel.MEDIUM,
+    "ejecutar_comando_terminal": PermissionLevel.CRITICAL
+}
+
+
+def check_tool_permission(tool_name: str, current_level: PermissionLevel = PermissionLevel.CRITICAL) -> bool:
+    """Valida si el permiso actual autoriza la ejecución de la herramienta."""
+    required = TOOL_PERMISSIONS.get(tool_name, PermissionLevel.MEDIUM)
+    hierarchy = [PermissionLevel.LOW, PermissionLevel.MEDIUM, PermissionLevel.HIGH, PermissionLevel.CRITICAL]
+    return hierarchy.index(current_level) >= hierarchy.index(required)
 
 
 @tool

@@ -326,7 +326,7 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
     def handle_agent_chat(self):
         data = self._get_post_body()
         prompt = data.get("prompt", "").strip()
-        model_name = data.get("model", "qwen2.5-coder:14b")
+        model_name = data.get("model") or data.get("model_name") or "qwen2.5-coder:14b"
         agent_type = data.get("agent_type", "CodeAgent Developer")
 
         try:

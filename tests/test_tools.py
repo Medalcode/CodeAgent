@@ -134,5 +134,12 @@ class TestTools(unittest.TestCase):
             self.assertIn("graphify query", ctx)
 
 
+    def test_check_tool_permission(self):
+        from tools import PermissionLevel, check_tool_permission
+        self.assertTrue(check_tool_permission("leer_archivo", PermissionLevel.LOW))
+        self.assertTrue(check_tool_permission("ejecutar_comando_terminal", PermissionLevel.CRITICAL))
+        self.assertFalse(check_tool_permission("ejecutar_comando_terminal", PermissionLevel.LOW))
+
+
 if __name__ == '__main__':
     unittest.main()
