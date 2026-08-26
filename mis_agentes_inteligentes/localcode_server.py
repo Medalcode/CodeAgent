@@ -29,6 +29,16 @@ METRICS_COUNTERS = {
 }
 
 
+def _safe_print(*args, **kwargs):
+    """Imprime texto de forma segura sin crash por UnicodeEncodeError en Windows cp1252."""
+    msg = " ".join(str(a) for a in args)
+    try:
+        print(msg, **kwargs)
+    except UnicodeEncodeError:
+        safe_msg = msg.encode("ascii", errors="ignore").decode("ascii")
+        print(safe_msg, **kwargs)
+
+
 class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=BASE_DIR, **kwargs)
@@ -331,8 +341,8 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
             self._send_json({"success": False, "error": "Prompt vacío"}, 400)
             return
 
-        print(f"\n[LocalCode Server] 🚀 Petición enviada a /api/agent/chat | Agente: {agent_type} | Modelo: {model_name}")
-        print(f"[LocalCode Server] 🛠️ Herramientas activas: {', '.join(selected_tools)}")
+        _safe_print(f"\n[LocalCode Server] 🚀 Petición enviada a /api/agent/chat | Agente: {agent_type} | Modelo: {model_name}")
+        _safe_print(f"[LocalCode Server] 🛠️ Herramientas activas: {', '.join(selected_tools)}")
 
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
         try:
@@ -345,10 +355,10 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
                 agent_type=agent_type,
                 selected_tools=selected_tools
             )
-            print(f"[LocalCode Server] ✅ Agente respondió con éxito en {metricas.get('tiempo_segundos', 0)}s\n")
-            self._send_json({"success": True, "response": respuesta, "metrics": metricas})
+            _safe_print(f"[LocalCode Server] ✅ Agente respondió con éxito en {metricas.get('tiempo_segundos', 0)}s\n")
+            self._send_json({"success": True, "respuesta": respuesta, "metricas": metricas})
         except Exception as e:
-            print(f"[LocalCode Server] ❌ Error en Agente: {e}\n")
+            _safe_print(f"[LocalCode Server] ❌ Error en Agente: {e}\n")
             self._send_json({"success": False, "error": f"Error ejecutando Agente CodeAgent: {e}", "trace": traceback.format_exc()}, 500)
 
     def proxy_to_ollama(self, method):
