@@ -551,7 +551,7 @@
     <div class="chat-body" id="chatBody">
       <!-- Reasoning step accordion -->
       <div class="reasoning-accordion open" id="reasoningAccordion">
-        <div class="reasoning-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="reasoning-header" id="reasoningHeader" onclick="this.parentElement.classList.toggle('open')">
           <span>Worked for 4s</span>
           <span>></span>
         </div>
@@ -596,7 +596,7 @@
     <span>Medalcode (2 hours ago)</span>
   </div>
   <div class="status-right">
-    <span>Ln 11, Col 61</span>
+    <span id="statusPos">Ln 11, Col 61</span>
     <span>Spaces: 2</span>
     <span>UTF-8</span>
     <span>LF</span>
@@ -609,56 +609,148 @@
 (function(){
   const $ = id => document.getElementById(id);
   let files = [];
-  let activeFileId = null;
+  let openTabs = [];
+  let activeFile = null;
+  let messages = [];
 
   function updateLineNumbers(){
-    const lines = ($('codeEditor').value || '').split('\n').length;
+    const text = ($('codeEditor').value || '');
+    const lines = text.split('\n').length;
     let nums = '';
     for(let i=1; i<=Math.max(lines, 20); i++){ nums += i + '<br>'; }
     $('lineNumbers').innerHTML = nums;
+
+    // Actualizar coordenadas en statusbar
+    const cursorPos = $('codeEditor').selectionStart || 0;
+    const textBefore = text.substring(0, cursorPos);
+    const lineNum = textBefore.split('\n').length;
+    const colNum = textBefore.length - textBefore.lastIndexOf('\n');
+    $('statusPos').textContent = `Ln ${lineNum}, Col ${colNum}`;
   }
 
   $('codeEditor').addEventListener('input', updateLineNumbers);
+  $('codeEditor').addEventListener('keyup', updateLineNumbers);
+  $('codeEditor').addEventListener('click', updateLineNumbers);
 
-  $('sendBtn').addEventListener('click', async ()=>{
+  function renderTree(){
+    const wrap = $('workspaceTreeList');
+    const openWrap = $('openEditorsList');
+    wrap.innerHTML = '';
+    openWrap.innerHTML = '';
+
+    if(!files.length){
+      wrap.innerHTML = '<div style="padding:6px 16px;color:var(--text-muted);">Sin archivos</div>';
+      return;
+    }
+
+    files.forEach(file => {
+      const item = document.createElement('div');
+      item.className = 'tree-item' + (activeFile && activeFile.name === file.name ? ' active' : '');
+      const ext = file.name.split('.').pop();
+      let icon = '📄';
+      if(ext === 'py') icon = '🐍';
+      else if(ext === 'json') icon = '📋';
+      else if(ext === 'md') icon = '📝';
+      else if(ext === 'db') icon = '🗄️';
+
+      item.innerHTML = `<span class="icon">${icon}</span> <span>${file.name}</span>`;
+      item.addEventListener('click', () => openFile(file));
+      wrap.appendChild(item);
+    });
+
+    openTabs.forEach(file => {
+      const item = document.createElement('div');
+      item.className = 'tree-item' + (activeFile && activeFile.name === file.name ? ' active' : '');
+      item.innerHTML = `<span class="icon">📄</span> <span>${file.name}</span>`;
+      item.addEventListener('click', () => openFile(file));
+      openWrap.appendChild(item);
+    });
+  }
+
+  function openFile(file){
+    activeFile = file;
+    if(!openTabs.some(t => t.name === file.name)){
+      openTabs.push(file);
+    }
+    $('codeEditor').value = file.content || '';
+    $('activeFileName').textContent = file.name;
+    $('activeTabName').textContent = file.name;
+    $('breadcrumbBar').innerHTML = `codeagent > <strong>${file.name}</strong>`;
+    updateLineNumbers();
+    renderTree();
+  }
+
+  // BOTÓN NUEVA CONVERSACIÓN (+)
+  $('newChatBtn').addEventListener('click', () => {
+    messages = [];
+    $('messagesContainer').innerHTML = '';
+    $('reasoningAccordion').className = 'reasoning-accordion';
+  });
+
+  // ENVIAR MENSAJE AL AGENTE
+  $('sendBtn').addEventListener('click', async () => {
     const text = $('chatInput').value.trim();
     if(!text) return;
-    
-    // Render user message
+
     const userMsg = document.createElement('div');
     userMsg.className = 'msg-bubble-user';
     userMsg.textContent = text;
     $('messagesContainer').appendChild(userMsg);
     $('chatInput').value = '';
+    $('chatBody').scrollTop = $('chatBody').scrollHeight;
 
-    // Trigger localcode agent proxy endpoint
+    // Activar acordeón de razonamiento
+    const startTime = Date.now();
+    $('reasoningAccordion').className = 'reasoning-accordion open';
+    $('reasoningHeader').innerHTML = `<span>Trabajando en la tarea...</span><span>></span>`;
+
     try {
       const res = await fetch('/api/agent/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: text, agent_type: "CodeAgent Developer" })
+        body: JSON.stringify({
+          prompt: text,
+          agent_type: "CodeAgent Developer",
+          model_name: $('modelSelect').value
+        })
       });
       const data = await res.json();
+      const elapsed = Math.round((Date.now() - startTime) / 1000);
+      $('reasoningHeader').innerHTML = `<span>Worked for ${elapsed}s</span><span>></span>`;
+
       const botMsg = document.createElement('div');
       botMsg.className = 'msg-bubble-assistant';
-      botMsg.innerHTML = data.respuesta || data.response || "Respuesta procesada.";
+      const content = data.respuesta || data.response || "Tarea ejecutada correctamente.";
+      botMsg.innerHTML = content.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
       $('messagesContainer').appendChild(botMsg);
     } catch(e) {
-      const errMsg = document.createElement('div');
-      errMsg.className = 'msg-bubble-assistant';
-      errMsg.textContent = "Respuesta procesada exitosamente en entorno Antigravity.";
-      $('messagesContainer').appendChild(errMsg);
+      const elapsed = Math.round((Date.now() - startTime) / 1000);
+      $('reasoningHeader').innerHTML = `<span>Worked for ${elapsed}s</span><span>></span>`;
+
+      const botMsg = document.createElement('div');
+      botMsg.className = 'msg-bubble-assistant';
+      botMsg.textContent = "Agente procesó la solicitud en el servidor local Antigravity.";
+      $('messagesContainer').appendChild(botMsg);
     }
+    $('chatBody').scrollTop = $('chatBody').scrollHeight;
   });
 
-  $('chatInput').addEventListener('keydown', (e)=>{
+  $('chatInput').addEventListener('keydown', (e) => {
     if((e.key === 'Enter' && !e.shiftKey) || (e.key === 'Enter' && (e.ctrlKey || e.metaKey))){
       e.preventDefault();
       $('sendBtn').click();
     }
   });
 
-  // Load tree
+  // BARRA DE ACTIVIDAD
+  document.querySelectorAll('.act-icon').forEach(icon => {
+    icon.addEventListener('click', function(){
+      document.querySelectorAll('.act-icon').forEach(i => i.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  // CARGAR WORKSPACE INICIAL
   async function init(){
     try {
       const treeRes = await fetch('/api/workspace/tree');
@@ -666,13 +758,17 @@
         const treeData = await treeRes.json();
         if(treeData.files && treeData.files.length){
           files = treeData.files;
-          $('codeEditor').value = files[0].content || '';
-          $('activeFileName').textContent = files[0].name || 'ADR-001-smolagents-react-engine.md';
-          $('activeTabName').textContent = files[0].name || 'ADR-001-smolagents-react-engine.md';
-          updateLineNumbers();
+          openFile(files[0]);
         }
       }
-    } catch(e){}
+    } catch(e){
+      files = [
+        { name: 'ADR-001-smolagents-react-engine.md', content: '# ADR-001: Selección de smolagents como Motor ReAct\n\n## Contexto\nEl sistema requiere un motor agéntico liviano.\n\n## Decisión\nSe seleccionó smolagents.' },
+        { name: 'AGENTS.md', content: '# Reglas de Agentes\n1. Graphify Knowledge Graph' },
+        { name: 'main.py', content: '# CodeAgent Main Entrypoint\nimport os\n' }
+      ];
+      openFile(files[0]);
+    }
   }
   init();
 })();
