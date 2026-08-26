@@ -6,6 +6,7 @@ Compatible de forma nativa y robusta con modelos locales de 7B (como Qwen-Coder)
 import time
 import traceback
 
+import rag_tools
 import tools as mis_herramientas
 from agents import crear_agente, get_model, route_prompt
 
@@ -33,6 +34,10 @@ TOOLS_MAP = {
         mis_herramientas.git_add,
         mis_herramientas.git_commit,
         mis_herramientas.git_push,
+    ],
+    "Memoria RAG": [
+        rag_tools.indexar_directorio_local,
+        rag_tools.preguntar_a_repositorio,
     ],
 }
 
@@ -132,8 +137,20 @@ def ejecutar_agentes(
     # ── Ejecutar CodeAgent ───────────────────────────────────────────────────
     try:
         agente = crear_agente(agent_type, model, herramientas, workspace_context)
-        resultado = agente.run(user_prompt)
-        resultado_str = str(resultado)
+        if _step_callback is not None:
+            try:
+                res_last = None
+                for step in agente.run(user_prompt, stream=True):
+                    if callable(_step_callback):
+                        _step_callback(step)
+                    res_last = step
+                resultado_str = str(res_last) if res_last is not None else str(agente.run(user_prompt))
+            except Exception:
+                resultado = agente.run(user_prompt)
+                resultado_str = str(resultado)
+        else:
+            resultado = agente.run(user_prompt)
+            resultado_str = str(resultado)
     except Exception as e:
         resultado_str = (
             f"❌ Error en la ejecución del agente:\n```\n{e}\n```\n\n"

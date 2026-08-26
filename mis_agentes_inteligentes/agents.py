@@ -43,6 +43,7 @@ DEFAULT_AGENT_TOOLS = [
     "Terminal Integrada",
     "Git",
     "Github",
+    "Memoria RAG",
 ]
 
 # System prompts por agente — definidos aquí para que sean el source of truth

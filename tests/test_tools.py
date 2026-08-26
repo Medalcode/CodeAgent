@@ -101,6 +101,12 @@ class TestTools(unittest.TestCase):
             self.assertIn("Éxito", resultado)
             self.assertTrue(os.path.exists(file_path))
 
+    def test_verificar_sintaxis_post_edicion_warning(self):
+        with tempfile.TemporaryDirectory() as tmpdirname:
+            file_path = os.path.join(tmpdirname, 'broken.py')
+            res = escribir_archivo_local(file_path, "def foo(\n")
+            self.assertIn("ADVERTENCIA DE SINTAXIS POST-EDICIÓN", res)
+
 
 if __name__ == '__main__':
     unittest.main()

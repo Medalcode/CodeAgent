@@ -217,6 +217,21 @@ def leer_archivo_local(ruta_archivo: str) -> str:
     except Exception as e:
         return f"Error al leer {ruta_archivo}: {e}"
 
+def _verificar_sintaxis_post_edicion(ruta_archivo: str) -> str:
+    """Verifica automáticamente la sintaxis del archivo modificado (ej. ast.parse para Python)."""
+    if ruta_archivo.endswith('.py'):
+        try:
+            with open(ruta_archivo, encoding='utf-8') as f:
+                code = f.read()
+            import ast
+            ast.parse(code, filename=ruta_archivo)
+            return ""
+        except SyntaxError as se:
+            return f"\n⚠️ ADVERTENCIA DE SINTAXIS POST-EDICIÓN: Se detectó SyntaxError en línea {se.lineno}: {se.msg}. Por favor corrige la sintaxis."
+        except Exception:
+            return ""
+    return ""
+
 @tool
 def escribir_archivo_local(ruta_archivo: str, contenido: str) -> str:
     """Crea o sobreescribe un archivo local con el contenido proporcionado. Útil para programar, refactorizar o crear tests.
@@ -236,7 +251,8 @@ def escribir_archivo_local(ruta_archivo: str, contenido: str) -> str:
             temp_name = tf.name
 
         os.replace(temp_name, abs_path)
-        return f"Éxito: Archivo {ruta_archivo} guardado correctamente."
+        warn = _verificar_sintaxis_post_edicion(abs_path)
+        return f"Éxito: Archivo {ruta_archivo} guardado correctamente.{warn}"
     except Exception as e:
         return f"Error al escribir {ruta_archivo}: {e}"
 
@@ -369,6 +385,7 @@ def editar_archivo_search_replace(ruta_archivo: str, busqueda: str, reemplazo: s
             temp_name = tf.name
 
         os.replace(temp_name, abs_path)
+        warn = _verificar_sintaxis_post_edicion(abs_path)
 
         # Generar diff visual para confianza del usuario
         diff = list(difflib.unified_diff(
@@ -381,7 +398,7 @@ def editar_archivo_search_replace(ruta_archivo: str, busqueda: str, reemplazo: s
 
         diff_str = "".join(diff)
 
-        return f"Éxito: Archivo {ruta_archivo} editado correctamente.\n\nA continuación el diff de los cambios (asegúrate de mostrarlo al usuario):\n```diff\n{diff_str}\n```"
+        return f"Éxito: Archivo {ruta_archivo} editado correctamente.{warn}\n\nA continuación el diff de los cambios (asegúrate de mostrarlo al usuario):\n```diff\n{diff_str}\n```"
     except Exception as e:
         return f"Error al editar {ruta_archivo}: {e}"
 

@@ -22,6 +22,12 @@ class TestMainPipeline(unittest.TestCase):
         self.assertEqual(len(herramientas), 1)
         self.assertEqual(herramientas[0], mis_herramientas.guardar_reporte)
 
+    def test_get_herramientas_memoria_rag(self):
+        import rag_tools
+        herramientas = get_herramientas(["Memoria RAG"])
+        self.assertIn(rag_tools.indexar_directorio_local, herramientas)
+        self.assertIn(rag_tools.preguntar_a_repositorio, herramientas)
+
     def test_construir_contexto_workspace(self):
         contexto = _construir_contexto_workspace()
         self.assertIn("CONTEXTO", contexto)
