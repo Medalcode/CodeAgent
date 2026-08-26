@@ -107,6 +107,14 @@ class TestTools(unittest.TestCase):
             res = escribir_archivo_local(file_path, "def foo(\n")
             self.assertIn("ADVERTENCIA DE SINTAXIS POST-EDICIÓN", res)
 
+    def test_ejecutar_comando_terminal_sandbox_strict(self):
+        os.environ["STRICT_SANDBOX"] = "1"
+        try:
+            res = ejecutar_comando_terminal("powershell -Command Get-Process")
+            self.assertIn("Error de Seguridad (Sandbox)", res)
+        finally:
+            os.environ.pop("STRICT_SANDBOX", None)
+
 
 if __name__ == '__main__':
     unittest.main()

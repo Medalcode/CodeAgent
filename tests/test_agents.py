@@ -1,6 +1,7 @@
 import os
 import sys
 import unittest
+from unittest.mock import MagicMock
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../mis_agentes_inteligentes')))
 
@@ -51,6 +52,14 @@ class TestAgents(unittest.TestCase):
         prompt = "Necesito un experto en python pro para refactorizar este módulo"
         result = route_prompt(prompt)
         self.assertEqual(result, "python-pro")
+
+
+    def test_crear_agente_planning_interval(self):
+        from agents import crear_agente
+        mock_model = MagicMock()
+        mock_model.model_id = "test-model"
+        agente = crear_agente("Asistente General", mock_model, [], planning_interval=3)
+        self.assertEqual(getattr(agente, "planning_interval", 0), 3)
 
 
 if __name__ == '__main__':

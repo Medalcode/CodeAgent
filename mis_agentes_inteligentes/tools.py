@@ -285,6 +285,18 @@ def ejecutar_comando_terminal(comando: str, directorio: str = "") -> str:
             cmd_args = comando
             use_shell = True
 
+        # PR 6: Allowlist Sandboxing (defensa en profundidad)
+        allowed_env = os.getenv("ALLOWED_COMMANDS", "")
+        if allowed_env:
+            allowlist = {c.strip().lower() for c in allowed_env.split(",") if c.strip()}
+        else:
+            allowlist = {"git", "python", "python3", "pytest", "ruff", "pip", "pip3", "npm", "node", "echo", "dir", "ls", "cat", "grep", "cd", "pwd", "pytest.exe", "python.exe", "uv", "touch", "mkdir", "which", "where"}
+
+        binary_token = cmd_args[0] if isinstance(cmd_args, list) and cmd_args else comando.split()[0]
+        binary_name = os.path.basename(binary_token).lower().replace(".exe", "")
+        if os.getenv("STRICT_SANDBOX", "0") == "1" and binary_name not in allowlist:
+            return f"Error de Seguridad (Sandbox): El comando '{binary_name}' no está en la lista de binarios autorizados."
+
         try:
             result = subprocess.run(
                 cmd_args,

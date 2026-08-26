@@ -309,11 +309,12 @@ def _detectar_modelo_local(model) -> bool:
     return False
 
 
-def crear_agente(agent_type: str, model, tools_list: list, workspace_context: str = ""):
+def crear_agente(agent_type: str, model, tools_list: list, workspace_context: str = "", planning_interval: int = 0):
     """
     Crea el CodeAgent de smolagents.
     FIX: usa instructions para smolagents >=1.26.
     FIX: template simplificado en español para modelos locales.
+    NUEVO: soporta planning_interval para replanificación visible.
     """
     # 1. Obtener system_prompt base del tipo de agente
     system_prompt = SYSTEM_PROMPTS.get(agent_type, "")
@@ -327,26 +328,21 @@ def crear_agente(agent_type: str, model, tools_list: list, workspace_context: st
     if workspace_context:
         system_prompt = f"{system_prompt}\n\n{workspace_context}"
 
-    # 4. Para modelos locales, usar template simplificado en español
-    if _detectar_modelo_local(model):
-        return CodeAgent(
-            tools=tools_list,
-            model=model,
-            prompt_templates=_LOCAL_MODEL_TEMPLATE,
-            instructions=system_prompt,
-            max_steps=20,
-            additional_authorized_imports=[
-                'os', 'subprocess', 'requests', 'json', 're', 'datetime', 'pathlib'
-            ]
-        )
-
-    # 5. Para modelos cloud, usar el template por defecto de smolagents
-    return CodeAgent(
-        tools=tools_list,
-        model=model,
-        instructions=system_prompt,
-        max_steps=20,
-        additional_authorized_imports=[
+    agent_kwargs = {
+        "tools": tools_list,
+        "model": model,
+        "instructions": system_prompt,
+        "max_steps": 20,
+        "additional_authorized_imports": [
             'os', 'subprocess', 'requests', 'json', 're', 'datetime', 'pathlib'
         ]
-    )
+    }
+
+    if planning_interval > 0:
+        agent_kwargs["planning_interval"] = planning_interval
+
+    # 4. Para modelos locales, usar template simplificado en español
+    if _detectar_modelo_local(model):
+        agent_kwargs["prompt_templates"] = _LOCAL_MODEL_TEMPLATE
+
+    return CodeAgent(**agent_kwargs)
