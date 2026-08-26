@@ -509,7 +509,11 @@
   <div class="sidebar">
     <div class="sidebar-header">
       <span>Archivos</span>
-      <button class="add-file-btn" id="addFileBtn" title="Nuevo archivo">+</button>
+      <div style="display:flex;gap:4px;">
+        <button class="add-file-btn" id="openFolderBtn" title="Abrir carpeta local del PC">📁</button>
+        <button class="add-file-btn" id="importGithubBtn" title="Importar repositorio de GitHub">🐙</button>
+        <button class="add-file-btn" id="addFileBtn" title="Nuevo archivo">+</button>
+      </div>
     </div>
     <div class="file-list" id="fileList"></div>
   </div>
@@ -718,6 +722,68 @@
     updateCharCount();
     saveFiles();
   }
+
+  /* ---------------- open local folder / github repo ---------------- */
+  async function openLocalFolder(targetPath){
+    if(!targetPath){
+      targetPath = prompt("Introduce la ruta absoluta de la carpeta de tu PC (ej. C:\\Proyectos\\MiRepo):");
+    }
+    if(!targetPath) return;
+
+    try {
+      const res = await fetch('/api/workspace/open-folder', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ path: targetPath })
+      });
+      const data = await res.json();
+      if(data.success && data.files){
+        files = data.files.map(f => ({ id: uid(), name: f.name, content: f.content }));
+        activeFileId = files.length ? files[0].id : null;
+        saveFiles(); saveActiveFileId();
+        renderFileList(); renderEditor();
+        alert(`📁 Repositorio local cargado con éxito (${files.length} archivos).`);
+      } else {
+        alert("⚠️ No se pudo abrir la carpeta: " + (data.error || "Ruta no encontrada"));
+      }
+    } catch(e){
+      alert("⚠️ Error conectando al servidor local: " + e.message);
+    }
+  }
+
+  async function importGithubRepo(){
+    const raw = prompt("Introduce la URL de GitHub o usuario/repositorio (ej. https://github.com/Medalcode/CodeAgent o Medalcode/CodeAgent):");
+    if(!raw) return;
+
+    try {
+      const btn = $('importGithubBtn');
+      if(btn) btn.textContent = '⏳';
+      const res = await fetch('/api/github/import', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ repo: raw })
+      });
+      const data = await res.json();
+      if(btn) btn.textContent = '🐙';
+
+      if(data.success && data.files){
+        files = data.files.map(f => ({ id: uid(), name: f.name, content: f.content }));
+        activeFileId = files.length ? files[0].id : null;
+        saveFiles(); saveActiveFileId();
+        renderFileList(); renderEditor();
+        alert(`🐙 Repositorio GitHub "${data.repo}" importado con éxito (${files.length} archivos).`);
+      } else {
+        alert("⚠️ No se pudo importar el repositorio: " + (data.error || "Repositorio no encontrado"));
+      }
+    } catch(e){
+      const btn = $('importGithubBtn');
+      if(btn) btn.textContent = '🐙';
+      alert("⚠️ Error importando repositorio: " + e.message);
+    }
+  }
+
+  if($('openFolderBtn')) $('openFolderBtn').addEventListener('click', () => openLocalFolder());
+  if($('importGithubBtn')) $('importGithubBtn').addEventListener('click', () => importGithubRepo());
 
   $('addFileBtn').addEventListener('click', addFile);
   $('fileNameInput').addEventListener('input', ()=>{
@@ -1085,8 +1151,23 @@
     renderEditor();
     renderMessages();
     checkConnection();
+
+    // Intentar cargar la estructura real del workspace local vía localcode_server.py
+    try {
+      const treeRes = await fetch('/api/workspace/tree');
+      if(treeRes.ok){
+        const treeData = await treeRes.json();
+        if(treeData.success && treeData.files && treeData.files.length){
+          files = treeData.files.map(f => ({ id: uid(), name: f.name, content: f.content }));
+          activeFileId = files.length ? files[0].id : null;
+          saveFiles(); saveActiveFileId();
+          renderFileList(); renderEditor();
+        }
+      }
+    } catch(e){}
+
     if(!files.length){
-      // seed with a friendly example file
+      // seed con un archivo de ejemplo
       files.push({id:uid(), name:'ejemplo.js', content:'function suma(a, b) {\n  return a + b;\n}\n'});
       activeFileId = files[0].id;
       saveFiles(); saveActiveFileId();
