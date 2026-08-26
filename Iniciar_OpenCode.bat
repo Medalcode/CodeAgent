@@ -63,9 +63,8 @@ python claude_code_cli.py
 goto END
 
 :LAUNCH_HTML
-echo Lanzando LocalCode HTML en el navegador...
-cd /d "%~dp0"
-start localcode_claude_ui.html
+echo Lanzando Servidor Proxy LocalCode (Anti-CORS / NetworkError)...
+python localcode_server.py
 goto END
 
 :END

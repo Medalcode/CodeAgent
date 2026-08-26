@@ -797,13 +797,33 @@
     const dot = $('statusDot'), text = $('statusText');
     dot.className = 'dot pending';
     text.textContent = 'verificando…';
+
+    const tryFetch = async (targetEndpoint) => {
+      const res = await fetch(targetEndpoint.replace(/\/+$/,'') + '/api/tags', { method:'GET' });
+      return { res, endpointUsed: targetEndpoint };
+    };
+
     try{
-      const res = await fetch(settings.endpoint + '/api/tags', { method:'GET' });
-      if(res.ok){
+      let result;
+      try {
+        result = await tryFetch(settings.endpoint);
+      } catch(e) {
+        // Fallback automático al servidor proxy origin si el directo falla por CORS/NetworkError
+        const altEndpoint = window.location.origin && window.location.origin.startsWith('http') ? window.location.origin : 'http://localhost:8000';
+        if (settings.endpoint !== altEndpoint) {
+          result = await tryFetch(altEndpoint);
+          settings.endpoint = altEndpoint;
+          saveSettings();
+        } else {
+          throw e;
+        }
+      }
+
+      if(result.res.ok){
         dot.className = 'dot ok';
         text.textContent = 'conectado';
         try {
-          const data = await res.json();
+          const data = await result.res.json();
           if(data && data.models && data.models.length){
             const names = data.models.map(m => m.name);
             if(!settings.model || !names.includes(settings.model)){
@@ -815,7 +835,7 @@
         } catch(e){}
       }else{
         dot.className = 'dot err';
-        text.textContent = 'error ' + res.status;
+        text.textContent = 'error ' + result.res.status;
       }
     }catch(e){
       dot.className = 'dot err';
