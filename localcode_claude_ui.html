@@ -1134,9 +1134,6 @@
     saveMessages();
     renderMessages();
 
-    const apiMessages = [{role:'system', content: buildSystemPrompt()}]
-      .concat(messages.filter(m=>m.role!=='error').map(m=>({role:m.role, content:m.content})));
-
     setSending(true);
     abortController = new AbortController();
 
@@ -1149,6 +1146,35 @@
     bubbleEl.innerHTML = '<p><span class="streaming-cursor"></span></p>';
 
     let accumulated = '';
+
+    // 1. Intentar llamar al pipeline autónomo de CodeAgent (/api/agent/chat) con herramientas locales reales
+    try {
+      const agentRes = await fetch('/api/agent/chat', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        signal: abortController.signal,
+        body: JSON.stringify({ prompt: text, model: settings.model })
+      });
+
+      if(agentRes.ok){
+        const agentData = await agentRes.json();
+        if(agentData.success && agentData.response){
+          accumulated = agentData.response;
+          placeholder.content = accumulated;
+          saveMessages();
+          renderMessages();
+          setSending(false);
+          return;
+        }
+      }
+    } catch(e) {
+      // Fallback a llamada directa de Ollama si no está disponible el backend de agentes
+    }
+
+    // 2. Fallback a streaming directo de Ollama /api/chat
+    const apiMessages = [{role:'system', content: buildSystemPrompt()}]
+      .concat(messages.filter(m=>m.role!=='error' && m!==placeholder).map(m=>({role:m.role, content:m.content})));
+
     try{
       const res = await fetch(settings.endpoint + '/api/chat', {
         method:'POST',

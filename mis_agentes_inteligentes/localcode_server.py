@@ -10,6 +10,8 @@ import io
 import json
 import os
 import socketserver
+import sys
+import traceback
 import urllib.parse
 import urllib.request
 import webbrowser
@@ -51,6 +53,8 @@ class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
             self.handle_github_import()
         elif self.path.startswith("/api/workspace/save"):
             self.handle_save_file()
+        elif self.path.startswith("/api/agent/chat"):
+            self.handle_agent_chat()
         elif self.path.startswith("/api/chat") or self.path.startswith("/api/tags"):
             self.proxy_to_ollama("POST")
         else:
@@ -205,6 +209,30 @@ class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
             self._send_json({"success": True, "repo": f"{owner}/{repo}", "files": files_found})
         except Exception as e:
             self._send_json({"success": False, "error": f"Error al descomprimir el repositorio de GitHub: {e}"}, 500)
+
+    def handle_agent_chat(self):
+        data = self._get_post_body()
+        prompt = data.get("prompt", "").strip()
+        model_name = data.get("model", "qwen2.5-coder:14b")
+
+        if not prompt:
+            self._send_json({"success": False, "error": "Prompt vacío"}, 400)
+            return
+
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        try:
+            import main as codeagent_main
+            respuesta, metricas = codeagent_main.ejecutar_agentes(
+                user_prompt=prompt,
+                provider="Ollama (Local)",
+                model_name=model_name,
+                api_key="",
+                agent_type="Claude Code (Local OpenCode)",
+                selected_tools=["Archivos Locales", "Terminal Integrada", "Git"]
+            )
+            self._send_json({"success": True, "response": respuesta, "metrics": metricas})
+        except Exception as e:
+            self._send_json({"success": False, "error": f"Error ejecutando Agente CodeAgent: {e}", "trace": traceback.format_exc()}, 500)
 
     def proxy_to_ollama(self, method):
         target_hosts = ["http://127.0.0.1:11434", "http://localhost:11434"]
