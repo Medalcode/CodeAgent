@@ -12,7 +12,14 @@ Un Centro de Mando Avanzado para Agentes Inteligentes, construido con **Python, 
 - **⚡ Alto Rendimiento en UI:** Implementación de `@st.cache_data` para el parseo de sesiones JSON, logrando una interfaz gráfica responsiva que no bloquea el hilo principal al cargar el historial.
 - **👀 Observabilidad Total:** Integración transparente sin silenciar flujos en el *backend*, lo que permite monitorear toda la Cadena de Pensamientos (CoT) y llamadas a herramientas del agente en la terminal de forma nativa.
 - **🌐 Integración con Graphify:** Conocimiento estructural del código mediante un knowledge graph de AST. Compatible con asistentes como Claude, Cursor y OpenCode para exploraciones más inteligentes.
-- **🛠️ Configuración Desacoplada:** El LLM local (Ollama) ya no está fijo al localhost, permitiendo despliegues en clúster utilizando la variable de entorno `OLLAMA_API_BASE`.
+### 🚀 Proactividad Agéntica, Observabilidad y Calidad de Código (v2.5.0)
+- **Streaming Paso a Paso (`ActionStep`):** Ejecución reactiva con `stream=True` notificando pensamientos, llamadas a herramientas y observaciones en tiempo real.
+- **Auto-Detección de Raíz de Proyecto (`_detectar_raiz_proyecto`):** Resolución automática de la raíz real del repositorio (`CodeAgent/`) buscando `.git`, `AGENTS.md` o `graphify-out/`.
+- **Inyección Automática de Reglas (`AGENTS.md` y `.agents/rules`):** Inclusión transparente de guías de arquitectura y señales explícitas sobre el grafo `graphify` para el agente.
+- **Expansión de Contexto Ollama (`num_ctx=8192+`):** Gestión optimizada de memoria VRAM reduciendo la pérdida de atención en modelos de 7B/14B.
+- **Sandboxing por Allowlist (`STRICT_SANDBOX`):** Restricción de ejecutables permitidos en la terminal (`ALLOWED_COMMANDS`).
+- **Verificación Sintáctica AST Post-Edición:** Análisis inmediato con `ast.parse` tras escrituras en archivos Python.
+- **Suite de Pruebas Extendido (57/57 pasadas):** Creación de `tests/test_e2e_suite.py` y cobertura de 5 niveles (Unit, Integration, E2E, Smoke, Regression).
 
 ### 🛡️ Últimas Mejoras de Fiabilidad, Calidad Técnica y QA (v2.3.0)
 - **Refactorización de Rutas Absolutas:** Anclamiento de `SESSIONS_DIR` en `session_manager.py` y `DB_DIR` en `rag_tools.py` al directorio raíz del módulo (`BASE_DIR`).

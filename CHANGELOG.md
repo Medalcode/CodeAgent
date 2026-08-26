@@ -4,6 +4,22 @@ Todos los cambios notables realizados en este proyecto serán documentados en es
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/), y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.0] - 2026-08-26
+
+### Fixed
+- **fix(workspace):** Detección automática de la raíz del proyecto (`_detectar_raiz_proyecto`) mediante ascenso en la jerarquía de directorios localizando `.git`, `AGENTS.md` o `graphify-out/`.
+- **fix(ollama):** Expansión de la ventana de contexto `num_ctx` a 8192+ tokens en `agents.py::get_model()` para prevenir el olvido del prompt ReAct en modelos locales.
+- **fix(terminal):** Implementación de `_safe_print` en `localcode_server.py` para prevenir fallos `UnicodeEncodeError` por caracteres emoji en terminales Windows con codificación `cp1252`.
+
+### Added
+- **feat(agent):** Streaming en tiempo real de pasos `ActionStep` (`stream=True` y `_step_callback`) en `main.py`.
+- **feat(agent):** Registro nativo de `Memoria RAG` (`indexar_directorio_local` y `preguntar_a_repositorio`) en `DEFAULT_AGENT_TOOLS`.
+- **feat(security):** Verificación sintáctica AST automática (`ast.parse`) post-edición de código Python en `tools.py`.
+- **feat(security):** Modo de sandboxing por allowlist (`STRICT_SANDBOX` y `ALLOWED_COMMANDS`) para ejecuciones en terminal.
+- **test(qa):** Creación de la suite de pruebas End-to-End `tests/test_e2e_suite.py` alcanzando 57 pruebas pasadas (100% éxito).
+
+---
+
 ## [2.4.0] - 2026-08-26
 
 ### Fixed

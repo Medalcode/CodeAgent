@@ -34,11 +34,11 @@ RUN chown -R appuser:appuser /app
 # Cambiar a usuario sin privilegios
 USER appuser
 
-EXPOSE 8501 8000
+EXPOSE 8000 8501
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-    CMD curl --fail http://localhost:8501/_stcore/health || exit 1
+    CMD curl --fail http://localhost:8000/metrics || exit 1
 
 WORKDIR /app/mis_agentes_inteligentes
 
-ENTRYPOINT ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+ENTRYPOINT ["python3", "localcode_server.py"]
