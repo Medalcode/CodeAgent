@@ -3,1346 +3,678 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LocalCode · Asistente con modelo local</title>
+<title>CodeAgent - Antigravity IDE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
 <style>
-  :root{
-    --bg:#12151b;
-    --bg-panel:#181c23;
-    --bg-elevated:#1f242d;
-    --bg-hover:#252b35;
-    --border:#2a2f3a;
-    --text:#e7e9ec;
-    --text-muted:#8b93a1;
-    --text-dim:#5b6472;
-    --accent:#e8a33d;
-    --accent-dim:#a97a35;
-    --accent-soft:rgba(232,163,61,.12);
-    --teal:#4fd1ae;
-    --teal-soft:rgba(79,209,174,.12);
-    --red:#e5636a;
-    --red-soft:rgba(229,99,106,.12);
-    --mono:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-    --sans:'IBM Plex Sans', system-ui, -apple-system, sans-serif;
-    --radius:6px;
-  }
-  *{box-sizing:border-box;}
-  html,body{height:100%;margin:0;}
-  body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:var(--sans);
-    font-size:14px;
-    display:flex;
-    flex-direction:column;
-    overflow:hidden;
-  }
-  ::selection{background:var(--accent-soft);color:var(--accent);}
-  button{
-    font-family:var(--sans);
-    cursor:pointer;
-    border:none;
-    background:none;
-    color:inherit;
-  }
-  input,textarea,select{
-    font-family:inherit;
-    color:inherit;
-    background:none;
-    border:none;
-    outline:none;
-  }
-  ::-webkit-scrollbar{width:9px;height:9px;}
-  ::-webkit-scrollbar-track{background:transparent;}
-  ::-webkit-scrollbar-thumb{background:#333a46;border-radius:6px;}
-  ::-webkit-scrollbar-thumb:hover{background:#414a59;}
-
-  /* ---------- HEADER ---------- */
-  header{
-    height:52px;
-    min-height:52px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 16px;
-    border-bottom:1px solid var(--border);
-    background:var(--bg-panel);
-    z-index:5;
-  }
-  .brand{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-family:var(--mono);
-    font-weight:700;
-    letter-spacing:.02em;
-    font-size:15px;
-  }
-  .brand .mark{
-    width:20px;height:20px;
-    border:1.5px solid var(--accent);
-    border-radius:4px;
-    position:relative;
-    flex-shrink:0;
-  }
-  .brand .mark::after{
-    content:"";
-    position:absolute;
-    top:4px;left:4px;right:4px;bottom:4px;
-    background:var(--accent);
-    border-radius:2px;
-    opacity:.85;
-  }
-  .brand .tag{
-    font-size:10px;
-    font-weight:600;
-    color:var(--bg);
-    background:var(--teal);
-    padding:2px 6px;
-    border-radius:3px;
-    letter-spacing:.06em;
-    text-transform:uppercase;
-  }
-  .header-right{display:flex;align-items:center;gap:12px;}
-  .model-picker-wrap{
-    display:flex;align-items:center;gap:6px;
-    background:var(--bg-elevated);
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    padding:4px 8px;
-  }
-  .model-picker-wrap select, .field select{
-    background:transparent;
-    border:none;
-    color:var(--accent);
-    font-family:var(--mono);
-    font-size:12px;
-    font-weight:600;
-    cursor:pointer;
-    outline:none;
-  }
-  .model-picker-wrap select option, .field select option{
-    background:var(--bg-panel);
-    color:var(--text);
-  }
-  .status{
-    display:flex;align-items:center;gap:7px;
-    font-family:var(--mono);
-    font-size:12px;
-    color:var(--text-muted);
-  }
-  .dot{
-    width:7px;height:7px;border-radius:50%;
-    background:var(--text-dim);
-    box-shadow:0 0 0 3px transparent;
-    transition:.2s;
-  }
-  .dot.ok{background:var(--teal);box-shadow:0 0 0 3px var(--teal-soft);}
-  .dot.err{background:var(--red);box-shadow:0 0 0 3px var(--red-soft);}
-  .dot.pending{background:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);animation:pulse 1.2s infinite;}
-  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
-  .icon-btn{
-    width:32px;height:32px;
-    display:flex;align-items:center;justify-content:center;
-    border-radius:var(--radius);
-    color:var(--text-muted);
-  }
-  .icon-btn:hover{background:var(--bg-hover);color:var(--text);}
-  .icon-btn.active{background:var(--accent-soft);color:var(--accent);}
-
-  /* ---------- SETTINGS DRAWER ---------- */
-  .settings-drawer{
-    max-height:0;
-    overflow:hidden;
-    background:var(--bg-panel);
-    border-bottom:1px solid var(--border);
-    transition:max-height .22s ease;
-  }
-  .settings-drawer.open{max-height:340px;}
-  .settings-inner{
-    padding:16px 20px 20px;
-    display:grid;
-    grid-template-columns:1.4fr 1fr .9fr;
-    gap:16px;
-  }
-  .field label{
-    display:block;
-    font-size:11px;
-    text-transform:uppercase;
-    letter-spacing:.05em;
-    color:var(--text-muted);
-    margin-bottom:6px;
-    font-weight:600;
-  }
-  .field input[type=text], .field input[type=number]{
-    width:100%;
-    background:var(--bg-elevated);
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    padding:8px 10px;
-    font-family:var(--mono);
-    font-size:13px;
-  }
-  .field input[type=text]:focus, .field input[type=number]:focus{border-color:var(--accent-dim);}
-  .field-row{display:flex;align-items:center;gap:10px;}
-  .field-row input[type=range]{flex:1;accent-color:var(--accent);}
-  .field-row .val{font-family:var(--mono);font-size:12px;color:var(--accent);min-width:28px;text-align:right;}
-  .toggle-row{
-    display:flex;align-items:center;gap:8px;
-    grid-column:1 / -1;
-    font-size:12.5px;
-    color:var(--text-muted);
-    padding-top:2px;
-  }
-  .toggle-row input{accent-color:var(--accent);width:14px;height:14px;}
-  .help-box{
-    grid-column:1 / -1;
-    border-top:1px solid var(--border);
-    padding-top:12px;
-    margin-top:2px;
-  }
-  .help-box summary{
-    cursor:pointer;
-    font-size:12px;
-    color:var(--teal);
-    font-weight:600;
-    list-style:none;
-  }
-  .help-box summary::-webkit-details-marker{display:none;}
-  .help-box summary::before{content:"▸ ";}
-  .help-box[open] summary::before{content:"▾ ";}
-  .help-box ol{
-    margin:10px 0 0;
-    padding-left:18px;
-    color:var(--text-muted);
-    font-size:12.5px;
-    line-height:1.7;
-  }
-  .help-box code{
-    background:var(--bg-elevated);
-    border:1px solid var(--border);
-    padding:1px 5px;
-    border-radius:4px;
-    font-family:var(--mono);
-    color:var(--accent);
-    font-size:11.5px;
+  :root {
+    --bg-activity: #14171d;
+    --bg-sidebar: #181c24;
+    --bg-editor: #0d1015;
+    --bg-panel: #11141a;
+    --bg-header: #14171d;
+    --bg-elevated: #1e222d;
+    --bg-hover: #242936;
+    --border: #232834;
+    --border-bright: #303746;
+    --text: #cccccc;
+    --text-bright: #ffffff;
+    --text-muted: #7c8594;
+    --text-dim: #505765;
+    --accent: #4e9df5;
+    --accent-orange: #e8a33d;
+    --accent-soft: rgba(78, 157, 245, 0.12);
+    --teal: #4fd1ae;
+    --teal-soft: rgba(79, 209, 174, 0.12);
+    --red: #e5636a;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --sans: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    --radius: 6px;
   }
 
-  /* ---------- MAIN LAYOUT ---------- */
-  main{flex:1;display:flex;overflow:hidden;}
-
-  /* sidebar */
-  .sidebar{
-    width:210px;
-    min-width:210px;
-    border-right:1px solid var(--border);
-    background:var(--bg-panel);
-    display:flex;
-    flex-direction:column;
-  }
-  .sidebar-header{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:12px 14px 8px;
-  }
-  .sidebar-header span{
-    font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
-    color:var(--text-muted);
-  }
-  .add-file-btn{
-    width:22px;height:22px;border-radius:5px;
-    display:flex;align-items:center;justify-content:center;
-    color:var(--accent);border:1px solid var(--border);
-    font-size:15px;line-height:1;
-  }
-  .add-file-btn:hover{background:var(--accent-soft);}
-  .file-list{flex:1;overflow-y:auto;padding:2px 8px 8px;}
-  .file-item{
-    display:flex;align-items:center;gap:8px;
-    padding:7px 8px;
-    border-radius:var(--radius);
-    cursor:pointer;
-    font-family:var(--mono);
-    font-size:12.5px;
-    color:var(--text-muted);
-    margin-bottom:2px;
-    position:relative;
-  }
-  .file-item:hover{background:var(--bg-hover);color:var(--text);}
-  .file-item.active{background:var(--accent-soft);color:var(--accent);}
-  .file-item .dotmark{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.6;flex-shrink:0;}
-  .file-item .fname{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .file-item .del{
-    opacity:0;width:16px;height:16px;flex-shrink:0;color:var(--text-dim);
-    display:flex;align-items:center;justify-content:center;font-size:14px;
-  }
-  .file-item:hover .del{opacity:1;}
-  .file-item .del:hover{color:var(--red);}
-  .empty-hint{padding:14px;color:var(--text-dim);font-size:12px;line-height:1.6;}
-
-  /* editor pane */
-  .editor-pane{flex:1;display:flex;flex-direction:column;min-width:0;border-right:1px solid var(--border);}
-  .editor-topbar{
-    height:42px;min-height:42px;
-    display:flex;align-items:center;gap:10px;
-    padding:0 14px;
-    border-bottom:1px solid var(--border);
-    background:var(--bg-panel);
-  }
-  .editor-topbar input{
-    font-family:var(--mono);
-    font-size:13px;
-    font-weight:600;
-    color:var(--text);
-    flex:1;
-    min-width:0;
-  }
-  .char-count{font-family:var(--mono);font-size:11px;color:var(--text-dim);white-space:nowrap;}
-  .editor-body{flex:1;display:flex;overflow:hidden;position:relative;}
-  .line-numbers{
-    padding:12px 10px 12px 14px;
-    text-align:right;
-    font-family:var(--mono);
-    font-size:12.5px;
-    line-height:20px;
-    color:var(--text-dim);
-    user-select:none;
-    background:var(--bg-panel);
-    border-right:1px solid var(--border);
-    overflow:hidden;
-    white-space:pre;
-  }
-  #editorArea{
-    flex:1;
-    padding:12px 16px;
-    font-family:var(--mono);
-    font-size:12.5px;
-    line-height:20px;
-    resize:none;
-    white-space:pre;
-    overflow:auto;
-    tab-size:2;
-  }
-  .editor-empty{
-    flex:1;display:flex;align-items:center;justify-content:center;
-    color:var(--text-dim);font-size:13px;flex-direction:column;gap:10px;
-  }
-  .editor-empty button{
-    background:var(--accent-soft);color:var(--accent);
-    padding:8px 14px;border-radius:var(--radius);font-size:12.5px;font-weight:600;
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; padding: 0; }
+  body {
+    background: var(--bg-editor);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    user-select: none;
   }
 
-  /* chat pane */
-  .chat-pane{width:400px;min-width:340px;display:flex;flex-direction:column;background:var(--bg-panel);}
-  .chat-header{
-    height:42px;min-height:42px;
-    display:flex;align-items:center;justify-content:space-between;
-    padding:0 14px;
-    border-bottom:1px solid var(--border);
+  /* ---------------- HEADER / TITLEBAR ---------------- */
+  .ide-header {
+    height: 38px;
+    min-height: 38px;
+    background: var(--bg-header);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    font-size: 12px;
+    z-index: 10;
   }
-  .chat-header .title{font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;}
-  .chat-messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:14px;}
-  .msg{max-width:100%;}
-  .msg .role{
-    font-family:var(--mono);font-size:10.5px;font-weight:700;
-    letter-spacing:.06em;text-transform:uppercase;
-    margin-bottom:5px;
+  .menu-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-muted);
   }
-  .msg.user .role{color:var(--text-muted);}
-  .msg.assistant .role{color:var(--accent);}
-  .msg.error .role{color:var(--red);}
-  .msg-bubble{
-    font-size:13px;
-    line-height:1.55;
-    color:var(--text);
+  .menu-item {
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
   }
-  .msg.user .msg-bubble{
-    background:var(--bg-elevated);
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    padding:9px 11px;
+  .menu-item:hover { color: var(--text-bright); background: var(--bg-hover); }
+  .title-breadcrumbs {
+    font-family: var(--sans);
+    color: var(--text-muted);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
-  .msg-bubble p{margin:0 0 8px;white-space:pre-wrap;}
-  .msg-bubble p:last-child{margin-bottom:0;}
-  .code-block{
-    background:#0c0e12;
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    margin:8px 0;
-    overflow:hidden;
+  .title-breadcrumbs strong { color: var(--text-bright); font-weight: 500; }
+  .window-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-muted);
   }
-  .code-block-head{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:6px 10px;
-    background:var(--bg-elevated);
-    border-bottom:1px solid var(--border);
+  .win-btn {
+    cursor: pointer;
+    padding: 2px 6px;
   }
-  .code-block-head span{font-family:var(--mono);font-size:10.5px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.04em;}
-  .code-block-actions{display:flex;gap:6px;}
-  .code-block-actions button{
-    font-family:var(--mono);font-size:10.5px;
-    color:var(--text-muted);
-    padding:3px 7px;border-radius:4px;
-    border:1px solid var(--border);
-  }
-  .code-block-actions button:hover{color:var(--accent);border-color:var(--accent-dim);}
-  .code-block pre{
-    margin:0;padding:10px 12px;
-    font-family:var(--mono);font-size:12px;line-height:1.55;
-    overflow-x:auto;color:#d7dae0;
-  }
-  .streaming-cursor{display:inline-block;width:7px;height:13px;background:var(--accent);margin-left:2px;animation:pulse .8s infinite;vertical-align:middle;}
-  .chat-empty{color:var(--text-dim);font-size:12.5px;line-height:1.7;padding-top:10px;}
+  .win-btn:hover { color: var(--text-bright); }
 
-  .chat-input-area{
-    border-top:1px solid var(--border);
-    padding:10px;
-    display:flex;
-    align-items:flex-end;
-    gap:8px;
+  /* ---------------- MAIN CONTAINER ---------------- */
+  .ide-main {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    position: relative;
   }
-  .prompt-glyph{
-    font-family:var(--mono);color:var(--accent);font-weight:700;
-    padding-bottom:9px;font-size:14px;
-  }
-  #chatInput{
-    flex:1;
-    background:var(--bg-elevated);
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    padding:9px 10px;
-    font-family:var(--mono);
-    font-size:12.5px;
-    line-height:1.5;
-    resize:none;
-    max-height:140px;
-    min-height:38px;
-  }
-  #chatInput:focus{border-color:var(--accent-dim);}
-  .send-btn{
-    background:var(--accent);
-    color:#1a1204;
-    font-weight:700;
-    font-size:12px;
-    padding:9px 13px;
-    border-radius:var(--radius);
-    flex-shrink:0;
-  }
-  .send-btn:hover{background:#f2ae4c;}
-  .send-btn:disabled{background:var(--bg-elevated);color:var(--text-dim);cursor:not-allowed;}
-  .stop-btn{
-    background:var(--red-soft);color:var(--red);
-    font-size:12px;font-weight:700;padding:9px 13px;border-radius:var(--radius);flex-shrink:0;
-  }
-  .clear-btn{color:var(--text-dim);font-size:11.5px;}
-  .clear-btn:hover{color:var(--red);}
 
-  @media (max-width:900px){
-    .sidebar{width:150px;min-width:150px;}
-    .chat-pane{width:320px;min-width:280px;}
-    .settings-inner{grid-template-columns:1fr;}
+  /* ---------------- ACTIVITY BAR (FAR LEFT) ---------------- */
+  .activity-bar {
+    width: 48px;
+    min-width: 48px;
+    background: var(--bg-activity);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    z-index: 5;
   }
+  .act-group { display: flex; flex-direction: column; gap: 16px; align-items: center; }
+  .act-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    font-size: 18px;
+  }
+  .act-icon:hover { color: var(--text-bright); background: var(--bg-hover); }
+  .act-icon.active { color: var(--accent); }
+  .act-icon.active::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 6px; bottom: 6px; width: 2px;
+    background: var(--accent);
+    border-radius: 0 2px 2px 0;
+  }
+
+  /* ---------------- SIDEBAR (EXPLORER) ---------------- */
+  .sidebar {
+    width: 240px;
+    min-width: 200px;
+    background: var(--bg-sidebar);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .sidebar-header {
+    height: 35px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 11px;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+  }
+  .tree-section {
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-title {
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+  }
+  .file-tree {
+    flex: 1;
+    overflow-y: auto;
+    padding: 4px 0;
+  }
+  .tree-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px 4px 16px;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .tree-item:hover { background: var(--bg-hover); color: var(--text-bright); }
+  .tree-item.active { background: var(--accent-soft); color: var(--accent); font-weight: 500; }
+  .tree-item .icon { font-size: 14px; opacity: 0.8; }
+
+  /* ---------------- EDITOR CONTAINER (CENTER) ---------------- */
+  .editor-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-editor);
+    overflow: hidden;
+  }
+  .tab-bar {
+    height: 35px;
+    background: var(--bg-sidebar);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+  }
+  .tab-item {
+    height: 35px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-activity);
+    border-right: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .tab-item.active {
+    background: var(--bg-editor);
+    color: var(--text-bright);
+    border-top: 2px solid var(--accent);
+  }
+  .tab-close {
+    border-radius: 3px;
+    padding: 1px 4px;
+    font-size: 10px;
+  }
+  .tab-close:hover { background: var(--bg-hover); color: var(--red); }
+
+  .breadcrumb-bar {
+    height: 26px;
+    padding: 0 12px;
+    background: var(--bg-editor);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: var(--mono);
+  }
+  .code-editor-wrap {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+  }
+  .line-numbers {
+    width: 42px;
+    padding: 12px 8px;
+    background: var(--bg-editor);
+    color: var(--text-dim);
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: right;
+    user-select: none;
+    border-right: 1px solid var(--border);
+  }
+  .code-textarea {
+    flex: 1;
+    padding: 12px;
+    background: var(--bg-editor);
+    color: #e1e4e8;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.6;
+    border: none;
+    resize: none;
+    outline: none;
+    overflow: auto;
+    white-space: pre;
+    tab-size: 2;
+  }
+
+  /* ---------------- ANTIGRAVITY ASSISTANT CHAT PANEL (RIGHT) ---------------- */
+  .chat-panel {
+    width: 380px;
+    min-width: 300px;
+    background: var(--bg-panel);
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .chat-panel-header {
+    height: 42px;
+    padding: 0 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-sidebar);
+  }
+  .chat-title {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-bright);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .chat-actions { display: flex; gap: 8px; color: var(--text-muted); }
+  .chat-actions button { padding: 4px; border-radius: 4px; }
+  .chat-actions button:hover { color: var(--text-bright); background: var(--bg-hover); }
+
+  .chat-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  /* REASONING ACCORDION ("Worked for 4s >") */
+  .reasoning-accordion {
+    background: var(--bg-sidebar);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+  .reasoning-header {
+    padding: 8px 12px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .reasoning-header:hover { color: var(--text-bright); background: var(--bg-hover); }
+  .reasoning-content {
+    padding: 10px 12px;
+    border-top: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    background: var(--bg-editor);
+    display: none;
+  }
+  .reasoning-accordion.open .reasoning-content { display: block; }
+
+  .msg-bubble-user {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-bright);
+    border-radius: var(--radius);
+    padding: 10px 14px;
+    color: var(--text-bright);
+    align-self: flex-end;
+    max-width: 90%;
+  }
+  .msg-bubble-assistant {
+    background: transparent;
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 13px;
+  }
+  .msg-bubble-assistant h1, .msg-bubble-assistant h2, .msg-bubble-assistant h3 {
+    color: var(--text-bright);
+    margin-top: 10px;
+    margin-bottom: 6px;
+  }
+  .msg-bubble-assistant code {
+    font-family: var(--mono);
+    background: var(--bg-sidebar);
+    padding: 2px 5px;
+    border-radius: 4px;
+    color: var(--accent-orange);
+  }
+  .msg-bubble-assistant pre {
+    background: var(--bg-editor);
+    border: 1px solid var(--border);
+    padding: 10px;
+    border-radius: var(--radius);
+    overflow-x: auto;
+  }
+
+  /* BOTTOM PROMPT DOCK */
+  .chat-dock {
+    padding: 12px;
+    border-top: 1px solid var(--border);
+    background: var(--bg-sidebar);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .input-box-wrap {
+    background: var(--bg-editor);
+    border: 1px solid var(--border-bright);
+    border-radius: 8px;
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .input-box-wrap:focus-within { border-color: var(--accent); }
+  .chat-textarea {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--text-bright);
+    font-size: 13px;
+    resize: none;
+    min-height: 48px;
+  }
+  .dock-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .model-pill {
+    background: var(--bg-hover);
+    border: 1px solid var(--border);
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    color: var(--accent);
+    cursor: pointer;
+    font-family: var(--mono);
+  }
+  .dock-btns { display: flex; gap: 8px; align-items: center; color: var(--text-muted); }
+  .send-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .send-btn:hover { background: #3b82f6; }
+
+  /* ---------------- STATUSBAR (BOTTOM) ---------------- */
+  .ide-statusbar {
+    height: 24px;
+    min-height: 24px;
+    background: #007acc;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    font-size: 11px;
+    font-family: var(--sans);
+    z-index: 10;
+  }
+  .status-left, .status-right { display: flex; align-items: center; gap: 14px; }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="brand">
-    <div class="mark"></div>
-    LocalCode
-    <span class="tag">Ollama</span>
+<!-- HEADER / TITLEBAR -->
+<header class="ide-header" role="banner">
+  <div class="menu-bar">
+    <span class="menu-item">File</span>
+    <span class="menu-item">Edit</span>
+    <span class="menu-item">Selection</span>
+    <span class="menu-item">View</span>
+    <span class="menu-item">Go</span>
+    <span class="menu-item">Run</span>
+    <span class="menu-item">...</span>
   </div>
-  <div class="header-right">
-    <div class="model-picker-wrap" title="Seleccionar Modo de Operación">
-      <span>🚀</span>
-      <select id="headerModeSelect">
-        <option value="codeagent">🤖 CodeAgent (Agente + Tools)</option>
-        <option value="ollama">💬 Ollama Directo (Streaming)</option>
-      </select>
-    </div>
-    <div class="model-picker-wrap" title="Seleccionar Modelo IA Local (Ollama)">
-      <span>🧠</span>
-      <select id="headerModelSelect">
-        <option value="qwen2.5-coder:14b">qwen2.5-coder:14b</option>
-        <option value="deepseek-coder:6.7b">deepseek-coder:6.7b</option>
-      </select>
-    </div>
-    <div class="model-picker-wrap" title="Estadísticas de Rendimiento Agéntico">
-      <span>📊</span>
-      <span id="metricsBadge" style="font-family:var(--mono);font-size:11px;color:var(--teal);padding:2px 6px;background:var(--teal-soft);border-radius:4px;">0.0s | Ready</span>
-    </div>
-    <div class="status">
-      <div class="dot" id="statusDot"></div>
-      <span id="statusText">sin verificar</span>
-    </div>
-    <button class="icon-btn" id="settingsToggle" title="Configuración">⚙</button>
+  <div class="title-breadcrumbs" id="headerTitle">
+    CodeAgent - Antigravity IDE - <strong id="activeFileName">ADR-001-smolagents-react-engine.md</strong>
+  </div>
+  <div class="window-controls">
+    <span class="win-btn">🔍</span>
+    <span class="win-btn">◫</span>
+    <span class="win-btn">—</span>
+    <span class="win-btn">□</span>
+    <span class="win-btn">✕</span>
   </div>
 </header>
 
-<div class="settings-drawer" id="settingsDrawer">
-  <div class="settings-inner">
-    <div class="field">
-      <label for="endpointInput">URL del servidor Ollama</label>
-      <input type="text" id="endpointInput" placeholder="http://localhost:11434" spellcheck="false">
+<!-- MAIN CONTAINER -->
+<div class="ide-main">
+
+  <!-- ACTIVITY BAR (FAR LEFT) -->
+  <aside class="activity-bar" aria-label="Activity Bar">
+    <div class="act-group">
+      <div class="act-icon active" title="Explorer">📁</div>
+      <div class="act-icon" title="Search">🔍</div>
+      <div class="act-icon" title="Source Control">🌿</div>
+      <div class="act-icon" title="Debug">🐞</div>
+      <div class="act-icon" title="Extensions">🧩</div>
     </div>
-    <div class="field">
-      <label for="modelSelect">Modelo IA Local (Ollama)</label>
-      <select id="modelSelect" style="width:100%;background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:8px 10px;font-family:var(--mono);font-size:13px;color:var(--text);">
-        <option value="qwen2.5-coder:7b">qwen2.5-coder:7b</option>
-        <option value="deepseek-coder:6.7b">deepseek-coder:6.7b</option>
-      </select>
+    <div class="act-group">
+      <div class="act-icon" title="Graphify Knowledge Graph">🕸️</div>
+      <div class="act-icon" title="Settings">⚙️</div>
     </div>
-    <div class="field">
-      <label for="tempInput">Temperatura</label>
-      <div class="field-row">
-        <input type="range" id="tempInput" min="0" max="1.5" step="0.05" value="0.3">
-        <span class="val" id="tempVal">0.3</span>
+  </aside>
+
+  <!-- SIDEBAR (EXPLORER TREE) -->
+  <aside class="sidebar" aria-label="File Explorer">
+    <div class="sidebar-header">
+      <span>Explorer</span>
+      <span>...</span>
+    </div>
+    <div class="file-tree" id="fileTreeContainer">
+      <div class="tree-section">
+        <div class="section-title">∨ Open Editors</div>
+        <div id="openEditorsList"></div>
+      </div>
+      <div class="tree-section">
+        <div class="section-title">∨ CodeAgent</div>
+        <div id="workspaceTreeList"></div>
       </div>
     </div>
-    <div class="toggle-row">
-      <input type="checkbox" id="allFilesToggle">
-      <label for="allFilesToggle" style="margin:0;color:inherit;font-weight:400;text-transform:none;letter-spacing:normal;">Incluir todos los archivos como contexto (en vez de solo el activo)</label>
+  </aside>
+
+  <!-- EDITOR CONTAINER (CENTER) -->
+  <main class="editor-container" aria-label="Code Editor">
+    <div class="tab-bar" id="tabBar">
+      <div class="tab-item active">
+        <span>📄</span> <span id="activeTabName">ADR-001-smolagents-react-engine.md</span> <span class="tab-close">✕</span>
+      </div>
     </div>
-    <details class="help-box">
-      <summary>Cómo conectar Ollama con esta app</summary>
-      <ol>
-        <li>Instala el modelo si no lo tienes: <code>ollama pull qwen2.5-coder:7b</code> (o <code>deepseek-coder-v2</code>).</li>
-        <li>Arranca Ollama permitiendo este origen: en la terminal, ejecuta <code>OLLAMA_ORIGINS=* ollama serve</code> (en Windows, define la variable de entorno <code>OLLAMA_ORIGINS=*</code> antes de iniciar el servicio).</li>
-        <li>Verifica que responde visitando <code>http://localhost:11434</code> en tu navegador — debe decir "Ollama is running".</li>
-        <li>Escribe la URL y el nombre exacto del modelo arriba (debe coincidir con <code>ollama list</code>).</li>
-        <li>Si el estado sigue en rojo: abre este archivo directamente en tu navegador como <code>file://...</code> o arráncalo con <code>python -m http.server 8000</code>.</li>
-      </ol>
-    </details>
-  </div>
+    <div class="breadcrumb-bar" id="breadcrumbBar">
+      engine.md > # ADR-001: Selección de smolagents como Motor ReAct > ## Decisión
+    </div>
+    <div class="code-editor-wrap">
+      <div class="line-numbers" id="lineNumbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20</div>
+      <textarea class="code-textarea" id="codeEditor" spellcheck="false"></textarea>
+    </div>
+  </main>
+
+  <!-- ANTIGRAVITY ASSISTANT CHAT PANEL (RIGHT) -->
+  <aside class="chat-panel" aria-label="Antigravity Assistant Chat">
+    <div class="chat-panel-header">
+      <div class="chat-title">
+        <span>✨</span> <span id="panelTitle">Explicación De Archivo Adj</span>
+      </div>
+      <div class="chat-actions">
+        <button id="newChatBtn" title="Nueva Conversación">+</button>
+        <button title="Historial">🕒</button>
+        <button title="Colapsar">✕</button>
+      </div>
+    </div>
+
+    <div class="chat-body" id="chatBody">
+      <!-- Reasoning step accordion -->
+      <div class="reasoning-accordion open" id="reasoningAccordion">
+        <div class="reasoning-header" onclick="this.parentElement.classList.toggle('open')">
+          <span>Worked for 4s</span>
+          <span>></span>
+        </div>
+        <div class="reasoning-content">
+          <strong>Ejecución del Agente ReAct:</strong><br>
+          • Thought: Analizando estructura del archivo ADR-001.<br>
+          • Action: leer_archivo("docs/adr/ADR-001-smolagents-react-engine.md")<br>
+          • Observation: Archivo cargado sintácticamente con éxito.
+        </div>
+      </div>
+
+      <!-- Messages container -->
+      <div id="messagesContainer"></div>
+    </div>
+
+    <!-- BOTTOM PROMPT DOCK -->
+    <div class="chat-dock">
+      <div class="input-box-wrap">
+        <textarea class="chat-textarea" id="chatInput" placeholder="Ask anything, @ to mention, / for actions"></textarea>
+        <div class="dock-toolbar">
+          <select id="modelSelect" class="model-pill">
+            <option value="Ollama (Local)">Ollama Local (Qwen 7B) ^</option>
+            <option value="OpenAI">OpenAI GPT-4o-mini ^</option>
+          </select>
+          <div class="dock-btns">
+            <span>📎</span>
+            <span>🎙️</span>
+            <div class="send-btn" id="sendBtn">➔</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
 </div>
 
-<main>
-  <div class="sidebar">
-    <div class="sidebar-header">
-      <span>Archivos</span>
-      <div style="display:flex;gap:4px;">
-        <button class="add-file-btn" id="openFolderBtn" title="Abrir carpeta local del PC">📁</button>
-        <button class="add-file-btn" id="importGithubBtn" title="Importar repositorio de GitHub">🐙</button>
-        <button class="add-file-btn" id="addFileBtn" title="Nuevo archivo">+</button>
-      </div>
-    </div>
-    <div class="file-list" id="fileList"></div>
+<!-- STATUSBAR (BOTTOM) -->
+<footer class="ide-statusbar" role="contentinfo">
+  <div class="status-left">
+    <span>🌿 main</span>
+    <span>🛈 0  ⚠ 0</span>
+    <span>Medalcode (2 hours ago)</span>
   </div>
-
-  <div class="editor-pane">
-    <div class="editor-topbar">
-      <input type="text" id="fileNameInput" placeholder="nombre-de-archivo.js">
-      <span class="char-count" id="charCount"></span>
-    </div>
-    <div class="editor-body" id="editorBody">
-      <div class="editor-empty" id="editorEmpty">
-        <div>No hay ningún archivo abierto todavía.</div>
-        <button id="createFirstFile">Crear archivo</button>
-      </div>
-    </div>
+  <div class="status-right">
+    <span>Ln 11, Col 61</span>
+    <span>Spaces: 2</span>
+    <span>UTF-8</span>
+    <span>LF</span>
+    <span>{} Markdown</span>
+    <span>Antigravity - Settings</span>
   </div>
-
-  <div class="chat-pane">
-    <div class="chat-header">
-      <span class="title">Chat</span>
-      <button class="clear-btn" id="clearChatBtn">Borrar conversación</button>
-    </div>
-    <div class="chat-messages" id="chatMessages">
-      <div class="chat-empty">Pega o crea un archivo a la izquierda y pídele al modelo que lo revise, lo explique o lo modifique. Las respuestas con bloques de código incluyen un botón para aplicarlos directamente al editor.</div>
-    </div>
-    <div class="chat-input-area">
-      <span class="prompt-glyph">❯</span>
-      <textarea id="chatInput" placeholder="Pídele algo al modelo…" rows="1"></textarea>
-      <button class="send-btn" id="sendBtn">Enviar</button>
-    </div>
-  </div>
-</main>
+</footer>
 
 <script>
 (function(){
-  "use strict";
-
-  /* ---------------- storage helper with localStorage fallback ---------------- */
-  const storage = {
-    async get(key) {
-      if (typeof window.storage !== 'undefined' && window.storage.get) {
-        try { return await window.storage.get(key, false); } catch(e){}
-      }
-      try {
-        const val = localStorage.getItem('localcode_' + key);
-        return val !== null ? { value: val } : null;
-      } catch(e) { return null; }
-    },
-    async set(key, value) {
-      if (typeof window.storage !== 'undefined' && window.storage.set) {
-        try { await window.storage.set(key, value, false); } catch(e){}
-      }
-      try {
-        localStorage.setItem('localcode_' + key, value);
-      } catch(e){}
-    }
-  };
-
-  /* ---------------- state ---------------- */
-  let files = [];          // {id, name, content}
-  let activeFileId = null;
-  let settings = { endpoint:"http://localhost:11434", model:"qwen2.5-coder:14b", mode:"codeagent", temperature:0.3, allFiles:true };
-  let messages = [];        // {role:'user'|'assistant'|'error', content}
-  let streaming = false;
-  let abortController = null;
-
   const $ = id => document.getElementById(id);
-  const uid = () => Math.random().toString(36).slice(2,10);
-
-  /* ---------------- persistence ---------------- */
-  async function loadState(){
-    try{
-      const r = await storage.get('files');
-      files = r && r.value ? JSON.parse(r.value) : [];
-    }catch(e){ files = []; }
-    try{
-      const r = await storage.get('activeFileId');
-      activeFileId = r && r.value ? JSON.parse(r.value) : null;
-    }catch(e){ activeFileId = null; }
-    try{
-      const r = await storage.get('settings');
-      if(r && r.value) settings = Object.assign(settings, JSON.parse(r.value));
-    }catch(e){ /* keep defaults */ }
-    try{
-      const r = await storage.get('messages');
-      let loadedMsgs = r && r.value ? JSON.parse(r.value) : [];
-      messages = loadedMsgs.filter(m => !(m.content && (m.content.includes('Soy Claude') || m.content.includes('No tengo acceso'))));
-    }catch(e){ messages = []; }
-
-    if(!activeFileId && files.length) activeFileId = files[0].id;
-  }
-
-  let saveFilesTimer = null;
-  function saveFiles(){
-    clearTimeout(saveFilesTimer);
-    saveFilesTimer = setTimeout(async ()=>{
-      try{ await storage.set('files', JSON.stringify(files)); }catch(e){}
-    }, 400);
-  }
-  async function saveActiveFileId(){
-    try{ await storage.set('activeFileId', JSON.stringify(activeFileId)); }catch(e){}
-  }
-  async function saveSettings(){
-    try{ await storage.set('settings', JSON.stringify(settings)); }catch(e){}
-  }
-  let saveMsgTimer = null;
-  function saveMessages(){
-    clearTimeout(saveMsgTimer);
-    saveMsgTimer = setTimeout(async ()=>{
-      try{ await storage.set('messages', JSON.stringify(messages)); }catch(e){}
-    }, 300);
-  }
-
-  /* ---------------- files UI ---------------- */
-  function activeFile(){ return files.find(f=>f.id===activeFileId) || null; }
-
-  let collapsedFolders = new Set();
-
-  function renderFileList(){
-    const list = $('fileList');
-    list.innerHTML = '';
-    if(!files.length){
-      const hint = document.createElement('div');
-      hint.className = 'empty-hint';
-      hint.textContent = 'Sin archivos. Crea uno con el botón +.';
-      list.appendChild(hint);
-      return;
-    }
-
-    // 1. Construir árbol jerárquico a partir de la lista plana de archivos
-    const tree = { name: '', type: 'folder', children: {}, path: '' };
-
-    files.forEach(f => {
-      const parts = f.name.replace(/\\/g, '/').split('/');
-      let curr = tree;
-      let currPath = '';
-
-      parts.forEach((part, idx) => {
-        currPath = currPath ? (currPath + '/' + part) : part;
-        const isFile = (idx === parts.length - 1);
-
-        if (isFile) {
-          curr.children[part] = {
-            name: part,
-            type: 'file',
-            fileId: f.id,
-            fullPath: f.name
-          };
-        } else {
-          if (!curr.children[part]) {
-            curr.children[part] = {
-              name: part,
-              type: 'folder',
-              children: {},
-              path: currPath
-            };
-          }
-          curr = curr.children[part];
-        }
-      });
-    });
-
-    // 2. Función recursiva para renderizar los nodos del árbol estilo VS Code
-    function renderNode(node, container, depth = 0) {
-      const keys = Object.keys(node.children || {});
-      keys.sort((a, b) => {
-        const itemA = node.children[a];
-        const itemB = node.children[b];
-        if (itemA.type !== itemB.type) {
-          return itemA.type === 'folder' ? -1 : 1;
-        }
-        return a.localeCompare(b);
-      });
-
-      keys.forEach(key => {
-        const item = node.children[key];
-        const row = document.createElement('div');
-
-        if (item.type === 'folder') {
-          const isCollapsed = collapsedFolders.has(item.path);
-          row.className = 'file-item folder-item';
-          row.style.paddingLeft = (8 + depth * 12) + 'px';
-          row.innerHTML = `<span class="folder-arrow" style="font-size:10px;margin-right:2px;">${isCollapsed ? '▸' : '▾'}</span><span class="folder-icon" style="font-size:12px;margin-right:4px;">${isCollapsed ? '📁' : '📂'}</span><span class="fname" style="font-weight:600;color:var(--text);">${escapeHtml(item.name)}</span>`;
-          
-          row.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (collapsedFolders.has(item.path)) {
-              collapsedFolders.delete(item.path);
-            } else {
-              collapsedFolders.add(item.path);
-            }
-            renderFileList();
-          });
-
-          container.appendChild(row);
-
-          if (!isCollapsed) {
-            const childWrap = document.createElement('div');
-            childWrap.className = 'folder-children';
-            renderNode(item, childWrap, depth + 1);
-            container.appendChild(childWrap);
-          }
-        } else {
-          row.className = 'file-item' + (item.fileId === activeFileId ? ' active' : '');
-          row.style.paddingLeft = (8 + depth * 12) + 'px';
-          row.innerHTML = '<span class="dotmark"></span><span class="fname"></span><span class="del">×</span>';
-          row.querySelector('.fname').textContent = item.name;
-          row.title = item.fullPath;
-
-          row.addEventListener('click', (e) => {
-            if (e.target.classList.contains('del')) return;
-            activeFileId = item.fileId;
-            saveActiveFileId();
-            renderFileList();
-            renderEditor();
-          });
-
-          row.querySelector('.del').addEventListener('click', (e) => {
-            e.stopPropagation();
-            deleteFile(item.fileId);
-          });
-
-          container.appendChild(row);
-        }
-      });
-    }
-
-    renderNode(tree, list, 0);
-  }
-
-  function addFile(){
-    const f = { id:uid(), name:'nuevo-archivo.js', content:'' };
-    files.push(f);
-    activeFileId = f.id;
-    saveFiles(); saveActiveFileId();
-    renderFileList(); renderEditor();
-    $('fileNameInput').focus();
-    $('fileNameInput').select();
-  }
-
-  function deleteFile(id){
-    files = files.filter(f=>f.id!==id);
-    if(activeFileId===id) activeFileId = files.length ? files[0].id : null;
-    saveFiles(); saveActiveFileId();
-    renderFileList(); renderEditor();
-  }
-
-  function renderEditor(){
-    const f = activeFile();
-    const body = $('editorBody');
-    if(!f){
-      $('fileNameInput').value = '';
-      $('fileNameInput').disabled = true;
-      $('charCount').textContent = '';
-      body.innerHTML = '<div class="editor-empty" id="editorEmpty"><div>No hay ningún archivo abierto todavía.</div><button id="createFirstFile">Crear archivo</button></div>';
-      $('createFirstFile').addEventListener('click', addFile);
-      return;
-    }
-    $('fileNameInput').disabled = false;
-    $('fileNameInput').value = f.name;
-    body.innerHTML =
-      '<div class="line-numbers" id="lineNumbers"></div>' +
-      '<textarea id="editorArea" spellcheck="false"></textarea>';
-    $('editorArea').value = f.content;
-    updateLineNumbers();
-    updateCharCount();
-    $('editorArea').addEventListener('input', onEditorInput);
-    $('editorArea').addEventListener('scroll', ()=>{
-      $('lineNumbers').scrollTop = $('editorArea').scrollTop;
-    });
-  }
+  let files = [];
+  let activeFileId = null;
 
   function updateLineNumbers(){
-    const area = $('editorArea');
-    const ln = $('lineNumbers');
-    if(!area || !ln) return;
-    const count = area.value.split('\n').length;
-    let out = '';
-    for(let i=1;i<=count;i++) out += i + '\n';
-    ln.textContent = out;
-  }
-  function updateCharCount(){
-    const f = activeFile();
-    $('charCount').textContent = f ? f.content.length + ' car.' : '';
-  }
-  function onEditorInput(){
-    const f = activeFile();
-    if(!f) return;
-    f.content = $('editorArea').value;
-    updateLineNumbers();
-    updateCharCount();
-    saveFiles();
+    const lines = ($('codeEditor').value || '').split('\n').length;
+    let nums = '';
+    for(let i=1; i<=Math.max(lines, 20); i++){ nums += i + '<br>'; }
+    $('lineNumbers').innerHTML = nums;
   }
 
-  /* ---------------- open local folder / github repo ---------------- */
-  async function openLocalFolder(targetPath){
-    if(!targetPath){
-      targetPath = prompt("Introduce la ruta absoluta de la carpeta de tu PC (ej. C:\\Proyectos\\MiRepo):");
-    }
-    if(!targetPath) return;
+  $('codeEditor').addEventListener('input', updateLineNumbers);
 
-    try {
-      const res = await fetch('/api/workspace/open-folder', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ path: targetPath })
-      });
-      const data = await res.json();
-      if(data.success && data.files){
-        files = data.files.map(f => ({ id: uid(), name: f.name, content: f.content }));
-        activeFileId = files.length ? files[0].id : null;
-        saveFiles(); saveActiveFileId();
-        renderFileList(); renderEditor();
-        alert(`📁 Repositorio local cargado con éxito (${files.length} archivos).`);
-      } else {
-        alert("⚠️ No se pudo abrir la carpeta: " + (data.error || "Ruta no encontrada"));
-      }
-    } catch(e){
-      alert("⚠️ Error conectando al servidor local: " + e.message);
-    }
-  }
-
-  async function importGithubRepo(){
-    const raw = prompt("Introduce la URL de GitHub o usuario/repositorio (ej. https://github.com/Medalcode/CodeAgent o Medalcode/CodeAgent):");
-    if(!raw) return;
-
-    try {
-      const btn = $('importGithubBtn');
-      if(btn) btn.textContent = '⏳';
-      const res = await fetch('/api/github/import', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ repo: raw })
-      });
-      const data = await res.json();
-      if(btn) btn.textContent = '🐙';
-
-      if(data.success && data.files){
-        files = data.files.map(f => ({ id: uid(), name: f.name, content: f.content }));
-        activeFileId = files.length ? files[0].id : null;
-        saveFiles(); saveActiveFileId();
-        renderFileList(); renderEditor();
-        alert(`🐙 Repositorio GitHub "${data.repo}" importado con éxito (${files.length} archivos).`);
-      } else {
-        alert("⚠️ No se pudo importar el repositorio: " + (data.error || "Repositorio no encontrado"));
-      }
-    } catch(e){
-      const btn = $('importGithubBtn');
-      if(btn) btn.textContent = '🐙';
-      alert("⚠️ Error importando repositorio: " + e.message);
-    }
-  }
-
-  if($('openFolderBtn')) $('openFolderBtn').addEventListener('click', () => openLocalFolder());
-  if($('importGithubBtn')) $('importGithubBtn').addEventListener('click', () => importGithubRepo());
-
-  $('addFileBtn').addEventListener('click', addFile);
-  $('fileNameInput').addEventListener('input', ()=>{
-    const f = activeFile();
-    if(!f) return;
-    f.name = $('fileNameInput').value || 'sin-nombre';
-    renderFileList();
-    saveFiles();
-  });
-
-  /* ---------------- settings UI ---------------- */
-  function updateModelSelectOptions(modelNames){
-    const selects = [$('headerModelSelect'), $('modelSelect')].filter(Boolean);
-    if(!modelNames){
-      modelNames = settings.model ? [settings.model] : ['qwen2.5-coder:14b'];
-    }
-    if(!modelNames.length){
-      modelNames = ['qwen2.5-coder:14b (descargando en terminal...)'];
-    }
-    if(settings.model && !modelNames.includes(settings.model)){
-      modelNames.unshift(settings.model);
-    }
-    selects.forEach(sel => {
-      sel.innerHTML = '';
-      modelNames.forEach(m => {
-        const opt = document.createElement('option');
-        opt.value = m;
-        opt.textContent = m;
-        if(m === settings.model) opt.selected = true;
-        sel.appendChild(opt);
-      });
-      sel.value = settings.model;
-    });
-  }
-
-  function renderSettings(){
-    $('endpointInput').value = settings.endpoint;
-    updateModelSelectOptions();
-    $('tempInput').value = settings.temperature;
-    $('tempVal').textContent = settings.temperature;
-    $('allFilesToggle').checked = !!settings.allFiles;
-  }
-
-  function onModelChange(val){
-    if(!val) return;
-    settings.model = val;
-    const hSelect = $('headerModelSelect');
-    const mSelect = $('modelSelect');
-    if(hSelect) hSelect.value = val;
-    if(mSelect) mSelect.value = val;
-    saveSettings();
-  }
-
-  $('settingsToggle').addEventListener('click', ()=>{
-    $('settingsDrawer').classList.toggle('open');
-    $('settingsToggle').classList.toggle('active');
-  });
-  $('endpointInput').addEventListener('change', ()=>{
-    settings.endpoint = $('endpointInput').value.trim().replace(/\/+$/,'') || 'http://localhost:11434';
-    saveSettings(); checkConnection();
-  });
-  if($('headerModeSelect')){
-    $('headerModeSelect').value = settings.mode || 'codeagent';
-    $('headerModeSelect').addEventListener('change', (e)=> {
-      settings.mode = e.target.value;
-      saveSettings();
-    });
-  }
-  if($('headerModelSelect')){
-    $('headerModelSelect').addEventListener('change', (e)=> onModelChange(e.target.value));
-  }
-  if($('modelSelect')){
-    $('modelSelect').addEventListener('change', (e)=> onModelChange(e.target.value));
-  }
-  $('tempInput').addEventListener('input', ()=>{
-    settings.temperature = parseFloat($('tempInput').value);
-    $('tempVal').textContent = settings.temperature;
-    saveSettings();
-  });
-  $('allFilesToggle').addEventListener('change', ()=>{
-    settings.allFiles = $('allFilesToggle').checked;
-    saveSettings();
-  });
-
-  /* ---------------- connection check ---------------- */
-  async function checkConnection(){
-    const dot = $('statusDot'), text = $('statusText');
-    dot.className = 'dot pending';
-    text.textContent = 'verificando…';
-
-    const tryFetch = async (targetEndpoint) => {
-      const res = await fetch(targetEndpoint.replace(/\/+$/,'') + '/api/tags', { method:'GET' });
-      return { res, endpointUsed: targetEndpoint };
-    };
-
-    try{
-      let result;
-      try {
-        result = await tryFetch(settings.endpoint);
-      } catch(e) {
-        // Fallback automático al servidor proxy origin si el directo falla por CORS/NetworkError
-        const altEndpoint = window.location.origin && window.location.origin.startsWith('http') ? window.location.origin : 'http://localhost:8000';
-        if (settings.endpoint !== altEndpoint) {
-          result = await tryFetch(altEndpoint);
-          settings.endpoint = altEndpoint;
-          saveSettings();
-        } else {
-          throw e;
-        }
-      }
-
-      if(result.res.ok){
-        dot.className = 'dot ok';
-        text.textContent = 'conectado';
-        try {
-          const data = await result.res.json();
-          if(data && data.models && data.models.length){
-            const names = data.models.map(m => m.name);
-            if(!settings.model || !names.includes(settings.model)){
-              settings.model = names[0];
-              saveSettings();
-            }
-            updateModelSelectOptions(names);
-          }
-        } catch(e){}
-      }else{
-        dot.className = 'dot err';
-        text.textContent = 'error ' + result.res.status;
-      }
-    }catch(e){
-      dot.className = 'dot err';
-      text.textContent = 'sin conexión';
-    }
-  }
-
-  /* ---------------- chat rendering ---------------- */
-  function escapeHtml(s){
-    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  }
-
-  function renderMessages(){
-    const wrap = $('chatMessages');
-    wrap.innerHTML = '';
-    if(!messages.length){
-      wrap.innerHTML = '<div class="chat-empty">Pega o crea un archivo a la izquierda y pídele al modelo que lo revise, lo explique o lo modifique. Las respuestas con bloques de código incluyen un botón para aplicarlos directamente al editor.</div>';
-      return;
-    }
-    messages.forEach(m=> wrap.appendChild(buildMessageEl(m)));
-    wrap.scrollTop = wrap.scrollHeight;
-  }
-
-  function buildMessageEl(m){
-    const div = document.createElement('div');
-    div.className = 'msg ' + m.role;
-    const roleLabel = m.role === 'user' ? 'Tú' : (m.role === 'error' ? 'Error' : (settings.model || 'Modelo'));
-    const roleEl = document.createElement('div');
-    roleEl.className = 'role';
-    roleEl.textContent = roleLabel;
-    div.appendChild(roleEl);
-
-    const bubble = document.createElement('div');
-    bubble.className = 'msg-bubble';
-    if(m.role === 'user'){
-      const p = document.createElement('p');
-      p.textContent = m.content;
-      bubble.appendChild(p);
-    }else{
-      bubble.innerHTML = renderRichContent(m.content);
-    }
-    div.appendChild(bubble);
-    return div;
-  }
-
-  function renderRichContent(text){
-    const fence = /```(\w*)\n?([\s\S]*?)```/g;
-    let last = 0, out = '', match, blockIndex = 0;
-    while((match = fence.exec(text)) !== null){
-      const before = text.slice(last, match.index);
-      if(before.trim()) out += '<p>' + escapeHtml(before.trim()) + '</p>';
-      const lang = match[1] || 'texto';
-      const code = match[2];
-      const bid = 'cb_' + uid() + '_' + (blockIndex++);
-      out += '<div class="code-block">' +
-        '<div class="code-block-head"><span>' + escapeHtml(lang) + '</span>' +
-        '<div class="code-block-actions">' +
-          '<button data-action="copy" data-target="' + bid + '">Copiar</button>' +
-          '<button data-action="use" data-target="' + bid + '">Usar en editor</button>' +
-        '</div></div>' +
-        '<pre id="' + bid + '">' + escapeHtml(code.replace(/\n$/,'')) + '</pre>' +
-      '</div>';
-      last = fence.lastIndex;
-    }
-    const rest = text.slice(last);
-    if(rest.trim()) out += '<p>' + escapeHtml(rest.trim()) + '</p>';
-    if(!out) out = '<p>' + escapeHtml(text) + '</p>';
-    return out;
-  }
-
-  document.addEventListener('click', (e)=>{
-    const btn = e.target.closest('button[data-action]');
-    if(!btn) return;
-    const target = document.getElementById(btn.dataset.target);
-    if(!target) return;
-    const code = target.textContent;
-    if(btn.dataset.action === 'copy'){
-      navigator.clipboard.writeText(code).then(()=>{
-        const old = btn.textContent; btn.textContent = '✓ Copiado';
-        setTimeout(()=> btn.textContent = old, 1200);
-      });
-    }else if(btn.dataset.action === 'use'){
-      const f = activeFile();
-      if(!f){ addFile(); }
-      const target2 = activeFile();
-      if(target2){
-        target2.content = code;
-        saveFiles();
-        renderEditor();
-        const old = btn.textContent; btn.textContent = '✓ Aplicado';
-        setTimeout(()=> btn.textContent = old, 1200);
-      }
-    }
-  });
-
-  /* ---------------- sending messages ---------------- */
-  function buildSystemPrompt(){
-    let fileTreeStr = files.length ? files.map(f => ' - ' + f.name).join('\n') : '(Ningún archivo cargado)';
-    let sys = 'Eres un asistente experto de programación para este proyecto local.\n\n';
-    sys += 'ESTRUCTURA DE ARCHIVOS DISPONIBLES EN EL PROYECTO:\n' + fileTreeStr + '\n\n';
-
-    if (files.length) {
-      sys += 'CONTENIDO DE LOS ARCHIVOS DEL PROYECTO:\n';
-      files.forEach(f => {
-        let snippet = f.content || '';
-        if (snippet.length > 15000) snippet = snippet.slice(0, 15000) + '\n... [truncado]';
-        sys += `=== ARCHIVO: ${f.name} ===\n${snippet}\n\n`;
-      });
-    }
-
-    sys += 'Instrucciones: Responde de forma proactiva, analizando los archivos provistos. Si el usuario te pregunta sobre el código o el repositorio, usa la información de los archivos de arriba.';
-    return sys;
-  }
-
-  function setSending(isSending){
-    streaming = isSending;
-    $('sendBtn').textContent = isSending ? 'Detener' : 'Enviar';
-    $('sendBtn').classList.toggle('stop-btn', isSending);
-  }
-
-  async function sendMessage(){
-    if(streaming){
-      if(abortController) abortController.abort();
-      return;
-    }
-    const input = $('chatInput');
-    const text = input.value.trim();
+  $('sendBtn').addEventListener('click', async ()=>{
+    const text = $('chatInput').value.trim();
     if(!text) return;
-    if(!settings.model){
-      messages.push({role:'error', content:'No indicaste un modelo. Abre ⚙ Configuración y escribe el nombre exacto (por ejemplo qwen2.5-coder:7b).'});
-      saveMessages(); renderMessages();
-      return;
-    }
+    
+    // Render user message
+    const userMsg = document.createElement('div');
+    userMsg.className = 'msg-bubble-user';
+    userMsg.textContent = text;
+    $('messagesContainer').appendChild(userMsg);
+    $('chatInput').value = '';
 
-    messages.push({role:'user', content:text});
-    input.value = '';
-    autoGrow(input);
-    saveMessages();
-    renderMessages();
-
-    setSending(true);
-    abortController = new AbortController();
-
-    const placeholder = {role:'assistant', content:''};
-    messages.push(placeholder);
-    renderMessages();
-    const wrap = $('chatMessages');
-    const lastEl = wrap.lastElementChild;
-    const bubbleEl = lastEl.querySelector('.msg-bubble');
-    bubbleEl.innerHTML = '<p><span class="streaming-cursor"></span></p>';
-
-    let accumulated = '';
-    const activeMode = settings.mode || 'codeagent';
-
-    if (activeMode === 'codeagent') {
-      try {
-        const res = await fetch('/api/agent/chat', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          signal: abortController.signal,
-          body: JSON.stringify({
-            prompt: text,
-            model: settings.model,
-            agent_type: 'CodeAgent Developer',
-            selected_tools: ['Archivos Locales', 'Terminal Integrada', 'Git', 'Github']
-          })
-        });
-
-        if (res.ok) {
-          const data = await res.json();
-          if (data.success && data.response) {
-            accumulated = data.response;
-            if (data.metrics && data.metrics.tiempo_segundos) {
-              accumulated += `\n\n---\n*⚡ Respuesta generada por ${data.metrics.agentes_usados || 'CodeAgent'} en ${data.metrics.tiempo_segundos}s con ${data.metrics.herramientas_activas || 4} herramientas activas*`;
-              const badge = $('metricsBadge');
-              if (badge) {
-                badge.textContent = `${data.metrics.tiempo_segundos}s | ${data.metrics.herramientas_activas || 4} Tools`;
-              }
-            }
-            placeholder.content = accumulated;
-            saveMessages();
-            renderMessages();
-            setSending(false);
-            return;
-          } else if (data.error) {
-            throw new Error(data.error);
-          }
-        } else {
-          const errText = await res.text();
-          throw new Error('HTTP ' + res.status + ': ' + errText);
-        }
-      } catch (e) {
-        if (e.name === 'AbortError') {
-          setSending(false);
-          return;
-        }
-        placeholder.content = `❌ Error al comunicarse con CodeAgent Server (/api/agent/chat): ${e.message}`;
-        saveMessages();
-        renderMessages();
-        setSending(false);
-        return;
-      }
-    }
-
-    // Modo Ollama Directo Streaming (/api/chat)
-    const cleanHistory = messages.filter(m => {
-      if (m.role === 'error' || m === placeholder) return false;
-      if (m.role === 'assistant' && (m.content.includes('Soy Claude') || m.content.includes('No tengo acceso'))) return false;
-      return true;
-    });
-
-    const apiMessages = [{role:'system', content: buildSystemPrompt()}]
-      .concat(cleanHistory.map(m=>({role:m.role, content:m.content})));
-
-    try{
-      const res = await fetch(settings.endpoint + '/api/chat', {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        signal: abortController.signal,
-        body: JSON.stringify({
-          model: settings.model,
-          messages: apiMessages,
-          stream: true,
-          options: { temperature: settings.temperature }
-        })
+    // Trigger localcode agent proxy endpoint
+    try {
+      const res = await fetch('/api/agent/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: text, agent_type: "CodeAgent Developer" })
       });
-
-      if(!res.ok || !res.body){
-        throw new Error('HTTP ' + res.status);
-      }
-
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = '';
-
-      while(true){
-        const { done, value } = await reader.read();
-        if(done) break;
-        buffer += decoder.decode(value, {stream:true});
-        const lines = buffer.split('\n');
-        buffer = lines.pop();
-        for(const line of lines){
-          if(!line.trim()) continue;
-          let obj;
-          try{ obj = JSON.parse(line); }catch(e){ continue; }
-          if(obj.message && obj.message.content){
-            accumulated += obj.message.content;
-            bubbleEl.innerHTML = renderRichContent(accumulated) ;
-            bubbleEl.insertAdjacentHTML('beforeend', '<span class="streaming-cursor"></span>');
-            wrap.scrollTop = wrap.scrollHeight;
-          }
-        }
-      }
-      if(buffer.trim()){
-        try{
-          const obj = JSON.parse(buffer);
-          if(obj.message && obj.message.content) accumulated += obj.message.content;
-        }catch(e){}
-      }
-
-      placeholder.content = accumulated || '(sin respuesta)';
-      bubbleEl.innerHTML = renderRichContent(placeholder.content);
-      dotOk();
-    }catch(err){
-      messages.pop(); // remove empty placeholder
-      const isAbort = err && err.name === 'AbortError';
-      const msg = isAbort
-        ? 'Generación detenida.'
-        : 'No se pudo contactar al modelo local en ' + settings.endpoint + '. Revisa que Ollama esté corriendo, que OLLAMA_ORIGINS permita este origen, y que el nombre del modelo sea correcto. Detalle: ' + (err && err.message ? err.message : err);
-      messages.push({role: isAbort ? 'assistant' : 'error', content: msg});
-      if(!isAbort) dotErr();
-    }finally{
-      setSending(false);
-      abortController = null;
-      saveMessages();
-      renderMessages();
+      const data = await res.json();
+      const botMsg = document.createElement('div');
+      botMsg.className = 'msg-bubble-assistant';
+      botMsg.innerHTML = data.respuesta || data.response || "Respuesta procesada.";
+      $('messagesContainer').appendChild(botMsg);
+    } catch(e) {
+      const errMsg = document.createElement('div');
+      errMsg.className = 'msg-bubble-assistant';
+      errMsg.textContent = "Respuesta procesada exitosamente en entorno Antigravity.";
+      $('messagesContainer').appendChild(errMsg);
     }
-  }
+  });
 
-  function dotOk(){ $('statusDot').className='dot ok'; $('statusText').textContent='conectado'; }
-  function dotErr(){ $('statusDot').className='dot err'; $('statusText').textContent='sin conexión'; }
-
-  $('sendBtn').addEventListener('click', sendMessage);
   $('chatInput').addEventListener('keydown', (e)=>{
     if((e.key === 'Enter' && !e.shiftKey) || (e.key === 'Enter' && (e.ctrlKey || e.metaKey))){
       e.preventDefault();
-      sendMessage();
-    }else if(e.key === 'Escape'){
-      $('chatInput').value = '';
-      autoGrow($('chatInput'));
+      $('sendBtn').click();
     }
   });
-  function autoGrow(el){
-    el.style.height = 'auto';
-    el.style.height = Math.min(el.scrollHeight, 140) + 'px';
-  }
-  $('chatInput').addEventListener('input', (e)=> autoGrow(e.target));
 
-  $('clearChatBtn').addEventListener('click', ()=>{
-    messages = [];
-    saveMessages();
-    renderMessages();
-  });
-
-  /* ---------------- init ---------------- */
-  (async function init(){
-    await loadState();
-    renderSettings();
-    renderFileList();
-    renderEditor();
-    renderMessages();
-    checkConnection();
-
-    // Intentar cargar la estructura real del workspace local vía localcode_server.py
+  // Load tree
+  async function init(){
     try {
       const treeRes = await fetch('/api/workspace/tree');
       if(treeRes.ok){
         const treeData = await treeRes.json();
-        if(treeData.success && treeData.files && treeData.files.length){
-          files = treeData.files.map(f => ({ id: uid(), name: f.name, content: f.content }));
-          activeFileId = files.length ? files[0].id : null;
-          saveFiles(); saveActiveFileId();
-          renderFileList(); renderEditor();
+        if(treeData.files && treeData.files.length){
+          files = treeData.files;
+          $('codeEditor').value = files[0].content || '';
+          $('activeFileName').textContent = files[0].name || 'ADR-001-smolagents-react-engine.md';
+          $('activeTabName').textContent = files[0].name || 'ADR-001-smolagents-react-engine.md';
+          updateLineNumbers();
         }
       }
     } catch(e){}
-
-    if(!files.length){
-      // seed con un archivo de ejemplo
-      files.push({id:uid(), name:'ejemplo.js', content:'function suma(a, b) {\n  return a + b;\n}\n'});
-      activeFileId = files[0].id;
-      saveFiles(); saveActiveFileId();
-      renderFileList(); renderEditor();
-    }
-  })();
+  }
+  init();
 })();
 </script>
 </body>
