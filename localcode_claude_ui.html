@@ -1086,17 +1086,24 @@
 
   /* ---------------- sending messages ---------------- */
   function buildSystemPrompt(){
-    if(!files.length) return 'Eres un asistente de programación experto. Responde de forma clara y concisa, usando bloques de código con el lenguaje indicado cuando compartas código.';
-    let ctx = '';
-    if(settings.allFiles){
-      ctx = files.map(f => 'Archivo: ' + f.name + '\n```\n' + f.content + '\n```').join('\n\n');
-    }else{
+    let fileTreeStr = files.length ? files.map(f => ' - ' + f.name).join('\n') : '(Ningún archivo cargado aún)';
+    let ctx = 'ESTRUCTURA DEL PROYECTO LOCAL:\n' + fileTreeStr + '\n\n';
+
+    if(settings.allFiles && files.length){
+      ctx += 'CONTENIDO DE TODOS LOS ARCHIVOS DEL PROYECTO:\n' + 
+        files.map(f => '### Archivo: ' + f.name + '\n```\n' + f.content + '\n```').join('\n\n');
+    } else {
       const f = activeFile();
-      ctx = f ? ('Archivo activo: ' + f.name + '\n```\n' + f.content + '\n```') : '(sin archivo activo)';
-      const others = files.filter(x=>x.id!==activeFileId).map(x=>x.name).join(', ');
-      if(others) ctx += '\n\nOtros archivos disponibles (no incluidos, pide verlos si los necesitas): ' + others;
+      if (f) {
+        ctx += 'ARCHIVO ACTIVO SELECCIONADO: ' + f.name + '\n```\n' + f.content + '\n```';
+      } else {
+        ctx += '(No hay ningún archivo seleccionado en el editor en este momento)';
+      }
     }
-    return 'Eres un asistente de programación experto que ayuda a editar el siguiente proyecto local. Cuando propongas código, usa bloques ```lenguaje con el archivo completo o el fragmento relevante.\n\n' + ctx;
+
+    return 'Eres LocalCode (OpenCode), un Agente Autónomo de Ingeniería de Software que opera en el proyecto local del usuario.\n' +
+      'Tienes ACCESO COMPLETO al código del proyecto a través del contexto que se te proporciona a continuación. ' +
+      'Responde con soluciones directas de código en español, proponiendo cambios con bloques ```lenguaje.\n\n' + ctx;
   }
 
   function setSending(isSending){
