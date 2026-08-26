@@ -115,6 +115,24 @@ class TestTools(unittest.TestCase):
         finally:
             os.environ.pop("STRICT_SANDBOX", None)
 
+    def test_detectar_raiz_proyecto(self):
+        from tools import _detectar_raiz_proyecto
+        with tempfile.TemporaryDirectory() as tmpdirname:
+            git_dir = os.path.join(tmpdirname, '.git')
+            os.makedirs(git_dir, exist_ok=True)
+            nested = os.path.join(tmpdirname, 'sub', 'folder')
+            os.makedirs(nested, exist_ok=True)
+            detected = _detectar_raiz_proyecto(nested)
+            self.assertEqual(detected, os.path.abspath(tmpdirname))
+
+    def test_obtener_contexto_workspace_graphify(self):
+        from tools import obtener_contexto_workspace
+        with tempfile.TemporaryDirectory() as tmpdirname:
+            graph_dir = os.path.join(tmpdirname, 'graphify-out')
+            os.makedirs(graph_dir, exist_ok=True)
+            ctx = obtener_contexto_workspace(tmpdirname)
+            self.assertIn("graphify query", ctx)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -187,15 +187,31 @@ def leer_archivo_github(token: str, repo_full_name: str, ruta_archivo: str) -> s
     except Exception as e:
         return f"Error al leer archivo de GitHub: {e}"
 
+def _detectar_raiz_proyecto(inicio=".") -> str:
+    """Sube directorios hasta encontrar un marcador de raíz de repo (.git, AGENTS.md, graphify-out)."""
+    actual = os.path.abspath(inicio)
+    while True:
+        if (
+            os.path.exists(os.path.join(actual, ".git"))
+            or os.path.exists(os.path.join(actual, "AGENTS.md"))
+            or os.path.exists(os.path.join(actual, "graphify-out"))
+        ):
+            return actual
+        padre = os.path.dirname(actual)
+        if padre == actual:
+            return os.path.abspath(inicio)
+        actual = padre
 
 @tool
 def listar_directorio_local(ruta: str = ".") -> str:
-    """Lista los archivos y carpetas de un directorio local y devuelve el contenido como un texto formateado (str). Útil para entender la estructura del proyecto. Por defecto usa la carpeta actual '.'
+    """Lista los archivos y carpetas de un directorio local y devuelve el contenido como un texto formateado (str). Útil para entender la estructura del proyecto. Por defecto usa la carpeta raíz del proyecto.
 
     Args:
         ruta: Ruta al directorio local a listar.
     """
     try:
+        if not ruta or ruta == ".":
+            ruta = _detectar_raiz_proyecto(".")
         archivos = os.listdir(ruta)
         return f"Contenido de {os.path.abspath(ruta)}:\n" + "\n".join(archivos)
     except Exception as e:
@@ -488,7 +504,10 @@ def git_push(ruta_repo: str = ".", rama: str = "main") -> str:
 
 def obtener_contexto_workspace(ruta="."):
     """Función de utilidad para el comando @workspace. Genera un resumen del entorno."""
-    contexto = "### CONTEXTO AUTOMÁTICO DEL WORKSPACE ###\n\n"
+    if not ruta or ruta == ".":
+        ruta = _detectar_raiz_proyecto(".")
+
+    contexto = f"### CONTEXTO AUTOMÁTICO DEL WORKSPACE ###\n\nDirectorio Raíz Detectado: {os.path.abspath(ruta)}\n\n"
 
     # 1. Leer README.md si existe
     readme_path = os.path.join(ruta, "README.md")
@@ -496,7 +515,28 @@ def obtener_contexto_workspace(ruta="."):
         with open(readme_path, encoding="utf-8") as f:
             contexto += f"Contenido de README.md:\n{f.read()[:1500]}\n\n"
 
-    # 2. Detectar lenguaje por archivos clave
+    # 2. Inyectar reglas de proyecto (AGENTS.md y .agents/rules/*.md)
+    reglas_paths = ["AGENTS.md", os.path.join(".agents", "rules")]
+    for r_path in reglas_paths:
+        full_r = os.path.join(ruta, r_path)
+        if os.path.isfile(full_r):
+            with open(full_r, encoding="utf-8") as f:
+                contexto += f"### Reglas del proyecto ({r_path}) ###\n{f.read()[:2000]}\n\n"
+        elif os.path.isdir(full_r):
+            for fname in sorted(os.listdir(full_r)):
+                if fname.endswith(".md"):
+                    with open(os.path.join(full_r, fname), encoding="utf-8") as f:
+                        contexto += f"### Regla ({fname}) ###\n{f.read()[:1000]}\n\n"
+
+    # 3. Señal explícita si existe un knowledge graph de graphify
+    if os.path.isdir(os.path.join(ruta, "graphify-out")):
+        contexto += (
+            "⚠️ Este proyecto YA TIENE graphify implementado (existe graphify-out/graph.json).\n"
+            "Para consultarlo usa `ejecutar_comando_terminal('graphify query \"tu pregunta\"')` o `graphify explain`. "
+            "NO intentes `import graphify` en Python — es una herramienta CLI de terminal, no un paquete Python.\n\n"
+        )
+
+    # 4. Detectar lenguaje por archivos clave
     archivos_clave = {
         "requirements.txt": "Python (Pip)",
         "Pipfile": "Python (Pipenv)",
@@ -517,7 +557,7 @@ def obtener_contexto_workspace(ruta="."):
     if lenguajes_detectados:
         contexto += f"Lenguajes/Entornos detectados: {', '.join(lenguajes_detectados)}\n\n"
 
-    # 3. Estructura de carpetas principal (1 nivel de profundidad)
+    # 5. Estructura de carpetas principal (1 nivel de profundidad)
     estructura = []
     for item in archivos_locales:
         if item.startswith('.') or item == "__pycache__":

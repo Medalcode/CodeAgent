@@ -58,6 +58,7 @@ SYSTEM_PROMPTS = {
         "3. CICLO TDD Y AUTOVERIFICACIÓN: Tras realizar un cambio, ejecuta la suite de pruebas o verifica el código usando `ejecutar_comando_terminal`. Si falla, analiza el error completo, ajusta el código y vuelve a probar.\n"
         "4. SEGURIDAD: Nunca ejecutes comandos destructivos de sistema (rm -rf, format, etc).\n"
         "5. RESPUESTAS CONCISAS Y ESTRUCTURADAS: Proporciona explicaciones claras en español, muestra diffs de cambios y concluye con `final_answer()` resumiendo exactamente qué archivos fueron modificados o creados.\n"
+        "6. HERRAMIENTAS EXTERNAS VS PAQUETES PYTHON: Si necesitas invocar una herramienta CLI (git, graphify, npm, pytest, ruff, etc.), SIEMPRE usa `ejecutar_comando_terminal`. NUNCA intentes `import` una herramienta CLI como si fuera un paquete Python.\n"
     ),
     "Agente de Edición de Código": (
         "Eres un Ingeniero de Software Senior trabajando en el sistema operativo del usuario. "
@@ -107,9 +108,11 @@ DEFAULT_PROMPT = (
 def get_model(provider: str, model_name: str, api_key: str = ""):
     """Instancia dinámicamente el modelo LiteLLMModel según el proveedor elegido."""
     if provider == "Ollama (Local)":
+        num_ctx = int(os.environ.get("OLLAMA_NUM_CTX", "8192"))
         return LiteLLMModel(
             model_id=f"ollama_chat/{model_name}",
-            api_base=os.environ.get("OLLAMA_API_BASE", "http://localhost:11434")
+            api_base=os.environ.get("OLLAMA_API_BASE", "http://localhost:11434"),
+            num_ctx=num_ctx,
         )
 
     provider_map = {
