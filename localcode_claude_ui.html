@@ -104,7 +104,28 @@
     letter-spacing:.06em;
     text-transform:uppercase;
   }
-  .header-right{display:flex;align-items:center;gap:14px;}
+  .header-right{display:flex;align-items:center;gap:12px;}
+  .model-picker-wrap{
+    display:flex;align-items:center;gap:6px;
+    background:var(--bg-elevated);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:4px 8px;
+  }
+  .model-picker-wrap select, .field select{
+    background:transparent;
+    border:none;
+    color:var(--accent);
+    font-family:var(--mono);
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+    outline:none;
+  }
+  .model-picker-wrap select option, .field select option{
+    background:var(--bg-panel);
+    color:var(--text);
+  }
   .status{
     display:flex;align-items:center;gap:7px;
     font-family:var(--mono);
@@ -432,6 +453,13 @@
     <span class="tag">Ollama</span>
   </div>
   <div class="header-right">
+    <div class="model-picker-wrap" title="Seleccionar Modelo IA Local (Ollama)">
+      <span>🧠</span>
+      <select id="headerModelSelect">
+        <option value="qwen2.5-coder:7b">qwen2.5-coder:7b</option>
+        <option value="deepseek-coder:6.7b">deepseek-coder:6.7b</option>
+      </select>
+    </div>
     <div class="status">
       <div class="dot" id="statusDot"></div>
       <span id="statusText">sin verificar</span>
@@ -447,8 +475,11 @@
       <input type="text" id="endpointInput" placeholder="http://localhost:11434" spellcheck="false">
     </div>
     <div class="field">
-      <label for="modelInput">Modelo</label>
-      <input type="text" id="modelInput" placeholder="qwen2.5-coder:7b" spellcheck="false">
+      <label for="modelSelect">Modelo IA Local (Ollama)</label>
+      <select id="modelSelect" style="width:100%;background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:8px 10px;font-family:var(--mono);font-size:13px;color:var(--text);">
+        <option value="qwen2.5-coder:7b">qwen2.5-coder:7b</option>
+        <option value="deepseek-coder:6.7b">deepseek-coder:6.7b</option>
+      </select>
     </div>
     <div class="field">
       <label for="tempInput">Temperatura</label>
@@ -698,13 +729,45 @@
   });
 
   /* ---------------- settings UI ---------------- */
+  function updateModelSelectOptions(modelNames){
+    const selects = [$('headerModelSelect'), $('modelSelect')].filter(Boolean);
+    if(!modelNames || !modelNames.length){
+      modelNames = ['qwen2.5-coder:7b', 'deepseek-coder:6.7b', 'llama3.1:8b', 'codellama'];
+    }
+    if(settings.model && !modelNames.includes(settings.model)){
+      modelNames.unshift(settings.model);
+    }
+    selects.forEach(sel => {
+      sel.innerHTML = '';
+      modelNames.forEach(m => {
+        const opt = document.createElement('option');
+        opt.value = m;
+        opt.textContent = m;
+        if(m === settings.model) opt.selected = true;
+        sel.appendChild(opt);
+      });
+      sel.value = settings.model;
+    });
+  }
+
   function renderSettings(){
     $('endpointInput').value = settings.endpoint;
-    $('modelInput').value = settings.model;
+    updateModelSelectOptions();
     $('tempInput').value = settings.temperature;
     $('tempVal').textContent = settings.temperature;
     $('allFilesToggle').checked = !!settings.allFiles;
   }
+
+  function onModelChange(val){
+    if(!val) return;
+    settings.model = val;
+    const hSelect = $('headerModelSelect');
+    const mSelect = $('modelSelect');
+    if(hSelect) hSelect.value = val;
+    if(mSelect) mSelect.value = val;
+    saveSettings();
+  }
+
   $('settingsToggle').addEventListener('click', ()=>{
     $('settingsDrawer').classList.toggle('open');
     $('settingsToggle').classList.toggle('active');
@@ -713,10 +776,12 @@
     settings.endpoint = $('endpointInput').value.trim().replace(/\/+$/,'') || 'http://localhost:11434';
     saveSettings(); checkConnection();
   });
-  $('modelInput').addEventListener('change', ()=>{
-    settings.model = $('modelInput').value.trim();
-    saveSettings();
-  });
+  if($('headerModelSelect')){
+    $('headerModelSelect').addEventListener('change', (e)=> onModelChange(e.target.value));
+  }
+  if($('modelSelect')){
+    $('modelSelect').addEventListener('change', (e)=> onModelChange(e.target.value));
+  }
   $('tempInput').addEventListener('input', ()=>{
     settings.temperature = parseFloat($('tempInput').value);
     $('tempVal').textContent = settings.temperature;
@@ -737,6 +802,17 @@
       if(res.ok){
         dot.className = 'dot ok';
         text.textContent = 'conectado';
+        try {
+          const data = await res.json();
+          if(data && data.models && data.models.length){
+            const names = data.models.map(m => m.name);
+            if(!settings.model || !names.includes(settings.model)){
+              settings.model = names[0];
+              saveSettings();
+            }
+            updateModelSelectOptions(names);
+          }
+        } catch(e){}
       }else{
         dot.className = 'dot err';
         text.textContent = 'error ' + res.status;
