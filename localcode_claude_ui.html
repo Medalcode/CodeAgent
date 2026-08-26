@@ -1095,13 +1095,17 @@
     }
 
     if(files.length){
-      ctx += 'CONTENIDO COMPLETO DE LOS ARCHIVOS DEL REPOSITORIO:\n' + 
-        files.map(f => '### Archivo: ' + f.name + '\n```\n' + f.content + '\n```').join('\n\n');
+      ctx += 'CONTENIDO COMPLETO DE LOS ARCHIVOS DEL REPOSITORIO:\n';
+      files.forEach(f => {
+        let snippet = f.content;
+        if(snippet.length > 25000) snippet = snippet.slice(0, 25000) + '\n... [truncado por longitud]';
+        ctx += '### Archivo: ' + f.name + '\n```\n' + snippet + '\n```\n\n';
+      });
     }
 
-    return 'Eres LocalCode (OpenCode), un Agente Autónomo de Ingeniería de Software que opera sobre el proyecto local del usuario.\n' +
-      'Tienes ACCESO PROACTIVO Y COMPLETO a todos los archivos del repositorio a través del contexto provisto a continuación. ' +
-      'Responde con soluciones directas de código en español, proponiendo cambios precisos con bloques ```lenguaje.\n\n' + ctx;
+    return 'IMPORTANTE: Eres el asistente LocalCode / OpenCode. TIENES ACCESO COMPLETO al proyecto local del usuario a través del contexto provisto abajo.\n' +
+      'NUNCA digas que no tienes acceso a archivos locales o al repositorio. Ya dispones del código fuente cargado aquí.\n' +
+      'Responde siempre en español, de forma proactiva, concisa y ofreciendo cambios directos de código con bloques ```lenguaje.\n\n' + ctx;
   }
 
   function setSending(isSending){
