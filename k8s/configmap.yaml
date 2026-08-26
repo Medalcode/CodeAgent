@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: codeagent-config
+  labels:
+    app: codeagent
+data:
+  OLLAMA_NUM_CTX: "8192"
+  OLLAMA_API_BASE: "http://ollama-service:11434"
+  STRICT_SANDBOX: "1"
+  PORT: "8000"
