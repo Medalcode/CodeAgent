@@ -467,6 +467,10 @@
         <option value="deepseek-coder:6.7b">deepseek-coder:6.7b</option>
       </select>
     </div>
+    <div class="model-picker-wrap" title="Estadísticas de Rendimiento Agéntico">
+      <span>📊</span>
+      <span id="metricsBadge" style="font-family:var(--mono);font-size:11px;color:var(--teal);padding:2px 6px;background:var(--teal-soft);border-radius:4px;">0.0s | Ready</span>
+    </div>
     <div class="status">
       <div class="dot" id="statusDot"></div>
       <span id="statusText">sin verificar</span>
@@ -1178,6 +1182,10 @@
             accumulated = data.response;
             if (data.metrics && data.metrics.tiempo_segundos) {
               accumulated += `\n\n---\n*⚡ Respuesta generada por ${data.metrics.agentes_usados || 'CodeAgent'} en ${data.metrics.tiempo_segundos}s con ${data.metrics.herramientas_activas || 4} herramientas activas*`;
+              const badge = $('metricsBadge');
+              if (badge) {
+                badge.textContent = `${data.metrics.tiempo_segundos}s | ${data.metrics.herramientas_activas || 4} Tools`;
+              }
             }
             placeholder.content = accumulated;
             saveMessages();
