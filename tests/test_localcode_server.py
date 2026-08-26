@@ -62,6 +62,18 @@ class TestLocalCodeServer(unittest.TestCase):
         status, _, _ = self._make_request('GET', '/ruta_que_no_existe_xyz')
         self.assertEqual(status, 404)
 
+    def test_openapi_spec_endpoint(self):
+        status, headers, data = self._make_request('GET', '/api/openapi.json')
+        self.assertEqual(status, 200)
+        json_data = json.loads(data.decode('utf-8'))
+        self.assertEqual(json_data.get('openapi'), '3.0.3')
+        self.assertIn('/api/agent/chat', json_data.get('paths', {}))
+
+    def test_swagger_docs_endpoint(self):
+        status, headers, data = self._make_request('GET', '/docs')
+        self.assertEqual(status, 200)
+        self.assertIn(b'SwaggerUIBundle', data)
+
 
 if __name__ == '__main__':
     unittest.main()

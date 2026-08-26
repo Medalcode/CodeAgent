@@ -262,16 +262,35 @@ def ejecutar_comando_terminal(comando: str, directorio: str = "") -> str:
         # BUG 3 FIX: usar directorio de trabajo si se proporcionó
         cwd = directorio if directorio and os.path.isdir(directorio) else os.getcwd()
 
-        result = subprocess.run(
-            comando,
-            shell=True,
-            capture_output=True,
-            text=True,
-            timeout=60,  # Aumentado de 30 a 60 segundos
-            cwd=cwd,
-            encoding='utf-8',
-            errors='replace',
-        )
+        try:
+            cmd_args = shlex.split(comando, posix=(os.name != 'nt'))
+            use_shell = False
+        except Exception:
+            cmd_args = comando
+            use_shell = True
+
+        try:
+            result = subprocess.run(
+                cmd_args,
+                shell=use_shell,
+                capture_output=True,
+                text=True,
+                timeout=60,
+                cwd=cwd,
+                encoding='utf-8',
+                errors='replace',
+            )
+        except FileNotFoundError:
+            result = subprocess.run(
+                comando,
+                shell=True,
+                capture_output=True,
+                text=True,
+                timeout=60,
+                cwd=cwd,
+                encoding='utf-8',
+                errors='replace',
+            )
         salida = result.stdout.strip() if result.stdout else ""
         error = result.stderr.strip() if result.stderr else ""
 

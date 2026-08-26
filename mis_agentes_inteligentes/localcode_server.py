@@ -37,7 +37,11 @@ class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
-        if self.path.startswith("/api/workspace/tree"):
+        if self.path.startswith("/api/openapi.json"):
+            self.handle_openapi_spec()
+        elif self.path.startswith("/docs"):
+            self.handle_docs()
+        elif self.path.startswith("/api/workspace/tree"):
             self.handle_workspace_tree()
         elif self.path.startswith("/api/chat") or self.path.startswith("/api/tags") or self.path.startswith("/api/version"):
             self.proxy_to_ollama("GET")
@@ -45,6 +49,72 @@ class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
             if self.path in ("/", ""):
                 self.path = "/localcode_claude_ui.html"
             super().do_GET()
+
+    def handle_openapi_spec(self):
+        spec = {
+            "openapi": "3.0.3",
+            "info": {
+                "title": "CodeAgent LocalCode API",
+                "version": "2.4.0",
+                "description": "API REST y Proxy Local para CodeAgent Developer y smolagents."
+            },
+            "paths": {
+                "/api/agent/chat": {
+                    "post": {
+                        "summary": "Enviar petición al Agente CodeAgent Developer",
+                        "requestBody": {
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "prompt": {"type": "string"},
+                                            "model": {"type": "string"},
+                                            "agent_type": {"type": "string"},
+                                            "selected_tools": {"type": "array", "items": {"type": "string"}}
+                                        },
+                                        "required": ["prompt"]
+                                    }
+                                }
+                            }
+                        },
+                        "responses": {
+                            "200": {"description": "Respuesta del agente ejecutada con métricas"},
+                            "400": {"description": "Prompt vacío"}
+                        }
+                    }
+                },
+                "/api/workspace/tree": {
+                    "get": {
+                        "summary": "Obtener árbol jerárquico de archivos del workspace",
+                        "responses": {
+                            "200": {"description": "Lista de archivos del proyecto local"}
+                        }
+                    }
+                }
+            }
+        }
+        self._send_json(spec)
+
+    def handle_docs(self):
+        html = """<!DOCTYPE html>
+<html>
+<head>
+  <title>CodeAgent API Docs</title>
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css">
+</head>
+<body>
+  <div id="swagger-ui"></div>
+  <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+  <script>
+    SwaggerUIBundle({ url: '/api/openapi.json', dom_id: '#swagger-ui' });
+  </script>
+</body>
+</html>"""
+        self.send_response(200)
+        self.send_header("Content-Type", "text/html; charset=utf-8")
+        self.end_headers()
+        self.wfile.write(html.encode("utf-8"))
 
     def do_POST(self):
         if self.path.startswith("/api/workspace/open-folder"):

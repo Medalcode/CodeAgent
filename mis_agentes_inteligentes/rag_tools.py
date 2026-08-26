@@ -33,6 +33,9 @@ def init_chroma():
     return db, embeddings
 
 
+_RAG_CACHE = {}
+
+
 # BUG 6 FIX: @tool sin argumento posicional — smolagents >= 1.x no acepta @tool("nombre")
 @tool
 def indexar_directorio_local(ruta: str) -> str:
@@ -41,6 +44,9 @@ def indexar_directorio_local(ruta: str) -> str:
     Args:
         ruta: Ruta al directorio a indexar.
     """
+    global _RAG_CACHE
+    _RAG_CACHE.clear()
+
     if not CHROMA_AVAILABLE:
         return "Error: Las librerías RAG no están instaladas (chromadb, langchain-community, sentence-transformers)."
 
@@ -98,6 +104,10 @@ def preguntar_a_repositorio(pregunta: str) -> str:
     Args:
         pregunta: Pregunta o búsqueda a realizar sobre el código indexado.
     """
+    query_key = pregunta.strip().lower()
+    if query_key in _RAG_CACHE:
+        return _RAG_CACHE[query_key]
+
     if not CHROMA_AVAILABLE:
         return "Error: Las librerías RAG no están instaladas."
 
@@ -110,13 +120,16 @@ def preguntar_a_repositorio(pregunta: str) -> str:
         resultados = db.similarity_search(pregunta, k=4)
 
         if not resultados:
-            return "No se encontró información relevante en la base de datos indexada."
+            res_str = "No se encontró información relevante en la base de datos indexada."
+            _RAG_CACHE[query_key] = res_str
+            return res_str
 
         respuesta = "Fragmentos de código relevantes encontrados en la memoria local:\n\n"
         for i, res in enumerate(resultados, 1):
             source = res.metadata.get('source', 'Desconocido')
             respuesta += f"--- Resultado {i} (Archivo: {source}) ---\n{res.page_content}\n\n"
 
+        _RAG_CACHE[query_key] = respuesta
         return respuesta
     except Exception as e:
         return f"Error al buscar en la memoria RAG: {e}"

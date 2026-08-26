@@ -22,6 +22,12 @@ class TestRagTools(unittest.TestCase):
             resultado = preguntar_a_repositorio("¿Qué hace la función main?")
             self.assertIn("Error: Las librerías RAG no están instaladas", resultado)
 
+    def test_preguntar_a_repositorio_cache(self):
+        import rag_tools
+        rag_tools._RAG_CACHE["test_key"] = "cached result"
+        res = preguntar_a_repositorio("Test_Key")
+        self.assertEqual(res, "cached result")
+
 
 if __name__ == '__main__':
     unittest.main()
