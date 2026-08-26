@@ -5,6 +5,7 @@ import os
 import shlex
 import sqlite3
 import subprocess
+import tempfile
 from datetime import date
 
 import requests
@@ -225,12 +226,16 @@ def escribir_archivo_local(ruta_archivo: str, contenido: str) -> str:
         contenido: Contenido a escribir en el archivo.
     """
     try:
-        # Crear directorios si no existen
-        directorio = os.path.dirname(os.path.abspath(ruta_archivo))
+        abs_path = os.path.abspath(ruta_archivo)
+        directorio = os.path.dirname(abs_path)
         if directorio:
             os.makedirs(directorio, exist_ok=True)
-        with open(ruta_archivo, 'w', encoding='utf-8') as f:
-            f.write(contenido)
+
+        with tempfile.NamedTemporaryFile('w', dir=directorio, delete=False, encoding='utf-8') as tf:
+            tf.write(contenido)
+            temp_name = tf.name
+
+        os.replace(temp_name, abs_path)
         return f"Éxito: Archivo {ruta_archivo} guardado correctamente."
     except Exception as e:
         return f"Error al escribir {ruta_archivo}: {e}"
@@ -335,8 +340,16 @@ def editar_archivo_search_replace(ruta_archivo: str, busqueda: str, reemplazo: s
 
         nuevo_contenido = contenido.replace(busqueda, reemplazo, 1)
 
-        with open(ruta_archivo, 'w', encoding='utf-8') as f:
-            f.write(nuevo_contenido)
+        abs_path = os.path.abspath(ruta_archivo)
+        directorio = os.path.dirname(abs_path)
+        if directorio:
+            os.makedirs(directorio, exist_ok=True)
+
+        with tempfile.NamedTemporaryFile('w', dir=directorio, delete=False, encoding='utf-8') as tf:
+            tf.write(nuevo_contenido)
+            temp_name = tf.name
+
+        os.replace(temp_name, abs_path)
 
         # Generar diff visual para confianza del usuario
         diff = list(difflib.unified_diff(
@@ -388,7 +401,7 @@ def git_add(archivos: str, ruta_repo: str = ".") -> str:
         ruta_repo: Ruta del repositorio git local.
     """
     try:
-        args = ["git", "add"] + shlex.split(archivos)
+        args = ["git", "add"] + shlex.split(archivos, posix=(os.name != 'nt'))
         result = subprocess.run(args, cwd=ruta_repo, capture_output=True, text=True)
         return f"Archivos añadidos al stage: {archivos}" if result.returncode == 0 else f"Error: {result.stderr}"
     except Exception as e:

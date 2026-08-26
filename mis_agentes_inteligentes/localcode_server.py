@@ -283,12 +283,17 @@ class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
         self.wfile.write(err_msg.encode("utf-8"))
 
 
+class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
+    """Servidor TCP/HTTP multihilo no bloqueante para peticiones concurrentes."""
+    daemon_threads = True
+    allow_reuse_address = True
+
+
 def main():
-    socketserver.TCPServer.allow_reuse_address = True
-    with socketserver.TCPServer(("", PORT), LocalCodeProxyHandler) as httpd:
+    with ThreadedTCPServer(("", PORT), LocalCodeProxyHandler) as httpd:
         url = f"http://localhost:{PORT}/localcode_claude_ui.html"
         print("=" * 65)
-        print(f"🚀 Servidor LocalCode iniciado en: {url}")
+        print(f"🚀 Servidor LocalCode Multihilo iniciado en: {url}")
         print(f"🔗 Proxy conector activado hacia Ollama: {OLLAMA_TARGET}")
         print("💡 Cierra esta ventana o presiona Ctrl+C para detener.")
         print("=" * 65 + "\n")

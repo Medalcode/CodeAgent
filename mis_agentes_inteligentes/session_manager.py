@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import tempfile
 import uuid
 from datetime import datetime
 
@@ -59,8 +60,10 @@ def save_session(session_id, data):
         return
     init_sessions_dir()
     filepath = os.path.join(SESSIONS_DIR, f"{session_id}.json")
-    with open(filepath, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=4, ensure_ascii=False)
+    with tempfile.NamedTemporaryFile("w", dir=SESSIONS_DIR, delete=False, encoding="utf-8") as tf:
+        json.dump(data, tf, indent=4, ensure_ascii=False)
+        temp_name = tf.name
+    os.replace(temp_name, filepath)
 
 
 def delete_session(session_id):
