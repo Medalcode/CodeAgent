@@ -108,11 +108,11 @@ DEFAULT_PROMPT = (
 def get_model(provider: str, model_name: str, api_key: str = ""):
     """Instancia dinámicamente el modelo LiteLLMModel según el proveedor elegido."""
     if provider == "Ollama (Local)":
-        num_ctx = int(os.environ.get("OLLAMA_NUM_CTX", "8192"))
+        from config import OLLAMA_NUM_CTX, OLLAMA_TARGET
         return LiteLLMModel(
             model_id=f"ollama_chat/{model_name}",
-            api_base=os.environ.get("OLLAMA_API_BASE", "http://localhost:11434"),
-            num_ctx=num_ctx,
+            api_base=OLLAMA_TARGET,
+            num_ctx=OLLAMA_NUM_CTX,
         )
 
     provider_map = {
