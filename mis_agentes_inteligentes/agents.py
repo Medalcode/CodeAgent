@@ -11,6 +11,15 @@ try:
 except ImportError:
     pass
 
+import typing
+
+if not hasattr(typing, "NotRequired"):
+    try:
+        import typing_extensions
+        typing.NotRequired = typing_extensions.NotRequired
+    except ImportError:
+        pass
+
 from smolagents import CodeAgent, LiteLLMModel
 
 _SUBAGENTS_CACHE = {}
