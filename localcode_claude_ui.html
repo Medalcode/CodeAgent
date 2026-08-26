@@ -1086,26 +1086,21 @@
 
   /* ---------------- sending messages ---------------- */
   function buildSystemPrompt(){
-    let fileTreeStr = files.length ? files.map(f => ' - ' + f.name).join('\n') : '(Ningún archivo cargado aún)';
-    let ctx = 'ESTRUCTURA DEL PROYECTO LOCAL (' + files.length + ' archivos):\n' + fileTreeStr + '\n\n';
+    let fileTreeStr = files.length ? files.map(f => ' - ' + f.name).join('\n') : '(Ningún archivo cargado)';
+    let sys = 'Eres un asistente experto de programación para este proyecto local.\n\n';
+    sys += 'ESTRUCTURA DE ARCHIVOS DISPONIBLES EN EL PROYECTO:\n' + fileTreeStr + '\n\n';
 
-    const hasGraphify = files.some(f => f.name.includes('graphify') || f.name.includes('AGENTS.md'));
-    if(hasGraphify){
-      ctx += '📌 INFORMACIÓN DEL KNOWLEDGE GRAPH (GRAPHIFY INTEGRADO):\nEste proyecto cuenta con un grafo de conocimiento de arquitectura e interdependencias en graphify-out/ y reglas en AGENTS.md.\n\n';
-    }
-
-    if(files.length){
-      ctx += 'CONTENIDO COMPLETO DE LOS ARCHIVOS DEL REPOSITORIO:\n';
+    if (files.length) {
+      sys += 'CONTENIDO DE LOS ARCHIVOS DEL PROYECTO:\n';
       files.forEach(f => {
-        let snippet = f.content;
-        if(snippet.length > 25000) snippet = snippet.slice(0, 25000) + '\n... [truncado por longitud]';
-        ctx += '### Archivo: ' + f.name + '\n```\n' + snippet + '\n```\n\n';
+        let snippet = f.content || '';
+        if (snippet.length > 15000) snippet = snippet.slice(0, 15000) + '\n... [truncado]';
+        sys += `=== ARCHIVO: ${f.name} ===\n${snippet}\n\n`;
       });
     }
 
-    return 'IMPORTANTE: Eres el asistente LocalCode / OpenCode. TIENES ACCESO COMPLETO al proyecto local del usuario a través del contexto provisto abajo.\n' +
-      'NUNCA digas que no tienes acceso a archivos locales o al repositorio. Ya dispones del código fuente cargado aquí.\n' +
-      'Responde siempre en español, de forma proactiva, concisa y ofreciendo cambios directos de código con bloques ```lenguaje.\n\n' + ctx;
+    sys += 'Instrucciones: Responde de forma proactiva, analizando los archivos provistos. Si el usuario te pregunta sobre el código o el repositorio, usa la información de los archivos de arriba.';
+    return sys;
   }
 
   function setSending(isSending){
@@ -1134,6 +1129,9 @@
     saveMessages();
     renderMessages();
 
+    const apiMessages = [{role:'system', content: buildSystemPrompt()}]
+      .concat(messages.filter(m=>m.role!=='error').map(m=>({role:m.role, content:m.content})));
+
     setSending(true);
     abortController = new AbortController();
 
@@ -1146,35 +1144,6 @@
     bubbleEl.innerHTML = '<p><span class="streaming-cursor"></span></p>';
 
     let accumulated = '';
-
-    // 1. Intentar llamar al pipeline autónomo de CodeAgent (/api/agent/chat) con herramientas locales reales
-    try {
-      const agentRes = await fetch('/api/agent/chat', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        signal: abortController.signal,
-        body: JSON.stringify({ prompt: text, model: settings.model })
-      });
-
-      if(agentRes.ok){
-        const agentData = await agentRes.json();
-        if(agentData.success && agentData.response){
-          accumulated = agentData.response;
-          placeholder.content = accumulated;
-          saveMessages();
-          renderMessages();
-          setSending(false);
-          return;
-        }
-      }
-    } catch(e) {
-      // Fallback a llamada directa de Ollama si no está disponible el backend de agentes
-    }
-
-    // 2. Fallback a streaming directo de Ollama /api/chat
-    const apiMessages = [{role:'system', content: buildSystemPrompt()}]
-      .concat(messages.filter(m=>m.role!=='error' && m!==placeholder).map(m=>({role:m.role, content:m.content})));
-
     try{
       const res = await fetch(settings.endpoint + '/api/chat', {
         method:'POST',
