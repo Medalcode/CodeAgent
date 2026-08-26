@@ -453,10 +453,17 @@
     <span class="tag">Ollama</span>
   </div>
   <div class="header-right">
+    <div class="model-picker-wrap" title="Seleccionar Modo de Operación">
+      <span>🚀</span>
+      <select id="headerModeSelect">
+        <option value="codeagent">🤖 CodeAgent (Agente + Tools)</option>
+        <option value="ollama">💬 Ollama Directo (Streaming)</option>
+      </select>
+    </div>
     <div class="model-picker-wrap" title="Seleccionar Modelo IA Local (Ollama)">
       <span>🧠</span>
       <select id="headerModelSelect">
-        <option value="qwen2.5-coder:7b">qwen2.5-coder:7b</option>
+        <option value="qwen2.5-coder:14b">qwen2.5-coder:14b</option>
         <option value="deepseek-coder:6.7b">deepseek-coder:6.7b</option>
       </select>
     </div>
@@ -575,7 +582,7 @@
   /* ---------------- state ---------------- */
   let files = [];          // {id, name, content}
   let activeFileId = null;
-  let settings = { endpoint:"http://localhost:11434", model:"qwen2.5-coder:14b", temperature:0.3, allFiles:true };
+  let settings = { endpoint:"http://localhost:11434", model:"qwen2.5-coder:14b", mode:"codeagent", temperature:0.3, allFiles:true };
   let messages = [];        // {role:'user'|'assistant'|'error', content}
   let streaming = false;
   let abortController = null;
@@ -930,6 +937,13 @@
     settings.endpoint = $('endpointInput').value.trim().replace(/\/+$/,'') || 'http://localhost:11434';
     saveSettings(); checkConnection();
   });
+  if($('headerModeSelect')){
+    $('headerModeSelect').value = settings.mode || 'codeagent';
+    $('headerModeSelect').addEventListener('change', (e)=> {
+      settings.mode = e.target.value;
+      saveSettings();
+    });
+  }
   if($('headerModelSelect')){
     $('headerModelSelect').addEventListener('change', (e)=> onModelChange(e.target.value));
   }
@@ -1151,6 +1165,64 @@
     bubbleEl.innerHTML = '<p><span class="streaming-cursor"></span></p>';
 
     let accumulated = '';
+    const activeMode = settings.mode || 'codeagent';
+
+    if (activeMode === 'codeagent') {
+      try {
+        const res = await fetch('/api/agent/chat', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          signal: abortController.signal,
+          body: JSON.stringify({
+            prompt: text,
+            model: settings.model,
+            agent_type: 'CodeAgent Developer',
+            selected_tools: ['Archivos Locales', 'Terminal Integrada', 'Git', 'Github']
+          })
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && data.response) {
+            accumulated = data.response;
+            if (data.metrics && data.metrics.tiempo_segundos) {
+              accumulated += `\n\n---\n*⚡ Respuesta generada por ${data.metrics.agentes_usados || 'CodeAgent'} en ${data.metrics.tiempo_segundos}s con ${data.metrics.herramientas_activas || 4} herramientas activas*`;
+            }
+            placeholder.content = accumulated;
+            saveMessages();
+            renderMessages();
+            setSending(false);
+            return;
+          } else if (data.error) {
+            throw new Error(data.error);
+          }
+        } else {
+          const errText = await res.text();
+          throw new Error('HTTP ' + res.status + ': ' + errText);
+        }
+      } catch (e) {
+        if (e.name === 'AbortError') {
+          setSending(false);
+          return;
+        }
+        placeholder.content = `❌ Error al comunicarse con CodeAgent Server (/api/agent/chat): ${e.message}`;
+        saveMessages();
+        renderMessages();
+        setSending(false);
+        return;
+      }
+    }
+
+    // Modo Ollama Directo Streaming (/api/chat)
+    const cleanHistory = messages.filter(m => {
+      if (m.role === 'error' || m === placeholder) return false;
+      if (m.role === 'assistant' && (m.content.includes('Soy Claude') || m.content.includes('No tengo acceso'))) return false;
+      return true;
+    });
+
+    const apiMessages = [{role:'system', content: buildSystemPrompt()}]
+      .concat(cleanHistory.map(m=>({role:m.role, content:m.content})));
+
     try{
       const res = await fetch(settings.endpoint + '/api/chat', {
         method:'POST',

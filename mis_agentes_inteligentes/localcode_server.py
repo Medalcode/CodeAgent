@@ -214,25 +214,31 @@ class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
         data = self._get_post_body()
         prompt = data.get("prompt", "").strip()
         model_name = data.get("model", "qwen2.5-coder:14b")
+        agent_type = data.get("agent_type", "CodeAgent Developer")
+        selected_tools = data.get("selected_tools", ["Archivos Locales", "Terminal Integrada", "Git", "Github"])
 
         if not prompt:
             self._send_json({"success": False, "error": "Prompt vacío"}, 400)
             return
 
+        print(f"\n[LocalCode Server] 🚀 Petición enviada a /api/agent/chat | Agente: {agent_type} | Modelo: {model_name}")
+        print(f"[LocalCode Server] 🛠️ Herramientas activas: {', '.join(selected_tools)}")
+
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
         try:
             import main as codeagent_main
-            # Incluir suite completa: Archivos Locales, Terminal, Git y Github
             respuesta, metricas = codeagent_main.ejecutar_agentes(
                 user_prompt=prompt,
                 provider="Ollama (Local)",
                 model_name=model_name,
                 api_key="",
-                agent_type="CodeAgent Developer",
-                selected_tools=["Archivos Locales", "Terminal Integrada", "Git", "Github"]
+                agent_type=agent_type,
+                selected_tools=selected_tools
             )
+            print(f"[LocalCode Server] ✅ Agente respondió con éxito en {metricas.get('tiempo_segundos', 0)}s\n")
             self._send_json({"success": True, "response": respuesta, "metrics": metricas})
         except Exception as e:
+            print(f"[LocalCode Server] ❌ Error en Agente: {e}\n")
             self._send_json({"success": False, "error": f"Error ejecutando Agente CodeAgent: {e}", "trace": traceback.format_exc()}, 500)
 
     def proxy_to_ollama(self, method):
