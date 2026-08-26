@@ -91,6 +91,16 @@ class TestTools(unittest.TestCase):
         resultado = ejecutar_comando_terminal("rm -rf /")
         self.assertIn("Error de Seguridad", resultado)
 
+        resultado_win = ejecutar_comando_terminal("format c:")
+        self.assertIn("Error de Seguridad", resultado_win)
+
+    def test_escribir_archivo_local_directorio_anidado(self):
+        with tempfile.TemporaryDirectory() as tmpdirname:
+            file_path = os.path.join(tmpdirname, 'sub', 'dir', 'deep', 'nested.py')
+            resultado = escribir_archivo_local(file_path, "print('nested')")
+            self.assertIn("Éxito", resultado)
+            self.assertTrue(os.path.exists(file_path))
+
 
 if __name__ == '__main__':
     unittest.main()
