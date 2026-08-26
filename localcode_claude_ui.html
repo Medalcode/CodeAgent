@@ -731,8 +731,11 @@
   /* ---------------- settings UI ---------------- */
   function updateModelSelectOptions(modelNames){
     const selects = [$('headerModelSelect'), $('modelSelect')].filter(Boolean);
-    if(!modelNames || !modelNames.length){
-      modelNames = ['qwen2.5-coder:7b', 'deepseek-coder:6.7b', 'llama3.1:8b', 'codellama'];
+    if(!modelNames){
+      modelNames = settings.model ? [settings.model] : ['qwen2.5-coder:14b'];
+    }
+    if(!modelNames.length){
+      modelNames = ['qwen2.5-coder:14b (descargando en terminal...)'];
     }
     if(settings.model && !modelNames.includes(settings.model)){
       modelNames.unshift(settings.model);
