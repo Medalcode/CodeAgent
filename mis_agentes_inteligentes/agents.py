@@ -12,6 +12,7 @@ except ImportError:
     pass
 
 import typing
+from typing import Any
 
 if not hasattr(typing, "NotRequired"):
     try:
@@ -19,6 +20,17 @@ if not hasattr(typing, "NotRequired"):
         typing.NotRequired = typing_extensions.NotRequired
     except ImportError:
         pass
+
+# Parche Pydantic v2 para litellm (evita PydanticUserError: Message is not fully defined)
+try:
+    import litellm.types.utils
+    if not hasattr(litellm.types.utils, "ChatCompletionReasoningSummaryTextBlock"):
+        litellm.types.utils.ChatCompletionReasoningSummaryTextBlock = Any
+    litellm.types.utils.Message.model_rebuild()
+    litellm.types.utils.Choices.model_rebuild()
+    litellm.types.utils.ModelResponse.model_rebuild()
+except Exception:
+    pass
 
 from smolagents import CodeAgent, LiteLLMModel
 
@@ -228,11 +240,71 @@ def route_prompt(prompt: str) -> str:
     return best
 
 
+_LOCAL_MODEL_TEMPLATE = {
+    "system_prompt": (
+        "Eres un asistente de IA que resuelve tareas escribiendo código Python.\n"
+        "Tienes acceso a herramientas que son funciones Python que puedes llamar.\n\n"
+        "En cada paso, escribe EXACTAMENTE este formato:\n\n"
+        "Pensamiento: [explica qué vas a hacer]\n"
+        "{{code_block_opening_tag}}\n"
+        "[tu código Python aquí]\n"
+        "{{code_block_closing_tag}}\n\n"
+        "EJEMPLO con herramientas:\n"
+        "Pensamiento: Voy a listar los archivos del directorio.\n"
+        "{{code_block_opening_tag}}\n"
+        "resultado = listar_directorio_local('.')\n"
+        "print(resultado)\n"
+        "{{code_block_closing_tag}}\n\n"
+        "Observación: [aquí aparece el resultado de tu código]\n\n"
+        "Pensamiento: Ya tengo el resultado. Voy a devolver la respuesta final.\n"
+        "{{code_block_opening_tag}}\n"
+        "final_answer(resultado)\n"
+        "{{code_block_closing_tag}}\n\n"
+        "EJEMPLO sin herramientas (respuesta directa):\n"
+        "Pensamiento: Puedo responder directamente.\n"
+        "{{code_block_opening_tag}}\n"
+        "final_answer('Tu respuesta aquí')\n"
+        "{{code_block_closing_tag}}\n\n"
+        "REGLAS CRÍTICAS:\n"
+        "1. SIEMPRE envuelve tu código en {{code_block_opening_tag}} y {{code_block_closing_tag}}.\n"
+        "2. Cuando tengas la respuesta, usa final_answer() DENTRO de {{code_block_opening_tag}}.\n"
+        "3. NO repitas la misma acción si ya obtuviste el resultado.\n"
+        "4. Responde en español. Sé directo.\n"
+        "5. Solo usa herramientas de la lista. NO inventes funciones.\n\n"
+        "Herramientas: {tools}\n\n"
+        "{%- if custom_instructions %}\n"
+        "{{custom_instructions}}\n"
+        "{%- endif %}\n"
+        "¡Empieza!"
+    ),
+    "planning": {
+        "initial_plan": "",
+        "update_plan_pre_messages": "",
+        "update_plan_post_messages": "",
+    },
+    "managed_agent": {
+        "task": "",
+        "report": "",
+    },
+    "final_answer": {
+        "pre_messages": "",
+        "post_messages": "",
+    },
+}
+
+
+def _detectar_modelo_local(model) -> bool:
+    """Detecta si el modelo es local (Ollama) basándose en el model_id."""
+    if hasattr(model, "model_id"):
+        return "ollama" in model.model_id.lower()
+    return False
+
+
 def crear_agente(agent_type: str, model, tools_list: list, workspace_context: str = ""):
     """
     Crea el CodeAgent de smolagents.
-    FIX: system_prompt ahora se pasa correctamente al constructor.
-    FIX: max_steps aumentado a 20 para tareas complejas.
+    FIX: usa instructions para smolagents >=1.26.
+    FIX: template simplificado en español para modelos locales.
     """
     # 1. Obtener system_prompt base del tipo de agente
     system_prompt = SYSTEM_PROMPTS.get(agent_type, "")
@@ -246,11 +318,25 @@ def crear_agente(agent_type: str, model, tools_list: list, workspace_context: st
     if workspace_context:
         system_prompt = f"{system_prompt}\n\n{workspace_context}"
 
+    # 4. Para modelos locales, usar template simplificado en español
+    if _detectar_modelo_local(model):
+        return CodeAgent(
+            tools=tools_list,
+            model=model,
+            prompt_templates=_LOCAL_MODEL_TEMPLATE,
+            instructions=system_prompt,
+            max_steps=20,
+            additional_authorized_imports=[
+                'os', 'subprocess', 'requests', 'json', 're', 'datetime', 'pathlib'
+            ]
+        )
+
+    # 5. Para modelos cloud, usar el template por defecto de smolagents
     return CodeAgent(
         tools=tools_list,
         model=model,
-        system_prompt=system_prompt,  # FIX: ahora se pasa correctamente
-        max_steps=20,                 # FIX: aumentado de 10 a 20
+        instructions=system_prompt,
+        max_steps=20,
         additional_authorized_imports=[
             'os', 'subprocess', 'requests', 'json', 're', 'datetime', 'pathlib'
         ]
