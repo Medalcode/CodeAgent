@@ -215,7 +215,14 @@ class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
         prompt = data.get("prompt", "").strip()
         model_name = data.get("model", "qwen2.5-coder:14b")
         agent_type = data.get("agent_type", "CodeAgent Developer")
-        selected_tools = data.get("selected_tools", ["Archivos Locales", "Terminal Integrada", "Git", "Github"])
+
+        try:
+            from agents import DEFAULT_AGENT_TOOLS
+            default_tools = DEFAULT_AGENT_TOOLS
+        except ImportError:
+            default_tools = ["Archivos Locales", "Terminal Integrada", "Git", "Github"]
+
+        selected_tools = data.get("selected_tools", default_tools)
 
         if not prompt:
             self._send_json({"success": False, "error": "Prompt vacío"}, 400)

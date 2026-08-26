@@ -9,15 +9,21 @@ echo.
 
 cd /d "%~dp0mis_agentes_inteligentes"
 
+if exist "..\.venv\Scripts\activate.bat" goto ACTIVATED_ROOT
 if exist "venv\Scripts\activate.bat" goto ACTIVATED
 if exist ".venv\Scripts\activate.bat" goto ACTIVATED_DOT
 
 echo [!] Configurando entorno virtual por primera vez...
-py -3.10 -m venv venv 2>nul
-if not exist "venv\Scripts\activate.bat" py -3.11 -m venv venv 2>nul
+py -3.11 -m venv venv 2>nul
+if not exist "venv\Scripts\activate.bat" py -3.10 -m venv venv 2>nul
 if not exist "venv\Scripts\activate.bat" python -m venv venv 2>nul
 
 if not exist "venv\Scripts\activate.bat" goto GLOBAL_PYTHON
+
+:ACTIVATED_ROOT
+echo [OK] Activando entorno virtual principal .venv...
+call ..\.venv\Scripts\activate.bat
+goto CHECK_DEPS
 
 :ACTIVATED
 echo [OK] Activando entorno virtual venv...

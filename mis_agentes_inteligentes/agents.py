@@ -37,6 +37,14 @@ from smolagents import CodeAgent, LiteLLMModel
 _SUBAGENTS_CACHE = {}
 _SUBAGENTS_LAST_MTIME = 0
 
+# Herramientas predeterminadas asignadas a cada agente (Single Source of Truth)
+DEFAULT_AGENT_TOOLS = [
+    "Archivos Locales",
+    "Terminal Integrada",
+    "Git",
+    "Github",
+]
+
 # System prompts por agente — definidos aquí para que sean el source of truth
 SYSTEM_PROMPTS = {
     "CodeAgent Developer": (

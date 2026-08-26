@@ -3,8 +3,9 @@ import sqlite3
 from datetime import date
 
 
-def create_dummy_db():
-    db_path = 'MisEventos.db'
+def create_dummy_db(db_path: str = None):
+    if db_path is None:
+        db_path = "MisEventos.db"
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
