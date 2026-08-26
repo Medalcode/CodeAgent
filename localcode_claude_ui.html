@@ -629,6 +629,8 @@
   /* ---------------- files UI ---------------- */
   function activeFile(){ return files.find(f=>f.id===activeFileId) || null; }
 
+  let collapsedFolders = new Set();
+
   function renderFileList(){
     const list = $('fileList');
     list.innerHTML = '';
@@ -639,24 +641,106 @@
       list.appendChild(hint);
       return;
     }
-    files.forEach(f=>{
-      const item = document.createElement('div');
-      item.className = 'file-item' + (f.id===activeFileId ? ' active' : '');
-      item.innerHTML = '<span class="dotmark"></span><span class="fname"></span><span class="del">×</span>';
-      item.querySelector('.fname').textContent = f.name;
-      item.addEventListener('click', (e)=>{
-        if(e.target.classList.contains('del')) return;
-        activeFileId = f.id;
-        saveActiveFileId();
-        renderFileList();
-        renderEditor();
+
+    // 1. Construir árbol jerárquico a partir de la lista plana de archivos
+    const tree = { name: '', type: 'folder', children: {}, path: '' };
+
+    files.forEach(f => {
+      const parts = f.name.replace(/\\/g, '/').split('/');
+      let curr = tree;
+      let currPath = '';
+
+      parts.forEach((part, idx) => {
+        currPath = currPath ? (currPath + '/' + part) : part;
+        const isFile = (idx === parts.length - 1);
+
+        if (isFile) {
+          curr.children[part] = {
+            name: part,
+            type: 'file',
+            fileId: f.id,
+            fullPath: f.name
+          };
+        } else {
+          if (!curr.children[part]) {
+            curr.children[part] = {
+              name: part,
+              type: 'folder',
+              children: {},
+              path: currPath
+            };
+          }
+          curr = curr.children[part];
+        }
       });
-      item.querySelector('.del').addEventListener('click', (e)=>{
-        e.stopPropagation();
-        deleteFile(f.id);
-      });
-      list.appendChild(item);
     });
+
+    // 2. Función recursiva para renderizar los nodos del árbol estilo VS Code
+    function renderNode(node, container, depth = 0) {
+      const keys = Object.keys(node.children || {});
+      keys.sort((a, b) => {
+        const itemA = node.children[a];
+        const itemB = node.children[b];
+        if (itemA.type !== itemB.type) {
+          return itemA.type === 'folder' ? -1 : 1;
+        }
+        return a.localeCompare(b);
+      });
+
+      keys.forEach(key => {
+        const item = node.children[key];
+        const row = document.createElement('div');
+
+        if (item.type === 'folder') {
+          const isCollapsed = collapsedFolders.has(item.path);
+          row.className = 'file-item folder-item';
+          row.style.paddingLeft = (8 + depth * 12) + 'px';
+          row.innerHTML = `<span class="folder-arrow" style="font-size:10px;margin-right:2px;">${isCollapsed ? '▸' : '▾'}</span><span class="folder-icon" style="font-size:12px;margin-right:4px;">${isCollapsed ? '📁' : '📂'}</span><span class="fname" style="font-weight:600;color:var(--text);">${escapeHtml(item.name)}</span>`;
+          
+          row.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (collapsedFolders.has(item.path)) {
+              collapsedFolders.delete(item.path);
+            } else {
+              collapsedFolders.add(item.path);
+            }
+            renderFileList();
+          });
+
+          container.appendChild(row);
+
+          if (!isCollapsed) {
+            const childWrap = document.createElement('div');
+            childWrap.className = 'folder-children';
+            renderNode(item, childWrap, depth + 1);
+            container.appendChild(childWrap);
+          }
+        } else {
+          row.className = 'file-item' + (item.fileId === activeFileId ? ' active' : '');
+          row.style.paddingLeft = (8 + depth * 12) + 'px';
+          row.innerHTML = '<span class="dotmark"></span><span class="fname"></span><span class="del">×</span>';
+          row.querySelector('.fname').textContent = item.name;
+          row.title = item.fullPath;
+
+          row.addEventListener('click', (e) => {
+            if (e.target.classList.contains('del')) return;
+            activeFileId = item.fileId;
+            saveActiveFileId();
+            renderFileList();
+            renderEditor();
+          });
+
+          row.querySelector('.del').addEventListener('click', (e) => {
+            e.stopPropagation();
+            deleteFile(item.fileId);
+          });
+
+          container.appendChild(row);
+        }
+      });
+    }
+
+    renderNode(tree, list, 0);
   }
 
   function addFile(){
