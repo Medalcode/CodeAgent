@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LocalCode · Asistente con modelo local</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --bg:#12151b;
+    --bg-panel:#181c23;
+    --bg-elevated:#1f242d;
+    --bg-hover:#252b35;
+    --border:#2a2f3a;
+    --text:#e7e9ec;
+    --text-muted:#8b93a1;
+    --text-dim:#5b6472;
+    --accent:#e8a33d;
+    --accent-dim:#a97a35;
+    --accent-soft:rgba(232,163,61,.12);
+    --teal:#4fd1ae;
+    --teal-soft:rgba(79,209,174,.12);
+    --red:#e5636a;
+    --red-soft:rgba(229,99,106,.12);
+    --mono:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --sans:'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    --radius:6px;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;margin:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    font-size:14px;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+  }
+  ::selection{background:var(--accent-soft);color:var(--accent);}
+  button{
+    font-family:var(--sans);
+    cursor:pointer;
+    border:none;
+    background:none;
+    color:inherit;
+  }
+  input,textarea,select{
+    font-family:inherit;
+    color:inherit;
+    background:none;
+    border:none;
+    outline:none;
+  }
+  ::-webkit-scrollbar{width:9px;height:9px;}
+  ::-webkit-scrollbar-track{background:transparent;}
+  ::-webkit-scrollbar-thumb{background:#333a46;border-radius:6px;}
+  ::-webkit-scrollbar-thumb:hover{background:#414a59;}
+
+  /* ---------- HEADER ---------- */
+  header{
+    height:52px;
+    min-height:52px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 16px;
+    border-bottom:1px solid var(--border);
+    background:var(--bg-panel);
+    z-index:5;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:var(--mono);
+    font-weight:700;
+    letter-spacing:.02em;
+    font-size:15px;
+  }
+  .brand .mark{
+    width:20px;height:20px;
+    border:1.5px solid var(--accent);
+    border-radius:4px;
+    position:relative;
+    flex-shrink:0;
+  }
+  .brand .mark::after{
+    content:"";
+    position:absolute;
+    top:4px;left:4px;right:4px;bottom:4px;
+    background:var(--accent);
+    border-radius:2px;
+    opacity:.85;
+  }
+  .brand .tag{
+    font-size:10px;
+    font-weight:600;
+    color:var(--bg);
+    background:var(--teal);
+    padding:2px 6px;
+    border-radius:3px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+  }
+  .header-right{display:flex;align-items:center;gap:14px;}
+  .status{
+    display:flex;align-items:center;gap:7px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-muted);
+  }
+  .dot{
+    width:7px;height:7px;border-radius:50%;
+    background:var(--text-dim);
+    box-shadow:0 0 0 3px transparent;
+    transition:.2s;
+  }
+  .dot.ok{background:var(--teal);box-shadow:0 0 0 3px var(--teal-soft);}
+  .dot.err{background:var(--red);box-shadow:0 0 0 3px var(--red-soft);}
+  .dot.pending{background:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);animation:pulse 1.2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+  .icon-btn{
+    width:32px;height:32px;
+    display:flex;align-items:center;justify-content:center;
+    border-radius:var(--radius);
+    color:var(--text-muted);
+  }
+  .icon-btn:hover{background:var(--bg-hover);color:var(--text);}
+  .icon-btn.active{background:var(--accent-soft);color:var(--accent);}
+
+  /* ---------- SETTINGS DRAWER ---------- */
+  .settings-drawer{
+    max-height:0;
+    overflow:hidden;
+    background:var(--bg-panel);
+    border-bottom:1px solid var(--border);
+    transition:max-height .22s ease;
+  }
+  .settings-drawer.open{max-height:340px;}
+  .settings-inner{
+    padding:16px 20px 20px;
+    display:grid;
+    grid-template-columns:1.4fr 1fr .9fr;
+    gap:16px;
+  }
+  .field label{
+    display:block;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    color:var(--text-muted);
+    margin-bottom:6px;
+    font-weight:600;
+  }
+  .field input[type=text], .field input[type=number]{
+    width:100%;
+    background:var(--bg-elevated);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:8px 10px;
+    font-family:var(--mono);
+    font-size:13px;
+  }
+  .field input[type=text]:focus, .field input[type=number]:focus{border-color:var(--accent-dim);}
+  .field-row{display:flex;align-items:center;gap:10px;}
+  .field-row input[type=range]{flex:1;accent-color:var(--accent);}
+  .field-row .val{font-family:var(--mono);font-size:12px;color:var(--accent);min-width:28px;text-align:right;}
+  .toggle-row{
+    display:flex;align-items:center;gap:8px;
+    grid-column:1 / -1;
+    font-size:12.5px;
+    color:var(--text-muted);
+    padding-top:2px;
+  }
+  .toggle-row input{accent-color:var(--accent);width:14px;height:14px;}
+  .help-box{
+    grid-column:1 / -1;
+    border-top:1px solid var(--border);
+    padding-top:12px;
+    margin-top:2px;
+  }
+  .help-box summary{
+    cursor:pointer;
+    font-size:12px;
+    color:var(--teal);
+    font-weight:600;
+    list-style:none;
+  }
+  .help-box summary::-webkit-details-marker{display:none;}
+  .help-box summary::before{content:"▸ ";}
+  .help-box[open] summary::before{content:"▾ ";}
+  .help-box ol{
+    margin:10px 0 0;
+    padding-left:18px;
+    color:var(--text-muted);
+    font-size:12.5px;
+    line-height:1.7;
+  }
+  .help-box code{
+    background:var(--bg-elevated);
+    border:1px solid var(--border);
+    padding:1px 5px;
+    border-radius:4px;
+    font-family:var(--mono);
+    color:var(--accent);
+    font-size:11.5px;
+  }
+
+  /* ---------- MAIN LAYOUT ---------- */
+  main{flex:1;display:flex;overflow:hidden;}
+
+  /* sidebar */
+  .sidebar{
+    width:210px;
+    min-width:210px;
+    border-right:1px solid var(--border);
+    background:var(--bg-panel);
+    display:flex;
+    flex-direction:column;
+  }
+  .sidebar-header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:12px 14px 8px;
+  }
+  .sidebar-header span{
+    font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+    color:var(--text-muted);
+  }
+  .add-file-btn{
+    width:22px;height:22px;border-radius:5px;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--accent);border:1px solid var(--border);
+    font-size:15px;line-height:1;
+  }
+  .add-file-btn:hover{background:var(--accent-soft);}
+  .file-list{flex:1;overflow-y:auto;padding:2px 8px 8px;}
+  .file-item{
+    display:flex;align-items:center;gap:8px;
+    padding:7px 8px;
+    border-radius:var(--radius);
+    cursor:pointer;
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--text-muted);
+    margin-bottom:2px;
+    position:relative;
+  }
+  .file-item:hover{background:var(--bg-hover);color:var(--text);}
+  .file-item.active{background:var(--accent-soft);color:var(--accent);}
+  .file-item .dotmark{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.6;flex-shrink:0;}
+  .file-item .fname{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .file-item .del{
+    opacity:0;width:16px;height:16px;flex-shrink:0;color:var(--text-dim);
+    display:flex;align-items:center;justify-content:center;font-size:14px;
+  }
+  .file-item:hover .del{opacity:1;}
+  .file-item .del:hover{color:var(--red);}
+  .empty-hint{padding:14px;color:var(--text-dim);font-size:12px;line-height:1.6;}
+
+  /* editor pane */
+  .editor-pane{flex:1;display:flex;flex-direction:column;min-width:0;border-right:1px solid var(--border);}
+  .editor-topbar{
+    height:42px;min-height:42px;
+    display:flex;align-items:center;gap:10px;
+    padding:0 14px;
+    border-bottom:1px solid var(--border);
+    background:var(--bg-panel);
+  }
+  .editor-topbar input{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:600;
+    color:var(--text);
+    flex:1;
+    min-width:0;
+  }
+  .char-count{font-family:var(--mono);font-size:11px;color:var(--text-dim);white-space:nowrap;}
+  .editor-body{flex:1;display:flex;overflow:hidden;position:relative;}
+  .line-numbers{
+    padding:12px 10px 12px 14px;
+    text-align:right;
+    font-family:var(--mono);
+    font-size:12.5px;
+    line-height:20px;
+    color:var(--text-dim);
+    user-select:none;
+    background:var(--bg-panel);
+    border-right:1px solid var(--border);
+    overflow:hidden;
+    white-space:pre;
+  }
+  #editorArea{
+    flex:1;
+    padding:12px 16px;
+    font-family:var(--mono);
+    font-size:12.5px;
+    line-height:20px;
+    resize:none;
+    white-space:pre;
+    overflow:auto;
+    tab-size:2;
+  }
+  .editor-empty{
+    flex:1;display:flex;align-items:center;justify-content:center;
+    color:var(--text-dim);font-size:13px;flex-direction:column;gap:10px;
+  }
+  .editor-empty button{
+    background:var(--accent-soft);color:var(--accent);
+    padding:8px 14px;border-radius:var(--radius);font-size:12.5px;font-weight:600;
+  }
+
+  /* chat pane */
+  .chat-pane{width:400px;min-width:340px;display:flex;flex-direction:column;background:var(--bg-panel);}
+  .chat-header{
+    height:42px;min-height:42px;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 14px;
+    border-bottom:1px solid var(--border);
+  }
+  .chat-header .title{font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;}
+  .chat-messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:14px;}
+  .msg{max-width:100%;}
+  .msg .role{
+    font-family:var(--mono);font-size:10.5px;font-weight:700;
+    letter-spacing:.06em;text-transform:uppercase;
+    margin-bottom:5px;
+  }
+  .msg.user .role{color:var(--text-muted);}
+  .msg.assistant .role{color:var(--accent);}
+  .msg.error .role{color:var(--red);}
+  .msg-bubble{
+    font-size:13px;
+    line-height:1.55;
+    color:var(--text);
+  }
+  .msg.user .msg-bubble{
+    background:var(--bg-elevated);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:9px 11px;
+  }
+  .msg-bubble p{margin:0 0 8px;white-space:pre-wrap;}
+  .msg-bubble p:last-child{margin-bottom:0;}
+  .code-block{
+    background:#0c0e12;
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    margin:8px 0;
+    overflow:hidden;
+  }
+  .code-block-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:6px 10px;
+    background:var(--bg-elevated);
+    border-bottom:1px solid var(--border);
+  }
+  .code-block-head span{font-family:var(--mono);font-size:10.5px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.04em;}
+  .code-block-actions{display:flex;gap:6px;}
+  .code-block-actions button{
+    font-family:var(--mono);font-size:10.5px;
+    color:var(--text-muted);
+    padding:3px 7px;border-radius:4px;
+    border:1px solid var(--border);
+  }
+  .code-block-actions button:hover{color:var(--accent);border-color:var(--accent-dim);}
+  .code-block pre{
+    margin:0;padding:10px 12px;
+    font-family:var(--mono);font-size:12px;line-height:1.55;
+    overflow-x:auto;color:#d7dae0;
+  }
+  .streaming-cursor{display:inline-block;width:7px;height:13px;background:var(--accent);margin-left:2px;animation:pulse .8s infinite;vertical-align:middle;}
+  .chat-empty{color:var(--text-dim);font-size:12.5px;line-height:1.7;padding-top:10px;}
+
+  .chat-input-area{
+    border-top:1px solid var(--border);
+    padding:10px;
+    display:flex;
+    align-items:flex-end;
+    gap:8px;
+  }
+  .prompt-glyph{
+    font-family:var(--mono);color:var(--accent);font-weight:700;
+    padding-bottom:9px;font-size:14px;
+  }
+  #chatInput{
+    flex:1;
+    background:var(--bg-elevated);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:9px 10px;
+    font-family:var(--mono);
+    font-size:12.5px;
+    line-height:1.5;
+    resize:none;
+    max-height:140px;
+    min-height:38px;
+  }
+  #chatInput:focus{border-color:var(--accent-dim);}
+  .send-btn{
+    background:var(--accent);
+    color:#1a1204;
+    font-weight:700;
+    font-size:12px;
+    padding:9px 13px;
+    border-radius:var(--radius);
+    flex-shrink:0;
+  }
+  .send-btn:hover{background:#f2ae4c;}
+  .send-btn:disabled{background:var(--bg-elevated);color:var(--text-dim);cursor:not-allowed;}
+  .stop-btn{
+    background:var(--red-soft);color:var(--red);
+    font-size:12px;font-weight:700;padding:9px 13px;border-radius:var(--radius);flex-shrink:0;
+  }
+  .clear-btn{color:var(--text-dim);font-size:11.5px;}
+  .clear-btn:hover{color:var(--red);}
+
+  @media (max-width:900px){
+    .sidebar{width:150px;min-width:150px;}
+    .chat-pane{width:320px;min-width:280px;}
+    .settings-inner{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="mark"></div>
+    LocalCode
+    <span class="tag">Ollama</span>
+  </div>
+  <div class="header-right">
+    <div class="status">
+      <div class="dot" id="statusDot"></div>
+      <span id="statusText">sin verificar</span>
+    </div>
+    <button class="icon-btn" id="settingsToggle" title="Configuración">⚙</button>
+  </div>
+</header>
+
+<div class="settings-drawer" id="settingsDrawer">
+  <div class="settings-inner">
+    <div class="field">
+      <label for="endpointInput">URL del servidor Ollama</label>
+      <input type="text" id="endpointInput" placeholder="http://localhost:11434" spellcheck="false">
+    </div>
+    <div class="field">
+      <label for="modelInput">Modelo</label>
+      <input type="text" id="modelInput" placeholder="qwen2.5-coder:7b" spellcheck="false">
+    </div>
+    <div class="field">
+      <label for="tempInput">Temperatura</label>
+      <div class="field-row">
+        <input type="range" id="tempInput" min="0" max="1.5" step="0.05" value="0.3">
+        <span class="val" id="tempVal">0.3</span>
+      </div>
+    </div>
+    <div class="toggle-row">
+      <input type="checkbox" id="allFilesToggle">
+      <label for="allFilesToggle" style="margin:0;color:inherit;font-weight:400;text-transform:none;letter-spacing:normal;">Incluir todos los archivos como contexto (en vez de solo el activo)</label>
+    </div>
+    <details class="help-box">
+      <summary>Cómo conectar Ollama con esta app</summary>
+      <ol>
+        <li>Instala el modelo si no lo tienes: <code>ollama pull qwen2.5-coder:7b</code> (o <code>deepseek-coder-v2</code>).</li>
+        <li>Arranca Ollama permitiendo este origen: en la terminal, ejecuta <code>OLLAMA_ORIGINS=* ollama serve</code> (en Windows, define la variable de entorno <code>OLLAMA_ORIGINS=*</code> antes de iniciar el servicio).</li>
+        <li>Verifica que responde visitando <code>http://localhost:11434</code> en tu navegador — debe decir "Ollama is running".</li>
+        <li>Escribe la URL y el nombre exacto del modelo arriba (debe coincidir con <code>ollama list</code>).</li>
+        <li>Si el estado sigue en rojo: abre este archivo directamente en tu navegador como <code>file://...</code> o arráncalo con <code>python -m http.server 8000</code>.</li>
+      </ol>
+    </details>
+  </div>
+</div>
+
+<main>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <span>Archivos</span>
+      <button class="add-file-btn" id="addFileBtn" title="Nuevo archivo">+</button>
+    </div>
+    <div class="file-list" id="fileList"></div>
+  </div>
+
+  <div class="editor-pane">
+    <div class="editor-topbar">
+      <input type="text" id="fileNameInput" placeholder="nombre-de-archivo.js">
+      <span class="char-count" id="charCount"></span>
+    </div>
+    <div class="editor-body" id="editorBody">
+      <div class="editor-empty" id="editorEmpty">
+        <div>No hay ningún archivo abierto todavía.</div>
+        <button id="createFirstFile">Crear archivo</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-pane">
+    <div class="chat-header">
+      <span class="title">Chat</span>
+      <button class="clear-btn" id="clearChatBtn">Borrar conversación</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-empty">Pega o crea un archivo a la izquierda y pídele al modelo que lo revise, lo explique o lo modifique. Las respuestas con bloques de código incluyen un botón para aplicarlos directamente al editor.</div>
+    </div>
+    <div class="chat-input-area">
+      <span class="prompt-glyph">❯</span>
+      <textarea id="chatInput" placeholder="Pídele algo al modelo…" rows="1"></textarea>
+      <button class="send-btn" id="sendBtn">Enviar</button>
+    </div>
+  </div>
+</main>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------------- storage helper with localStorage fallback ---------------- */
+  const storage = {
+    async get(key) {
+      if (typeof window.storage !== 'undefined' && window.storage.get) {
+        try { return await window.storage.get(key, false); } catch(e){}
+      }
+      try {
+        const val = localStorage.getItem('localcode_' + key);
+        return val !== null ? { value: val } : null;
+      } catch(e) { return null; }
+    },
+    async set(key, value) {
+      if (typeof window.storage !== 'undefined' && window.storage.set) {
+        try { await window.storage.set(key, value, false); } catch(e){}
+      }
+      try {
+        localStorage.setItem('localcode_' + key, value);
+      } catch(e){}
+    }
+  };
+
+  /* ---------------- state ---------------- */
+  let files = [];          // {id, name, content}
+  let activeFileId = null;
+  let settings = { endpoint:"http://localhost:11434", model:"qwen2.5-coder:7b", temperature:0.3, allFiles:false };
+  let messages = [];        // {role:'user'|'assistant'|'error', content}
+  let streaming = false;
+  let abortController = null;
+
+  const $ = id => document.getElementById(id);
+  const uid = () => Math.random().toString(36).slice(2,10);
+
+  /* ---------------- persistence ---------------- */
+  async function loadState(){
+    try{
+      const r = await storage.get('files');
+      files = r && r.value ? JSON.parse(r.value) : [];
+    }catch(e){ files = []; }
+    try{
+      const r = await storage.get('activeFileId');
+      activeFileId = r && r.value ? JSON.parse(r.value) : null;
+    }catch(e){ activeFileId = null; }
+    try{
+      const r = await storage.get('settings');
+      if(r && r.value) settings = Object.assign(settings, JSON.parse(r.value));
+    }catch(e){ /* keep defaults */ }
+    try{
+      const r = await storage.get('messages');
+      messages = r && r.value ? JSON.parse(r.value) : [];
+    }catch(e){ messages = []; }
+
+    if(!activeFileId && files.length) activeFileId = files[0].id;
+  }
+
+  let saveFilesTimer = null;
+  function saveFiles(){
+    clearTimeout(saveFilesTimer);
+    saveFilesTimer = setTimeout(async ()=>{
+      try{ await storage.set('files', JSON.stringify(files)); }catch(e){}
+    }, 400);
+  }
+  async function saveActiveFileId(){
+    try{ await storage.set('activeFileId', JSON.stringify(activeFileId)); }catch(e){}
+  }
+  async function saveSettings(){
+    try{ await storage.set('settings', JSON.stringify(settings)); }catch(e){}
+  }
+  let saveMsgTimer = null;
+  function saveMessages(){
+    clearTimeout(saveMsgTimer);
+    saveMsgTimer = setTimeout(async ()=>{
+      try{ await storage.set('messages', JSON.stringify(messages)); }catch(e){}
+    }, 300);
+  }
+
+  /* ---------------- files UI ---------------- */
+  function activeFile(){ return files.find(f=>f.id===activeFileId) || null; }
+
+  function renderFileList(){
+    const list = $('fileList');
+    list.innerHTML = '';
+    if(!files.length){
+      const hint = document.createElement('div');
+      hint.className = 'empty-hint';
+      hint.textContent = 'Sin archivos. Crea uno con el botón +.';
+      list.appendChild(hint);
+      return;
+    }
+    files.forEach(f=>{
+      const item = document.createElement('div');
+      item.className = 'file-item' + (f.id===activeFileId ? ' active' : '');
+      item.innerHTML = '<span class="dotmark"></span><span class="fname"></span><span class="del">×</span>';
+      item.querySelector('.fname').textContent = f.name;
+      item.addEventListener('click', (e)=>{
+        if(e.target.classList.contains('del')) return;
+        activeFileId = f.id;
+        saveActiveFileId();
+        renderFileList();
+        renderEditor();
+      });
+      item.querySelector('.del').addEventListener('click', (e)=>{
+        e.stopPropagation();
+        deleteFile(f.id);
+      });
+      list.appendChild(item);
+    });
+  }
+
+  function addFile(){
+    const f = { id:uid(), name:'nuevo-archivo.js', content:'' };
+    files.push(f);
+    activeFileId = f.id;
+    saveFiles(); saveActiveFileId();
+    renderFileList(); renderEditor();
+    $('fileNameInput').focus();
+    $('fileNameInput').select();
+  }
+
+  function deleteFile(id){
+    files = files.filter(f=>f.id!==id);
+    if(activeFileId===id) activeFileId = files.length ? files[0].id : null;
+    saveFiles(); saveActiveFileId();
+    renderFileList(); renderEditor();
+  }
+
+  function renderEditor(){
+    const f = activeFile();
+    const body = $('editorBody');
+    if(!f){
+      $('fileNameInput').value = '';
+      $('fileNameInput').disabled = true;
+      $('charCount').textContent = '';
+      body.innerHTML = '<div class="editor-empty" id="editorEmpty"><div>No hay ningún archivo abierto todavía.</div><button id="createFirstFile">Crear archivo</button></div>';
+      $('createFirstFile').addEventListener('click', addFile);
+      return;
+    }
+    $('fileNameInput').disabled = false;
+    $('fileNameInput').value = f.name;
+    body.innerHTML =
+      '<div class="line-numbers" id="lineNumbers"></div>' +
+      '<textarea id="editorArea" spellcheck="false"></textarea>';
+    $('editorArea').value = f.content;
+    updateLineNumbers();
+    updateCharCount();
+    $('editorArea').addEventListener('input', onEditorInput);
+    $('editorArea').addEventListener('scroll', ()=>{
+      $('lineNumbers').scrollTop = $('editorArea').scrollTop;
+    });
+  }
+
+  function updateLineNumbers(){
+    const area = $('editorArea');
+    const ln = $('lineNumbers');
+    if(!area || !ln) return;
+    const count = area.value.split('\n').length;
+    let out = '';
+    for(let i=1;i<=count;i++) out += i + '\n';
+    ln.textContent = out;
+  }
+  function updateCharCount(){
+    const f = activeFile();
+    $('charCount').textContent = f ? f.content.length + ' car.' : '';
+  }
+  function onEditorInput(){
+    const f = activeFile();
+    if(!f) return;
+    f.content = $('editorArea').value;
+    updateLineNumbers();
+    updateCharCount();
+    saveFiles();
+  }
+
+  $('addFileBtn').addEventListener('click', addFile);
+  $('fileNameInput').addEventListener('input', ()=>{
+    const f = activeFile();
+    if(!f) return;
+    f.name = $('fileNameInput').value || 'sin-nombre';
+    renderFileList();
+    saveFiles();
+  });
+
+  /* ---------------- settings UI ---------------- */
+  function renderSettings(){
+    $('endpointInput').value = settings.endpoint;
+    $('modelInput').value = settings.model;
+    $('tempInput').value = settings.temperature;
+    $('tempVal').textContent = settings.temperature;
+    $('allFilesToggle').checked = !!settings.allFiles;
+  }
+  $('settingsToggle').addEventListener('click', ()=>{
+    $('settingsDrawer').classList.toggle('open');
+    $('settingsToggle').classList.toggle('active');
+  });
+  $('endpointInput').addEventListener('change', ()=>{
+    settings.endpoint = $('endpointInput').value.trim().replace(/\/+$/,'') || 'http://localhost:11434';
+    saveSettings(); checkConnection();
+  });
+  $('modelInput').addEventListener('change', ()=>{
+    settings.model = $('modelInput').value.trim();
+    saveSettings();
+  });
+  $('tempInput').addEventListener('input', ()=>{
+    settings.temperature = parseFloat($('tempInput').value);
+    $('tempVal').textContent = settings.temperature;
+    saveSettings();
+  });
+  $('allFilesToggle').addEventListener('change', ()=>{
+    settings.allFiles = $('allFilesToggle').checked;
+    saveSettings();
+  });
+
+  /* ---------------- connection check ---------------- */
+  async function checkConnection(){
+    const dot = $('statusDot'), text = $('statusText');
+    dot.className = 'dot pending';
+    text.textContent = 'verificando…';
+    try{
+      const res = await fetch(settings.endpoint + '/api/tags', { method:'GET' });
+      if(res.ok){
+        dot.className = 'dot ok';
+        text.textContent = 'conectado';
+      }else{
+        dot.className = 'dot err';
+        text.textContent = 'error ' + res.status;
+      }
+    }catch(e){
+      dot.className = 'dot err';
+      text.textContent = 'sin conexión';
+    }
+  }
+
+  /* ---------------- chat rendering ---------------- */
+  function escapeHtml(s){
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function renderMessages(){
+    const wrap = $('chatMessages');
+    wrap.innerHTML = '';
+    if(!messages.length){
+      wrap.innerHTML = '<div class="chat-empty">Pega o crea un archivo a la izquierda y pídele al modelo que lo revise, lo explique o lo modifique. Las respuestas con bloques de código incluyen un botón para aplicarlos directamente al editor.</div>';
+      return;
+    }
+    messages.forEach(m=> wrap.appendChild(buildMessageEl(m)));
+    wrap.scrollTop = wrap.scrollHeight;
+  }
+
+  function buildMessageEl(m){
+    const div = document.createElement('div');
+    div.className = 'msg ' + m.role;
+    const roleLabel = m.role === 'user' ? 'Tú' : (m.role === 'error' ? 'Error' : (settings.model || 'Modelo'));
+    const roleEl = document.createElement('div');
+    roleEl.className = 'role';
+    roleEl.textContent = roleLabel;
+    div.appendChild(roleEl);
+
+    const bubble = document.createElement('div');
+    bubble.className = 'msg-bubble';
+    if(m.role === 'user'){
+      const p = document.createElement('p');
+      p.textContent = m.content;
+      bubble.appendChild(p);
+    }else{
+      bubble.innerHTML = renderRichContent(m.content);
+    }
+    div.appendChild(bubble);
+    return div;
+  }
+
+  function renderRichContent(text){
+    const fence = /```(\w*)\n?([\s\S]*?)```/g;
+    let last = 0, out = '', match, blockIndex = 0;
+    while((match = fence.exec(text)) !== null){
+      const before = text.slice(last, match.index);
+      if(before.trim()) out += '<p>' + escapeHtml(before.trim()) + '</p>';
+      const lang = match[1] || 'texto';
+      const code = match[2];
+      const bid = 'cb_' + uid() + '_' + (blockIndex++);
+      out += '<div class="code-block">' +
+        '<div class="code-block-head"><span>' + escapeHtml(lang) + '</span>' +
+        '<div class="code-block-actions">' +
+          '<button data-action="copy" data-target="' + bid + '">Copiar</button>' +
+          '<button data-action="use" data-target="' + bid + '">Usar en editor</button>' +
+        '</div></div>' +
+        '<pre id="' + bid + '">' + escapeHtml(code.replace(/\n$/,'')) + '</pre>' +
+      '</div>';
+      last = fence.lastIndex;
+    }
+    const rest = text.slice(last);
+    if(rest.trim()) out += '<p>' + escapeHtml(rest.trim()) + '</p>';
+    if(!out) out = '<p>' + escapeHtml(text) + '</p>';
+    return out;
+  }
+
+  document.addEventListener('click', (e)=>{
+    const btn = e.target.closest('button[data-action]');
+    if(!btn) return;
+    const target = document.getElementById(btn.dataset.target);
+    if(!target) return;
+    const code = target.textContent;
+    if(btn.dataset.action === 'copy'){
+      navigator.clipboard.writeText(code).then(()=>{
+        const old = btn.textContent; btn.textContent = '✓ Copiado';
+        setTimeout(()=> btn.textContent = old, 1200);
+      });
+    }else if(btn.dataset.action === 'use'){
+      const f = activeFile();
+      if(!f){ addFile(); }
+      const target2 = activeFile();
+      if(target2){
+        target2.content = code;
+        saveFiles();
+        renderEditor();
+        const old = btn.textContent; btn.textContent = '✓ Aplicado';
+        setTimeout(()=> btn.textContent = old, 1200);
+      }
+    }
+  });
+
+  /* ---------------- sending messages ---------------- */
+  function buildSystemPrompt(){
+    if(!files.length) return 'Eres un asistente de programación experto. Responde de forma clara y concisa, usando bloques de código con el lenguaje indicado cuando compartas código.';
+    let ctx = '';
+    if(settings.allFiles){
+      ctx = files.map(f => 'Archivo: ' + f.name + '\n```\n' + f.content + '\n```').join('\n\n');
+    }else{
+      const f = activeFile();
+      ctx = f ? ('Archivo activo: ' + f.name + '\n```\n' + f.content + '\n```') : '(sin archivo activo)';
+      const others = files.filter(x=>x.id!==activeFileId).map(x=>x.name).join(', ');
+      if(others) ctx += '\n\nOtros archivos disponibles (no incluidos, pide verlos si los necesitas): ' + others;
+    }
+    return 'Eres un asistente de programación experto que ayuda a editar el siguiente proyecto local. Cuando propongas código, usa bloques ```lenguaje con el archivo completo o el fragmento relevante.\n\n' + ctx;
+  }
+
+  function setSending(isSending){
+    streaming = isSending;
+    $('sendBtn').textContent = isSending ? 'Detener' : 'Enviar';
+    $('sendBtn').classList.toggle('stop-btn', isSending);
+  }
+
+  async function sendMessage(){
+    if(streaming){
+      if(abortController) abortController.abort();
+      return;
+    }
+    const input = $('chatInput');
+    const text = input.value.trim();
+    if(!text) return;
+    if(!settings.model){
+      messages.push({role:'error', content:'No indicaste un modelo. Abre ⚙ Configuración y escribe el nombre exacto (por ejemplo qwen2.5-coder:7b).'});
+      saveMessages(); renderMessages();
+      return;
+    }
+
+    messages.push({role:'user', content:text});
+    input.value = '';
+    autoGrow(input);
+    saveMessages();
+    renderMessages();
+
+    const apiMessages = [{role:'system', content: buildSystemPrompt()}]
+      .concat(messages.filter(m=>m.role!=='error').map(m=>({role:m.role, content:m.content})));
+
+    setSending(true);
+    abortController = new AbortController();
+
+    const placeholder = {role:'assistant', content:''};
+    messages.push(placeholder);
+    renderMessages();
+    const wrap = $('chatMessages');
+    const lastEl = wrap.lastElementChild;
+    const bubbleEl = lastEl.querySelector('.msg-bubble');
+    bubbleEl.innerHTML = '<p><span class="streaming-cursor"></span></p>';
+
+    let accumulated = '';
+    try{
+      const res = await fetch(settings.endpoint + '/api/chat', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        signal: abortController.signal,
+        body: JSON.stringify({
+          model: settings.model,
+          messages: apiMessages,
+          stream: true,
+          options: { temperature: settings.temperature }
+        })
+      });
+
+      if(!res.ok || !res.body){
+        throw new Error('HTTP ' + res.status);
+      }
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+
+      while(true){
+        const { done, value } = await reader.read();
+        if(done) break;
+        buffer += decoder.decode(value, {stream:true});
+        const lines = buffer.split('\n');
+        buffer = lines.pop();
+        for(const line of lines){
+          if(!line.trim()) continue;
+          let obj;
+          try{ obj = JSON.parse(line); }catch(e){ continue; }
+          if(obj.message && obj.message.content){
+            accumulated += obj.message.content;
+            bubbleEl.innerHTML = renderRichContent(accumulated) ;
+            bubbleEl.insertAdjacentHTML('beforeend', '<span class="streaming-cursor"></span>');
+            wrap.scrollTop = wrap.scrollHeight;
+          }
+        }
+      }
+      if(buffer.trim()){
+        try{
+          const obj = JSON.parse(buffer);
+          if(obj.message && obj.message.content) accumulated += obj.message.content;
+        }catch(e){}
+      }
+
+      placeholder.content = accumulated || '(sin respuesta)';
+      bubbleEl.innerHTML = renderRichContent(placeholder.content);
+      dotOk();
+    }catch(err){
+      messages.pop(); // remove empty placeholder
+      const isAbort = err && err.name === 'AbortError';
+      const msg = isAbort
+        ? 'Generación detenida.'
+        : 'No se pudo contactar al modelo local en ' + settings.endpoint + '. Revisa que Ollama esté corriendo, que OLLAMA_ORIGINS permita este origen, y que el nombre del modelo sea correcto. Detalle: ' + (err && err.message ? err.message : err);
+      messages.push({role: isAbort ? 'assistant' : 'error', content: msg});
+      if(!isAbort) dotErr();
+    }finally{
+      setSending(false);
+      abortController = null;
+      saveMessages();
+      renderMessages();
+    }
+  }
+
+  function dotOk(){ $('statusDot').className='dot ok'; $('statusText').textContent='conectado'; }
+  function dotErr(){ $('statusDot').className='dot err'; $('statusText').textContent='sin conexión'; }
+
+  $('sendBtn').addEventListener('click', sendMessage);
+  $('chatInput').addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter' && !e.shiftKey){
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+  function autoGrow(el){
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, 140) + 'px';
+  }
+  $('chatInput').addEventListener('input', (e)=> autoGrow(e.target));
+
+  $('clearChatBtn').addEventListener('click', ()=>{
+    messages = [];
+    saveMessages();
+    renderMessages();
+  });
+
+  /* ---------------- init ---------------- */
+  (async function init(){
+    await loadState();
+    renderSettings();
+    renderFileList();
+    renderEditor();
+    renderMessages();
+    checkConnection();
+    if(!files.length){
+      // seed with a friendly example file
+      files.push({id:uid(), name:'ejemplo.js', content:'function suma(a, b) {\n  return a + b;\n}\n'});
+      activeFileId = files[0].id;
+      saveFiles(); saveActiveFileId();
+      renderFileList(); renderEditor();
+    }
+  })();
+})();
+</script>
+</body>
+</html>

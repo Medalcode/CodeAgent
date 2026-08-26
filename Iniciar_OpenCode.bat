@@ -45,11 +45,13 @@ pip install --prefer-binary -r requirements.txt
 :LAUNCH
 echo.
 echo Seleccione el modo de operacion:
-echo 1) Lanzar Interfaz Web (Streamlit UI de 3 Paneles - Claude Code Edition)
+echo 1) Lanzar Interfaz Web Streamlit (3 Paneles IDE)
 echo 2) Lanzar CLI en Terminal (Claude Code Local CLI)
+echo 3) Lanzar Interfaz LocalCode HTML (Theme JetBrains Mono / IBM Plex)
 echo.
-set /p M=Ingrese su opcion (1 o 2, por defecto 1): 
+set /p M=Ingrese su opcion (1, 2 o 3, por defecto 1): 
 if "%M%"=="2" goto LAUNCH_CLI
+if "%M%"=="3" goto LAUNCH_HTML
 
 echo Lanzando Interfaz Web Streamlit...
 python -m streamlit run app.py --server.headless=true --browser.gatherUsageStats=false
@@ -58,6 +60,12 @@ goto END
 :LAUNCH_CLI
 echo Lanzando Claude Code Local CLI en Terminal...
 python claude_code_cli.py
+goto END
+
+:LAUNCH_HTML
+echo Lanzando LocalCode HTML en el navegador...
+cd /d "%~dp0"
+start localcode_claude_ui.html
 goto END
 
 :END
