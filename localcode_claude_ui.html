@@ -599,7 +599,8 @@
     }catch(e){ /* keep defaults */ }
     try{
       const r = await storage.get('messages');
-      messages = r && r.value ? JSON.parse(r.value) : [];
+      let loadedMsgs = r && r.value ? JSON.parse(r.value) : [];
+      messages = loadedMsgs.filter(m => !(m.content && (m.content.includes('Soy Claude') || m.content.includes('No tengo acceso'))));
     }catch(e){ messages = []; }
 
     if(!activeFileId && files.length) activeFileId = files[0].id;
@@ -1129,8 +1130,14 @@
     saveMessages();
     renderMessages();
 
+    const cleanHistory = messages.filter(m => {
+      if (m.role === 'error') return false;
+      if (m.role === 'assistant' && (m.content.includes('Soy Claude') || m.content.includes('No tengo acceso'))) return false;
+      return true;
+    });
+
     const apiMessages = [{role:'system', content: buildSystemPrompt()}]
-      .concat(messages.filter(m=>m.role!=='error').map(m=>({role:m.role, content:m.content})));
+      .concat(cleanHistory.map(m=>({role:m.role, content:m.content})));
 
     setSending(true);
     abortController = new AbortController();
