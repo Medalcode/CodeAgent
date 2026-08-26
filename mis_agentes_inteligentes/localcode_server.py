@@ -45,36 +45,41 @@ class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
             super().do_POST()
 
     def proxy_to_ollama(self, method):
-        target_url = f"{OLLAMA_TARGET}{self.path}"
-        headers = {k: v for k, v in self.headers.items() if k.lower() not in ("host", "content-length")}
-
+        target_hosts = ["http://127.0.0.1:11434", "http://localhost:11434"]
         body = None
         if method == "POST":
             content_len = int(self.headers.get("Content-Length", 0))
             if content_len > 0:
                 body = self.rfile.read(content_len)
 
-        req = urllib.request.Request(target_url, data=body, headers=headers, method=method)
+        headers = {k: v for k, v in self.headers.items() if k.lower() not in ("host", "content-length")}
+        last_error = None
 
-        try:
-            with urllib.request.urlopen(req) as resp:
-                self.send_response(resp.status)
-                for k, v in resp.headers.items():
-                    if k.lower() not in ("transfer-encoding", "content-encoding", "access-control-allow-origin"):
-                        self.send_header(k, v)
-                self.end_headers()
+        for host in target_hosts:
+            target_url = f"{host}{self.path}"
+            req = urllib.request.Request(target_url, data=body, headers=headers, method=method)
+            try:
+                with urllib.request.urlopen(req, timeout=10) as resp:
+                    self.send_response(resp.status)
+                    for k, v in resp.headers.items():
+                        if k.lower() not in ("transfer-encoding", "content-encoding", "access-control-allow-origin"):
+                            self.send_header(k, v)
+                    self.end_headers()
 
-                while True:
-                    chunk = resp.read(8192)
-                    if not chunk:
-                        break
-                    self.wfile.write(chunk)
-                    self.wfile.flush()
-        except Exception as e:
-            self.send_response(502)
-            self.end_headers()
-            err_msg = f'{{"error": "No se pudo conectar a Ollama en {OLLAMA_TARGET}. Verifica que Ollama esté ejecutándose. Detalle: {e}"}}'
-            self.wfile.write(err_msg.encode("utf-8"))
+                    while True:
+                        chunk = resp.read(8192)
+                        if not chunk:
+                            break
+                        self.wfile.write(chunk)
+                        self.wfile.flush()
+                return
+            except Exception as e:
+                last_error = e
+
+        self.send_response(502)
+        self.end_headers()
+        err_msg = f'{{"error": "Ollama no está ejecutándose en este equipo (puerto 11434). Por favor inicia el servicio de Ollama desde tu menú de inicio o terminal. Detalle: {last_error}"}}'
+        self.wfile.write(err_msg.encode("utf-8"))
 
 
 def main():
