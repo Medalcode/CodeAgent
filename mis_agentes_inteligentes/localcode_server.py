@@ -222,13 +222,14 @@ class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
         try:
             import main as codeagent_main
+            # Incluir suite completa: Archivos Locales, Terminal, Git y Github
             respuesta, metricas = codeagent_main.ejecutar_agentes(
                 user_prompt=prompt,
                 provider="Ollama (Local)",
                 model_name=model_name,
                 api_key="",
-                agent_type="Claude Code (Local OpenCode)",
-                selected_tools=["Archivos Locales", "Terminal Integrada", "Git"]
+                agent_type="Auto (Enrutador Automático) 🌟",
+                selected_tools=["Archivos Locales", "Terminal Integrada", "Git", "Github"]
             )
             self._send_json({"success": True, "response": respuesta, "metrics": metricas})
         except Exception as e:
@@ -268,7 +269,11 @@ class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
 
         self.send_response(502)
         self.end_headers()
-        err_msg = f'{{"error": "Ollama no está ejecutándose en este equipo (puerto 11434). Por favor inicia el servicio de Ollama desde tu menú de inicio o terminal. Detalle: {last_error}"}}'
+        err_msg = json.dumps({
+            "error": "❌ LocalCode Proxy Server: Ollama NO disponible en http://127.0.0.1:11434.",
+            "solucion": "Ejecuta 'ollama serve' en tu terminal o abre la app de Ollama desde tu menú de inicio para iniciar el servicio local.",
+            "detalle": str(last_error)
+        }, ensure_ascii=False)
         self.wfile.write(err_msg.encode("utf-8"))
 
 

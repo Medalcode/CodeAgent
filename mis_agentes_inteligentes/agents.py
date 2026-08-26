@@ -179,9 +179,9 @@ def route_prompt(prompt: str) -> str:
         scores["Claude Code (Local OpenCode)"] += 12
 
     # Señales fuertes de GitHub (peso 10)
-    if any(k in prompt for k in ["ghp_", "github.com/"]):
+    if any(k in prompt for k in ["ghp_", "github.com/", "github.com"]):
         scores["Analista de Código (Experto Github)"] += 10
-    if any(k in prompt_lower for k in ["repositorio", "repo github", "pull request", "branch"]):
+    if any(k in prompt_lower for k in ["repo", "repositorio", "github", "gh", "pull request", "pr", "branch", "commit", "issue"]):
         scores["Analista de Código (Experto Github)"] += 5
 
     # Señales de edición de código y desarrollo de software
