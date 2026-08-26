@@ -256,7 +256,7 @@ class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
             target_url = f"{host}{self.path}"
             req = urllib.request.Request(target_url, data=body, headers=headers, method=method)
             try:
-                with urllib.request.urlopen(req, timeout=10) as resp:
+                with urllib.request.urlopen(req, timeout=120) as resp:
                     self.send_response(resp.status)
                     for k, v in resp.headers.items():
                         if k.lower() not in ("transfer-encoding", "content-encoding", "access-control-allow-origin"):
