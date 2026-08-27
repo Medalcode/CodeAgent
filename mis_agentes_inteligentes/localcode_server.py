@@ -337,8 +337,15 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
     def handle_agent_chat(self):
         data = self._get_post_body()
         prompt = data.get("prompt", "").strip()
-        model_name = data.get("model") or data.get("model_name") or "qwen2.5-coder:14b"
+        raw_model = data.get("model") or data.get("model_name") or "qwen2.5-coder:14b"
         agent_type = data.get("agent_type", "CodeAgent Developer")
+
+        if raw_model in ("OpenAI", "gpt-4o-mini", "gpt-4o"):
+            provider = "OpenAI"
+            model_name = "gpt-4o-mini"
+        else:
+            provider = "Ollama (Local)"
+            model_name = "qwen2.5-coder:14b" if raw_model in ("Ollama (Local)", "Ollama", "") else raw_model
 
         try:
             from agents import DEFAULT_AGENT_TOOLS
@@ -352,17 +359,18 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
             self._send_json({"success": False, "error": "Prompt vacío"}, 400)
             return
 
-        _safe_print(f"\n[LocalCode Server] 🚀 Petición enviada a /api/agent/chat | Agente: {agent_type} | Modelo: {model_name}")
+        _safe_print(f"\n[LocalCode Server] 🚀 Petición enviada a /api/agent/chat | Agente: {agent_type} | Proveedor: {provider} | Modelo: {model_name}")
         _safe_print(f"[LocalCode Server] 🛠️ Herramientas activas: {', '.join(selected_tools)}")
 
+        api_key = data.get("api_key", "")
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
         try:
             import main as codeagent_main
             respuesta, metricas = codeagent_main.ejecutar_agentes(
                 user_prompt=prompt,
-                provider="Ollama (Local)",
+                provider=provider,
                 model_name=model_name,
-                api_key="",
+                api_key=api_key,
                 agent_type=agent_type,
                 selected_tools=selected_tools
             )

@@ -573,8 +573,8 @@
         <textarea class="chat-textarea" id="chatInput" placeholder="Ask anything, @ to mention, / for actions"></textarea>
         <div class="dock-toolbar">
           <select id="modelSelect" class="model-pill">
-            <option value="Ollama (Local)">Ollama Local (Qwen 7B) ^</option>
-            <option value="OpenAI">OpenAI GPT-4o-mini ^</option>
+            <option value="qwen2.5-coder:14b">Ollama (qwen2.5-coder:14b) ^</option>
+            <option value="gpt-4o-mini">OpenAI (gpt-4o-mini) ^</option>
           </select>
           <div class="dock-btns">
             <span>📎</span>
@@ -773,8 +773,29 @@
     });
   });
 
-  // CARGAR WORKSPACE INICIAL
+  // CARGAR WORKSPACE E HYDRATE DE MODELOS OLLAMA
   async function init(){
+    try {
+      const tagsRes = await fetch('/api/tags');
+      if(tagsRes.ok){
+        const tagsData = await tagsRes.json();
+        if(tagsData.models && tagsData.models.length){
+          const select = $('modelSelect');
+          select.innerHTML = '';
+          tagsData.models.forEach(m => {
+            const opt = document.createElement('option');
+            opt.value = m.name;
+            opt.textContent = `Ollama (${m.name}) ^`;
+            select.appendChild(opt);
+          });
+          const optOpenAI = document.createElement('option');
+          optOpenAI.value = 'gpt-4o-mini';
+          optOpenAI.textContent = 'OpenAI (gpt-4o-mini) ^';
+          select.appendChild(optOpenAI);
+        }
+      }
+    } catch(e){}
+
     try {
       const treeRes = await fetch('/api/workspace/tree');
       if(treeRes.ok){

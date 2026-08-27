@@ -108,6 +108,12 @@ DEFAULT_PROMPT = (
 
 def get_model(provider: str, model_name: str, api_key: str = ""):
     """Instancia dinámicamente el modelo LiteLLMModel según el proveedor elegido."""
+    # Normalizar nombres genéricos recibidos del frontend o UI
+    if model_name in ("Ollama (Local)", "Ollama", "qwen", ""):
+        model_name = "qwen2.5-coder:14b"
+    elif model_name in ("OpenAI", "gpt"):
+        model_name = "gpt-4o-mini"
+
     if provider == "Ollama (Local)":
         from config import OLLAMA_NUM_CTX, OLLAMA_TARGET
         return LiteLLMModel(
