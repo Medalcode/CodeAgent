@@ -21,6 +21,8 @@ import zipfile
 PORT = 8000
 OLLAMA_TARGET = "http://localhost:11434"
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ACTIVE_WORKSPACE_DIR = BASE_DIR
+RECENT_WORKSPACES = [BASE_DIR]
 SERVER_START_TIME = time.time()
 METRICS_COUNTERS = {
     "total_requests": 0,
@@ -225,31 +227,52 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
         return files_found
 
     def handle_open_folder(self):
+        global ACTIVE_WORKSPACE_DIR, RECENT_WORKSPACES
         data = self._get_post_body()
         folder_path = data.get("path", "").strip()
         if not folder_path:
-            folder_path = os.getcwd()
+            folder_path = ACTIVE_WORKSPACE_DIR
 
         folder_path = os.path.abspath(folder_path)
         if not os.path.exists(folder_path):
             self._send_json({"success": False, "error": f"La ruta especificada no existe: {folder_path}"}, 404)
             return
 
+        ACTIVE_WORKSPACE_DIR = folder_path
+        if folder_path not in RECENT_WORKSPACES:
+            RECENT_WORKSPACES.insert(0, folder_path)
+
+        try:
+            from tools import set_active_workspace
+            set_active_workspace(folder_path)
+        except Exception:
+            pass
+
         files = self._scan_folder(folder_path)
-        self._send_json({"success": True, "path": folder_path, "files": files})
+        self._send_json({
+            "success": True,
+            "path": folder_path,
+            "recent_workspaces": RECENT_WORKSPACES[:5],
+            "files": files
+        })
 
     def handle_workspace_tree(self):
+        global ACTIVE_WORKSPACE_DIR
         parsed = urllib.parse.urlparse(self.path)
         params = urllib.parse.parse_qs(parsed.query)
-        folder_path = params.get("path", [os.getcwd()])[0]
-        folder_path = os.path.abspath(folder_path)
+        target = params.get("path", [ACTIVE_WORKSPACE_DIR])[0]
+        folder_path = os.path.abspath(target) if target else ACTIVE_WORKSPACE_DIR
 
         if not os.path.exists(folder_path):
-            self._send_json({"success": False, "error": "Ruta no encontrada"}, 404)
-            return
+            folder_path = ACTIVE_WORKSPACE_DIR
 
         files = self._scan_folder(folder_path)
-        self._send_json({"success": True, "path": folder_path, "files": files})
+        self._send_json({
+            "success": True,
+            "path": folder_path,
+            "recent_workspaces": RECENT_WORKSPACES[:5],
+            "files": files
+        })
 
     def handle_save_file(self):
         data = self._get_post_body()
@@ -368,6 +391,12 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
 
         api_key = data.get("api_key", "")
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        try:
+            from tools import set_active_workspace
+            set_active_workspace(ACTIVE_WORKSPACE_DIR)
+        except Exception:
+            pass
+
         try:
             import main as codeagent_main
             respuesta, metricas = codeagent_main.ejecutar_agentes(

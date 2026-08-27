@@ -214,8 +214,22 @@ def leer_archivo_github(token: str, repo_full_name: str, ruta_archivo: str) -> s
     except Exception as e:
         return f"Error al leer archivo de GitHub: {e}"
 
+ACTIVE_WORKSPACE_DIR = None
+
+
+def set_active_workspace(path: str):
+    """Establece el directorio del espacio de trabajo activo de forma global para las herramientas agénticas."""
+    global ACTIVE_WORKSPACE_DIR
+    if path and os.path.exists(path):
+        ACTIVE_WORKSPACE_DIR = os.path.abspath(path)
+
+
 def _detectar_raiz_proyecto(inicio=".") -> str:
-    """Sube directorios hasta encontrar un marcador de raíz de repo (.git, AGENTS.md, graphify-out)."""
+    """Sube directorios hasta encontrar un marcador de raíz de repo (.git, AGENTS.md, graphify-out) o usa ACTIVE_WORKSPACE_DIR."""
+    global ACTIVE_WORKSPACE_DIR
+    if ACTIVE_WORKSPACE_DIR and os.path.exists(ACTIVE_WORKSPACE_DIR):
+        return ACTIVE_WORKSPACE_DIR
+
     actual = os.path.abspath(inicio)
     while True:
         if (

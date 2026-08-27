@@ -472,7 +472,11 @@
     <span class="menu-item">...</span>
   </div>
   <div class="title-breadcrumbs" id="headerTitle">
-    CodeAgent - Antigravity IDE - <strong id="activeFileName">ADR-001-smolagents-react-engine.md</strong>
+    <button id="changeWorkspaceBtn" style="background:var(--bg-elevated); border:1px solid var(--border); color:var(--text-bright); padding:2px 8px; border-radius:4px; font-size:11px; cursor:pointer; display:inline-flex; align-items:center; gap:4px;">
+      📁 <span id="currentWorkspaceLabel">CodeAgent</span> ▾
+    </button>
+    <span>-</span>
+    <strong id="activeFileName">ADR-001-smolagents-react-engine.md</strong>
   </div>
   <div class="window-controls">
     <span class="win-btn">🔍</span>
@@ -800,6 +804,10 @@
       const treeRes = await fetch('/api/workspace/tree');
       if(treeRes.ok){
         const treeData = await treeRes.json();
+        if(treeData.path){
+          const parts = treeData.path.replace(/\\/g, '/').split('/');
+          $('currentWorkspaceLabel').textContent = parts[parts.length - 1] || 'CodeAgent';
+        }
         if(treeData.files && treeData.files.length){
           files = treeData.files;
           openFile(files[0]);
@@ -813,9 +821,54 @@
       ];
       openFile(files[0]);
     }
+
+    // WORKSPACE MODAL EVENT LISTENERS
+    $('changeWorkspaceBtn').onclick = () => {
+      $('workspaceModal').style.display = 'flex';
+    };
+    $('closeWorkspaceModalBtn').onclick = () => {
+      $('workspaceModal').style.display = 'none';
+    };
+    $('confirmWorkspaceBtn').onclick = async () => {
+      const path = $('workspacePathInput').value.trim();
+      if(!path) return;
+      try {
+        const res = await fetch('/api/workspace/open-folder', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ path })
+        });
+        const data = await res.json();
+        if(data.success){
+          const parts = data.path.replace(/\\/g, '/').split('/');
+          $('currentWorkspaceLabel').textContent = parts[parts.length - 1] || 'Workspace';
+          files = data.files || [];
+          if(files.length) openFile(files[0]);
+          $('workspaceModal').style.display = 'none';
+          alert('Espacio de trabajo cambiado a: ' + data.path);
+        } else {
+          alert('Error: ' + (data.error || 'No se pudo abrir la ruta'));
+        }
+      } catch(err){
+        alert('Error de conexión al cambiar espacio de trabajo: ' + err.message);
+      }
+    };
   }
   init();
 })();
 </script>
+
+<!-- WORKSPACE SWITCHER MODAL -->
+<div id="workspaceModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;">
+  <div style="background:var(--bg-panel); border:1px solid var(--border-bright); width:480px; padding:20px; border-radius:8px; box-shadow:0 8px 32px rgba(0,0,0,0.5);">
+    <h3 style="margin-top:0; color:var(--text-bright); font-size:15px; display:flex; align-items:center; gap:8px;">📁 Cambiar Espacio de Trabajo / Repositorio</h3>
+    <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">Ingresa la ruta absoluta del repositorio en tu disco donde operará el agente de código:</p>
+    <input type="text" id="workspacePathInput" style="width:100%; padding:8px; background:var(--bg-editor); border:1px solid var(--border); color:var(--text-bright); border-radius:4px; font-family:var(--mono); font-size:12px; box-sizing:border-box; margin-bottom:12px;" placeholder="ej: C:\Users\Jonatthan\Documents\Github\MiProyecto">
+    <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:16px;">
+      <button id="closeWorkspaceModalBtn" style="padding:6px 12px; background:var(--bg-sidebar); border:1px solid var(--border); color:var(--text); border-radius:4px; cursor:pointer;">Cancelar</button>
+      <button id="confirmWorkspaceBtn" style="padding:6px 12px; background:var(--accent); border:none; color:#fff; border-radius:4px; cursor:pointer; font-weight:500;">Abrir Repositorio</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
