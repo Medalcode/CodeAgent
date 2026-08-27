@@ -55,20 +55,31 @@ class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
 
     def do_GET(self):
         METRICS_COUNTERS["total_requests"] += 1
-        if self.path.startswith("/metrics"):
+        clean_path = self.path.split('?')[0]
+        if clean_path in ("/", "", "/ui", "/app", "/index.html", "/chat", "/editor"):
+            self.path = "/localcode_claude_ui.html"
+            super().do_GET()
+        elif clean_path.startswith("/metrics"):
             self.handle_metrics()
-        elif self.path.startswith("/api/openapi.json"):
+        elif clean_path.startswith("/api/openapi.json"):
             self.handle_openapi_spec()
-        elif self.path.startswith("/docs"):
+        elif clean_path.startswith("/docs"):
             self.handle_docs()
-        elif self.path.startswith("/api/workspace/tree"):
+        elif clean_path.startswith("/api/workspace/tree"):
             self.handle_workspace_tree()
-        elif self.path.startswith("/api/chat") or self.path.startswith("/api/tags") or self.path.startswith("/api/version"):
+        elif any(clean_path.startswith(p) for p in ("/api/chat", "/api/tags", "/api/version", "/api/generate", "/api/embeddings", "/v1/")):
             self.proxy_to_ollama("GET")
         else:
-            if self.path in ("/", ""):
-                self.path = "/localcode_claude_ui.html"
-            super().do_GET()
+            # Fallback seguro para archivos estáticos existentes
+            target_file = os.path.normpath(os.path.join(BASE_DIR, clean_path.lstrip("/")))
+            if os.path.isfile(target_file):
+                super().do_GET()
+            else:
+                self._send_json({
+                    "error": "Ruta no encontrada (404)",
+                    "path_solicitada": self.path,
+                    "rutas_disponibles": ["/", "/localcode_claude_ui.html", "/docs", "/metrics", "/api/agent/chat", "/api/workspace/tree"]
+                }, 404)
 
     def handle_metrics(self):
         uptime = time.time() - SERVER_START_TIME
@@ -410,18 +421,33 @@ class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
 
 
 def main():
-    with ThreadedTCPServer(("", PORT), LocalCodeProxyHandler) as httpd:
-        url = f"http://localhost:{PORT}/localcode_claude_ui.html"
-        print("=" * 65)
-        print(f"🚀 Servidor LocalCode Multihilo iniciado en: {url}")
-        print(f"🔗 Proxy conector activado hacia Ollama: {OLLAMA_TARGET}")
-        print("💡 Cierra esta ventana o presiona Ctrl+C para detener.")
-        print("=" * 65 + "\n")
-        webbrowser.open(url)
+    candidate_ports = [PORT, 8080, 8001, 8002]
+    httpd = None
+    selected_port = PORT
+
+    for p in candidate_ports:
         try:
-            httpd.serve_forever()
-        except KeyboardInterrupt:
-            print("\n👋 Servidor detenido.")
+            httpd = ThreadedTCPServer(("", p), LocalCodeProxyHandler)
+            selected_port = p
+            break
+        except OSError:
+            continue
+
+    if not httpd:
+        _safe_print(f"❌ Error: No se pudo abrir el servidor en ninguno de los puertos {candidate_ports}.")
+        sys.exit(1)
+
+    url = f"http://localhost:{selected_port}/localcode_claude_ui.html"
+    print("=" * 65)
+    print(f"🚀 Servidor LocalCode Multihilo iniciado en: {url}")
+    print(f"🔗 Proxy conector activado hacia Ollama: {OLLAMA_TARGET}")
+    print("💡 Cierra esta ventana o presiona Ctrl+C para detener.")
+    print("=" * 65 + "\n")
+    webbrowser.open(url)
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        print("\n👋 Servidor detenido.")
 
 
 if __name__ == "__main__":
