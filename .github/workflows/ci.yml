@@ -31,6 +31,8 @@ jobs:
           ruff check .
 
       - name: Run Test Suite
+        env:
+          PYTHONPATH: mis_agentes_inteligentes
         run: |
           python -m unittest discover -s tests
 

@@ -4,6 +4,21 @@ Todos los cambios notables realizados en este proyecto serán documentados en es
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/), y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.5.0] - 2026-08-27
+
+### Added
+- **feat(desktop):** Aplicación de escritorio nativa independiente (`desktop_app.py` y `Lanzar_CodeAgent_Desktop.bat`) basada en `pywebview` y modo App.
+- **feat(desktop):** Auto-orquestación en 1 clic: verificación y auto-inicio transparente de `ollama serve` y backend proxy en segundo plano.
+- **feat(workspace):** Selector dinámico de repositorios `📁 [Workspace] ▾` en la UI y modal interactivo para cambiar de proyecto en tiempo real.
+- **feat(security):** Encapsulación thread-safe `_WORKSPACE_LOCK` en `tools.py` para prevenir race conditions en entornos multihilo.
+- **test(qa):** Adición de la suite de pruebas unitarias `tests/test_desktop_app.py` e isolación de workspaces (`64/64` tests pasados al 100%).
+
+### Fixed
+- **fix(agent):** Inyección automática de `PYTHONPATH` en la terminal e inferencia de rutas contra `_detectar_raiz_proyecto(".")`, resolviendo fallas de sandbox `open()` y `ModuleNotFoundError`.
+- **fix(devops):** Configuración de `PYTHONPATH` en GitHub Actions `ci.yml` e inclusión de archivos estáticos en `Dockerfile`.
+
+---
+
 ## [2.5.0] - 2026-08-26
 
 ### Fixed

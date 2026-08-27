@@ -1,0 +1,107 @@
+{
+  "mis_agentes_inteligentes/agents.py": {
+    "mtime": 1783839016.0,
+    "ast_hash": "2bc82a1d5ab570b49791a83f86e4eb37",
+    "semantic_hash": ""
+  },
+  "mis_agentes_inteligentes/app.py": {
+    "mtime": 1783839168.0,
+    "ast_hash": "058b37f1137a4220e7be93fce55e9dec",
+    "semantic_hash": ""
+  },
+  "mis_agentes_inteligentes/main.py": {
+    "mtime": 1783839046.0,
+    "ast_hash": "3c4fd9464bc5973de36acb7215657f24",
+    "semantic_hash": ""
+  },
+  "mis_agentes_inteligentes/rag_tools.py": {
+    "mtime": 1783839082.0,
+    "ast_hash": "21ae0a8e9879d8600783f4b0d956da45",
+    "semantic_hash": ""
+  },
+  "mis_agentes_inteligentes/session_manager.py": {
+    "mtime": 1783839060.0,
+    "ast_hash": "8c20dd48211ab0ccf51f2c6ea178fbf3",
+    "semantic_hash": ""
+  },
+  "mis_agentes_inteligentes/setup_db.py": {
+    "mtime": 1783837066.0,
+    "ast_hash": "dca1818fd75029a623c0b72d219196ad",
+    "semantic_hash": "dca1818fd75029a623c0b72d219196ad"
+  },
+  "mis_agentes_inteligentes/start_hub.sh": {
+    "mtime": 1783837066.0,
+    "ast_hash": "a1355e8f77d7a9bdc1619866b5517ca6",
+    "semantic_hash": "a1355e8f77d7a9bdc1619866b5517ca6"
+  },
+  "mis_agentes_inteligentes/tools.py": {
+    "mtime": 1783839106.0,
+    "ast_hash": "442c5a94935cbf5eb34bb8de04397165",
+    "semantic_hash": ""
+  },
+  "orquestador_agente.py": {
+    "mtime": 1783837066.0,
+    "ast_hash": "0e11920bbe5626fa4bcaef8919dadff5",
+    "semantic_hash": "0e11920bbe5626fa4bcaef8919dadff5"
+  },
+  ".opencode/opencode.json": {
+    "mtime": 1783837470.0,
+    "ast_hash": "f2ae21510d07365eb2bce8159272c7a0",
+    "semantic_hash": ""
+  },
+  ".opencode/plugins/graphify.js": {
+    "mtime": 1783837470.0,
+    "ast_hash": "b33d000860642c6f4907a877e0387a21",
+    "semantic_hash": ""
+  },
+  ".agents/rules/graphify.md": {
+    "mtime": 1783837408.0,
+    "ast_hash": "a0e4d192b9e2e17256124dbfc8e24e6a",
+    "semantic_hash": ""
+  },
+  ".agents/workflows/graphify.md": {
+    "mtime": 1783837408.0,
+    "ast_hash": "637776aa6f7496d069afe7520c845c8a",
+    "semantic_hash": ""
+  },
+  "AGENTS.md": {
+    "mtime": 1783837470.0,
+    "ast_hash": "21ceb6533048be51308e69e7b74a35cf",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1783837780.0,
+    "ast_hash": "1255c1b4d8184f4ccbffeb59214c575b",
+    "semantic_hash": ""
+  },
+  "docker-compose.yml": {
+    "mtime": 1783837066.0,
+    "ast_hash": "e08b44a185a67ec940a670f66e4f008a",
+    "semantic_hash": ""
+  },
+  "mis_agentes_inteligentes/requirements.txt": {
+    "mtime": 1783837066.0,
+    "ast_hash": "537b3f7343bccc5ee60b8d63373b9e5c",
+    "semantic_hash": ""
+  },
+  "mis_agentes_inteligentes/subagents/code-reviewer.md": {
+    "mtime": 1783837066.0,
+    "ast_hash": "327ef30f5db1ecf00e6b731b633c7a4d",
+    "semantic_hash": ""
+  },
+  "mis_agentes_inteligentes/subagents/frontend-developer.md": {
+    "mtime": 1783837066.0,
+    "ast_hash": "d604cfd307cd208af740feb78b13db37",
+    "semantic_hash": ""
+  },
+  "mis_agentes_inteligentes/subagents/python-pro.md": {
+    "mtime": 1783837066.0,
+    "ast_hash": "0e424f172c2d7c5341b856bc1be83e19",
+    "semantic_hash": ""
+  },
+  "mis_agentes_inteligentes/subagents/security-auditor.md": {
+    "mtime": 1783837066.0,
+    "ast_hash": "6d06f9bba4023547fa214af78ddb4506",
+    "semantic_hash": ""
+  }
+}

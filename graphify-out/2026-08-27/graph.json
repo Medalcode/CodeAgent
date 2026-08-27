@@ -1,0 +1,1237 @@
+{
+  "nodes": [
+    {
+      "id": 1,
+      "name": "CodeAgent",
+      "type": "module",
+      "file": null,
+      "doc": null
+    },
+    {
+      "id": 2,
+      "name": "mis_agentes_inteligentes/agents",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/agents.py",
+      "doc": null
+    },
+    {
+      "id": 3,
+      "name": "agents.get_model",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/agents.py",
+      "doc": "Instancia din\u00e1micamente el modelo LiteLLMModel seg\u00fan el proveedor elegido."
+    },
+    {
+      "id": 4,
+      "name": "agents.load_subagents_from_disk",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/agents.py",
+      "doc": "Lee todos los archivos .md en la carpeta subagents/ y parsea su YAML frontmatter y su cuerpo."
+    },
+    {
+      "id": 5,
+      "name": "agents.get_available_agents",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/agents.py",
+      "doc": "Devuelve la lista completa de agentes disponibles (Fijos + Din\u00e1micos)."
+    },
+    {
+      "id": 6,
+      "name": "agents.route_prompt",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/agents.py",
+      "doc": "Enrutador autom\u00e1tico mejorado con scoring ponderado."
+    },
+    {
+      "id": 7,
+      "name": "agents.crear_agente",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/agents.py",
+      "doc": "Crea el CodeAgent de smolagents.\nFIX: system_prompt ahora se pasa correctamente al constructor.\nFIX: max_steps aumentado a 20 para tareas complejas."
+    },
+    {
+      "id": 8,
+      "name": "mis_agentes_inteligentes/app",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/app.py",
+      "doc": null
+    },
+    {
+      "id": 9,
+      "name": "app.get_sessions_list",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/app.py",
+      "doc": ""
+    },
+    {
+      "id": 10,
+      "name": "mis_agentes_inteligentes/main",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/main.py",
+      "doc": null
+    },
+    {
+      "id": 11,
+      "name": "main.get_herramientas",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/main.py",
+      "doc": "Convierte los nombres del UI en la lista de funciones @tool."
+    },
+    {
+      "id": 12,
+      "name": "main._construir_contexto_workspace",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/main.py",
+      "doc": "Genera un bloque de contexto del workspace actual para inyectar en el system_prompt.\nInforma al agente en qu\u00e9 directorio est\u00e1 y qu\u00e9 estructura de proyecto tiene."
+    },
+    {
+      "id": 13,
+      "name": "main.ejecutar_agentes",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/main.py",
+      "doc": "Pipeline principal usando smolagents.\nFIX: el historial ya no se manda como prompt \u2014 eso lo maneja app.py.\nNUEVO: acepta step_callback para streaming de pasos en la UI."
+    },
+    {
+      "id": 14,
+      "name": "mis_agentes_inteligentes/rag_tools",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/rag_tools.py",
+      "doc": null
+    },
+    {
+      "id": 15,
+      "name": "rag_tools.init_chroma",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/rag_tools.py",
+      "doc": "Inicializa la base de datos ChromaDB y el modelo de embeddings."
+    },
+    {
+      "id": 16,
+      "name": "rag_tools.indexar_directorio_local",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/rag_tools.py",
+      "doc": "Escanea todos los archivos de c\u00f3digo en un directorio local y los indexa en ChromaDB para b\u00fasquedas sem\u00e1nticas futuras.\n\nArgs:\n    ruta: Ruta al directorio a indexar."
+    },
+    {
+      "id": 17,
+      "name": "rag_tools.preguntar_a_repositorio",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/rag_tools.py",
+      "doc": "Realiza una b\u00fasqueda sem\u00e1ntica sobre los archivos previamente indexados con indexar_directorio_local.\n\nArgs:\n    pregunta: Pregunta o b\u00fasqueda a realizar sobre el c\u00f3digo indexado."
+    },
+    {
+      "id": 18,
+      "name": "mis_agentes_inteligentes/session_manager",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": null
+    },
+    {
+      "id": 19,
+      "name": "session_manager.init_sessions_dir",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": ""
+    },
+    {
+      "id": 20,
+      "name": "session_manager.create_new_session",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": ""
+    },
+    {
+      "id": 21,
+      "name": "session_manager.list_sessions",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": ""
+    },
+    {
+      "id": 22,
+      "name": "session_manager.load_session",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": ""
+    },
+    {
+      "id": 23,
+      "name": "session_manager.save_session",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": ""
+    },
+    {
+      "id": 24,
+      "name": "session_manager.delete_session",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": "BUG 5 FIX: protegido contra session_id None o inv\u00e1lido."
+    },
+    {
+      "id": 25,
+      "name": "session_manager.rename_session",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": "Renombra una sesi\u00f3n existente."
+    },
+    {
+      "id": 26,
+      "name": "session_manager.export_session_to_markdown",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": "Exporta una sesi\u00f3n como texto Markdown."
+    },
+    {
+      "id": 27,
+      "name": "mis_agentes_inteligentes/setup_db",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/setup_db.py",
+      "doc": null
+    },
+    {
+      "id": 28,
+      "name": "setup_db.create_dummy_db",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/setup_db.py",
+      "doc": ""
+    },
+    {
+      "id": 29,
+      "name": "mis_agentes_inteligentes/tools",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": null
+    },
+    {
+      "id": 30,
+      "name": "tools.consultar_db",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Extrae eventos desde MisEventos.db. La base de datos tiene una tabla 'eventos' con columnas: id, fecha, titulo, descripcion, prioridad. Solo se permiten consultas SELECT.\n\nArgs:\n    query: La consulta"
+    },
+    {
+      "id": 31,
+      "name": "tools.guardar_reporte",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Archiva el an\u00e1lisis para memoria a largo plazo.\n\nArgs:\n    analisis: El texto del reporte a guardar."
+    },
+    {
+      "id": 32,
+      "name": "tools.consultar_github",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Usa esta herramienta cuando el usuario te proporcione un token de Github para acceder a sus repositorios.\nLe pasas el token como argumento y te devolver\u00e1 la lista de repositorios del usuario.\n\nArgs:\n "
+    },
+    {
+      "id": 33,
+      "name": "tools.leer_repositorio_github",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Usa esta herramienta para analizar a fondo uno o VARIOS repositorios. \nDebes pasarle el token y el nombre del repositorio (ejemplo: 'steam-hunter'). La herramienta encontrar\u00e1 autom\u00e1ticamente el usuari"
+    },
+    {
+      "id": 34,
+      "name": "tools.leer_archivo_github",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Lee el contenido de un archivo espec\u00edfico de un repositorio de GitHub.\nPasa el token, el nombre del repo (ej: 'steam-hunter') y la ruta del archivo dentro del repo (ej: 'src/main.py'). \nLa herramienta"
+    },
+    {
+      "id": 35,
+      "name": "tools.listar_directorio_local",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Lista los archivos y carpetas de un directorio local. \u00datil para entender la estructura del proyecto. Por defecto usa la carpeta actual '.'\n\nArgs:\n    ruta: Ruta al directorio local a listar."
+    },
+    {
+      "id": 36,
+      "name": "tools.leer_archivo_local",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Lee el contenido de un archivo local en tu disco duro para poder analizar su c\u00f3digo. Devuelve SOLO el contenido limpio (sin cabeceras). Debes pasarle la ruta completa o relativa al archivo.\n\nArgs:\n   "
+    },
+    {
+      "id": 37,
+      "name": "tools.escribir_archivo_local",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Crea o sobreescribe un archivo local con el contenido proporcionado. \u00datil para programar, refactorizar o crear tests.\n\nArgs:\n    ruta_archivo: Ruta del archivo a escribir.\n    contenido: Contenido a e"
+    },
+    {
+      "id": 38,
+      "name": "tools.ejecutar_comando_terminal",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Ejecuta un comando en la terminal del sistema operativo (ej. pytest, ls, pip install, python script.py).\n\u00dasalo para probar el c\u00f3digo, instalar dependencias o verificar resultados.\n\nArgs:\n    comando: "
+    },
+    {
+      "id": 39,
+      "name": "tools.buscar_en_internet",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Realiza una b\u00fasqueda en internet usando Google para obtener informaci\u00f3n actualizada (noticias, documentaci\u00f3n, soluciones a errores).\n\nArgs:\n    query: B\u00fasqueda a realizar en Google."
+    },
+    {
+      "id": 40,
+      "name": "tools.editar_archivo_search_replace",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "IMPORTANTE: \u00dasala para modificar partes de un archivo SIN reescribirlo todo.\nBusca el bloque exacto de c\u00f3digo en 'busqueda' y lo reemplaza con 'reemplazo'.\n\nArgs:\n    ruta_archivo: Ruta del archivo a "
+    },
+    {
+      "id": 41,
+      "name": "tools.git_status",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Muestra el estado del repositorio Git (archivos modificados, untracked, etc).\n\nArgs:\n    ruta_repo: Ruta del repositorio git local."
+    },
+    {
+      "id": 42,
+      "name": "tools.git_diff",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Muestra los cambios no commiteados en el repositorio.\n\nArgs:\n    ruta_repo: Ruta del repositorio git local."
+    },
+    {
+      "id": 43,
+      "name": "tools.git_add",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "A\u00f1ade archivos al staging area de Git. Pasa los archivos separados por espacios, o '.' para a\u00f1adir todos.\n\nArgs:\n    archivos: Archivos a agregar al stage (separados por espacios).\n    ruta_repo: Ruta"
+    },
+    {
+      "id": 44,
+      "name": "tools.git_commit",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Crea un commit con los archivos en el staging area.\n\nArgs:\n    mensaje: Mensaje del commit.\n    ruta_repo: Ruta del repositorio git local."
+    },
+    {
+      "id": 45,
+      "name": "tools.git_push",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Sube los commits locales al repositorio remoto (GitHub). Opcionalmente especifica la rama.\n\nArgs:\n    ruta_repo: Ruta del repositorio git local.\n    rama: Rama a pushear (por defecto 'main')."
+    },
+    {
+      "id": 46,
+      "name": "tools.obtener_contexto_workspace",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Funci\u00f3n de utilidad para el comando @workspace. Genera un resumen del entorno."
+    },
+    {
+      "id": 47,
+      "name": "mis_agentes_inteligentes.agents",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/agents.py",
+      "doc": null
+    },
+    {
+      "id": 48,
+      "name": "mis_agentes_inteligentes.agents.get_model",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/agents.py",
+      "doc": "Instancia din\u00e1micamente el modelo LiteLLMModel seg\u00fan el proveedor elegido."
+    },
+    {
+      "id": 49,
+      "name": "mis_agentes_inteligentes.agents.load_subagents_from_disk",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/agents.py",
+      "doc": "Lee todos los archivos .md en la carpeta subagents/ y parsea su YAML frontmatter y su cuerpo."
+    },
+    {
+      "id": 50,
+      "name": "mis_agentes_inteligentes.agents.get_available_agents",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/agents.py",
+      "doc": "Devuelve la lista completa de agentes disponibles (Fijos + Din\u00e1micos)."
+    },
+    {
+      "id": 51,
+      "name": "mis_agentes_inteligentes.agents.route_prompt",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/agents.py",
+      "doc": "Enrutador autom\u00e1tico mejorado con scoring ponderado."
+    },
+    {
+      "id": 52,
+      "name": "mis_agentes_inteligentes.agents.crear_agente",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/agents.py",
+      "doc": "Crea el CodeAgent de smolagents.\nFIX: system_prompt ahora se pasa correctamente al constructor.\nFIX: max_steps aumentado a 20 para tareas complejas."
+    },
+    {
+      "id": 53,
+      "name": "mis_agentes_inteligentes.app",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/app.py",
+      "doc": null
+    },
+    {
+      "id": 54,
+      "name": "mis_agentes_inteligentes.app.get_sessions_list",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/app.py",
+      "doc": ""
+    },
+    {
+      "id": 55,
+      "name": "mis_agentes_inteligentes.main",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/main.py",
+      "doc": null
+    },
+    {
+      "id": 56,
+      "name": "mis_agentes_inteligentes.main.get_herramientas",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/main.py",
+      "doc": "Convierte los nombres del UI en la lista de funciones @tool."
+    },
+    {
+      "id": 57,
+      "name": "mis_agentes_inteligentes.main._construir_contexto_workspace",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/main.py",
+      "doc": "Genera un bloque de contexto del workspace actual para inyectar en el system_prompt.\nInforma al agente en qu\u00e9 directorio est\u00e1 y qu\u00e9 estructura de proyecto tiene."
+    },
+    {
+      "id": 58,
+      "name": "mis_agentes_inteligentes.main.ejecutar_agentes",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/main.py",
+      "doc": "Pipeline principal usando smolagents.\nFIX: el historial ya no se manda como prompt \u2014 eso lo maneja app.py.\nNUEVO: acepta step_callback para streaming de pasos en la UI."
+    },
+    {
+      "id": 59,
+      "name": "mis_agentes_inteligentes.rag_tools",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/rag_tools.py",
+      "doc": null
+    },
+    {
+      "id": 60,
+      "name": "mis_agentes_inteligentes.rag_tools.init_chroma",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/rag_tools.py",
+      "doc": "Inicializa la base de datos ChromaDB y el modelo de embeddings."
+    },
+    {
+      "id": 61,
+      "name": "mis_agentes_inteligentes.rag_tools.indexar_directorio_local",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/rag_tools.py",
+      "doc": "Escanea todos los archivos de c\u00f3digo en un directorio local y los indexa en ChromaDB para b\u00fasquedas sem\u00e1nticas futuras.\n\nArgs:\n    ruta: Ruta al directorio a indexar."
+    },
+    {
+      "id": 62,
+      "name": "mis_agentes_inteligentes.rag_tools.preguntar_a_repositorio",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/rag_tools.py",
+      "doc": "Realiza una b\u00fasqueda sem\u00e1ntica sobre los archivos previamente indexados con indexar_directorio_local.\n\nArgs:\n    pregunta: Pregunta o b\u00fasqueda a realizar sobre el c\u00f3digo indexado."
+    },
+    {
+      "id": 63,
+      "name": "mis_agentes_inteligentes.session_manager",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": null
+    },
+    {
+      "id": 64,
+      "name": "mis_agentes_inteligentes.session_manager.init_sessions_dir",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": ""
+    },
+    {
+      "id": 65,
+      "name": "mis_agentes_inteligentes.session_manager.create_new_session",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": ""
+    },
+    {
+      "id": 66,
+      "name": "mis_agentes_inteligentes.session_manager.list_sessions",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": ""
+    },
+    {
+      "id": 67,
+      "name": "mis_agentes_inteligentes.session_manager.load_session",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": ""
+    },
+    {
+      "id": 68,
+      "name": "mis_agentes_inteligentes.session_manager.save_session",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": ""
+    },
+    {
+      "id": 69,
+      "name": "mis_agentes_inteligentes.session_manager.delete_session",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": "BUG 5 FIX: protegido contra session_id None o inv\u00e1lido."
+    },
+    {
+      "id": 70,
+      "name": "mis_agentes_inteligentes.session_manager.rename_session",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": "Renombra una sesi\u00f3n existente."
+    },
+    {
+      "id": 71,
+      "name": "mis_agentes_inteligentes.session_manager.export_session_to_markdown",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/session_manager.py",
+      "doc": "Exporta una sesi\u00f3n como texto Markdown."
+    },
+    {
+      "id": 72,
+      "name": "mis_agentes_inteligentes.setup_db",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/setup_db.py",
+      "doc": null
+    },
+    {
+      "id": 73,
+      "name": "mis_agentes_inteligentes.setup_db.create_dummy_db",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/setup_db.py",
+      "doc": ""
+    },
+    {
+      "id": 74,
+      "name": "mis_agentes_inteligentes.tools",
+      "type": "module",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": null
+    },
+    {
+      "id": 75,
+      "name": "mis_agentes_inteligentes.tools.consultar_db",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Extrae eventos desde MisEventos.db. La base de datos tiene una tabla 'eventos' con columnas: id, fecha, titulo, descripcion, prioridad. Solo se permiten consultas SELECT.\n\nArgs:\n    query: La consulta"
+    },
+    {
+      "id": 76,
+      "name": "mis_agentes_inteligentes.tools.guardar_reporte",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Archiva el an\u00e1lisis para memoria a largo plazo.\n\nArgs:\n    analisis: El texto del reporte a guardar."
+    },
+    {
+      "id": 77,
+      "name": "mis_agentes_inteligentes.tools.consultar_github",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Usa esta herramienta cuando el usuario te proporcione un token de Github para acceder a sus repositorios.\nLe pasas el token como argumento y te devolver\u00e1 la lista de repositorios del usuario.\n\nArgs:\n "
+    },
+    {
+      "id": 78,
+      "name": "mis_agentes_inteligentes.tools.leer_repositorio_github",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Usa esta herramienta para analizar a fondo uno o VARIOS repositorios. \nDebes pasarle el token y el nombre del repositorio (ejemplo: 'steam-hunter'). La herramienta encontrar\u00e1 autom\u00e1ticamente el usuari"
+    },
+    {
+      "id": 79,
+      "name": "mis_agentes_inteligentes.tools.leer_archivo_github",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Lee el contenido de un archivo espec\u00edfico de un repositorio de GitHub.\nPasa el token, el nombre del repo (ej: 'steam-hunter') y la ruta del archivo dentro del repo (ej: 'src/main.py'). \nLa herramienta"
+    },
+    {
+      "id": 80,
+      "name": "mis_agentes_inteligentes.tools.listar_directorio_local",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Lista los archivos y carpetas de un directorio local. \u00datil para entender la estructura del proyecto. Por defecto usa la carpeta actual '.'\n\nArgs:\n    ruta: Ruta al directorio local a listar."
+    },
+    {
+      "id": 81,
+      "name": "mis_agentes_inteligentes.tools.leer_archivo_local",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Lee el contenido de un archivo local en tu disco duro para poder analizar su c\u00f3digo. Devuelve SOLO el contenido limpio (sin cabeceras). Debes pasarle la ruta completa o relativa al archivo.\n\nArgs:\n   "
+    },
+    {
+      "id": 82,
+      "name": "mis_agentes_inteligentes.tools.escribir_archivo_local",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Crea o sobreescribe un archivo local con el contenido proporcionado. \u00datil para programar, refactorizar o crear tests.\n\nArgs:\n    ruta_archivo: Ruta del archivo a escribir.\n    contenido: Contenido a e"
+    },
+    {
+      "id": 83,
+      "name": "mis_agentes_inteligentes.tools.ejecutar_comando_terminal",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Ejecuta un comando en la terminal del sistema operativo (ej. pytest, ls, pip install, python script.py).\n\u00dasalo para probar el c\u00f3digo, instalar dependencias o verificar resultados.\n\nArgs:\n    comando: "
+    },
+    {
+      "id": 84,
+      "name": "mis_agentes_inteligentes.tools.buscar_en_internet",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Realiza una b\u00fasqueda en internet usando Google para obtener informaci\u00f3n actualizada (noticias, documentaci\u00f3n, soluciones a errores).\n\nArgs:\n    query: B\u00fasqueda a realizar en Google."
+    },
+    {
+      "id": 85,
+      "name": "mis_agentes_inteligentes.tools.editar_archivo_search_replace",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "IMPORTANTE: \u00dasala para modificar partes de un archivo SIN reescribirlo todo.\nBusca el bloque exacto de c\u00f3digo en 'busqueda' y lo reemplaza con 'reemplazo'.\n\nArgs:\n    ruta_archivo: Ruta del archivo a "
+    },
+    {
+      "id": 86,
+      "name": "mis_agentes_inteligentes.tools.git_status",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Muestra el estado del repositorio Git (archivos modificados, untracked, etc).\n\nArgs:\n    ruta_repo: Ruta del repositorio git local."
+    },
+    {
+      "id": 87,
+      "name": "mis_agentes_inteligentes.tools.git_diff",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Muestra los cambios no commiteados en el repositorio.\n\nArgs:\n    ruta_repo: Ruta del repositorio git local."
+    },
+    {
+      "id": 88,
+      "name": "mis_agentes_inteligentes.tools.git_add",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "A\u00f1ade archivos al staging area de Git. Pasa los archivos separados por espacios, o '.' para a\u00f1adir todos.\n\nArgs:\n    archivos: Archivos a agregar al stage (separados por espacios).\n    ruta_repo: Ruta"
+    },
+    {
+      "id": 89,
+      "name": "mis_agentes_inteligentes.tools.git_commit",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Crea un commit con los archivos en el staging area.\n\nArgs:\n    mensaje: Mensaje del commit.\n    ruta_repo: Ruta del repositorio git local."
+    },
+    {
+      "id": 90,
+      "name": "mis_agentes_inteligentes.tools.git_push",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Sube los commits locales al repositorio remoto (GitHub). Opcionalmente especifica la rama.\n\nArgs:\n    ruta_repo: Ruta del repositorio git local.\n    rama: Rama a pushear (por defecto 'main')."
+    },
+    {
+      "id": 91,
+      "name": "mis_agentes_inteligentes.tools.obtener_contexto_workspace",
+      "type": "function",
+      "file": "mis_agentes_inteligentes/tools.py",
+      "doc": "Funci\u00f3n de utilidad para el comando @workspace. Genera un resumen del entorno."
+    },
+    {
+      "id": 92,
+      "name": "orquestador_agente",
+      "type": "module",
+      "file": "orquestador_agente.py",
+      "doc": null
+    },
+    {
+      "id": 93,
+      "name": "orquestador_agente.supervisor",
+      "type": "function",
+      "file": "orquestador_agente.py",
+      "doc": ""
+    },
+    {
+      "id": 94,
+      "name": "orquestador_agente.backup_archivos_trabajo",
+      "type": "function",
+      "file": "orquestador_agente.py",
+      "doc": "Guarda backups de archivos que los benchmarks pueden modificar."
+    },
+    {
+      "id": 95,
+      "name": "orquestador_agente.restaurar_archivos_trabajo",
+      "type": "function",
+      "file": "orquestador_agente.py",
+      "doc": "Restaura archivos de trabajo a su estado original."
+    },
+    {
+      "id": 96,
+      "name": "orquestador_agente.gen_script",
+      "type": "function",
+      "file": "orquestador_agente.py",
+      "doc": ""
+    },
+    {
+      "id": 97,
+      "name": "orquestador_agente.probar",
+      "type": "function",
+      "file": "orquestador_agente.py",
+      "doc": ""
+    },
+    {
+      "id": 98,
+      "name": "orquestador_agente.diagnosticar",
+      "type": "function",
+      "file": "orquestador_agente.py",
+      "doc": ""
+    },
+    {
+      "id": 99,
+      "name": "orquestador_agente.generar_fix",
+      "type": "function",
+      "file": "orquestador_agente.py",
+      "doc": ""
+    },
+    {
+      "id": 100,
+      "name": "orquestador_agente.validar_sintaxis",
+      "type": "function",
+      "file": "orquestador_agente.py",
+      "doc": ""
+    },
+    {
+      "id": 101,
+      "name": "orquestador_agente.aplicar",
+      "type": "function",
+      "file": "orquestador_agente.py",
+      "doc": ""
+    },
+    {
+      "id": 102,
+      "name": "orquestador_agente.restaurar_agents",
+      "type": "function",
+      "file": "orquestador_agente.py",
+      "doc": "Restaura agents.py desde BACKUP_AGENTS si existe."
+    },
+    {
+      "id": 103,
+      "name": "orquestador_agente.main",
+      "type": "function",
+      "file": "orquestador_agente.py",
+      "doc": ""
+    }
+  ],
+  "edges": [
+    {
+      "source": 1,
+      "target": 2,
+      "label": "contains"
+    },
+    {
+      "source": 2,
+      "target": 3,
+      "label": "defines"
+    },
+    {
+      "source": 2,
+      "target": 4,
+      "label": "defines"
+    },
+    {
+      "source": 2,
+      "target": 5,
+      "label": "defines"
+    },
+    {
+      "source": 2,
+      "target": 6,
+      "label": "defines"
+    },
+    {
+      "source": 2,
+      "target": 7,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 8,
+      "label": "contains"
+    },
+    {
+      "source": 8,
+      "target": 9,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 10,
+      "label": "contains"
+    },
+    {
+      "source": 10,
+      "target": 11,
+      "label": "defines"
+    },
+    {
+      "source": 10,
+      "target": 12,
+      "label": "defines"
+    },
+    {
+      "source": 10,
+      "target": 13,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 14,
+      "label": "contains"
+    },
+    {
+      "source": 14,
+      "target": 15,
+      "label": "defines"
+    },
+    {
+      "source": 14,
+      "target": 16,
+      "label": "defines"
+    },
+    {
+      "source": 14,
+      "target": 17,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 18,
+      "label": "contains"
+    },
+    {
+      "source": 18,
+      "target": 19,
+      "label": "defines"
+    },
+    {
+      "source": 18,
+      "target": 20,
+      "label": "defines"
+    },
+    {
+      "source": 18,
+      "target": 21,
+      "label": "defines"
+    },
+    {
+      "source": 18,
+      "target": 22,
+      "label": "defines"
+    },
+    {
+      "source": 18,
+      "target": 23,
+      "label": "defines"
+    },
+    {
+      "source": 18,
+      "target": 24,
+      "label": "defines"
+    },
+    {
+      "source": 18,
+      "target": 25,
+      "label": "defines"
+    },
+    {
+      "source": 18,
+      "target": 26,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 27,
+      "label": "contains"
+    },
+    {
+      "source": 27,
+      "target": 28,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 29,
+      "label": "contains"
+    },
+    {
+      "source": 29,
+      "target": 30,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 31,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 32,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 33,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 34,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 35,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 36,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 37,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 38,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 39,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 40,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 41,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 42,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 43,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 44,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 45,
+      "label": "defines"
+    },
+    {
+      "source": 29,
+      "target": 46,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 47,
+      "label": "contains"
+    },
+    {
+      "source": 47,
+      "target": 48,
+      "label": "defines"
+    },
+    {
+      "source": 47,
+      "target": 49,
+      "label": "defines"
+    },
+    {
+      "source": 47,
+      "target": 50,
+      "label": "defines"
+    },
+    {
+      "source": 47,
+      "target": 51,
+      "label": "defines"
+    },
+    {
+      "source": 47,
+      "target": 52,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 53,
+      "label": "contains"
+    },
+    {
+      "source": 53,
+      "target": 54,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 55,
+      "label": "contains"
+    },
+    {
+      "source": 55,
+      "target": 56,
+      "label": "defines"
+    },
+    {
+      "source": 55,
+      "target": 57,
+      "label": "defines"
+    },
+    {
+      "source": 55,
+      "target": 58,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 59,
+      "label": "contains"
+    },
+    {
+      "source": 59,
+      "target": 60,
+      "label": "defines"
+    },
+    {
+      "source": 59,
+      "target": 61,
+      "label": "defines"
+    },
+    {
+      "source": 59,
+      "target": 62,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 63,
+      "label": "contains"
+    },
+    {
+      "source": 63,
+      "target": 64,
+      "label": "defines"
+    },
+    {
+      "source": 63,
+      "target": 65,
+      "label": "defines"
+    },
+    {
+      "source": 63,
+      "target": 66,
+      "label": "defines"
+    },
+    {
+      "source": 63,
+      "target": 67,
+      "label": "defines"
+    },
+    {
+      "source": 63,
+      "target": 68,
+      "label": "defines"
+    },
+    {
+      "source": 63,
+      "target": 69,
+      "label": "defines"
+    },
+    {
+      "source": 63,
+      "target": 70,
+      "label": "defines"
+    },
+    {
+      "source": 63,
+      "target": 71,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 72,
+      "label": "contains"
+    },
+    {
+      "source": 72,
+      "target": 73,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 74,
+      "label": "contains"
+    },
+    {
+      "source": 74,
+      "target": 75,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 76,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 77,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 78,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 79,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 80,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 81,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 82,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 83,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 84,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 85,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 86,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 87,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 88,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 89,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 90,
+      "label": "defines"
+    },
+    {
+      "source": 74,
+      "target": 91,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 92,
+      "label": "contains"
+    },
+    {
+      "source": 92,
+      "target": 93,
+      "label": "defines"
+    },
+    {
+      "source": 92,
+      "target": 94,
+      "label": "defines"
+    },
+    {
+      "source": 92,
+      "target": 95,
+      "label": "defines"
+    },
+    {
+      "source": 92,
+      "target": 96,
+      "label": "defines"
+    },
+    {
+      "source": 92,
+      "target": 97,
+      "label": "defines"
+    },
+    {
+      "source": 92,
+      "target": 98,
+      "label": "defines"
+    },
+    {
+      "source": 92,
+      "target": 99,
+      "label": "defines"
+    },
+    {
+      "source": 92,
+      "target": 100,
+      "label": "defines"
+    },
+    {
+      "source": 92,
+      "target": 101,
+      "label": "defines"
+    },
+    {
+      "source": 92,
+      "target": 102,
+      "label": "defines"
+    },
+    {
+      "source": 92,
+      "target": 103,
+      "label": "defines"
+    }
+  ]
+}
