@@ -227,21 +227,25 @@ def set_active_workspace(path: str):
 def _detectar_raiz_proyecto(inicio=".") -> str:
     """Sube directorios hasta encontrar un marcador de raíz de repo (.git, AGENTS.md, graphify-out) o usa ACTIVE_WORKSPACE_DIR."""
     global ACTIVE_WORKSPACE_DIR
+
+    actual = os.path.abspath(inicio)
+    posible = actual
+    while True:
+        if (
+            os.path.exists(os.path.join(posible, ".git"))
+            or os.path.exists(os.path.join(posible, "AGENTS.md"))
+            or os.path.exists(os.path.join(posible, "graphify-out"))
+        ):
+            return posible
+        padre = os.path.dirname(posible)
+        if padre == posible:
+            break
+        posible = padre
+
     if ACTIVE_WORKSPACE_DIR and os.path.exists(ACTIVE_WORKSPACE_DIR):
         return ACTIVE_WORKSPACE_DIR
 
-    actual = os.path.abspath(inicio)
-    while True:
-        if (
-            os.path.exists(os.path.join(actual, ".git"))
-            or os.path.exists(os.path.join(actual, "AGENTS.md"))
-            or os.path.exists(os.path.join(actual, "graphify-out"))
-        ):
-            return actual
-        padre = os.path.dirname(actual)
-        if padre == actual:
-            return os.path.abspath(inicio)
-        actual = padre
+    return actual
 
 @tool
 def listar_directorio_local(ruta: str = ".") -> str:
