@@ -12,15 +12,14 @@ class TestAgentPipeline(unittest.TestCase):
 
         response, metrics = pipeline.run_pipeline("Crear script de prueba", agent_runner=mock_runner)
 
-        self.assertIn("Resultado de Ejecución Agéntica v3.0", response)
+        self.assertIn("Resultado Agéntico v4.0", response)
         self.assertIn("Respuesta de prueba del runner", response)
-        self.assertIn("Reporte de Verificación de Calidad", response)
+        self.assertIn("Control de Estados Determinista", response)
 
         self.assertIsInstance(metrics, dict)
-        self.assertEqual(metrics["pipeline_stages"], 5)
+        self.assertIn("execution_level", metrics)
         self.assertIn("verifier_passed", metrics)
-        self.assertIn("ast_valid", metrics)
-        self.assertIn("tests_passed", metrics)
+        self.assertIn("kpis", metrics)
 
 
 if __name__ == '__main__':

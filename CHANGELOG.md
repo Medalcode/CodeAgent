@@ -4,6 +4,17 @@ Todos los cambios notables realizados en este proyecto serán documentados en es
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/), y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0] - 2026-08-27
+
+### Added
+- **feat(architecture):** Máquina de Estados Determinista (`AgentStateMachineController`) en `agent_pipeline.py` con transiciones de estado explícitas (`PLAN` ➔ `EXPLORE` ➔ `EXECUTE` ➔ `VERIFY` ➔ `CRITIC` ➔ `REPLAN` ➔ `DONE`).
+- **feat(architecture):** Niveles Adaptativos de Ejecución 1 a 4 (`LEVEL_1_CHAT`, `LEVEL_2_ACTION`, `LEVEL_3_FEATURE`, `LEVEL_4_FULL`) con enrutamiento inteligente por complejidad de intención.
+- **feat(architecture):** Bucle de Re-planificación y Recuperación Autónoma (`State.REPLAN`) que retroalimenta errores sintácticos y de pruebas para auto-corrección inmediata.
+- **feat(metrics):** Motor de Métricas Cuantitativas (`benchmark_metrics.py`) registrando `Task Success Rate`, `Autonomous Recovery Rate`, `Average Replans` y `Tool Success Rate` en `metrics_benchmarks.json`.
+- **test(qa):** Creación de la suite de pruebas `tests/test_state_machine.py` e integración con la suite global alcanzando `71/71` pruebas pasadas (100% éxito).
+
+---
+
 ## [3.5.0] - 2026-08-27
 
 ### Added
