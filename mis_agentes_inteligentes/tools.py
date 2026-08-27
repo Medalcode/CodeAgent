@@ -252,6 +252,8 @@ def leer_archivo_local(ruta_archivo: str) -> str:
         ruta_archivo: Ruta al archivo local a leer.
     """
     try:
+        if not os.path.isabs(ruta_archivo):
+            ruta_archivo = os.path.join(_detectar_raiz_proyecto("."), ruta_archivo)
         with open(ruta_archivo, encoding='utf-8') as f:
             contenido = f.read(150000)
             if f.read(1):
@@ -284,7 +286,10 @@ def escribir_archivo_local(ruta_archivo: str, contenido: str) -> str:
         contenido: Contenido a escribir en el archivo.
     """
     try:
-        abs_path = os.path.abspath(ruta_archivo)
+        if not os.path.isabs(ruta_archivo):
+            abs_path = os.path.abspath(os.path.join(_detectar_raiz_proyecto("."), ruta_archivo))
+        else:
+            abs_path = os.path.abspath(ruta_archivo)
         directorio = os.path.dirname(abs_path)
         if directorio:
             os.makedirs(directorio, exist_ok=True)
@@ -306,7 +311,7 @@ def ejecutar_comando_terminal(comando: str, directorio: str = "") -> str:
 
     Args:
         comando: Comando de terminal a ejecutar.
-        directorio: Directorio de trabajo donde ejecutar el comando (opcional). Si está vacío, usa el directorio actual.
+        directorio: Directorio de trabajo donde ejecutar el comando (opcional). Si está vacío, usa la raíz del proyecto.
     """
     try:
         # BUG 3 FIX: blacklist ampliada para Windows y Unix
@@ -318,8 +323,13 @@ def ejecutar_comando_terminal(comando: str, directorio: str = "") -> str:
         if any(b in comando.lower() for b in blacklist):
             return "Error de Seguridad: El comando contiene operaciones destructivas que están bloqueadas."
 
-        # BUG 3 FIX: usar directorio de trabajo si se proporcionó
-        cwd = directorio if directorio and os.path.isdir(directorio) else os.getcwd()
+        raiz = _detectar_raiz_proyecto(".")
+        cwd = directorio if directorio and os.path.isdir(directorio) else raiz
+
+        # Configurar variables de entorno con PYTHONPATH enriquecido para resolución de módulos
+        env = os.environ.copy()
+        sub_module = os.path.join(raiz, "mis_agentes_inteligentes")
+        env["PYTHONPATH"] = os.pathsep.join([raiz, sub_module, env.get("PYTHONPATH", "")])
 
         try:
             cmd_args = shlex.split(comando, posix=(os.name != 'nt'))
@@ -349,6 +359,7 @@ def ejecutar_comando_terminal(comando: str, directorio: str = "") -> str:
                 text=True,
                 timeout=60,
                 cwd=cwd,
+                env=env,
                 encoding='utf-8',
                 errors='replace',
             )
@@ -360,6 +371,7 @@ def ejecutar_comando_terminal(comando: str, directorio: str = "") -> str:
                 text=True,
                 timeout=60,
                 cwd=cwd,
+                env=env,
                 encoding='utf-8',
                 errors='replace',
             )
@@ -375,7 +387,6 @@ def ejecutar_comando_terminal(comando: str, directorio: str = "") -> str:
         return "Error: Timeout de 60 segundos superado. El comando tardó demasiado."
     except Exception as e:
         return f"Error de ejecución crítica: {e}"
-
 try:
     from googlesearch import search
 except ImportError:
