@@ -60,7 +60,7 @@ with st.sidebar:
     if provider == "Ollama (Local)":
         model_name = st.selectbox(
             "Modelo",
-            ["qwen2.5-coder:7b", "qwen2.5-coder:14b", "llama3.1:8b", "mistral", "gemma2", "qwen2", "deepseek-coder:6.7b"]
+            ["qwen2.5-coder:14b", "qwen2.5-coder:7b", "llama3.1:8b", "mistral", "gemma2", "qwen2", "deepseek-coder:6.7b"]
         )
         api_key = ""
     elif provider == "OpenAI":

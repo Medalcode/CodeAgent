@@ -19,7 +19,7 @@ except ImportError:
 
 CODEAGENT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "mis_agentes_inteligentes")
 REPO_DIR = os.path.dirname(os.path.abspath(__file__))
-MODELO_LOCAL = os.getenv("MODELO_LOCAL", "qwen2.5-coder:7b")
+MODELO_LOCAL = os.getenv("MODELO_LOCAL", "qwen2.5-coder:14b")
 API_KEY = os.getenv("OPENAI_API_KEY", "")
 API_BASE = os.getenv("API_BASE", "https://openrouter.ai/api/v1")
 SUPERVISOR_MODEL = os.getenv("SUPERVISOR_MODEL", "openai/gpt-4o-mini")

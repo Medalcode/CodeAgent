@@ -20,7 +20,7 @@ class TestIntegrationPipeline(unittest.TestCase):
         resultado, metricas = ejecutar_agentes(
             user_prompt="Hola, asistente",
             provider="Ollama (Local)",
-            model_name="qwen2.5-coder:7b",
+            model_name="qwen2.5-coder:14b",
             api_key="",
             agent_type="Asistente General",
             selected_tools=[],
@@ -29,7 +29,7 @@ class TestIntegrationPipeline(unittest.TestCase):
         self.assertIn("Respuesta de prueba mock", resultado)
         self.assertIsInstance(metricas, dict)
         self.assertIn("tiempo_segundos", metricas)
-        self.assertEqual(metricas["modelo"], "qwen2.5-coder:7b")
+        self.assertEqual(metricas["modelo"], "qwen2.5-coder:14b")
 
     @patch('main.get_model')
     @patch('main.crear_agente')
@@ -42,7 +42,7 @@ class TestIntegrationPipeline(unittest.TestCase):
         resultado, metricas = ejecutar_agentes(
             user_prompt="Por favor refactoriza la función en tools.py para arreglar el bug",
             provider="Ollama (Local)",
-            model_name="qwen2.5-coder:7b",
+            model_name="qwen2.5-coder:14b",
             api_key="",
             agent_type="Auto (Enrutador Automático) 🌟",
             selected_tools=[],
