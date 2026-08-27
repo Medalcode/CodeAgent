@@ -69,8 +69,9 @@ python claude_code_cli.py
 goto END
 
 :LAUNCH_HTML
-echo Lanzando Servidor Proxy LocalCode (Anti-CORS / NetworkError)...
-python localcode_server.py
+echo Lanzando CodeAgent Desktop IDE All-In-One (Ollama + Backend + UI)...
+cd /d "%~dp0"
+python desktop_app.py
 goto END
 
 :END
