@@ -63,6 +63,8 @@ def launch_server_bg():
     env = os.environ.copy()
     sub_module = os.path.join(BASE_DIR, "mis_agentes_inteligentes")
     env["PYTHONPATH"] = os.pathsep.join([BASE_DIR, sub_module, env.get("PYTHONPATH", "")])
+    env["PYTHONIOENCODING"] = "utf-8"
+    env["NO_BROWSER"] = "1"
 
     subprocess.Popen(
         [python_exe, server_script],

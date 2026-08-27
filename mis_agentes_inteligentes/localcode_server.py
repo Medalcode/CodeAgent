@@ -490,16 +490,17 @@ def main():
         sys.exit(1)
 
     url = f"http://localhost:{selected_port}/localcode_claude_ui.html"
-    print("=" * 65)
-    print(f"🚀 Servidor LocalCode Multihilo iniciado en: {url}")
-    print(f"🔗 Proxy conector activado hacia Ollama: {OLLAMA_TARGET}")
-    print("💡 Cierra esta ventana o presiona Ctrl+C para detener.")
-    print("=" * 65 + "\n")
-    webbrowser.open(url)
+    _safe_print("=" * 65)
+    _safe_print(f"🚀 Servidor LocalCode Multihilo iniciado en: {url}")
+    _safe_print(f"🔗 Proxy conector activado hacia Ollama: {OLLAMA_TARGET}")
+    _safe_print("💡 Cierra esta ventana o presiona Ctrl+C para detener.")
+    _safe_print("=" * 65 + "\n")
+    if os.environ.get("NO_BROWSER") != "1":
+        webbrowser.open(url)
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
-        print("\n👋 Servidor detenido.")
+        _safe_print("\n👋 Servidor detenido.")
 
 
 if __name__ == "__main__":
