@@ -35,8 +35,8 @@
     "semantic_hash": "a1355e8f77d7a9bdc1619866b5517ca6"
   },
   "mis_agentes_inteligentes/tools.py": {
-    "mtime": 1787863326.8340404,
-    "ast_hash": "b70ab1e8f9eb985c28baf464b9d27e83",
+    "mtime": 1787865346.5021122,
+    "ast_hash": "84fa2bc8bdd03445b62ddc9ca1dd574d",
     "semantic_hash": ""
   },
   "orquestador_agente.py": {
@@ -70,8 +70,8 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1787861419.044786,
-    "ast_hash": "a9ea84f304e2390102c05077111cbacf",
+    "mtime": 1787865697.672816,
+    "ast_hash": "6854e0b52c45c5a00b67048ef0e0f470",
     "semantic_hash": ""
   },
   "docker-compose.yml": {
@@ -105,8 +105,8 @@
     "semantic_hash": ""
   },
   "desktop_app.py": {
-    "mtime": 1787865134.688199,
-    "ast_hash": "cfd5fb826f346b943f117dc9e8dc593a",
+    "mtime": 1787866304.419407,
+    "ast_hash": "3b425433a39662f4709af6cb46f744c7",
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/__init__.py": {
@@ -130,8 +130,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/localcode_server.py": {
-    "mtime": 1787862858.9571123,
-    "ast_hash": "ecd31c1b2c258c8393606335aed89424",
+    "mtime": 1787866293.8956869,
+    "ast_hash": "f8981963626d18d8ec723b41bc9e602d",
     "semantic_hash": ""
   },
   "pyproject.toml": {
@@ -230,13 +230,13 @@
     "semantic_hash": ""
   },
   ".github/workflows/ci.yml": {
-    "mtime": 1785891161.8690684,
-    "ast_hash": "d721cd2929f2f07977278f2f23da8a76",
+    "mtime": 1787865681.434536,
+    "ast_hash": "4d1f8518f1ce39ef2eb05cd680333aff",
     "semantic_hash": ""
   },
   "CHANGELOG.md": {
-    "mtime": 1787776647.0940099,
-    "ast_hash": "cde9bfe7b6f1d1af9c2e0e357e8f9475",
+    "mtime": 1787865689.7375293,
+    "ast_hash": "1dda8d7b968ce3fee1b778666d67e739",
     "semantic_hash": ""
   },
   "docs/adr/ADR-001-smolagents-react-engine.md": {
@@ -272,6 +272,11 @@
   "localcode_claude_ui.html": {
     "mtime": 1787862916.3129232,
     "ast_hash": "07507d9e044b9d0af89884b622b86cf2",
+    "semantic_hash": ""
+  },
+  "tests/test_desktop_app.py": {
+    "mtime": 1787865516.3457532,
+    "ast_hash": "fbfdef38815bb95cb988e01e494c2562",
     "semantic_hash": ""
   }
 }
