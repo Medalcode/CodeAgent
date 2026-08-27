@@ -33,6 +33,7 @@
   "31": "ejecutar_comando_terminal",
   "32": "mis_agentes_inteligentes/main",
   "33": "mis_agentes_inteligentes/rag_tools",
+  "34": "TestSessionManager",
   "35": "graphify.js",
   "36": "rules/graphify.md",
   "37": "workflows/graphify.md",
