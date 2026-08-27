@@ -134,6 +134,35 @@ class BenchmarkMetricsCollector:
             "avg_elapsed_seconds": round(avg_time, 2)
         }
 
+    def get_benchmark_report_markdown(self) -> str:
+        """Genera un reporte formateado en Markdown con los KPIs cuantitativos."""
+        summary = self.compute_summary()
+        data = self._load_data()
+        history = data.get("history", [])[:5]
+
+        lines = [
+            "### 📊 Reporte Cuantitativo de Rendimiento & Benchmarks (CodeAgent v4.1)\n",
+            f"- **Total de Tareas Ejecutadas:** `{summary['total_runs']}`",
+            f"- **Tasa de Éxito de Tareas (Task Success Rate):** `{summary['task_success_rate_pct']}%`",
+            f"- **Recuperación Autónoma (Autonomous Recovery Rate):** `{summary['autonomous_recovery_rate_pct']}%`",
+            f"- **Promedio de Re-planificaciones / Tarea:** `{summary['avg_replans_per_task']}`",
+            f"- **Tiempo Promedio de Ejecución:** `{summary['avg_elapsed_seconds']}s`\n",
+            "#### 🕒 Últimas 5 Tareas Registradas:"
+        ]
+
+        if history:
+            lines.append("| Fecha | Nivel | Objetivo | Éxito | Tiempo | Re-plans |")
+            lines.append("| :--- | :--- | :--- | :---: | :---: | :---: |")
+            for h in history:
+                status = "✅ Pasado" if h.get("success") else "❌ Fallo"
+                lines.append(
+                    f"| {h.get('timestamp', '')} | {h.get('execution_level', '')} | {h.get('user_goal', '')[:30]}... | {status} | {h.get('elapsed_seconds', 0)}s | {h.get('replans_count', 0)} |"
+                )
+        else:
+            lines.append("*No hay ejecuciones registradas en el historial.*")
+
+        return "\n".join(lines)
+
 
 # Singleton predeterminado de métricas
 metrics_collector = BenchmarkMetricsCollector()

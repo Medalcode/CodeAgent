@@ -42,8 +42,24 @@ class State(Enum):
     DONE = "DONE"
 
 
+def _get_phase_cognitive_directive(state: State, failed_verification: dict[str, Any] | None = None) -> str:
+    """Devuelve la directiva cognitiva acotada a la fase activa."""
+    if state == State.PLAN:
+        return "DIRECTIVA DE FASE (PLAN): Estás en la fase PLAN. Especialízate únicamente en analizar el objetivo y construir un desglose estructurado de pasos sin aplicar modificaciones de código."
+    elif state == State.EXPLORE:
+        return "DIRECTIVA DE FASE (EXPLORE): Estás en la fase EXPLORE. Especialízate únicamente en consultar el Grafo AST Graphify y leer dependencias para construir el contexto estructural."
+    elif state == State.EXECUTE:
+        return "DIRECTIVA DE FASE (EXECUTE): Estás en la fase EXECUTE. Especialízate en aplicar los parches sintácticos y modificaciones de código exactas usando las herramientas de archivos."
+    elif state == State.VERIFY:
+        return "DIRECTIVA DE FASE (VERIFY): Estás en la fase VERIFY. Especialízate en ejecutar ruff y la suite de pruebas unitarias para confirmar la validez sintáctica."
+    elif state == State.REPLAN:
+        err_msg = ", ".join(failed_verification.get("ast_errors", ["Fallo en pruebas unitarias o linter ruff"])) if failed_verification else "Errores no especificados"
+        return f"DIRECTIVA DE FASE (REPLAN): La verificación anterior falló con los siguientes errores exactos: {err_msg}. Tu único objetivo cognitivo ahora es corregir y reparar estas fallas."
+    return ""
+
+
 class AgentStateMachineController:
-    """Controlador determinista de estados y enrutador adaptativo del ciclo agéntico."""
+    """Controlador determinista de estados, enrutador adaptativo y gestor de checkpointing."""
 
     def __init__(self, workspace_dir: str | None = None, max_replans: int = 2):
         self.workspace_dir = workspace_dir or os.getcwd()
@@ -71,30 +87,69 @@ class AgentStateMachineController:
         # Nivel 3: Por defecto para desarrollo de nuevas características o scripts
         return ExecutionLevel.LEVEL_3_FEATURE
 
+    def _save_checkpoint(
+        self,
+        session_id: str | None,
+        current_state: State,
+        execution_level: ExecutionLevel,
+        user_goal: str,
+        replans_count: int,
+        failed_verification: dict[str, Any] | None = None
+    ):
+        """Persiste el estado activo de la Máquina de Estados en la sesión JSON."""
+        if not session_id:
+            return
+        try:
+            from session_manager import load_session, save_session
+            data = load_session(session_id)
+            if data:
+                if "memory" not in data or not isinstance(data["memory"], dict):
+                    data["memory"] = {}
+                if "working" not in data["memory"] or not isinstance(data["memory"]["working"], dict):
+                    data["memory"]["working"] = {}
+
+                data["memory"]["working"]["state_checkpoint"] = {
+                    "current_state": current_state.value,
+                    "execution_level": execution_level.value,
+                    "user_goal": user_goal,
+                    "replans_count": replans_count,
+                    "failed_verification": failed_verification or {},
+                    "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
+                }
+                save_session(session_id, data)
+        except Exception as e:
+            logging.warning(f"No se pudo guardar checkpoint de estado: {e}")
+
     def run(
         self,
         user_goal: str,
         agent_runner: Callable[[str], str] | None = None,
-        level: ExecutionLevel | None = None
+        level: ExecutionLevel | None = None,
+        session_id: str | None = None,
+        start_state: State | None = None,
+        initial_replans: int = 0,
+        initial_verification: dict[str, Any] | None = None
     ) -> tuple[str, dict[str, Any]]:
         """Ejecuta el ciclo agéntico mediante la Máquina de Estados Determinista."""
         start_time = time.time()
         active_level = level or self.infer_execution_level(user_goal)
-        current_state = State.INIT
-        state_history = [current_state]
+        current_state = start_state or (State.PLAN if active_level in (ExecutionLevel.LEVEL_3_FEATURE, ExecutionLevel.LEVEL_4_FULL) else State.EXECUTE)
+        state_history = [State.INIT, current_state]
 
-        replans_count = 0
-        recovered_autonomously = False
+        replans_count = initial_replans
+        recovered_autonomously = initial_replans > 0
         plan_data = {}
         graph_context = ""
-        verification_res = {"success": True, "ast_valid": True, "tests_passed": True, "ruff_passed": True}
+        verification_res = initial_verification or {"success": True, "ast_valid": True, "tests_passed": True, "ruff_passed": True}
         critic_summary = "N/A"
         execution_result = ""
 
         # Nivel 1: Atajo ultra-rápido para consultas puras de chat
         if active_level == ExecutionLevel.LEVEL_1_CHAT:
+            directive = _get_phase_cognitive_directive(State.EXECUTE)
+            full_prompt = f"{directive}\n\n{user_goal}"
             if agent_runner:
-                execution_result = agent_runner(user_goal)
+                execution_result = agent_runner(full_prompt)
             else:
                 execution_result = f"Respuesta directa para consulta: {user_goal}"
             elapsed = round(time.time() - start_time, 2)
@@ -118,11 +173,11 @@ class AgentStateMachineController:
                 }
             )
 
-        # Transición inicial de la Máquina de Estados
-        current_state = State.PLAN if active_level in (ExecutionLevel.LEVEL_3_FEATURE, ExecutionLevel.LEVEL_4_FULL) else State.EXECUTE
-
         while current_state != State.DONE:
-            state_history.append(current_state)
+            if current_state not in state_history:
+                state_history.append(current_state)
+
+            self._save_checkpoint(session_id, current_state, active_level, user_goal, replans_count, verification_res)
 
             if current_state == State.PLAN:
                 plan_data = self._stage_planner(user_goal)
@@ -133,9 +188,11 @@ class AgentStateMachineController:
                 current_state = State.EXECUTE
 
             elif current_state == State.EXECUTE:
+                directive = _get_phase_cognitive_directive(State.EXECUTE)
                 prompt = self._build_execution_prompt(user_goal, plan_data, graph_context, verification_res if replans_count > 0 else None)
+                full_prompt = f"{directive}\n\n{prompt}"
                 if agent_runner:
-                    execution_result = agent_runner(prompt)
+                    execution_result = agent_runner(full_prompt)
                 else:
                     execution_result = f"Ejecución simulada para: {user_goal}"
                 current_state = State.VERIFY
@@ -201,6 +258,46 @@ class AgentStateMachineController:
     def run_pipeline(self, user_goal: str, agent_runner: Callable[[str], str] | None = None) -> tuple[str, dict[str, Any]]:
         """Alias de compatibilidad hacia atrás para la versión v3.0."""
         return self.run(user_goal=user_goal, agent_runner=agent_runner)
+
+    def resume_session(self, session_id: str, agent_runner: Callable[[str], str] | None = None) -> tuple[str, dict[str, Any]]:
+        """Reanuda la ejecución agéntica desde el último StateCheckpoint persistido en la sesión."""
+        from session_manager import load_session
+        data = load_session(session_id)
+        if not data or "memory" not in data:
+            return "Error: No se encontró la sesión o no tiene memoria persistente.", {}
+
+        checkpoint = data.get("memory", {}).get("working", {}).get("state_checkpoint")
+        if not checkpoint:
+            return "No se encontró ningún checkpoint de estado en esta sesión.", {}
+
+        user_goal = checkpoint.get("user_goal", "")
+        state_str = checkpoint.get("current_state")
+        replans_count = checkpoint.get("replans_count", 0)
+        failed_verification = checkpoint.get("failed_verification")
+
+        resumed_state = State.EXECUTE
+        for s in State:
+            if s.value == state_str:
+                resumed_state = s
+                break
+
+        level_str = checkpoint.get("execution_level")
+        resumed_level = ExecutionLevel.LEVEL_4_FULL
+        for lvl in ExecutionLevel:
+            if lvl.value == level_str:
+                resumed_level = lvl
+                break
+
+        logging.info(f"⏯️ [StateMachine] Reanudando sesión {session_id[:8]} desde estado {resumed_state.value}")
+        return self.run(
+            user_goal=user_goal,
+            agent_runner=agent_runner,
+            level=resumed_level,
+            session_id=session_id,
+            start_state=resumed_state,
+            initial_replans=replans_count,
+            initial_verification=failed_verification
+        )
 
     def _stage_planner(self, user_goal: str) -> dict[str, Any]:
         """Genera un plan de acción estructurado."""
