@@ -56,7 +56,12 @@ class JSONSessionRepository(BaseSessionRepository):
             "id": session_id,
             "name": name,
             "created_at": datetime.now().isoformat(),
-            "messages": []
+            "messages": [],
+            "memory": {
+                "factual": "Proyecto CodeAgent v3.0 Enterprise (Python, smolagents, LiteLLM, localcode_server).",
+                "decisions": ["Arquitectura ReAct basada en smolagents", "Verificación obligatoria AST/Tests/Ruff"],
+                "working": {"active_task": "", "modified_files": [], "pending_checklist": []}
+            }
         }
         self.save_session(session_id, session_data)
         return session_id

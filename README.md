@@ -1,8 +1,45 @@
-# 💻 OpenCode Hub (CodeAgent)
+# 💻 CodeAgent (v3.0 Enterprise)
 
-Un Centro de Mando Avanzado para Agentes Inteligentes, construido con **Python, Streamlit y smolagents**. Este proyecto ha evolucionado de un simple script de consola a una plataforma completa estilo *OpenCode* o *OpenWebUI*, diseñada para interactuar con repositorios de código locales y remotos, gestionar tareas y proveer una arquitectura de orquestación de agentes robusta compatible con modelos locales (como Qwen y Llama) y en la nube.
+> **Un entorno local y extensible para construir y supervisar agentes de código autónomos.**
 
-## ✨ Características Principales (Fases 1 a 6)
+CodeAgent es una plataforma de ingeniería de software asistida por IA local inspirada en **Google Antigravity** y **GitHub Copilot Workspace**. Está diseñada para ejecutar agentes autónomos sobre repositorios de código locales y remotos con soporte para modelos locales (**Ollama qwen2.5-coder:14b**) y modelos en la nube (OpenAI, Gemini, Anthropic, Groq).
+
+---
+
+## 🏗️ Arquitectura del Sistema (5 Capas Principales)
+
+```
+              ┌────────────────────────────────────────────────────────┐
+              │                     LOCALCODE IDE                      │
+              │         Interfaz Web 3-Paneles estilo Antigravity     │
+              └───────────────────────────┬────────────────────────────┘
+                                          │
+                                          ▼
+              ┌────────────────────────────────────────────────────────┐
+              │             LOCALCODE PROXY SERVER & REST API          │
+              └───────────────────────────┬────────────────────────────┘
+                                          │
+                                          ▼
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+│                             PIPELINE MULTI-ROL CODEAGENT V3.0                               │
+│                                                                                             │
+│  🧠 PLANNER  ──►  🔍 EXPLORER  ──►  🔨 EXECUTOR  ──►  🧪 VERIFIER  ──►  👨‍⚖️ CRITIC           │
+│  (Checklist)     (Graphify AST)   (Search/Replace)   (Sintaxis+Tests)  (Evaluación)       │
+└─────────────────────────────────────────┬───────────────────────────────────────────────────┘
+                                          │
+                                          ▼
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+│                            CAPAS ARQUITECTÓNICAS DEL SISTEMA                                │
+├─────────────────────────────────────────────────────────────────────────────────────────────┤
+│ 🎯 CORE: Engine autónomo smolagents con Re-planificación dinámica (planning_interval=2)    │
+│ 🛡️ DIFFERENTIATOR: Supervisor Agent con Benchmarks y diagnóstico de fallos                   │
+│ 🧠 INTELLIGENCE: Grafo AST Graphify + Memoria de 3 Capas (Factual, Decisión, Trabajo)       │
+│ ⚙️ EXECUTION: Sandboxing PermissionLevel + Terminal Shell + Git / GitHub REST             │
+│ 🧩 EXTENSIBILITY: Subagentes dinámicos .md + Multi-Proveedor LiteLLM (Ollama/Cloud)        │
+└─────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+## ✨ Características Principales (v3.0 Enterprise)
 
 - **🔄 Multi-Proveedor Dinámico:** Cambia al vuelo entre modelos locales (Ollama) y proveedores Cloud (OpenAI, Anthropic, Google Gemini, Groq) unificados a través de **LiteLLM**.
 - **🧠 Orquestación con smolagents:** Utiliza el framework moderno `smolagents` de HuggingFace. A diferencia de agentes antiguos basados en JSON (ReAct), nuestro `CodeAgent` interactúa escribiendo código Python real para orquestar herramientas complejas, lo que lo hace infalible incluso con modelos pequeños de 7B/8B.

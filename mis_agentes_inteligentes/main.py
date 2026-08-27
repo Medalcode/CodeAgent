@@ -134,23 +134,29 @@ def ejecutar_agentes(
         metricas["tiempo_segundos"] = round(time.time() - start_time, 2)
         return str(resultado), metricas
 
-    # ── Ejecutar CodeAgent ───────────────────────────────────────────────────
+    # ── Ejecutar CodeAgent v3.0 con AgentPipeline ─────────────────────────────
     try:
         agente = crear_agente(agent_type, model, herramientas, workspace_context)
-        if _step_callback is not None:
-            try:
+
+        def _runner(prompt_enriquecido):
+            if _step_callback is not None:
                 res_last = None
-                for step in agente.run(user_prompt, stream=True):
+                for step in agente.run(prompt_enriquecido, stream=True):
                     if callable(_step_callback):
                         _step_callback(step)
                     res_last = step
-                resultado_str = str(res_last) if res_last is not None else str(agente.run(user_prompt))
-            except Exception:
-                resultado = agente.run(user_prompt)
-                resultado_str = str(resultado)
-        else:
-            resultado = agente.run(user_prompt)
-            resultado_str = str(resultado)
+                return str(res_last) if res_last is not None else str(agente.run(prompt_enriquecido))
+            else:
+                return str(agente.run(prompt_enriquecido))
+
+        try:
+            from agent_pipeline import AgentPipeline
+            pipeline = AgentPipeline()
+            resultado_str, p_metrics = pipeline.run_pipeline(user_prompt, agent_runner=_runner)
+            metricas.update(p_metrics)
+        except Exception:
+            resultado_str = _runner(user_prompt)
+
     except Exception as e:
         resultado_str = (
             f"❌ Error en la ejecución del agente:\n```\n{e}\n```\n\n"
