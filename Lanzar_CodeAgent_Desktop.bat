@@ -1,10 +1,10 @@
 @echo off
-title CodeAgent Desktop IDE Launcher v3.5
 chcp 65001 > nul
+title CodeAgent Desktop IDE Launcher v3.5
 cls
 
 echo ===================================================
-echo 💻 Lanzando CodeAgent Desktop IDE v3.5...
+echo [CodeAgent] Lanzando CodeAgent Desktop IDE v3.5...
 echo ===================================================
 echo.
 

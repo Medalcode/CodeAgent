@@ -59,18 +59,29 @@ def launch_server_bg():
     server_script = os.path.join(BASE_DIR, "mis_agentes_inteligentes", "localcode_server.py")
     python_exe = sys.executable
     creationflags = getattr(subprocess, "CREATE_NO_WINDOW", 0)
+
+    env = os.environ.copy()
+    sub_module = os.path.join(BASE_DIR, "mis_agentes_inteligentes")
+    env["PYTHONPATH"] = os.pathsep.join([BASE_DIR, sub_module, env.get("PYTHONPATH", "")])
+
     subprocess.Popen(
         [python_exe, server_script],
         cwd=BASE_DIR,
+        env=env,
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
         creationflags=creationflags,
     )
-    for _ in range(10):
+    for i in range(20):
         time.sleep(0.5)
         if check_server_running(SERVER_URL):
-            print("✅ Servidor Backend de CodeAgent listo.")
+            print("✅ Servidor Backend de CodeAgent listo en http://localhost:8000")
             return True
+        if i % 4 == 0:
+            print("⏳ Esperando arranque del backend (puerto 8000)...")
+
+    print("⚠️ Advertencia: El servidor backend tardó más de lo esperado en responder.")
+    return False
 
 
 def main():
