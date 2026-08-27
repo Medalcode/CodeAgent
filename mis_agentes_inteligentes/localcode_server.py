@@ -11,6 +11,7 @@ import json
 import os
 import socketserver
 import sys
+import threading
 import time
 import traceback
 import urllib.parse
@@ -29,6 +30,14 @@ METRICS_COUNTERS = {
     "successful_requests": 0,
     "failed_requests": 0
 }
+
+
+_SERVER_LOCK = threading.Lock()
+
+
+def _inc_metric(key: str):
+    with _SERVER_LOCK:
+        METRICS_COUNTERS[key] = METRICS_COUNTERS.get(key, 0) + 1
 
 
 def _safe_print(*args, **kwargs):
@@ -56,7 +65,7 @@ class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
-        METRICS_COUNTERS["total_requests"] += 1
+        _inc_metric("total_requests")
         clean_path = self.path.split('?')[0]
         if clean_path in ("/", "", "/ui", "/app", "/index.html", "/chat", "/editor"):
             self.path = "/localcode_claude_ui.html"
@@ -408,9 +417,11 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
                 selected_tools=selected_tools
             )
             _safe_print(f"[LocalCode Server] ✅ Agente respondió con éxito en {metricas.get('tiempo_segundos', 0)}s\n")
+            _inc_metric("successful_requests")
             self._send_json({"success": True, "respuesta": respuesta, "metricas": metricas})
         except Exception as e:
             _safe_print(f"[LocalCode Server] ❌ Error en Agente: {e}\n")
+            _inc_metric("failed_requests")
             self._send_json({"success": False, "error": f"Error ejecutando Agente CodeAgent: {e}", "trace": traceback.format_exc()}, 500)
 
     def proxy_to_ollama(self, method):

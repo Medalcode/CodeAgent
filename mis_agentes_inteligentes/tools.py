@@ -6,6 +6,7 @@ import shlex
 import sqlite3
 import subprocess
 import tempfile
+import threading
 from datetime import date
 from enum import Enum
 
@@ -214,19 +215,33 @@ def leer_archivo_github(token: str, repo_full_name: str, ruta_archivo: str) -> s
     except Exception as e:
         return f"Error al leer archivo de GitHub: {e}"
 
+_WORKSPACE_LOCK = threading.Lock()
 ACTIVE_WORKSPACE_DIR = None
 
 
 def set_active_workspace(path: str):
-    """Establece el directorio del espacio de trabajo activo de forma global para las herramientas agénticas."""
+    """Establece el directorio del espacio de trabajo activo de forma thread-safe para las herramientas agénticas."""
     global ACTIVE_WORKSPACE_DIR
-    if path and os.path.exists(path):
-        ACTIVE_WORKSPACE_DIR = os.path.abspath(path)
+    with _WORKSPACE_LOCK:
+        if path and os.path.exists(path):
+            ACTIVE_WORKSPACE_DIR = os.path.abspath(path)
+        elif path is None:
+            ACTIVE_WORKSPACE_DIR = None
+
+
+def get_active_workspace() -> str | None:
+    """Devuelve el espacio de trabajo activo de forma thread-safe."""
+    global ACTIVE_WORKSPACE_DIR
+    with _WORKSPACE_LOCK:
+        return ACTIVE_WORKSPACE_DIR
 
 
 def _detectar_raiz_proyecto(inicio=".") -> str:
     """Sube directorios hasta encontrar un marcador de raíz de repo (.git, AGENTS.md, graphify-out) o usa ACTIVE_WORKSPACE_DIR."""
-    global ACTIVE_WORKSPACE_DIR
+    active_dir = get_active_workspace()
+
+    if (inicio == "." or not inicio) and active_dir and os.path.exists(active_dir):
+        return active_dir
 
     actual = os.path.abspath(inicio)
     posible = actual
@@ -242,8 +257,8 @@ def _detectar_raiz_proyecto(inicio=".") -> str:
             break
         posible = padre
 
-    if ACTIVE_WORKSPACE_DIR and os.path.exists(ACTIVE_WORKSPACE_DIR):
-        return ACTIVE_WORKSPACE_DIR
+    if active_dir and os.path.exists(active_dir):
+        return active_dir
 
     return actual
 
