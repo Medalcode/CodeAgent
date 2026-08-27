@@ -339,13 +339,17 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
         prompt = data.get("prompt", "").strip()
         raw_model = data.get("model") or data.get("model_name") or "qwen2.5-coder:14b"
         agent_type = data.get("agent_type", "CodeAgent Developer")
+        raw_lower = str(raw_model).lower().strip()
 
-        if raw_model in ("OpenAI", "gpt-4o-mini", "gpt-4o"):
+        if "openai" in raw_lower or "gpt" in raw_lower:
             provider = "OpenAI"
             model_name = "gpt-4o-mini"
         else:
             provider = "Ollama (Local)"
-            model_name = "qwen2.5-coder:14b" if raw_model in ("Ollama (Local)", "Ollama", "") else raw_model
+            if any(k in raw_lower for k in ("ollama", "local", "qwen", "^")) or not raw_model:
+                model_name = "qwen2.5-coder:14b"
+            else:
+                model_name = raw_model
 
         try:
             from agents import DEFAULT_AGENT_TOOLS
