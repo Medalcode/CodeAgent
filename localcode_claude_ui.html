@@ -972,25 +972,77 @@
     } catch(err){}
   }
 
+  async function respondTerminalApproval(btnEl, commandStr, isApproved) {
+    const cardEl = btnEl.closest('.approval-card');
+    try {
+      const res = await fetch('/api/terminal/approve', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ command: commandStr, approved: isApproved })
+      });
+      const data = await res.json();
+      if(cardEl) {
+        if(isApproved) {
+          cardEl.style.borderColor = '#2ea043';
+          cardEl.innerHTML = `
+            <div class="approval-header" style="color:#56d364;">
+              <span>✅ Comando Aprobado por el Usuario</span>
+            </div>
+            <div class="approval-cmd"><code>$ ${escapeHtml(commandStr)}</code></div>
+            <div style="font-size:12px; color:#8b949e;">Pre-aprobado para la siguiente ejecución. Puedes reenviar o dejar que el agente continúe.</div>
+          `;
+        } else {
+          cardEl.style.borderColor = '#f85149';
+          cardEl.innerHTML = `
+            <div class="approval-header" style="color:#f85149;">
+              <span>❌ Comando Rechazado / Denegado por el Usuario</span>
+            </div>
+            <div class="approval-cmd"><code>$ ${escapeHtml(commandStr)}</code></div>
+          `;
+        }
+      }
+    } catch(e) {
+      alert(`Error al procesar autorización: ${e}`);
+    }
+  }
+
   function renderTerminalCardsHtml(termTasks) {
     if(!Array.isArray(termTasks) || termTasks.length === 0) return '';
     let html = '';
     termTasks.forEach(t => {
-      const exitBadge = t.exit_code === 0 ?
-        '<span style="color:#56d364; font-size:11px;">✅ Código 0</span>' :
-        `<span style="color:#f85149; font-size:11px;">❌ Código ${t.exit_code}</span>`;
-      html += `
-        <div class="terminal-card">
-          <div class="terminal-header">
-            <div class="terminal-title">
-              <span>💻 Tarea de Terminal</span> ${exitBadge}
+      if(t.output && t.output.includes("⚠️ AUTORIZACIÓN REQUERIDA (HITL):")) {
+        html += `
+          <div class="approval-card" style="background:#1f1b0a; border:1px solid #d29922; border-radius:6px; margin:10px 0; padding:12px; font-size:13px;">
+            <div class="approval-header" style="display:flex; align-items:center; gap:8px; font-weight:600; color:#d29922; margin-bottom:8px;">
+              <span>⚠️ Autorización Requerida para Ejecutar en Terminal</span>
             </div>
-            <button class="copy-btn" onclick="copyMsgText(this)" style="background:#21262d; border:1px solid #30363d; color:#c9d1d9; padding:2px 8px; border-radius:4px; font-size:11px; cursor:pointer;">📋 Copiar Comando</button>
+            <div class="approval-cmd" style="background:#0d1117; border:1px solid #30363d; padding:8px 10px; border-radius:4px; font-family:var(--mono); font-size:12px; color:#79c0ff; margin-bottom:10px;">
+              <code>$ ${escapeHtml(t.comando)}</code>
+            </div>
+            <div style="font-size:12px; color:#c9d1d9; margin-bottom:10px;">Este comando puede modificar paquetes o archivos del sistema. ¿Deseas autorizarlo?</div>
+            <div class="approval-actions" style="display:flex; gap:10px; justify-content:flex-end;">
+              <button onclick="respondTerminalApproval(this, '${escapeHtml(t.comando)}', false)" style="background:#da3633; border:1px solid #f85149; color:#ffffff; padding:5px 12px; border-radius:4px; font-weight:600; cursor:pointer; font-size:12px;">❌ Rechazar / Denegar</button>
+              <button onclick="respondTerminalApproval(this, '${escapeHtml(t.comando)}', true)" style="background:#238636; border:1px solid #2ea043; color:#ffffff; padding:5px 12px; border-radius:4px; font-weight:600; cursor:pointer; font-size:12px;">✅ Aprobar / Autorizar</button>
+            </div>
           </div>
-          <div class="terminal-cmd"><code>$ ${escapeHtml(t.comando)}</code></div>
-          <pre class="terminal-output"><code>${escapeHtml(t.output || '')}</code></pre>
-        </div>
-      `;
+        `;
+      } else {
+        const exitBadge = t.exit_code === 0 ?
+          '<span style="color:#56d364; font-size:11px;">✅ Código 0</span>' :
+          `<span style="color:#f85149; font-size:11px;">❌ Código ${t.exit_code}</span>`;
+        html += `
+          <div class="terminal-card">
+            <div class="terminal-header">
+              <div class="terminal-title">
+                <span>💻 Tarea de Terminal</span> ${exitBadge}
+              </div>
+              <button class="copy-btn" onclick="copyMsgText(this)" style="background:#21262d; border:1px solid #30363d; color:#c9d1d9; padding:2px 8px; border-radius:4px; font-size:11px; cursor:pointer;">📋 Copiar Comando</button>
+            </div>
+            <div class="terminal-cmd"><code>$ ${escapeHtml(t.comando)}</code></div>
+            <pre class="terminal-output"><code>${escapeHtml(t.output || '')}</code></pre>
+          </div>
+        `;
+      }
     });
     return html;
   }

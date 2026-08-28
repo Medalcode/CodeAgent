@@ -21,3 +21,11 @@ ALLOWED_COMMANDS = {
 
 # Timeouts de API Externa
 GITHUB_API_TIMEOUT = int(os.environ.get("GITHUB_API_TIMEOUT", "15"))
+
+# Human-In-The-Loop (HITL) Terminal Approval
+REQUIRE_TERMINAL_APPROVAL = os.environ.get("REQUIRE_TERMINAL_APPROVAL", "1") == "1"
+SENSITIVE_COMMAND_PATTERNS = {
+    "pip install", "npm install", "npm i", "yarn add",
+    "git push", "git commit", "git rebase", "git reset",
+    "rm ", "del ", "rmdir ", "rd ", "sudo ", "docker ", "drop "
+}

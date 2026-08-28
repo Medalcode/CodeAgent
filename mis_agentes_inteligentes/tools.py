@@ -410,6 +410,10 @@ def ejecutar_comando_terminal(comando: str, directorio: str = "") -> str:
             cmd_args = comando
             use_shell = True
 
+        # Human-In-The-Loop (HITL): Verificación de autorización de comando sensible
+        if is_sensitive_command(comando) and not is_command_approved(comando):
+            return f"⚠️ AUTORIZACIÓN REQUERIDA (HITL): El comando '{comando}' requiere confirmación explícita del usuario."
+
         # PR 6: Allowlist Sandboxing (defensa en profundidad)
         from config import ALLOWED_COMMANDS, STRICT_SANDBOX
         allowed_env = os.getenv("ALLOWED_COMMANDS", "")
@@ -695,3 +699,18 @@ def obtener_contexto_workspace(ruta="."):
 
     contexto += "Estructura del directorio raíz:\n" + "\n".join(estructura) + "\n\n"
     return contexto
+
+APPROVED_COMMANDS_SET: set[str] = set()
+
+def is_sensitive_command(cmd: str) -> bool:
+    cmd_lower = cmd.lower().strip()
+    from config import REQUIRE_TERMINAL_APPROVAL, SENSITIVE_COMMAND_PATTERNS
+    if not REQUIRE_TERMINAL_APPROVAL:
+        return False
+    return any(pattern in cmd_lower for pattern in SENSITIVE_COMMAND_PATTERNS)
+
+def pre_approve_command(cmd: str) -> None:
+    APPROVED_COMMANDS_SET.add(cmd.strip())
+
+def is_command_approved(cmd: str) -> bool:
+    return cmd.strip() in APPROVED_COMMANDS_SET

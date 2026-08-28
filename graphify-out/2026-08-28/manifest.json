@@ -35,8 +35,8 @@
     "semantic_hash": "a1355e8f77d7a9bdc1619866b5517ca6"
   },
   "mis_agentes_inteligentes/tools.py": {
-    "mtime": 1787938644.12202,
-    "ast_hash": "f1492c51048ead17403a8c13ee41d05f",
+    "mtime": 1787939867.1327033,
+    "ast_hash": "dd0e5d1deadc4fe99e56cb4f92c50e57",
     "semantic_hash": ""
   },
   "orquestador_agente.py": {
@@ -70,8 +70,8 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1787938434.533793,
-    "ast_hash": "07ef951e8eec9eda999d96b272aa347f",
+    "mtime": 1787938772.7071373,
+    "ast_hash": "b92f5ce07fb88f4a77f9e331a51a4b90",
     "semantic_hash": ""
   },
   "docker-compose.yml": {
@@ -235,8 +235,8 @@
     "semantic_hash": ""
   },
   "CHANGELOG.md": {
-    "mtime": 1787938430.8495343,
-    "ast_hash": "7a861d2d3b0ca87febe198d429095b79",
+    "mtime": 1787938767.8646657,
+    "ast_hash": "699daeb927e552f4f2796633b99ea5e9",
     "semantic_hash": ""
   },
   "docs/adr/ADR-001-smolagents-react-engine.md": {
@@ -270,8 +270,8 @@
     "semantic_hash": ""
   },
   "localcode_claude_ui.html": {
-    "mtime": 1787938620.2870026,
-    "ast_hash": "177a0369ae157691942a94e69f093245",
+    "mtime": 1787939890.7266934,
+    "ast_hash": "552d1d10281968001e6ef15a76709a6d",
     "semantic_hash": ""
   },
   "tests/test_desktop_app.py": {
@@ -280,13 +280,13 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/benchmark_metrics.py": {
-    "mtime": 1787875594.190145,
-    "ast_hash": "2cff67c812198a8fcdb0f46f69ae5ada",
+    "mtime": 1787939915.4421637,
+    "ast_hash": "535448f6dc0e6c562c92ea56146151de",
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/metrics_benchmarks.json": {
-    "mtime": 1787938737.4180095,
-    "ast_hash": "cb9e38d7acadbd9ad8bae9562f7e9830",
+    "mtime": 1787940197.5395744,
+    "ast_hash": "1eef65fe3edd77d6ad8103ac5b43da67",
     "semantic_hash": ""
   },
   "tests/test_state_machine.py": {
@@ -310,8 +310,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/benchmark_report_v42.md": {
-    "mtime": 1787938708.6706295,
-    "ast_hash": "aa982a8e8150895f30e7a41d3263f614",
+    "mtime": 1787940172.1484911,
+    "ast_hash": "18c640c7cd0765ad136a6d82bfe29b9c",
     "semantic_hash": ""
   },
   "tests/test_feedback_loop.py": {
@@ -330,8 +330,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/localcode_claude_ui.html": {
-    "mtime": 1787938620.2870026,
-    "ast_hash": "177a0369ae157691942a94e69f093245",
+    "mtime": 1787939890.7266934,
+    "ast_hash": "552d1d10281968001e6ef15a76709a6d",
     "semantic_hash": ""
   },
   "tests/test_refactored_quality.py": {
@@ -355,8 +355,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/runtime/runtime.py": {
-    "mtime": 1787934483.1600626,
-    "ast_hash": "377c7302a1a1dc32dd591951766fe652",
+    "mtime": 1787940006.2608206,
+    "ast_hash": "f17e245f469685f69acfbb53730d3fbd",
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/storage/__init__.py": {
@@ -375,13 +375,18 @@
     "semantic_hash": ""
   },
   "tests/test_runtime_recovery.py": {
-    "mtime": 1787934491.5839367,
-    "ast_hash": "97515f24febf052630ddaf1aacaaa4b0",
+    "mtime": 1787940026.8992493,
+    "ast_hash": "dd7606782344be0ba185ac074c15f3f8",
     "semantic_hash": ""
   },
   "tests/test_verifier_evidence.py": {
     "mtime": 1787937061.4511542,
     "ast_hash": "df68b8534dc97f041a870ebe6d4f7d7e",
+    "semantic_hash": ""
+  },
+  "tests/test_task_timeout_safeguard.py": {
+    "mtime": 1787940121.0121238,
+    "ast_hash": "adbba3b98477ebec8d46cf19d47c5bac",
     "semantic_hash": ""
   }
 }

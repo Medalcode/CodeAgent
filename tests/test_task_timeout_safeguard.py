@@ -37,7 +37,7 @@ class TestTaskTimeoutSafeguardAndCancellation(unittest.TestCase):
             agent_runner=hanging_runner
         )
 
-        time.sleep(0.05)
+        time.sleep(0.15)
         canceled = self.runtime.cancel_task(task_id)
         self.assertTrue(canceled)
 

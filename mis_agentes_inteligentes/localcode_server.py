@@ -224,12 +224,33 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
             self.handle_github_import()
         elif self.path.startswith("/api/workspace/save") or self.path.startswith("/api/fs/save"):
             self.handle_save_file()
+        elif self.path.startswith("/api/terminal/approve"):
+            self.handle_terminal_approve()
         elif self.path.startswith("/api/tasks"):
             self.handle_tasks_post(self.path.split('?')[0])
         elif self.path.startswith("/api/agent/chat"):
             self.handle_agent_chat()
         elif self.path.startswith("/api/chat") or self.path.startswith("/api/tags"):
             self.proxy_to_ollama("POST")
+
+    def handle_terminal_approve(self):
+        data = self._get_post_body()
+        comando = data.get("command", "").strip()
+        approved = data.get("approved", False)
+
+        if not comando:
+            self._send_json({"success": False, "error": "Falta el comando a aprobar"}, 400)
+            return
+
+        if approved:
+            try:
+                from tools import pre_approve_command
+                pre_approve_command(comando)
+                self._send_json({"success": True, "message": f"Comando '{comando}' pre-aprobado para ejecución."})
+            except Exception as e:
+                self._send_json({"success": False, "error": f"Error pre-aprobando comando: {e}"}, 500)
+        else:
+            self._send_json({"success": True, "message": f"Comando '{comando}' rechazado por el usuario."})
 
     def handle_tasks_get(self, clean_path: str):
         parts = [p for p in clean_path.split("/") if p]

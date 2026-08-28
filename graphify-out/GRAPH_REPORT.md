@@ -1,27 +1,27 @@
 # Graph Report - CodeAgent  (2026-08-28)
 
 ## Corpus Check
-- 69 files · ~46,242 words
+- 70 files · ~47,063 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 722 nodes · 1102 edges · 57 communities (43 shown, 14 thin omitted)
-- Extraction: 78% EXTRACTED · 22% INFERRED · 0% AMBIGUOUS · INFERRED: 247 edges (avg confidence: 0.83)
+- 733 nodes · 1124 edges · 59 communities (43 shown, 16 thin omitted)
+- Extraction: 77% EXTRACTED · 23% INFERRED · 0% AMBIGUOUS · INFERRED: 253 edges (avg confidence: 0.83)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `432b38f6`
+- Built from commit: `8409c95d`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- session_manager.py
+- JSONSessionRepository
 - LocalCodeProxyHandler
 - TestRegressionSuite
 - CodeAgentRuntime
 - main.py
 - Changelog
-- 💻 CodeAgent (v6.5 Enterprise)
+- 💻 CodeAgent (v6.6 Enterprise)
 - tool
 - mis_agentes_inteligentes/tools
 - mis_agentes_inteligentes.tools
@@ -41,13 +41,13 @@
 - _make_github_request
 - mis_agentes_inteligentes/agents
 - mis_agentes_inteligentes.agents
-- tools.py
+- _atomic_write_file
 - TestSmokeSystem
 - ADR-001: Selección de smolagents como Motor ReAct
 - ADR-002: Proxy HTTP Multihilo Ligero Basado en http.server Nativo
 - ADR-003: Compatibilidad y Polyfill de Pydantic v2 con LiteLLM
-- agents.py
-- ejecutar_agentes
+- tools.py
+- TestSessionManager
 - mis_agentes_inteligentes/rag_tools
 - CodeAgentBenchmarkSuite
 - graphify.js
@@ -56,28 +56,30 @@
 - config.py
 - __init__.py
 - start_hub.sh
-- TestAgents
+- session_manager.py
 - 🧪 Reporte Oficial de Benchmark Reales CodeAgent (v4.2 Enterprise)
 - app.py
 - DatabaseManager
 - TestTaskTimeoutSafeguardAndCancellation
-- mis_agentes_inteligentes/main
-- claude_code_cli.py
+- BaseSessionRepository
+- TestDiagnoseRootCauseAndVersion
 - EventBus
 - TestRuntimeAndStorage
 - runtime.py
 - TestRuntimeRecoveryAndPauseSemantics
 - TestVerifierEvidenceAndWorkspaceIsolation
+- mis_agentes_inteligentes.rag_tools
+- TestQAEdgeCasesAndNegativeScenarios
 
 ## God Nodes (most connected - your core abstractions)
 1. `AgentStateMachineController` - 34 edges
 2. `DatabaseManager` - 27 edges
-3. `LocalCodeProxyHandler` - 24 edges
+3. `LocalCodeProxyHandler` - 25 edges
 4. `CodeAgentRuntime` - 24 edges
 5. `tool()` - 19 edges
 6. `TestTools` - 18 edges
 7. `JSONSessionRepository` - 17 edges
-8. `Changelog` - 16 edges
+8. `Changelog` - 17 edges
 9. `EventBus` - 15 edges
 10. `escribir_archivo_local()` - 15 edges
 
@@ -96,35 +98,35 @@
 ## Import Cycles
 - None detected.
 
-## Communities (57 total, 14 thin omitted)
-
-### Community 0 - "session_manager.py"
-Cohesion: 0.06
-Nodes (14): ABC, BaseSessionRepository, create_new_session(), export_session_to_markdown(), init_sessions_dir(), JSONSessionRepository, load_session(), Interfaz abstracta para la gestión de sesiones de chat (Patrón Repositorio). (+6 more)
+## Communities (59 total, 16 thin omitted)
 
 ### Community 1 - "LocalCodeProxyHandler"
 Cohesion: 0.07
 Nodes (17): _inc_metric(), LocalCodeProxyHandler, main(), _ps_file_dialog(), _ps_folder_dialog(), Imprime texto de forma segura sin crash por UnicodeEncodeError en Windows…, Servidor TCP/HTTP multihilo no bloqueante para peticiones concurrentes., _safe_print() (+9 more)
+
+### Community 2 - "TestRegressionSuite"
+Cohesion: 0.20
+Nodes (5): git_diff(), git_status(), Muestra el estado del repositorio Git (archivos modificados, untracked, etc).…, Muestra los cambios no commiteados en el repositorio. Args: ruta_repo: Ruta del…, TestRegressionSuite
 
 ### Community 3 - "CodeAgentRuntime"
 Cohesion: 0.15
 Nodes (11): Event, CodeAgentRuntime, Any, Obtiene la información de la tarea, su estado actual y el último checkpoint., Motor de ejecución autónomo desacoplado para CodeAgent v6.1. Gestión semántica…, Lista las tareas recientes guardadas en SQLite., Pausa una tarea activa sin marcarla como cancelada., Reanuda una tarea pausada desde su último checkpoint en SQLite. (+3 more)
 
 ### Community 4 - "main.py"
-Cohesion: 0.21
-Nodes (6): _construir_contexto_workspace(), get_herramientas(), Pipeline de agentes con smolagents de HuggingFace. El LLM usa CodeAgent para…, Convierte los nombres del UI en la lista de funciones @tool., Genera un bloque de contexto del workspace actual para inyectar en el…, TestMainPipeline
+Cohesion: 0.06
+Nodes (26): graphify, crear_agente(), _detectar_modelo_local(), get_available_agents(), get_model(), load_subagents_from_disk(), Instancia dinámicamente el modelo LiteLLMModel según el proveedor elegido., Lee todos los archivos .md en la carpeta subagents/ y parsea su YAML… (+18 more)
 
 ### Community 5 - "Changelog"
 Cohesion: 0.05
-Nodes (40): [2.2.0] - 2026-07-25, [2.2.1] - 2026-07-26, [2.3.0] - 2026-08-04, [2.4.0] - 2026-08-26, [2.5.0] - 2026-08-26, [3.5.0] - 2026-08-27, [4.0.0] - 2026-08-27, [4.2.0] - 2026-08-27 (+32 more)
+Nodes (42): [2.2.0] - 2026-07-25, [2.2.1] - 2026-07-26, [2.3.0] - 2026-08-04, [2.4.0] - 2026-08-26, [2.5.0] - 2026-08-26, [3.5.0] - 2026-08-27, [4.0.0] - 2026-08-27, [4.2.0] - 2026-08-27 (+34 more)
 
-### Community 6 - "💻 CodeAgent (v6.5 Enterprise)"
+### Community 6 - "💻 CodeAgent (v6.6 Enterprise)"
 Cohesion: 0.10
-Nodes (19): Arquitectura, 🏗️ Arquitectura del Sistema (5 Capas Principales), Benchmarks (3 niveles), ✨ Características Principales (v3.0 Enterprise), 💻 CodeAgent (v6.5 Enterprise), 🚀 Instalación y Ejecución, Knowledge Graph, Opción 1: Arranque Rápido (Recomendado para Windows) (+11 more)
+Nodes (19): Arquitectura, 🏗️ Arquitectura del Sistema (5 Capas Principales), Benchmarks (3 niveles), ✨ Características Principales (v3.0 Enterprise), 💻 CodeAgent (v6.6 Enterprise), 🚀 Instalación y Ejecución, Knowledge Graph, Opción 1: Arranque Rápido (Recomendado para Windows) (+11 more)
 
 ### Community 7 - "tool"
-Cohesion: 0.11
-Nodes (17): tool(), buscar_en_internet(), consultar_db(), git_add(), git_commit(), git_diff(), git_push(), git_status() (+9 more)
+Cohesion: 0.13
+Nodes (13): tool(), buscar_en_internet(), consultar_db(), git_add(), git_commit(), git_push(), guardar_reporte(), Realiza una búsqueda en internet usando Google para obtener información… (+5 more)
 
 ### Community 8 - "mis_agentes_inteligentes/tools"
 Cohesion: 0.11
@@ -156,7 +158,7 @@ Nodes (9): _bm25_score(), indexar_directorio_local(), init_chroma(), preguntar_a
 
 ### Community 15 - "CodeAgent"
 Cohesion: 0.15
-Nodes (13): CodeAgent, mis_agentes_inteligentes/setup_db, setup_db.create_dummy_db, mis_agentes_inteligentes.app, mis_agentes_inteligentes.app.get_sessions_list, mis_agentes_inteligentes.rag_tools, mis_agentes_inteligentes.rag_tools.init_chroma, mis_agentes_inteligentes.rag_tools.indexar_directorio_local (+5 more)
+Nodes (13): CodeAgent, mis_agentes_inteligentes/main, main.get_herramientas, main._construir_contexto_workspace, main.ejecutar_agentes, mis_agentes_inteligentes/setup_db, setup_db.create_dummy_db, mis_agentes_inteligentes.app (+5 more)
 
 ### Community 16 - "Test-Driven Development"
 Cohesion: 0.15
@@ -198,9 +200,9 @@ Nodes (6): mis_agentes_inteligentes/agents, agents.get_model, agents.load_subage
 Cohesion: 0.33
 Nodes (6): mis_agentes_inteligentes.agents, mis_agentes_inteligentes.agents.get_model, mis_agentes_inteligentes.agents.load_subagents_from_disk, mis_agentes_inteligentes.agents.get_available_agents, mis_agentes_inteligentes.agents.route_prompt, mis_agentes_inteligentes.agents.crear_agente
 
-### Community 26 - "tools.py"
-Cohesion: 0.17
-Nodes (9): _atomic_write_file(), check_tool_permission(), clear_terminal_tasks_buffer(), PermissionLevel, Enum, Escribe un archivo de forma atómica con limpieza segura de temporales en caso…, Niveles de autorización para la ejecución segura de herramientas agénticas., Valida si el permiso actual autoriza la ejecución de la herramienta. (+1 more)
+### Community 26 - "_atomic_write_file"
+Cohesion: 0.18
+Nodes (5): _atomic_write_file(), check_tool_permission(), Escribe un archivo de forma atómica con limpieza segura de temporales en caso…, Valida si el permiso actual autoriza la ejecución de la herramienta., TestTechnicalQualityRefactor
 
 ### Community 28 - "ADR-001: Selección de smolagents como Motor ReAct"
 Cohesion: 0.40
@@ -214,13 +216,9 @@ Nodes (4): ADR-002: Proxy HTTP Multihilo Ligero Basado en http.server Nativo, Co
 Cohesion: 0.40
 Nodes (4): ADR-003: Compatibilidad y Polyfill de Pydantic v2 con LiteLLM, Consecuencias, Contexto, Decisión
 
-### Community 31 - "agents.py"
-Cohesion: 0.21
-Nodes (8): crear_agente(), _detectar_modelo_local(), get_available_agents(), load_subagents_from_disk(), Lee todos los archivos .md en la carpeta subagents/ y parsea su YAML…, Devuelve la lista completa de agentes disponibles (Fijos + Dinámicos)., Detecta si el modelo es local (Ollama) basándose en el model_id., Crea el CodeAgent de smolagents. FIX: usa instructions para smolagents >=1.26.…
-
-### Community 32 - "ejecutar_agentes"
-Cohesion: 0.28
-Nodes (6): get_model(), Instancia dinámicamente el modelo LiteLLMModel según el proveedor elegido., ejecutar_agentes(), Pipeline principal usando smolagents. FIX: el historial ya no se manda como…, patch, TestIntegrationPipeline
+### Community 31 - "tools.py"
+Cohesion: 0.22
+Nodes (8): clear_terminal_tasks_buffer(), is_command_approved(), is_sensitive_command(), PermissionLevel, pre_approve_command(), Enum, Niveles de autorización para la ejecución segura de herramientas agénticas., TestTerminalHITLApproval
 
 ### Community 33 - "mis_agentes_inteligentes/rag_tools"
 Cohesion: 0.50
@@ -230,44 +228,46 @@ Nodes (4): mis_agentes_inteligentes/rag_tools, rag_tools.init_chroma, rag_tools.
 Cohesion: 0.17
 Nodes (7): CodeAgentBenchmarkSuite, Any, CodeAgent v4.2 Reproducible Benchmark Suite Suite estandarizada de 5 tareas…, Exporta el reporte de benchmark en formato Markdown en…, Ejecutor automatizado de la Suite de 5 Benchmarks Reales de Ingeniería., Ejecuta la suite completa de 5 tareas y compila el informe comparativo., TestCodeAgentBenchmarkSuite
 
-### Community 45 - "TestAgents"
-Cohesion: 0.39
-Nodes (3): Enrutador automático mejorado con scoring ponderado., route_prompt(), TestAgents
+### Community 45 - "session_manager.py"
+Cohesion: 0.31
+Nodes (6): create_new_session(), export_session_to_markdown(), init_sessions_dir(), load_session(), rename_session(), save_session()
 
 ### Community 46 - "🧪 Reporte Oficial de Benchmark Reales CodeAgent (v4.2 Enterprise)"
 Cohesion: 0.50
 Nodes (3): 📈 KPIs Globales Acumulados, 🧪 Reporte Oficial de Benchmark Reales CodeAgent (v4.2 Enterprise), 📊 Resultados por Tarea de Ingeniería
 
 ### Community 47 - "app.py"
-Cohesion: 0.20
-Nodes (5): graphify, _guardar_sesion_actual(), Guarda los datos de la sesión activa en disco., Comprime texto y asegura la validez de los bloques de código markdown., _truncar_markdown()
+Cohesion: 0.29
+Nodes (4): _guardar_sesion_actual(), Guarda los datos de la sesión activa en disco., Comprime texto y asegura la validez de los bloques de código markdown., _truncar_markdown()
 
 ### Community 48 - "DatabaseManager"
 Cohesion: 0.29
 Nodes (4): Connection, DatabaseManager, Any, Gestor de almacenamiento persistente SQLite multihilo seguro para CodeAgent…
 
-### Community 50 - "mis_agentes_inteligentes/main"
-Cohesion: 0.50
-Nodes (4): mis_agentes_inteligentes/main, main.get_herramientas, main._construir_contexto_workspace, main.ejecutar_agentes
+### Community 50 - "BaseSessionRepository"
+Cohesion: 0.25
+Nodes (3): ABC, BaseSessionRepository, Interfaz abstracta para la gestión de sesiones de chat (Patrón Repositorio).
 
 ### Community 52 - "EventBus"
 Cohesion: 0.16
 Nodes (9): EventBus, get_event_bus(), Any, Bus de eventos persistente con patrón Observador (Event Sourcing)., Registra un callback de escucha de eventos en tiempo real., Elimina un callback de escucha., Persiste el evento en SQLite y notifica a todos los suscriptores activos., Obtiene la corriente de eventos guardados para reconstruir el estado visual en… (+1 more)
 
+### Community 57 - "mis_agentes_inteligentes.rag_tools"
+Cohesion: 0.50
+Nodes (4): mis_agentes_inteligentes.rag_tools, mis_agentes_inteligentes.rag_tools.init_chroma, mis_agentes_inteligentes.rag_tools.indexar_directorio_local, mis_agentes_inteligentes.rag_tools.preguntar_a_repositorio
+
 ## Knowledge Gaps
-- **61 isolated node(s):** `start_hub.sh script`, `graphify`, `What a good test is`, `Seams — where tests go`, `Anti-patterns` (+56 more)
+- **62 isolated node(s):** `start_hub.sh script`, `graphify`, `What a good test is`, `Seams — where tests go`, `Anti-patterns` (+57 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **14 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **16 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `AgentStateMachineController` connect `AgentStateMachineController` to `session_manager.py`, `CodeAgentBenchmarkSuite`, `CodeAgentRuntime`, `TestRuntimeRecoveryAndPauseSemantics`, `TestVerifierEvidenceAndWorkspaceIsolation`?**
-  _High betweenness centrality (0.087) - this node is a cross-community bridge._
+- **Why does `AgentStateMachineController` connect `AgentStateMachineController` to `CodeAgentBenchmarkSuite`, `CodeAgentRuntime`, `TestDiagnoseRootCauseAndVersion`, `TestRuntimeRecoveryAndPauseSemantics`, `TestVerifierEvidenceAndWorkspaceIsolation`?**
+  _High betweenness centrality (0.085) - this node is a cross-community bridge._
 - **Why does `CodeAgentRuntime` connect `CodeAgentRuntime` to `LocalCodeProxyHandler`, `AgentStateMachineController`, `DatabaseManager`, `TestTaskTimeoutSafeguardAndCancellation`, `EventBus`, `TestRuntimeAndStorage`, `runtime.py`, `TestRuntimeRecoveryAndPauseSemantics`, `TestVerifierEvidenceAndWorkspaceIsolation`?**
-  _High betweenness centrality (0.065) - this node is a cross-community bridge._
-- **Why does `ejecutar_agentes()` connect `ejecutar_agentes` to `claude_code_cli.py`, `main.py`, `TestAgents`, `agents.py`?**
-  _High betweenness centrality (0.043) - this node is a cross-community bridge._
+  _High betweenness centrality (0.064) - this node is a cross-community bridge._
 - **Are the 19 inferred relationships involving `AgentStateMachineController` (e.g. with `CodeAgentBenchmarkSuite` and `.__init__()`) actually correct?**
   _`AgentStateMachineController` has 19 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 11 inferred relationships involving `DatabaseManager` (e.g. with `Event` and `EventBus`) actually correct?**
@@ -276,3 +276,5 @@ _Questions this graph is uniquely positioned to answer:_
   _`LocalCodeProxyHandler` has 2 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 11 inferred relationships involving `CodeAgentRuntime` (e.g. with `AgentStateMachineController` and `EventBus`) actually correct?**
   _`CodeAgentRuntime` has 11 INFERRED edges - model-reasoned connections that need verification._
+- **What connects `start_hub.sh script`, `graphify`, `What a good test is` to the rest of the system?**
+  _62 weakly-connected nodes found - possible documentation gaps or missing edges._

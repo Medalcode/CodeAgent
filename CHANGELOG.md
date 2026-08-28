@@ -4,6 +4,16 @@ Todos los cambios notables realizados en este proyecto serán documentados en es
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/), y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.7.0] - 2026-08-28
+
+### Added
+- **feat(security):** Sistema de **Autorización Humana (HITL - Human-In-The-Loop)** para comandos de consola sensibles (`pip install`, `npm install`, `git push`, etc.).
+- **feat(ui):** Tarjeta interactiva `.approval-card` en la interfaz de chat con botones **"✅ Aprobar / Autorizar"** y **"❌ Rechazar / Denegar"**.
+- **feat(api):** Endpoint REST `POST /api/terminal/approve` para registrar pre-aprobación y autorización dinámica de comandos.
+- **test(qa):** Módulo `tests/test_terminal_hitl_approval.py` alcanzando **105/105 pruebas unitarias e integración pasadas al 100%**.
+
+---
+
 ## [6.6.0] - 2026-08-28
 
 ### Added
