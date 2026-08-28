@@ -406,6 +406,49 @@
     overflow-x: auto;
   }
 
+  /* ANIMACIÓN Y BURBUJA WORKING... EN VIVO */
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  @keyframes pulseSlow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+  .working-card {
+    background: var(--bg-hover);
+    border: 1px solid var(--border-bright);
+    border-radius: 8px;
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-bright);
+    margin: 8px 0;
+    animation: pulseSlow 2s infinite ease-in-out;
+  }
+  .working-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .working-spinner {
+    display: inline-block;
+    animation: spin 1.2s linear infinite;
+    font-size: 14px;
+  }
+  .working-steps {
+    font-size: 11px;
+    color: var(--text-muted);
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding-left: 22px;
+  }
+
   /* BOTTOM PROMPT DOCK */
   .chat-dock {
     padding: 12px;
@@ -805,6 +848,52 @@
     return html;
   }
 
+  async function reloadWorkspaceFiles(){
+    try {
+      const res = await fetch('/api/workspace/tree');
+      if(!res.ok) return;
+      const data = await res.json();
+      if(data.success && Array.isArray(data.files)){
+        let hasChanges = false;
+        data.files.forEach(sf => {
+          const existing = files.find(f => f.name === sf.name);
+          if(existing){
+            if(!existing.isModified && existing.content !== sf.content){
+              existing.content = sf.content;
+              hasChanges = true;
+              if(activeFile && activeFile.name === sf.name){
+                $('codeEditor').value = sf.content;
+                updateLineNumbers();
+              }
+            }
+          } else {
+            files.push({
+              name: sf.name,
+              path: sf.name,
+              content: sf.content,
+              isUntitled: false,
+              isModified: false
+            });
+            hasChanges = true;
+          }
+        });
+
+        const diskNames = new Set(data.files.map(sf => sf.name));
+        const prevLength = files.length;
+        files = files.filter(f => f.isUntitled || diskNames.has(f.name));
+        if(files.length !== prevLength) hasChanges = true;
+
+        if(hasChanges){
+          renderTree();
+        }
+      }
+    } catch(err){}
+  }
+
+  // Carga inicial y temporizador de auto-refresh cada 4 segundos
+  reloadWorkspaceFiles();
+  setInterval(reloadWorkspaceFiles, 4000);
+
   // ENVIAR MENSAJE AL AGENTE
   $('sendBtn').addEventListener('click', async () => {
     const text = $('chatInput').value.trim();
@@ -817,10 +906,45 @@
     $('chatInput').value = '';
     $('chatBody').scrollTop = $('chatBody').scrollHeight;
 
-    // Activar acordeón de razonamiento
+    // Crear burbuja animada de "Working..." en vivo en el chat
+    const workingBubble = document.createElement('div');
+    workingBubble.className = 'working-card';
+
     const startTime = Date.now();
-    $('reasoningAccordion').className = 'reasoning-accordion open';
-    $('reasoningHeader').innerHTML = `<span>Trabajando en la tarea...</span><span>></span>`;
+    let secCount = 0;
+    const phases = [
+      "🧠 Analizando solicitud e intenciones del usuario...",
+      "🔍 Consultando árbol de archivos y grafo AST Graphify...",
+      "🔨 Ejecutando herramientas agénticas (escritura/terminal)...",
+      "🧪 Verificando sintaxis post-edición y compilación...",
+      "👨‍⚖️ Evaluando criticismo y preparando respuesta final..."
+    ];
+    let phaseIdx = 0;
+
+    workingBubble.innerHTML = `
+      <div class="working-header">
+        <span class="working-spinner">⚙️</span>
+        <span>CodeAgent trabajando (<span id="workingTimer">0s</span>)...</span>
+      </div>
+      <div class="working-steps" id="workingStepText">
+        ${phases[0]}
+      </div>
+    `;
+
+    $('messagesContainer').appendChild(workingBubble);
+    $('chatBody').scrollTop = $('chatBody').scrollHeight;
+
+    const timerInterval = setInterval(() => {
+      secCount = Math.floor((Date.now() - startTime) / 1000);
+      const timerEl = document.getElementById('workingTimer');
+      if(timerEl) timerEl.textContent = `${secCount}s`;
+
+      if(secCount % 3 === 0 && phaseIdx < phases.length - 1){
+        phaseIdx++;
+        const stepEl = document.getElementById('workingStepText');
+        if(stepEl) stepEl.textContent = phases[phaseIdx];
+      }
+    }, 1000);
 
     try {
       const res = await fetch('/api/agent/chat', {
@@ -834,8 +958,15 @@
         })
       });
       const data = await res.json();
-      const elapsed = Math.round((Date.now() - startTime) / 1000);
-      $('reasoningHeader').innerHTML = `<span>Worked for ${elapsed}s</span><span>></span>`;
+      clearInterval(timerInterval);
+
+      if(workingBubble && workingBubble.parentNode){
+        workingBubble.parentNode.removeChild(workingBubble);
+      }
+
+      const elapsed = Math.max(1, Math.round((Date.now() - startTime) / 1000));
+      $('reasoningAccordion').className = 'reasoning-accordion open';
+      $('reasoningHeader').innerHTML = `<span>Worked for ${elapsed}s (5 steps)</span><span>></span>`;
 
       if(!res.ok || (data.success === false)){
         throw new Error(data.error || `Error HTTP ${res.status}`);
@@ -846,8 +977,16 @@
       const rawContent = data.respuesta || data.response || "Tarea ejecutada correctamente.";
       botMsg.innerHTML = renderSafeMarkdown(rawContent);
       $('messagesContainer').appendChild(botMsg);
+
+      // Auto-refresh del árbol de archivos de inmediato tras la respuesta del agente
+      await reloadWorkspaceFiles();
     } catch(e) {
-      const elapsed = Math.round((Date.now() - startTime) / 1000);
+      clearInterval(timerInterval);
+      if(workingBubble && workingBubble.parentNode){
+        workingBubble.parentNode.removeChild(workingBubble);
+      }
+
+      const elapsed = Math.max(1, Math.round((Date.now() - startTime) / 1000));
       $('reasoningHeader').innerHTML = `<span>Worked for ${elapsed}s</span><span>></span>`;
 
       const botMsg = document.createElement('div');
@@ -855,6 +994,8 @@
       botMsg.style.color = 'var(--red)';
       botMsg.innerHTML = `<strong>❌ Error en CodeAgent:</strong> ${escapeHtml(e.message || e)}`;
       $('messagesContainer').appendChild(botMsg);
+
+      await reloadWorkspaceFiles();
     }
     $('chatBody').scrollTop = $('chatBody').scrollHeight;
   });

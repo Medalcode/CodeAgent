@@ -769,8 +769,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents",
-      "community": 2,
-      "community_name": "TestAgents",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "agents.py"
     },
     {
@@ -780,8 +780,8 @@
       "source_location": "L109",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_get_model",
-      "community": 2,
-      "community_name": "TestAgents",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "get_model()"
     },
     {
@@ -791,8 +791,8 @@
       "source_location": "L146",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_load_subagents_from_disk",
-      "community": 2,
-      "community_name": "TestAgents",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "load_subagents_from_disk()"
     },
     {
@@ -802,8 +802,8 @@
       "source_location": "L194",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_get_available_agents",
-      "community": 2,
-      "community_name": "TestAgents",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "get_available_agents()"
     },
     {
@@ -813,8 +813,8 @@
       "source_location": "L208",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_route_prompt",
-      "community": 2,
-      "community_name": "TestAgents",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "route_prompt()"
     },
     {
@@ -824,8 +824,8 @@
       "source_location": "L316",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_detectar_modelo_local",
-      "community": 2,
-      "community_name": "TestAgents",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "_detectar_modelo_local()"
     },
     {
@@ -835,8 +835,8 @@
       "source_location": "L323",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_crear_agente",
-      "community": 2,
-      "community_name": "TestAgents",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "crear_agente()"
     },
     {
@@ -846,8 +846,8 @@
       "source_location": "L110",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_rationale_110",
-      "community": 2,
-      "community_name": "TestAgents",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "instancia dinamicamente el modelo litellmmodel segun el proveedor elegido."
     },
     {
@@ -857,8 +857,8 @@
       "source_location": "L147",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_rationale_147",
-      "community": 2,
-      "community_name": "TestAgents",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "lee todos los archivos .md en la carpeta subagents/ y parsea su yaml..."
     },
     {
@@ -868,8 +868,8 @@
       "source_location": "L195",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_rationale_195",
-      "community": 2,
-      "community_name": "TestAgents",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "devuelve la lista completa de agentes disponibles (fijos + dinamicos)."
     },
     {
@@ -879,8 +879,8 @@
       "source_location": "L209",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_rationale_209",
-      "community": 2,
-      "community_name": "TestAgents",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "enrutador automatico mejorado con scoring ponderado."
     },
     {
@@ -890,8 +890,8 @@
       "source_location": "L317",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_rationale_317",
-      "community": 2,
-      "community_name": "TestAgents",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "detecta si el modelo es local (ollama) basandose en el model_id."
     },
     {
@@ -901,8 +901,8 @@
       "source_location": "L324",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_rationale_324",
-      "community": 2,
-      "community_name": "TestAgents",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "crea el codeagent de smolagents. fix: usa instructions para smolagents >=1.26...."
     },
     {
@@ -1771,7 +1771,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_rag_tools_tool",
       "community": 7,
-      "community_name": "tool",
+      "community_name": "tools.py",
       "norm_label": "tool()"
     },
     {
@@ -2218,7 +2218,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools",
-      "community": 26,
+      "community": 7,
       "community_name": "tools.py",
       "norm_label": "tools.py"
     },
@@ -2240,7 +2240,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_permissionlevel",
-      "community": 26,
+      "community": 7,
       "community_name": "tools.py",
       "norm_label": "permissionlevel"
     },
@@ -2251,7 +2251,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_py_enum",
-      "community": 26,
+      "community": 7,
       "community_name": "tools.py",
       "norm_label": "enum"
     },
@@ -2263,7 +2263,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_check_tool_permission",
       "community": 26,
-      "community_name": "tools.py",
+      "community_name": "_atomic_write_file",
       "norm_label": "check_tool_permission()"
     },
     {
@@ -2274,7 +2274,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_consultar_db",
       "community": 7,
-      "community_name": "tool",
+      "community_name": "tools.py",
       "norm_label": "consultar_db()"
     },
     {
@@ -2285,7 +2285,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_guardar_reporte",
       "community": 7,
-      "community_name": "tool",
+      "community_name": "tools.py",
       "norm_label": "guardar_reporte()"
     },
     {
@@ -2428,7 +2428,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_atomic_write_file",
       "community": 26,
-      "community_name": "tools.py",
+      "community_name": "_atomic_write_file",
       "norm_label": "_atomic_write_file()"
     },
     {
@@ -2461,7 +2461,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_buscar_en_internet",
       "community": 7,
-      "community_name": "tool",
+      "community_name": "tools.py",
       "norm_label": "buscar_en_internet()"
     },
     {
@@ -2483,7 +2483,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_git_status",
       "community": 7,
-      "community_name": "tool",
+      "community_name": "tools.py",
       "norm_label": "git_status()"
     },
     {
@@ -2494,7 +2494,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_git_diff",
       "community": 7,
-      "community_name": "tool",
+      "community_name": "tools.py",
       "norm_label": "git_diff()"
     },
     {
@@ -2505,7 +2505,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_git_add",
       "community": 7,
-      "community_name": "tool",
+      "community_name": "tools.py",
       "norm_label": "git_add()"
     },
     {
@@ -2516,7 +2516,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_git_commit",
       "community": 7,
-      "community_name": "tool",
+      "community_name": "tools.py",
       "norm_label": "git_commit()"
     },
     {
@@ -2527,7 +2527,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_git_push",
       "community": 7,
-      "community_name": "tool",
+      "community_name": "tools.py",
       "norm_label": "git_push()"
     },
     {
@@ -2559,7 +2559,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_33",
-      "community": 26,
+      "community": 7,
       "community_name": "tools.py",
       "norm_label": "niveles de autorizacion para la ejecucion segura de herramientas agenticas."
     },
@@ -2571,7 +2571,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_52",
       "community": 26,
-      "community_name": "tools.py",
+      "community_name": "_atomic_write_file",
       "norm_label": "valida si el permiso actual autoriza la ejecucion de la herramienta."
     },
     {
@@ -2582,7 +2582,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_60",
       "community": 7,
-      "community_name": "tool",
+      "community_name": "tools.py",
       "norm_label": "extrae eventos desde miseventos.db. la base de datos tiene una tabla 'eventos'..."
     },
     {
@@ -2593,7 +2593,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_85",
       "community": 7,
-      "community_name": "tool",
+      "community_name": "tools.py",
       "norm_label": "archiva el analisis para memoria a largo plazo. args: analisis: el texto del..."
     },
     {
@@ -2714,7 +2714,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_336",
       "community": 26,
-      "community_name": "tools.py",
+      "community_name": "_atomic_write_file",
       "norm_label": "escribe un archivo de forma atomica con limpieza segura de temporales en caso..."
     },
     {
@@ -2747,7 +2747,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_467",
       "community": 7,
-      "community_name": "tool",
+      "community_name": "tools.py",
       "norm_label": "realiza una busqueda en internet usando google para obtener informacion..."
     },
     {
@@ -2769,7 +2769,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_538",
       "community": 7,
-      "community_name": "tool",
+      "community_name": "tools.py",
       "norm_label": "muestra el estado del repositorio git (archivos modificados, untracked, etc)...."
     },
     {
@@ -2780,7 +2780,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_551",
       "community": 7,
-      "community_name": "tool",
+      "community_name": "tools.py",
       "norm_label": "muestra los cambios no commiteados en el repositorio. args: ruta_repo: ruta del..."
     },
     {
@@ -2791,7 +2791,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_564",
       "community": 7,
-      "community_name": "tool",
+      "community_name": "tools.py",
       "norm_label": "anade archivos al staging area de git. pasa los archivos separados por..."
     },
     {
@@ -2802,7 +2802,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_579",
       "community": 7,
-      "community_name": "tool",
+      "community_name": "tools.py",
       "norm_label": "crea un commit con los archivos en el staging area. args: mensaje: mensaje del..."
     },
     {
@@ -2813,7 +2813,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_593",
       "community": 7,
-      "community_name": "tool",
+      "community_name": "tools.py",
       "norm_label": "sube los commits locales al repositorio remoto (github). opcionalmente..."
     },
     {
@@ -3043,8 +3043,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "tests_test_agents_testagents",
-      "community": 2,
-      "community_name": "TestAgents",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "testagents"
     },
     {
@@ -3054,8 +3054,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_route_prompt_github",
-      "community": 2,
-      "community_name": "TestAgents",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": ".test_route_prompt_github()"
     },
     {
@@ -3065,8 +3065,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_route_prompt_editor",
-      "community": 2,
-      "community_name": "TestAgents",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": ".test_route_prompt_editor()"
     },
     {
@@ -3076,8 +3076,8 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_route_prompt_productivity",
-      "community": 2,
-      "community_name": "TestAgents",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": ".test_route_prompt_productivity()"
     },
     {
@@ -3087,8 +3087,8 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_route_prompt_general",
-      "community": 2,
-      "community_name": "TestAgents",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": ".test_route_prompt_general()"
     },
     {
@@ -3098,8 +3098,8 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_get_available_agents",
-      "community": 2,
-      "community_name": "TestAgents",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": ".test_get_available_agents()"
     },
     {
@@ -3109,8 +3109,8 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_load_subagents_from_disk",
-      "community": 2,
-      "community_name": "TestAgents",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": ".test_load_subagents_from_disk()"
     },
     {
@@ -3120,8 +3120,8 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_get_model_invalid_provider",
-      "community": 2,
-      "community_name": "TestAgents",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": ".test_get_model_invalid_provider()"
     },
     {
@@ -3131,8 +3131,8 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_route_prompt_subagents",
-      "community": 2,
-      "community_name": "TestAgents",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": ".test_route_prompt_subagents()"
     },
     {
@@ -3142,8 +3142,8 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_crear_agente_planning_interval",
-      "community": 2,
-      "community_name": "TestAgents",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": ".test_crear_agente_planning_interval()"
     },
     {
@@ -3902,7 +3902,7 @@
       "_origin": "ast",
       "id": "tests_test_qa_edge_cases_testqaedgecasesandnegativescenarios_test_atomic_write_empty_content",
       "community": 26,
-      "community_name": "tools.py",
+      "community_name": "_atomic_write_file",
       "norm_label": ".test_atomic_write_empty_content()"
     },
     {
@@ -3979,7 +3979,7 @@
       "_origin": "ast",
       "id": "tests_test_refactored_quality",
       "community": 26,
-      "community_name": "tools.py",
+      "community_name": "_atomic_write_file",
       "norm_label": "test_refactored_quality.py"
     },
     {
@@ -3990,7 +3990,7 @@
       "_origin": "ast",
       "id": "tests_test_refactored_quality_testtechnicalqualityrefactor",
       "community": 26,
-      "community_name": "tools.py",
+      "community_name": "_atomic_write_file",
       "norm_label": "testtechnicalqualityrefactor"
     },
     {
@@ -4001,7 +4001,7 @@
       "_origin": "ast",
       "id": "tests_test_refactored_quality_testtechnicalqualityrefactor_test_atomic_write_file_success",
       "community": 26,
-      "community_name": "tools.py",
+      "community_name": "_atomic_write_file",
       "norm_label": ".test_atomic_write_file_success()"
     },
     {
@@ -4012,7 +4012,7 @@
       "_origin": "ast",
       "id": "tests_test_refactored_quality_testtechnicalqualityrefactor_test_atomic_write_file_cleanup_on_error",
       "community": 26,
-      "community_name": "tools.py",
+      "community_name": "_atomic_write_file",
       "norm_label": ".test_atomic_write_file_cleanup_on_error()"
     },
     {
@@ -4023,7 +4023,7 @@
       "_origin": "ast",
       "id": "tests_test_refactored_quality_testtechnicalqualityrefactor_test_escribir_y_editar_archivo_refactored",
       "community": 26,
-      "community_name": "tools.py",
+      "community_name": "_atomic_write_file",
       "norm_label": ".test_escribir_y_editar_archivo_refactored()"
     },
     {
@@ -4034,7 +4034,7 @@
       "_origin": "ast",
       "id": "tests_test_refactored_quality_testtechnicalqualityrefactor_test_permission_levels",
       "community": 26,
-      "community_name": "tools.py",
+      "community_name": "_atomic_write_file",
       "norm_label": ".test_permission_levels()"
     },
     {
@@ -4055,8 +4055,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "tests_test_regression_testregressionsuite",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 2,
+      "community_name": "TestRegressionSuite",
       "norm_label": "testregressionsuite"
     },
     {
@@ -4066,8 +4066,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "tests_test_regression_testregressionsuite_test_truncar_markdown_corto",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 2,
+      "community_name": "TestRegressionSuite",
       "norm_label": ".test_truncar_markdown_corto()"
     },
     {
@@ -4077,8 +4077,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "tests_test_regression_testregressionsuite_test_truncar_markdown_largo_con_codigo_abierto",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 2,
+      "community_name": "TestRegressionSuite",
       "norm_label": ".test_truncar_markdown_largo_con_codigo_abierto()"
     },
     {
@@ -4088,8 +4088,8 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "tests_test_regression_testregressionsuite_test_session_manager_invalid_inputs",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 2,
+      "community_name": "TestRegressionSuite",
       "norm_label": ".test_session_manager_invalid_inputs()"
     },
     {
@@ -4099,8 +4099,8 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "tests_test_regression_testregressionsuite_test_editar_archivo_search_replace_exact_match",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 2,
+      "community_name": "TestRegressionSuite",
       "norm_label": ".test_editar_archivo_search_replace_exact_match()"
     },
     {
@@ -4111,7 +4111,7 @@
       "_origin": "ast",
       "id": "tests_test_regression_testregressionsuite_test_git_tools_en_directorio_temporal",
       "community": 7,
-      "community_name": "tool",
+      "community_name": "tools.py",
       "norm_label": ".test_git_tools_en_directorio_temporal()"
     },
     {
@@ -4341,8 +4341,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "tests_test_state_machine_testagentstatemachinecontroller",
-      "community": 22,
-      "community_name": "BenchmarkMetricsCollector",
+      "community": 10,
+      "community_name": "AgentStateMachineController",
       "norm_label": "testagentstatemachinecontroller"
     },
     {
@@ -4352,8 +4352,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "tests_test_state_machine_testagentstatemachinecontroller_setup",
-      "community": 22,
-      "community_name": "BenchmarkMetricsCollector",
+      "community": 10,
+      "community_name": "AgentStateMachineController",
       "norm_label": ".setup()"
     },
     {
@@ -4363,8 +4363,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "tests_test_state_machine_testagentstatemachinecontroller_test_infer_execution_level_level_1_chat",
-      "community": 22,
-      "community_name": "BenchmarkMetricsCollector",
+      "community": 10,
+      "community_name": "AgentStateMachineController",
       "norm_label": ".test_infer_execution_level_level_1_chat()"
     },
     {
@@ -4374,8 +4374,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "tests_test_state_machine_testagentstatemachinecontroller_test_infer_execution_level_level_2_action",
-      "community": 22,
-      "community_name": "BenchmarkMetricsCollector",
+      "community": 10,
+      "community_name": "AgentStateMachineController",
       "norm_label": ".test_infer_execution_level_level_2_action()"
     },
     {
@@ -4385,8 +4385,8 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "tests_test_state_machine_testagentstatemachinecontroller_test_infer_execution_level_level_3_feature",
-      "community": 22,
-      "community_name": "BenchmarkMetricsCollector",
+      "community": 10,
+      "community_name": "AgentStateMachineController",
       "norm_label": ".test_infer_execution_level_level_3_feature()"
     },
     {
@@ -4396,8 +4396,8 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "tests_test_state_machine_testagentstatemachinecontroller_test_infer_execution_level_level_4_full",
-      "community": 22,
-      "community_name": "BenchmarkMetricsCollector",
+      "community": 10,
+      "community_name": "AgentStateMachineController",
       "norm_label": ".test_infer_execution_level_level_4_full()"
     },
     {
@@ -4407,8 +4407,8 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "tests_test_state_machine_testagentstatemachinecontroller_test_run_level_1_chat_fast_path",
-      "community": 22,
-      "community_name": "BenchmarkMetricsCollector",
+      "community": 10,
+      "community_name": "AgentStateMachineController",
       "norm_label": ".test_run_level_1_chat_fast_path()"
     },
     {
@@ -4418,8 +4418,8 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "tests_test_state_machine_testagentstatemachinecontroller_test_run_level_4_replan_loop",
-      "community": 22,
-      "community_name": "BenchmarkMetricsCollector",
+      "community": 10,
+      "community_name": "AgentStateMachineController",
       "norm_label": ".test_run_level_4_replan_loop()"
     },
     {
@@ -4429,8 +4429,8 @@
       "source_location": "L63",
       "_origin": "ast",
       "id": "tests_test_state_machine_testagentstatemachinecontroller_test_benchmark_metrics_collector",
-      "community": 22,
-      "community_name": "BenchmarkMetricsCollector",
+      "community": 10,
+      "community_name": "AgentStateMachineController",
       "norm_label": ".test_benchmark_metrics_collector()"
     },
     {
@@ -4529,7 +4529,7 @@
       "_origin": "ast",
       "id": "tests_test_tools_testtools_test_consultar_db_select_bloqueado",
       "community": 7,
-      "community_name": "tool",
+      "community_name": "tools.py",
       "norm_label": ".test_consultar_db_select_bloqueado()"
     },
     {
@@ -4540,7 +4540,7 @@
       "_origin": "ast",
       "id": "tests_test_tools_testtools_test_guardar_reporte",
       "community": 7,
-      "community_name": "tool",
+      "community_name": "tools.py",
       "norm_label": ".test_guardar_reporte()"
     },
     {
@@ -4628,7 +4628,7 @@
       "_origin": "ast",
       "id": "tests_test_tools_testtools_test_check_tool_permission",
       "community": 26,
-      "community_name": "tools.py",
+      "community_name": "_atomic_write_file",
       "norm_label": ".test_check_tool_permission()"
     },
     {
@@ -4918,15 +4918,15 @@
       "norm_label": "changelog"
     },
     {
-      "label": "[4.3.0] - 2026-08-27",
+      "label": "[5.3.0] - 2026-08-27",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
       "source_location": "L7",
       "_origin": "ast",
-      "id": "changelog_4_3_0_2026_08_27",
+      "id": "changelog_5_3_0_2026_08_27",
       "community": 5,
       "community_name": "Changelog",
-      "norm_label": "[4.3.0] - 2026-08-27"
+      "norm_label": "[5.3.0] - 2026-08-27"
     },
     {
       "label": "Added",
@@ -4940,10 +4940,32 @@
       "norm_label": "added"
     },
     {
+      "label": "[4.3.0] - 2026-08-27",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L18",
+      "_origin": "ast",
+      "id": "changelog_4_3_0_2026_08_27",
+      "community": 5,
+      "community_name": "Changelog",
+      "norm_label": "[4.3.0] - 2026-08-27"
+    },
+    {
+      "label": "Added",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L20",
+      "_origin": "ast",
+      "id": "changelog_added_20",
+      "community": 5,
+      "community_name": "Changelog",
+      "norm_label": "added"
+    },
+    {
       "label": "[4.2.0] - 2026-08-27",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L17",
+      "source_location": "L28",
       "_origin": "ast",
       "id": "changelog_4_2_0_2026_08_27",
       "community": 5,
@@ -4954,9 +4976,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L19",
+      "source_location": "L30",
       "_origin": "ast",
-      "id": "changelog_added_19",
+      "id": "changelog_added_30",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "added"
@@ -4965,34 +4987,12 @@
       "label": "[4.0.0] - 2026-08-27",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L27",
+      "source_location": "L38",
       "_origin": "ast",
       "id": "changelog_4_0_0_2026_08_27",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "[4.0.0] - 2026-08-27"
-    },
-    {
-      "label": "Added",
-      "file_type": "document",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L29",
-      "_origin": "ast",
-      "id": "changelog_added_29",
-      "community": 5,
-      "community_name": "Changelog",
-      "norm_label": "added"
-    },
-    {
-      "label": "[3.5.0] - 2026-08-27",
-      "file_type": "document",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L38",
-      "_origin": "ast",
-      "id": "changelog_3_5_0_2026_08_27",
-      "community": 5,
-      "community_name": "Changelog",
-      "norm_label": "[3.5.0] - 2026-08-27"
     },
     {
       "label": "Added",
@@ -5006,10 +5006,32 @@
       "norm_label": "added"
     },
     {
+      "label": "[3.5.0] - 2026-08-27",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L49",
+      "_origin": "ast",
+      "id": "changelog_3_5_0_2026_08_27",
+      "community": 5,
+      "community_name": "Changelog",
+      "norm_label": "[3.5.0] - 2026-08-27"
+    },
+    {
+      "label": "Added",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L51",
+      "_origin": "ast",
+      "id": "changelog_added_51",
+      "community": 5,
+      "community_name": "Changelog",
+      "norm_label": "added"
+    },
+    {
       "label": "Fixed",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L47",
+      "source_location": "L58",
       "_origin": "ast",
       "id": "changelog_fixed",
       "community": 5,
@@ -5020,7 +5042,7 @@
       "label": "[2.5.0] - 2026-08-26",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L53",
+      "source_location": "L64",
       "_origin": "ast",
       "id": "changelog_2_5_0_2026_08_26",
       "community": 5,
@@ -5031,9 +5053,9 @@
       "label": "Fixed",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L55",
+      "source_location": "L66",
       "_origin": "ast",
-      "id": "changelog_fixed_55",
+      "id": "changelog_fixed_66",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "fixed"
@@ -5042,9 +5064,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L60",
+      "source_location": "L71",
       "_origin": "ast",
-      "id": "changelog_added_60",
+      "id": "changelog_added_71",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "added"
@@ -5053,7 +5075,7 @@
       "label": "[2.4.0] - 2026-08-26",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L69",
+      "source_location": "L80",
       "_origin": "ast",
       "id": "changelog_2_4_0_2026_08_26",
       "community": 5,
@@ -5064,9 +5086,9 @@
       "label": "Fixed",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L71",
+      "source_location": "L82",
       "_origin": "ast",
-      "id": "changelog_fixed_71",
+      "id": "changelog_fixed_82",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "fixed"
@@ -5075,7 +5097,7 @@
       "label": "Refactored",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L76",
+      "source_location": "L87",
       "_origin": "ast",
       "id": "changelog_refactored",
       "community": 5,
@@ -5086,9 +5108,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L81",
+      "source_location": "L92",
       "_origin": "ast",
-      "id": "changelog_added_81",
+      "id": "changelog_added_92",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "added"
@@ -5097,7 +5119,7 @@
       "label": "[2.3.0] - 2026-08-04",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L87",
+      "source_location": "L98",
       "_origin": "ast",
       "id": "changelog_2_3_0_2026_08_04",
       "community": 5,
@@ -5108,9 +5130,9 @@
       "label": "Refactored",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L89",
+      "source_location": "L100",
       "_origin": "ast",
-      "id": "changelog_refactored_89",
+      "id": "changelog_refactored_100",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "refactored"
@@ -5119,7 +5141,7 @@
       "label": "Performance",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L95",
+      "source_location": "L106",
       "_origin": "ast",
       "id": "changelog_performance",
       "community": 5,
@@ -5130,9 +5152,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L98",
+      "source_location": "L109",
       "_origin": "ast",
-      "id": "changelog_added_98",
+      "id": "changelog_added_109",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "added"
@@ -5141,7 +5163,7 @@
       "label": "[2.2.1] - 2026-07-26",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L104",
+      "source_location": "L115",
       "_origin": "ast",
       "id": "changelog_2_2_1_2026_07_26",
       "community": 5,
@@ -5152,9 +5174,9 @@
       "label": "Fixed",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L106",
+      "source_location": "L117",
       "_origin": "ast",
-      "id": "changelog_fixed_106",
+      "id": "changelog_fixed_117",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "fixed"
@@ -5163,9 +5185,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L114",
+      "source_location": "L125",
       "_origin": "ast",
-      "id": "changelog_added_114",
+      "id": "changelog_added_125",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "added"
@@ -5174,7 +5196,7 @@
       "label": "[2.2.0] - 2026-07-25",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L119",
+      "source_location": "L130",
       "_origin": "ast",
       "id": "changelog_2_2_0_2026_07_25",
       "community": 5,
@@ -5185,9 +5207,9 @@
       "label": "Fixed",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L121",
+      "source_location": "L132",
       "_origin": "ast",
-      "id": "changelog_fixed_121",
+      "id": "changelog_fixed_132",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "fixed"
@@ -5196,9 +5218,9 @@
       "label": "Refactored",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L128",
+      "source_location": "L139",
       "_origin": "ast",
-      "id": "changelog_refactored_128",
+      "id": "changelog_refactored_139",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "refactored"
@@ -5207,9 +5229,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L132",
+      "source_location": "L143",
       "_origin": "ast",
-      "id": "changelog_added_132",
+      "id": "changelog_added_143",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "added"
@@ -5222,19 +5244,19 @@
       "_origin": "ast",
       "id": "readme",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.3 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v5.3 Enterprise)",
       "norm_label": "readme.md"
     },
     {
-      "label": "\ud83d\udcbb CodeAgent (v4.3 Enterprise)",
+      "label": "\ud83d\udcbb CodeAgent (v5.3 Enterprise)",
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "readme_codeagent_v4_3_enterprise",
+      "id": "readme_codeagent_v5_3_enterprise",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.3 Enterprise)",
-      "norm_label": "\ud83d\udcbb codeagent (v4.3 enterprise)"
+      "community_name": "\ud83d\udcbb CodeAgent (v5.3 Enterprise)",
+      "norm_label": "\ud83d\udcbb codeagent (v5.3 enterprise)"
     },
     {
       "label": "\ud83c\udfd7\ufe0f Arquitectura del Sistema (5 Capas Principales)",
@@ -5244,7 +5266,7 @@
       "_origin": "ast",
       "id": "readme_arquitectura_del_sistema_5_capas_principales",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.3 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v5.3 Enterprise)",
       "norm_label": "\ud83c\udfd7\ufe0f arquitectura del sistema (5 capas principales)"
     },
     {
@@ -5255,7 +5277,7 @@
       "_origin": "ast",
       "id": "readme_caracter\u00edsticas_principales_v3_0_enterprise",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.3 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v5.3 Enterprise)",
       "norm_label": "\u2728 caracteristicas principales (v3.0 enterprise)"
     },
     {
@@ -5266,7 +5288,7 @@
       "_origin": "ast",
       "id": "readme_proactividad_ag\u00e9ntica_observabilidad_y_calidad_de_c\u00f3digo_v2_5_0",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.3 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v5.3 Enterprise)",
       "norm_label": "\ud83d\ude80 proactividad agentica, observabilidad y calidad de codigo (v2.5.0)"
     },
     {
@@ -5277,7 +5299,7 @@
       "_origin": "ast",
       "id": "readme_\u00faltimas_mejoras_de_fiabilidad_calidad_t\u00e9cnica_y_qa_v2_3_0",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.3 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v5.3 Enterprise)",
       "norm_label": "\ud83d\udee1\ufe0f ultimas mejoras de fiabilidad, calidad tecnica y qa (v2.3.0)"
     },
     {
@@ -5288,7 +5310,7 @@
       "_origin": "ast",
       "id": "readme_\u00faltimas_mejoras_de_fiabilidad_seguridad_y_ux_v2_2_1",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.3 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v5.3 Enterprise)",
       "norm_label": "\ud83d\udee1\ufe0f ultimas mejoras de fiabilidad, seguridad y ux (v2.2.1)"
     },
     {
@@ -5299,7 +5321,7 @@
       "_origin": "ast",
       "id": "readme_\u00faltimas_mejoras_de_fiabilidad_seguridad_y_ux_v2_2",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.3 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v5.3 Enterprise)",
       "norm_label": "\ud83d\udee1\ufe0f ultimas mejoras de fiabilidad, seguridad y ux (v2.2)"
     },
     {
@@ -5310,7 +5332,7 @@
       "_origin": "ast",
       "id": "readme_\u00faltimas_mejoras_de_fiabilidad_y_ux_v2_1",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.3 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v5.3 Enterprise)",
       "norm_label": "\ud83d\udee1\ufe0f ultimas mejoras de fiabilidad y ux (v2.1)"
     },
     {
@@ -5321,7 +5343,7 @@
       "_origin": "ast",
       "id": "readme_\u00faltimas_mejoras_de_fiabilidad_y_ux_v2_0",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.3 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v5.3 Enterprise)",
       "norm_label": "\ud83d\udee1\ufe0f ultimas mejoras de fiabilidad y ux (v2.0)"
     },
     {
@@ -5332,7 +5354,7 @@
       "_origin": "ast",
       "id": "readme_orquestador_supervisor_agente",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.3 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v5.3 Enterprise)",
       "norm_label": "\ud83e\uddea orquestador supervisor-agente"
     },
     {
@@ -5343,7 +5365,7 @@
       "_origin": "ast",
       "id": "readme_benchmarks_3_niveles",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.3 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v5.3 Enterprise)",
       "norm_label": "benchmarks (3 niveles)"
     },
     {
@@ -5354,7 +5376,7 @@
       "_origin": "ast",
       "id": "readme_uso",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.3 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v5.3 Enterprise)",
       "norm_label": "uso"
     },
     {
@@ -5365,7 +5387,7 @@
       "_origin": "ast",
       "id": "readme_arquitectura",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.3 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v5.3 Enterprise)",
       "norm_label": "arquitectura"
     },
     {
@@ -5376,7 +5398,7 @@
       "_origin": "ast",
       "id": "readme_instalaci\u00f3n_y_ejecuci\u00f3n",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.3 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v5.3 Enterprise)",
       "norm_label": "\ud83d\ude80 instalacion y ejecucion"
     },
     {
@@ -5387,7 +5409,7 @@
       "_origin": "ast",
       "id": "readme_opci\u00f3n_1_arranque_r\u00e1pido_recomendado_para_windows",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.3 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v5.3 Enterprise)",
       "norm_label": "opcion 1: arranque rapido (recomendado para windows)"
     },
     {
@@ -5398,7 +5420,7 @@
       "_origin": "ast",
       "id": "readme_opci\u00f3n_2_ejecuci\u00f3n_manual",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.3 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v5.3 Enterprise)",
       "norm_label": "opcion 2: ejecucion manual"
     },
     {
@@ -5409,7 +5431,7 @@
       "_origin": "ast",
       "id": "readme_tecnolog\u00edas_utilizadas",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.3 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v5.3 Enterprise)",
       "norm_label": "\ud83d\udee0\ufe0f tecnologias utilizadas"
     },
     {
@@ -5420,7 +5442,7 @@
       "_origin": "ast",
       "id": "readme_knowledge_graph",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.3 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v5.3 Enterprise)",
       "norm_label": "knowledge graph"
     },
     {
@@ -5431,7 +5453,7 @@
       "_origin": "ast",
       "id": "readme_skills",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.3 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v5.3 Enterprise)",
       "norm_label": "skills"
     },
     {
@@ -15390,7 +15412,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L119",
+      "source_location": "L130",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -15401,7 +15423,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L104",
+      "source_location": "L115",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -15412,7 +15434,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L87",
+      "source_location": "L98",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -15423,7 +15445,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L69",
+      "source_location": "L80",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -15434,7 +15456,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L53",
+      "source_location": "L64",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -15445,7 +15467,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L38",
+      "source_location": "L49",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -15456,7 +15478,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L27",
+      "source_location": "L38",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -15467,7 +15489,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L17",
+      "source_location": "L28",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -15478,7 +15500,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L7",
+      "source_location": "L18",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -15489,10 +15511,21 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "changelog_changelog",
+      "target": "changelog_5_3_0_2026_08_27",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
       "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "changelog_4_3_0_2026_08_27",
+      "source": "changelog_5_3_0_2026_08_27",
       "target": "changelog_added",
       "confidence_score": 1.0
     },
@@ -15500,22 +15533,22 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "changelog_4_2_0_2026_08_27",
-      "target": "changelog_added_19",
+      "source": "changelog_4_3_0_2026_08_27",
+      "target": "changelog_added_20",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L29",
+      "source_location": "L30",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "changelog_4_0_0_2026_08_27",
-      "target": "changelog_added_29",
+      "source": "changelog_4_2_0_2026_08_27",
+      "target": "changelog_added_30",
       "confidence_score": 1.0
     },
     {
@@ -15525,7 +15558,7 @@
       "source_location": "L40",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "changelog_3_5_0_2026_08_27",
+      "source": "changelog_4_0_0_2026_08_27",
       "target": "changelog_added_40",
       "confidence_score": 1.0
     },
@@ -15533,7 +15566,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L47",
+      "source_location": "L51",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "changelog_3_5_0_2026_08_27",
+      "target": "changelog_added_51",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L58",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_3_5_0_2026_08_27",
@@ -15544,51 +15588,51 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L60",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "changelog_2_5_0_2026_08_26",
-      "target": "changelog_added_60",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L55",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "changelog_2_5_0_2026_08_26",
-      "target": "changelog_fixed_55",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L81",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "changelog_2_4_0_2026_08_26",
-      "target": "changelog_added_81",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CHANGELOG.md",
       "source_location": "L71",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "changelog_2_4_0_2026_08_26",
-      "target": "changelog_fixed_71",
+      "source": "changelog_2_5_0_2026_08_26",
+      "target": "changelog_added_71",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L76",
+      "source_location": "L66",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "changelog_2_5_0_2026_08_26",
+      "target": "changelog_fixed_66",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L92",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "changelog_2_4_0_2026_08_26",
+      "target": "changelog_added_92",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L82",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "changelog_2_4_0_2026_08_26",
+      "target": "changelog_fixed_82",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L87",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_4_0_2026_08_26",
@@ -15599,18 +15643,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L98",
+      "source_location": "L109",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_3_0_2026_08_04",
-      "target": "changelog_added_98",
+      "target": "changelog_added_109",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L95",
+      "source_location": "L106",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_3_0_2026_08_04",
@@ -15621,33 +15665,44 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L89",
+      "source_location": "L100",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_3_0_2026_08_04",
-      "target": "changelog_refactored_89",
+      "target": "changelog_refactored_100",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L114",
+      "source_location": "L125",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_2_1_2026_07_26",
-      "target": "changelog_added_114",
+      "target": "changelog_added_125",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L106",
+      "source_location": "L117",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_2_1_2026_07_26",
-      "target": "changelog_fixed_106",
+      "target": "changelog_fixed_117",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L143",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "changelog_2_2_0_2026_07_25",
+      "target": "changelog_added_143",
       "confidence_score": 1.0
     },
     {
@@ -15658,29 +15713,18 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_2_0_2026_07_25",
-      "target": "changelog_added_132",
+      "target": "changelog_fixed_132",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L121",
+      "source_location": "L139",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_2_0_2026_07_25",
-      "target": "changelog_fixed_121",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L128",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "changelog_2_2_0_2026_07_25",
-      "target": "changelog_refactored_128",
+      "target": "changelog_refactored_139",
       "confidence_score": 1.0
     },
     {
@@ -15691,7 +15735,7 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "readme",
-      "target": "readme_codeagent_v4_3_enterprise",
+      "target": "readme_codeagent_v5_3_enterprise",
       "confidence_score": 1.0
     },
     {
@@ -15701,7 +15745,7 @@
       "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "readme_codeagent_v4_3_enterprise",
+      "source": "readme_codeagent_v5_3_enterprise",
       "target": "readme_arquitectura_del_sistema_5_capas_principales",
       "confidence_score": 1.0
     },
@@ -15712,7 +15756,7 @@
       "source_location": "L42",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "readme_codeagent_v4_3_enterprise",
+      "source": "readme_codeagent_v5_3_enterprise",
       "target": "readme_caracter\u00edsticas_principales_v3_0_enterprise",
       "confidence_score": 1.0
     },
@@ -15723,7 +15767,7 @@
       "source_location": "L147",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "readme_codeagent_v4_3_enterprise",
+      "source": "readme_codeagent_v5_3_enterprise",
       "target": "readme_instalaci\u00f3n_y_ejecuci\u00f3n",
       "confidence_score": 1.0
     },
@@ -15734,7 +15778,7 @@
       "source_location": "L184",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "readme_codeagent_v4_3_enterprise",
+      "source": "readme_codeagent_v5_3_enterprise",
       "target": "readme_knowledge_graph",
       "confidence_score": 1.0
     },
@@ -15745,7 +15789,7 @@
       "source_location": "L111",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "readme_codeagent_v4_3_enterprise",
+      "source": "readme_codeagent_v5_3_enterprise",
       "target": "readme_orquestador_supervisor_agente",
       "confidence_score": 1.0
     },
@@ -15756,7 +15800,7 @@
       "source_location": "L188",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "readme_codeagent_v4_3_enterprise",
+      "source": "readme_codeagent_v5_3_enterprise",
       "target": "readme_skills",
       "confidence_score": 1.0
     },
@@ -15767,7 +15811,7 @@
       "source_location": "L176",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "readme_codeagent_v4_3_enterprise",
+      "source": "readme_codeagent_v5_3_enterprise",
       "target": "readme_tecnolog\u00edas_utilizadas",
       "confidence_score": 1.0
     },
@@ -16977,5 +17021,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "43847081b6410579a4bea91b3490104c28652935"
+  "built_at_commit": "20c3ac0d8e910985f7eee65857a29b14eec2818d"
 }
