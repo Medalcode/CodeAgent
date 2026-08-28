@@ -87,6 +87,36 @@ def launch_server_bg():
     return False
 
 
+def _ps_file_dialog(title: str = "Abrir Archivo") -> str | None:
+    ps_cmd = f"[System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms') | Out-Null; $f = New-Object System.Windows.Forms.OpenFileDialog; $f.Title = '{title}'; $f.Filter = 'Todos los archivos (*.*)|*.*'; if($f.ShowDialog() -eq 'OK'){{ $f.FileName }}"
+    try:
+        res = subprocess.run(["powershell", "-NoProfile", "-Command", ps_cmd], capture_output=True, text=True, timeout=60)
+        path = res.stdout.strip()
+        return path if path and os.path.exists(path) else None
+    except Exception as e:
+        print(f"Error en _ps_file_dialog: {e}")
+        return None
+
+def _ps_folder_dialog(title: str = "Abrir Carpeta de Proyecto") -> str | None:
+    ps_cmd = f"[System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms') | Out-Null; $f = New-Object System.Windows.Forms.FolderBrowserDialog; $f.Description = '{title}'; if($f.ShowDialog() -eq 'OK'){{ $f.SelectedPath }}"
+    try:
+        res = subprocess.run(["powershell", "-NoProfile", "-Command", ps_cmd], capture_output=True, text=True, timeout=60)
+        path = res.stdout.strip()
+        return path if path and os.path.exists(path) else None
+    except Exception as e:
+        print(f"Error en _ps_folder_dialog: {e}")
+        return None
+
+def _ps_save_dialog(title: str = "Guardar Archivo Como", default_filename: str = "Untitled.py") -> str | None:
+    ps_cmd = f"[System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms') | Out-Null; $f = New-Object System.Windows.Forms.SaveFileDialog; $f.Title = '{title}'; $f.FileName = '{default_filename}'; if($f.ShowDialog() -eq 'OK'){{ $f.FileName }}"
+    try:
+        res = subprocess.run(["powershell", "-NoProfile", "-Command", ps_cmd], capture_output=True, text=True, timeout=60)
+        path = res.stdout.strip()
+        return path if path else None
+    except Exception as e:
+        print(f"Error en _ps_save_dialog: {e}")
+        return None
+
 class DesktopIDEApi:
     """API nativa expuesta al frontend de Javascript a través de PyWebView."""
 
@@ -95,16 +125,9 @@ class DesktopIDEApi:
 
     def open_file_dialog(self) -> dict[str, str] | None:
         """Abre el diálogo nativo del SO para seleccionar un archivo y devuelve su ruta y contenido."""
-        try:
-            import tkinter as tk
-            from tkinter import filedialog
-            root = tk.Tk()
-            root.withdraw()
-            root.attributes('-topmost', True)
-            filepath = filedialog.askopenfilename(title="Abrir Archivo — CodeAgent IDE")
-            root.destroy()
-
-            if filepath and os.path.exists(filepath):
+        filepath = _ps_file_dialog("Abrir Archivo — CodeAgent IDE")
+        if filepath and os.path.exists(filepath):
+            try:
                 with open(filepath, encoding="utf-8", errors="replace") as f:
                     content = f.read(200000)
                 return {
@@ -112,55 +135,38 @@ class DesktopIDEApi:
                     "filename": os.path.basename(filepath),
                     "content": content
                 }
-        except Exception as e:
-            print(f"Error en open_file_dialog: {e}")
+            except Exception as e:
+                print(f"Error leyendo archivo en open_file_dialog: {e}")
         return None
 
     def open_folder_dialog(self) -> dict[str, str] | None:
         """Abre el diálogo nativo del SO para seleccionar una carpeta y cambiar el workspace."""
-        try:
-            import tkinter as tk
-            from tkinter import filedialog
-            root = tk.Tk()
-            root.withdraw()
-            root.attributes('-topmost', True)
-            folderpath = filedialog.askdirectory(title="Abrir Carpeta de Proyecto — CodeAgent IDE")
-            root.destroy()
-
-            if folderpath and os.path.exists(folderpath):
+        folderpath = _ps_folder_dialog("Abrir Carpeta de Proyecto — CodeAgent IDE")
+        if folderpath and os.path.exists(folderpath):
+            try:
                 from tools import set_active_workspace
                 set_active_workspace(folderpath)
                 return {
                     "path": folderpath,
                     "folder_name": os.path.basename(folderpath)
                 }
-        except Exception as e:
-            print(f"Error en open_folder_dialog: {e}")
+            except Exception as e:
+                print(f"Error ajustando workspace en open_folder_dialog: {e}")
         return None
 
     def save_file_dialog(self, content: str = "", default_filename: str = "Untitled.py") -> dict[str, str] | None:
         """Abre el diálogo nativo de Guardar Como para escribir contenido en disco."""
-        try:
-            import tkinter as tk
-            from tkinter import filedialog
-            root = tk.Tk()
-            root.withdraw()
-            root.attributes('-topmost', True)
-            filepath = filedialog.asksaveasfilename(
-                title="Guardar Archivo Como — CodeAgent IDE",
-                initialfile=default_filename
-            )
-            root.destroy()
-
-            if filepath:
+        filepath = _ps_save_dialog("Guardar Archivo Como — CodeAgent IDE", default_filename)
+        if filepath:
+            try:
                 with open(filepath, "w", encoding="utf-8") as f:
                     f.write(content)
                 return {
                     "path": filepath,
                     "filename": os.path.basename(filepath)
                 }
-        except Exception as e:
-            print(f"Error en save_file_dialog: {e}")
+            except Exception as e:
+                print(f"Error en save_file_dialog: {e}")
         return None
 
     def write_file(self, path: str, content: str) -> bool:

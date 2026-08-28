@@ -549,9 +549,13 @@
 
   <!-- SIDEBAR (EXPLORER TREE) -->
   <aside class="sidebar" aria-label="File Explorer">
-    <div class="sidebar-header">
-      <span>Explorer</span>
-      <span>...</span>
+    <div class="sidebar-header" style="display:flex; justify-content:space-between; align-items:center; padding:8px 12px;">
+      <span style="font-weight:600; font-size:11px; letter-spacing:0.5px; color:var(--text-bright);">EXPLORER</span>
+      <div style="display:flex; gap:6px; font-size:12px;">
+        <span onclick="onNewFile()" title="Nuevo Archivo (Personalizar nombre y extensión)" style="cursor:pointer; padding:2px 4px; border-radius:3px; background:var(--bg-hover);">➕</span>
+        <span onclick="onOpenFile()" title="Abrir Archivo en Explorador OS" style="cursor:pointer; padding:2px 4px; border-radius:3px; background:var(--bg-hover);">📂</span>
+        <span onclick="onOpenFolder()" title="Abrir Carpeta en Explorador OS" style="cursor:pointer; padding:2px 4px; border-radius:3px; background:var(--bg-hover);">📁</span>
+      </div>
     </div>
     <div class="file-tree" id="fileTreeContainer">
       <div class="tree-section">
@@ -678,9 +682,46 @@
   $('codeEditor').addEventListener('keyup', updateLineNumbers);
   $('codeEditor').addEventListener('click', updateLineNumbers);
 
+  window.renameFile = function(fileObj, event){
+    if(event) event.stopPropagation();
+    const currentName = fileObj.name;
+    const newName = prompt(`Personalizar nombre y extensión para "${currentName}":`, currentName);
+    if(!newName || !newName.trim() || newName.trim() === currentName) return;
+
+    const cleanNewName = newName.trim();
+    fileObj.name = cleanNewName;
+    fileObj.path = cleanNewName;
+
+    if(activeFile && activeFile.name === currentName){
+      activeFile.name = cleanNewName;
+      activeFile.path = cleanNewName;
+      $('activeFileName').textContent = cleanNewName;
+      $('activeTabName').textContent = cleanNewName;
+      $('breadcrumbBar').innerHTML = `codeagent > <strong>${cleanNewName}</strong>`;
+    }
+    renderTree();
+  };
+
+  window.closeTab = function(fileName, event){
+    if(event) event.stopPropagation();
+    openTabs = openTabs.filter(t => t.name !== fileName);
+    if(activeFile && activeFile.name === fileName){
+      if(openTabs.length > 0){
+        openFile(openTabs[openTabs.length - 1]);
+      } else {
+        activeFile = null;
+        $('codeEditor').value = '';
+        $('activeFileName').textContent = 'No File Open';
+        $('activeTabName').textContent = 'No File Open';
+      }
+    }
+    renderTree();
+  };
+
   function renderTree(){
     const wrap = $('workspaceTreeList');
     const openWrap = $('openEditorsList');
+    if(!wrap || !openWrap) return;
     wrap.innerHTML = '';
     openWrap.innerHTML = '';
 
@@ -692,14 +733,23 @@
     files.forEach(file => {
       const item = document.createElement('div');
       item.className = 'tree-item' + (activeFile && activeFile.name === file.name ? ' active' : '');
-      const ext = file.name.split('.').pop();
+      item.style.display = 'flex';
+      item.style.justifyContent = 'space-between';
+      item.style.alignItems = 'center';
+
+      const ext = (file.name.split('.').pop() || '').toLowerCase();
       let icon = '📄';
       if(ext === 'py') icon = '🐍';
+      else if(ext === 'js' || ext === 'ts' || ext === 'jsx' || ext === 'tsx') icon = '📜';
+      else if(ext === 'html') icon = '🌐';
+      else if(ext === 'css') icon = '🎨';
       else if(ext === 'json') icon = '📋';
       else if(ext === 'md') icon = '📝';
-      else if(ext === 'db') icon = '🗄️';
+      else if(ext === 'db' || ext === 'sql') icon = '🗄️';
 
-      item.innerHTML = `<span class="icon">${icon}</span> <span>${file.name}</span>`;
+      const safeName = escapeHtml(file.name);
+      item.innerHTML = `<div style="display:flex; align-items:center; gap:6px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><span class="icon">${icon}</span> <span>${safeName}</span></div>` +
+                       `<span title="Renombrar nombre y extensión" onclick="renameFile(files.find(f=>f.name==='${file.name}'), event)" style="cursor:pointer; opacity:0.7; font-size:11px; padding:2px 4px;">✏️</span>`;
       item.addEventListener('click', () => openFile(file));
       wrap.appendChild(item);
     });
@@ -707,7 +757,12 @@
     openTabs.forEach(file => {
       const item = document.createElement('div');
       item.className = 'tree-item' + (activeFile && activeFile.name === file.name ? ' active' : '');
-      item.innerHTML = `<span class="icon">📄</span> <span>${file.name}</span>`;
+      item.style.display = 'flex';
+      item.style.justifyContent = 'space-between';
+      item.style.alignItems = 'center';
+      const safeName = escapeHtml(file.name);
+      item.innerHTML = `<div style="display:flex; align-items:center; gap:6px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><span class="icon">📄</span> <span>${safeName}</span></div>` +
+                       `<span title="Cerrar pestaña" onclick="closeTab('${file.name}', event)" style="cursor:pointer; opacity:0.7; font-size:11px; padding:2px 4px;">✕</span>`;
       item.addEventListener('click', () => openFile(file));
       openWrap.appendChild(item);
     });
@@ -838,16 +893,82 @@
     }
   });
 
+  window.handleNativeFileSelect = function(e){
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = function(evt){
+      const fileObj = {
+        name: file.name,
+        path: file.name,
+        content: evt.target.result,
+        isUntitled: false,
+        isModified: false
+      };
+      if(!files.some(f => f.name === file.name)){
+        files.unshift(fileObj);
+      }
+      openFile(fileObj);
+    };
+    reader.readAsText(file);
+  };
+
+  window.handleNativeFolderSelect = function(e){
+    const selectedFiles = Array.from(e.target.files);
+    if(!selectedFiles.length) return;
+
+    const folderName = selectedFiles[0].webkitRelativePath ? selectedFiles[0].webkitRelativePath.split('/')[0] : 'Carpeta Seleccionada';
+    $('currentWorkspaceLabel').textContent = folderName;
+
+    files = [];
+    openTabs = [];
+    const readPromises = selectedFiles.map(file => {
+      return new Promise((resolve) => {
+        if(file.size > 400000) return resolve(null);
+        const reader = new FileReader();
+        reader.onload = evt => {
+          const relPath = file.webkitRelativePath || file.name;
+          const fileNameOnly = relPath.split('/').pop();
+          resolve({
+            name: fileNameOnly,
+            path: relPath,
+            content: evt.target.result,
+            isUntitled: false,
+            isModified: false
+          });
+        };
+        reader.onerror = () => resolve(null);
+        reader.readAsText(file);
+      });
+    });
+
+    Promise.all(readPromises).then(results => {
+      files = results.filter(Boolean);
+      if(files.length) openFile(files[0]);
+      renderTree();
+    });
+  };
+
   window.onNewFile = function(){
     if(fileMenu) fileMenu.style.display = 'none';
-    untitledCount++;
-    const name = `Untitled-${untitledCount}.py`;
+    const defaultName = `script_${files.length + 1}.py`;
+    const inputName = prompt("Nombre y extensión del nuevo archivo (ej: main.py, styles.css, script.js, data.json):", defaultName);
+    if(!inputName || !inputName.trim()) return;
+
+    const cleanName = inputName.trim();
+    const ext = cleanName.split('.').pop().toLowerCase();
+    let template = `# ${cleanName}\n# Creado en CodeAgent IDE v5.0\n\n`;
+    if(ext === 'js' || ext === 'ts') template = `// ${cleanName}\nconsole.log("Hello CodeAgent!");\n`;
+    else if(ext === 'html') template = `<!DOCTYPE html>\n<html>\n<head><title>${cleanName}</title></head>\n<body>\n  <h1>Hello CodeAgent</h1>\n</body>\n</html>\n`;
+    else if(ext === 'css') template = `/* ${cleanName} */\nbody {\n  margin: 0;\n  padding: 0;\n}\n`;
+    else if(ext === 'json') template = `{\n  "name": "${cleanName}",\n  "version": "1.0.0"\n}\n`;
+
     const newFileObj = {
-      name: name,
-      path: name,
-      content: '# New File created in CodeAgent IDE\n# Write your Python code here...\n',
-      isUntitled: true,
-      isModified: false
+      name: cleanName,
+      path: cleanName,
+      content: template,
+      isUntitled: false,
+      isModified: true
     };
     files.unshift(newFileObj);
     openFile(newFileObj);
@@ -865,36 +986,36 @@
   window.onOpenFile = async function(){
     if(fileMenu) fileMenu.style.display = 'none';
     if(window.pywebview && window.pywebview.api){
-      const res = await window.pywebview.api.open_file_dialog();
-      if(res && res.path){
-        const fileObj = { name: res.filename, path: res.path, content: res.content, isUntitled: false, isModified: false };
-        openFile(fileObj);
-      }
-    } else {
       try {
-        const res = await fetch('/api/fs/open_file_dialog', { method: 'POST' });
-        const data = await res.json();
-        if(data.success && data.path){
-          const fileObj = { name: data.filename, path: data.path, content: data.content, isUntitled: false, isModified: false };
+        const res = await window.pywebview.api.open_file_dialog();
+        if(res && res.path){
+          const fileObj = { name: res.filename, path: res.path, content: res.content, isUntitled: false, isModified: false };
+          files.unshift(fileObj);
           openFile(fileObj);
+          return;
         }
-      } catch(e){
-        alert('Error al abrir archivo: ' + e.message);
-      }
+      } catch(err){}
     }
+    // Fallback nativo navegador
+    const input = $('nativeFileInput');
+    if(input) input.click();
   };
 
   window.onOpenFolder = async function(){
     if(fileMenu) fileMenu.style.display = 'none';
     if(window.pywebview && window.pywebview.api){
-      const res = await window.pywebview.api.open_folder_dialog();
-      if(res && res.path){
-        $('currentWorkspaceLabel').textContent = res.folder_name || 'Workspace';
-        location.reload();
-      }
-    } else {
-      $('workspaceModal').style.display = 'flex';
+      try {
+        const res = await window.pywebview.api.open_folder_dialog();
+        if(res && res.path){
+          $('currentWorkspaceLabel').textContent = res.folder_name || 'Workspace';
+          location.reload();
+          return;
+        }
+      } catch(err){}
     }
+    // Fallback nativo navegador
+    const input = $('nativeFolderInput');
+    if(input) input.click();
   };
 
   window.onSaveFile = async function(){
@@ -1131,5 +1252,9 @@
     </div>
   </div>
 </div>
+<!-- HIDDEN NATIVE OS FILE & FOLDER INPUTS -->
+<input type="file" id="nativeFileInput" style="display:none;" onchange="handleNativeFileSelect(event)">
+<input type="file" id="nativeFolderInput" webkitdirectory directory multiple style="display:none;" onchange="handleNativeFolderSelect(event)">
+
 </body>
 </html>

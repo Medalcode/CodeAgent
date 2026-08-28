@@ -10,6 +10,7 @@ import io
 import json
 import os
 import socketserver
+import subprocess
 import sys
 import threading
 import time
@@ -48,6 +49,35 @@ def _safe_print(*args, **kwargs):
     except UnicodeEncodeError:
         safe_msg = msg.encode("ascii", errors="ignore").decode("ascii")
         print(safe_msg, **kwargs)
+def _ps_file_dialog(title: str = "Abrir Archivo") -> str | None:
+    ps_cmd = f"[System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms') | Out-Null; $f = New-Object System.Windows.Forms.OpenFileDialog; $f.Title = '{title}'; $f.Filter = 'Todos los archivos (*.*)|*.*'; if($f.ShowDialog() -eq 'OK'){{ $f.FileName }}"
+    try:
+        res = subprocess.run(["powershell", "-NoProfile", "-Command", ps_cmd], capture_output=True, text=True, timeout=60)
+        path = res.stdout.strip()
+        return path if path and os.path.exists(path) else None
+    except Exception as e:
+        print(f"Error en _ps_file_dialog: {e}")
+        return None
+
+def _ps_folder_dialog(title: str = "Abrir Carpeta de Proyecto") -> str | None:
+    ps_cmd = f"[System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms') | Out-Null; $f = New-Object System.Windows.Forms.FolderBrowserDialog; $f.Description = '{title}'; if($f.ShowDialog() -eq 'OK'){{ $f.SelectedPath }}"
+    try:
+        res = subprocess.run(["powershell", "-NoProfile", "-Command", ps_cmd], capture_output=True, text=True, timeout=60)
+        path = res.stdout.strip()
+        return path if path and os.path.exists(path) else None
+    except Exception as e:
+        print(f"Error en _ps_folder_dialog: {e}")
+        return None
+
+def _ps_save_dialog(title: str = "Guardar Archivo Como", default_filename: str = "Untitled.py") -> str | None:
+    ps_cmd = f"[System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms') | Out-Null; $f = New-Object System.Windows.Forms.SaveFileDialog; $f.Title = '{title}'; $f.FileName = '{default_filename}'; if($f.ShowDialog() -eq 'OK'){{ $f.FileName }}"
+    try:
+        res = subprocess.run(["powershell", "-NoProfile", "-Command", ps_cmd], capture_output=True, text=True, timeout=60)
+        path = res.stdout.strip()
+        return path if path else None
+    except Exception as e:
+        print(f"Error en _ps_save_dialog: {e}")
+        return None
 
 
 class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
@@ -305,16 +335,11 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
         except Exception as e:
             self._send_json({"success": False, "error": str(e)}, 500)
 
+
+
     def handle_fs_open_file_dialog(self):
         try:
-            import tkinter as tk
-            from tkinter import filedialog
-            root = tk.Tk()
-            root.withdraw()
-            root.attributes('-topmost', True)
-            filepath = filedialog.askopenfilename(title="Abrir Archivo — CodeAgent IDE")
-            root.destroy()
-
+            filepath = _ps_file_dialog("Abrir Archivo — CodeAgent IDE")
             if filepath and os.path.exists(filepath):
                 with open(filepath, encoding="utf-8", errors="replace") as f:
                     content = f.read(200000)
@@ -332,14 +357,7 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
     def handle_fs_open_folder_dialog(self):
         global ACTIVE_WORKSPACE_DIR
         try:
-            import tkinter as tk
-            from tkinter import filedialog
-            root = tk.Tk()
-            root.withdraw()
-            root.attributes('-topmost', True)
-            folderpath = filedialog.askdirectory(title="Abrir Carpeta de Proyecto — CodeAgent IDE")
-            root.destroy()
-
+            folderpath = _ps_folder_dialog("Abrir Carpeta de Proyecto — CodeAgent IDE")
             if folderpath and os.path.exists(folderpath):
                 ACTIVE_WORKSPACE_DIR = folderpath
                 from tools import set_active_workspace
