@@ -1,6 +1,7 @@
 import logging
 import os
 import threading
+import time
 import uuid
 from collections.abc import Callable
 from typing import Any
@@ -79,14 +80,28 @@ class CodeAgentRuntime:
             controller = AgentStateMachineController(workspace_dir=project_path, db_manager=self.db, event_bus=self.event_bus)
 
             def event_aware_runner(prompt: str) -> str:
-                self.event_bus.publish(task_id, "TOOL_EXECUTED", {"prompt": prompt[:120]})
+                t_start = time.time()
+                self.event_bus.publish(task_id, "LLM_CALL_STARTED", {
+                    "prompt_snippet": prompt[:100],
+                    "timestamp": t_start
+                })
+
+                res = ""
                 if agent_runner:
-                    return agent_runner(prompt)
-                try:
-                    from tools import agente_desarrollador_codeagent
-                    return str(agente_desarrollador_codeagent.run(prompt))
-                except Exception as ex:
-                    return f"Respuesta de ejecución: {ex}"
+                    res = agent_runner(prompt)
+                else:
+                    try:
+                        from tools import agente_desarrollador_codeagent
+                        res = str(agente_desarrollador_codeagent.run(prompt))
+                    except Exception as ex:
+                        res = f"Respuesta de ejecución: {ex}"
+
+                t_end = time.time()
+                self.event_bus.publish(task_id, "LLM_CALL_COMPLETED", {
+                    "duration": round(t_end - t_start, 2),
+                    "timestamp": t_end
+                })
+                return res
 
             output_text, metrics = controller.run(
                 user_goal=goal,

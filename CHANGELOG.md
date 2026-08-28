@@ -4,6 +4,16 @@ Todos los cambios notables realizados en este proyecto serán documentados en es
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/), y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.8.0] - 2026-08-28
+
+### Added
+- **feat(verifier):** Semántica estricta de verificación de 4 estados (`PASS`, `FAIL`, `NOT_RUN`, `NOT_REQUIRED`). Tareas sin pruebas unitarias requeridas ahora devuelven `NOT_REQUIRED` en lugar de marcar falsos fallos en las métricas.
+- **feat(telemetry):** Eventos de observabilidad granulares en el runtime: `STATE_ENTERED`, `STATE_EXITED`, `LLM_CALL_STARTED` y `LLM_CALL_COMPLETED` con timestamps precisos.
+- **fix(architecture):** Diagnóstico de `hola_codeagent` confirmando la existencia del directorio en el workspace persistente.
+- **test(qa):** Suite completa de 105 pruebas unitarias e integración aprobadas al 100%.
+
+---
+
 ## [6.7.0] - 2026-08-28
 
 ### Added

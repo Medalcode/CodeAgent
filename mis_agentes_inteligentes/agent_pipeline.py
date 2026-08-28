@@ -97,6 +97,16 @@ class AgentStateMachineController:
         self._db_manager = db_manager
         self._event_bus = event_bus
 
+    @property
+    def event_bus(self) -> Any:
+        if self._event_bus is None:
+            try:
+                from runtime.event_bus import get_event_bus
+                self._event_bus = get_event_bus()
+            except Exception:
+                pass
+        return self._event_bus
+
     def infer_execution_level(self, user_goal: str) -> ExecutionLevel:
         """Determina el Nivel de Ejecución óptimo usando la evaluación de complejidad y riesgo."""
         return ComplexityRiskEvaluator.evaluate(user_goal)
@@ -152,7 +162,9 @@ class AgentStateMachineController:
                 failed_verification=failed_verification,
                 replans_count=replans_count
             )
-            db.update_task_status(session_id, "RUNNING", current_state=current_state.value)
+            task_info = db.get_task(session_id)
+            if not task_info or task_info.get("status") not in ("CANCELLED", "PAUSED"):
+                db.update_task_status(session_id, "RUNNING", current_state=current_state.value)
             bus.publish(session_id, "STATE_CHANGED", {
                 "state": current_state.value,
                 "execution_level": execution_level.value,
@@ -221,6 +233,14 @@ class AgentStateMachineController:
             if current_state not in state_history:
                 state_history.append(current_state)
 
+            st_start = time.time()
+            if self.event_bus and session_id:
+                self.event_bus.publish(session_id, "STATE_ENTERED", {
+                    "state": current_state.value,
+                    "timestamp": st_start,
+                    "elapsed_task": round(st_start - start_time, 2)
+                })
+
             self._save_checkpoint(session_id, current_state, active_level, user_goal, replans_count, verification_res, diagnostic_report, plan_data)
 
             if current_state == State.PLAN:
@@ -242,7 +262,7 @@ class AgentStateMachineController:
                 current_state = State.VERIFY
 
             elif current_state == State.VERIFY:
-                verification_res = self._stage_verifier()
+                verification_res = self._stage_verifier(user_goal)
                 if verification_res["success"]:
                     current_state = State.CRITIC if active_level == ExecutionLevel.LEVEL_4_FULL else State.DONE
                 else:
@@ -266,6 +286,13 @@ class AgentStateMachineController:
             elif current_state == State.CRITIC:
                 critic_summary = self._stage_critic(user_goal, verification_res)
                 current_state = State.DONE
+
+            st_end = time.time()
+            if self.event_bus and session_id:
+                self.event_bus.publish(session_id, "STATE_EXITED", {
+                    "state": state_history[-1].value if state_history else current_state.value,
+                    "duration": round(st_end - st_start, 2)
+                })
 
         elapsed = round(time.time() - start_time, 2)
         success = verification_res["success"]
@@ -436,8 +463,8 @@ class AgentStateMachineController:
         prompt_parts.append("\nModifica los archivos necesarios usando las herramientas del sistema de archivos.")
         return "\n\n".join(prompt_parts)
 
-    def _stage_verifier(self) -> dict[str, Any]:
-        """Comprueba sintaxis AST, linter Ruff y suite de pruebas unitarias con reporte tri-estado (PASS / FAIL / NOT_RUN)."""
+    def _stage_verifier(self, user_goal: str = "") -> dict[str, Any]:
+        """Comprueba sintaxis AST, linter Ruff y suite de pruebas unitarias con reporte de 4 estados (PASS / FAIL / NOT_RUN / NOT_REQUIRED)."""
         py_files_found = 0
         ast_valid = True
         ast_errors = []
@@ -477,6 +504,8 @@ class AgentStateMachineController:
         if os.path.isdir(tests_dir):
             test_files_found = len([f for f in os.listdir(tests_dir) if f.endswith(".py")])
 
+        user_requested_tests = any(k in user_goal.lower() for k in ("test", "prueba", "unittest", "pytest", "cobertura", "assert"))
+
         tests_passed = True
         if test_files_found > 0 and os.environ.get("SKIP_SUBPROCESS_TESTS") != "1":
             try:
@@ -488,8 +517,16 @@ class AgentStateMachineController:
             except Exception:
                 tests_passed = True
             tests_status = "PASS" if tests_passed else "FAIL"
-        else:
+        elif user_requested_tests:
+            tests_passed = False
+            tests_status = "FAIL"
+            ast_errors.append("La tarea requiere pruebas pero no se encontraron archivos .py en la carpeta tests/")
+        elif py_files_found == 0:
+            tests_passed = True
             tests_status = "NOT_RUN"
+        else:
+            tests_passed = True
+            tests_status = "NOT_REQUIRED"
 
         # Éxito de verificación: sin fallos explícitos en los checks ejecutados
         success = ast_valid and ruff_passed and tests_passed
