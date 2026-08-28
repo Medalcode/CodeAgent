@@ -1,189 +1,17 @@
 {
-  "total_runs": 1078,
+  "total_runs": 1071,
   "successful_runs": 821,
-  "total_replans": 505,
+  "total_replans": 491,
   "successful_recoveries": 94,
-  "total_tool_calls": 641,
-  "successful_tool_calls": 544,
+  "total_tool_calls": 632,
+  "successful_tool_calls": 535,
   "history": [
     {
-      "timestamp": "2026-08-28 17:51:38",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear proyecto de prueba",
-      "success": false,
-      "elapsed_seconds": 0.53,
-      "replans_count": 2,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": false,
-        "ast_status": "NOT_RUN",
-        "ruff_status": "NOT_RUN",
-        "tests_status": "FAIL",
-        "py_files_count": 0,
-        "test_files_count": 0,
-        "ast_valid": true,
-        "ast_errors": [
-          "La tarea requiere pruebas pero no se encontraron archivos .py en la carpeta tests/"
-        ],
-        "tests_passed": false,
-        "ruff_passed": true,
-        "program_passed": true,
-        "program_output": ""
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 17:51:37",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Analiza el proyecto bug_test. Añade una prueba para sumar. Si falla, identifica ",
-      "success": false,
-      "elapsed_seconds": 1.82,
-      "replans_count": 2,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": false,
-        "ast_status": "PASS",
-        "ruff_status": "FAIL",
-        "tests_status": "PASS",
-        "py_files_count": 2,
-        "test_files_count": 1,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": false,
-        "program_passed": true,
-        "program_output": ""
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 17:51:34",
-      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
-      "user_goal": "Refactoriza el parser de expresiones",
-      "success": false,
-      "elapsed_seconds": 15.5,
-      "replans_count": 2,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": false,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "NOT_REQUIRED",
-        "py_files_count": 49,
-        "test_files_count": 28,
-        "ast_valid": true,
-        "ast_errors": [
-          "Fallo en ejecución de desktop_app.py: Traceback (most recent call last):\n  File \"C:\\Users\\Jonatthan\\Documents\\Github\\CodeAgent\\desktop_app.py\", line 266, in <module>\n    main()\n  File \"C:\\Users\\Jonatthan\\Documents\\Github\\CodeAgent\\desktop_app.py\", line 215, in main\n    print(\"\\U0001f4bb Lanzando CodeAgent Desktop IDE All-In-One v5.0\")\n  File \"C:\\Users\\Jonatthan\\AppData\\Roaming\\uv\\python\\cpython-3.11-windows-x86_64-none\\Lib\\encodings\\cp1252.py\", line 19, in encode\n    return codecs.charmap_encode(input,self.errors,encoding_table)[0]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nUnicodeEncodeError: 'charmap' codec can't encode character '\\U0001f4bb' in position 0: character maps to <undefined>\n"
-        ],
-        "tests_passed": true,
-        "ruff_passed": true,
-        "program_passed": false,
-        "program_output": "==================================================="
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 17:51:27",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear script de prueba",
-      "success": false,
-      "elapsed_seconds": 123.56,
-      "replans_count": 2,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": false,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "PASS",
-        "py_files_count": 49,
-        "test_files_count": 28,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true,
-        "program_passed": false,
-        "program_output": "Error: 'NoneType' object has no attribute 'strip'"
-      },
-      "tool_calls_count": 0
-    },
-    {
       "timestamp": "2026-08-28 17:51:26",
       "execution_level": "Nivel 3 (Feature Standard)",
       "user_goal": "Crear script de prueba",
       "success": false,
-      "elapsed_seconds": 123.14,
-      "replans_count": 2,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": false,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "PASS",
-        "py_files_count": 49,
-        "test_files_count": 28,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true,
-        "program_passed": false,
-        "program_output": "Error: 'NoneType' object has no attribute 'strip'"
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 17:51:26",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear script de prueba",
-      "success": false,
-      "elapsed_seconds": 122.94,
-      "replans_count": 2,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": false,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "PASS",
-        "py_files_count": 49,
-        "test_files_count": 28,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true,
-        "program_passed": false,
-        "program_output": "Error: 'NoneType' object has no attribute 'strip'"
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 17:51:26",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear script de prueba",
-      "success": false,
-      "elapsed_seconds": 122.8,
-      "replans_count": 2,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": false,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "PASS",
-        "py_files_count": 49,
-        "test_files_count": 28,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true,
-        "program_passed": false,
-        "program_output": "Error: 'NoneType' object has no attribute 'strip'"
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 17:51:26",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear script de prueba",
-      "success": false,
-      "elapsed_seconds": 122.78,
+      "elapsed_seconds": 122.83,
       "replans_count": 2,
       "recovered_autonomously": false,
       "verification": {
@@ -2416,72 +2244,184 @@
         "program_output": "==================================================="
       },
       "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 16:44:36",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Refactoriza módulo X",
+      "success": true,
+      "elapsed_seconds": 0.04,
+      "replans_count": 1,
+      "recovered_autonomously": true,
+      "verification": {
+        "success": true,
+        "ast_valid": true,
+        "tests_passed": true,
+        "ruff_passed": true,
+        "ast_errors": []
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 16:44:35",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Escribir un script de prueba E2E",
+      "success": false,
+      "elapsed_seconds": 9.61,
+      "replans_count": 2,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": false,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "FAIL",
+        "py_files_count": 49,
+        "test_files_count": 28,
+        "ast_valid": true,
+        "ast_errors": [
+          "La tarea requiere pruebas pero no se encontraron archivos .py en la carpeta tests/",
+          "Fallo en ejecución de desktop_app.py: Traceback (most recent call last):\n  File \"C:\\Users\\Jonatthan\\Documents\\Github\\CodeAgent\\desktop_app.py\", line 251, in <module>\n    main()\n  File \"C:\\Users\\Jonatthan\\Documents\\Github\\CodeAgent\\desktop_app.py\", line 200, in main\n    print(\"\\U0001f4bb Lanzando CodeAgent Desktop IDE All-In-One v5.0\")\n  File \"C:\\Users\\Jonatthan\\AppData\\Roaming\\uv\\python\\cpython-3.11-windows-x86_64-none\\Lib\\encodings\\cp1252.py\", line 19, in encode\n    return codecs.charmap_encode(input,self.errors,encoding_table)[0]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nUnicodeEncodeError: 'charmap' codec can't encode character '\\U0001f4bb' in position 0: character maps to <undefined>\n"
+        ],
+        "tests_passed": false,
+        "ruff_passed": true,
+        "program_passed": false,
+        "program_output": "==================================================="
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 16:44:26",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Refactoriza módulo X",
+      "success": false,
+      "elapsed_seconds": 10.3,
+      "replans_count": 2,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": false,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_REQUIRED",
+        "py_files_count": 49,
+        "test_files_count": 28,
+        "ast_valid": true,
+        "ast_errors": [
+          "Fallo en ejecución de desktop_app.py: Traceback (most recent call last):\n  File \"C:\\Users\\Jonatthan\\Documents\\Github\\CodeAgent\\desktop_app.py\", line 251, in <module>\n    main()\n  File \"C:\\Users\\Jonatthan\\Documents\\Github\\CodeAgent\\desktop_app.py\", line 200, in main\n    print(\"\\U0001f4bb Lanzando CodeAgent Desktop IDE All-In-One v5.0\")\n  File \"C:\\Users\\Jonatthan\\AppData\\Roaming\\uv\\python\\cpython-3.11-windows-x86_64-none\\Lib\\encodings\\cp1252.py\", line 19, in encode\n    return codecs.charmap_encode(input,self.errors,encoding_table)[0]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nUnicodeEncodeError: 'charmap' codec can't encode character '\\U0001f4bb' in position 0: character maps to <undefined>\n"
+        ],
+        "tests_passed": true,
+        "ruff_passed": true,
+        "program_passed": false,
+        "program_output": "==================================================="
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 16:44:15",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Consulta el Grafo AST Graphify para identificar los símbolos conectados a JSONSe",
+      "success": false,
+      "elapsed_seconds": 9.55,
+      "replans_count": 2,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": false,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_REQUIRED",
+        "py_files_count": 49,
+        "test_files_count": 28,
+        "ast_valid": true,
+        "ast_errors": [
+          "Fallo en ejecución de desktop_app.py: Traceback (most recent call last):\n  File \"C:\\Users\\Jonatthan\\Documents\\Github\\CodeAgent\\desktop_app.py\", line 251, in <module>\n    main()\n  File \"C:\\Users\\Jonatthan\\Documents\\Github\\CodeAgent\\desktop_app.py\", line 200, in main\n    print(\"\\U0001f4bb Lanzando CodeAgent Desktop IDE All-In-One v5.0\")\n  File \"C:\\Users\\Jonatthan\\AppData\\Roaming\\uv\\python\\cpython-3.11-windows-x86_64-none\\Lib\\encodings\\cp1252.py\", line 19, in encode\n    return codecs.charmap_encode(input,self.errors,encoding_table)[0]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nUnicodeEncodeError: 'charmap' codec can't encode character '\\U0001f4bb' in position 0: character maps to <undefined>\n"
+        ],
+        "tests_passed": true,
+        "ruff_passed": true,
+        "program_passed": false,
+        "program_output": "==================================================="
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 16:44:06",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Resuelve la prueba unitaria fallida en test_state_machine.py asegurando que el b",
+      "success": false,
+      "elapsed_seconds": 9.91,
+      "replans_count": 2,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": false,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "FAIL",
+        "py_files_count": 49,
+        "test_files_count": 28,
+        "ast_valid": true,
+        "ast_errors": [
+          "La tarea requiere pruebas pero no se encontraron archivos .py en la carpeta tests/",
+          "Fallo en ejecución de desktop_app.py: Traceback (most recent call last):\n  File \"C:\\Users\\Jonatthan\\Documents\\Github\\CodeAgent\\desktop_app.py\", line 251, in <module>\n    main()\n  File \"C:\\Users\\Jonatthan\\Documents\\Github\\CodeAgent\\desktop_app.py\", line 200, in main\n    print(\"\\U0001f4bb Lanzando CodeAgent Desktop IDE All-In-One v5.0\")\n  File \"C:\\Users\\Jonatthan\\AppData\\Roaming\\uv\\python\\cpython-3.11-windows-x86_64-none\\Lib\\encodings\\cp1252.py\", line 19, in encode\n    return codecs.charmap_encode(input,self.errors,encoding_table)[0]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nUnicodeEncodeError: 'charmap' codec can't encode character '\\U0001f4bb' in position 0: character maps to <undefined>\n"
+        ],
+        "tests_passed": false,
+        "ruff_passed": true,
+        "program_passed": false,
+        "program_output": "==================================================="
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 16:43:56",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Crea el endpoint /api/benchmark/summary en localcode_server.py devolviendo los K",
+      "success": false,
+      "elapsed_seconds": 9.44,
+      "replans_count": 2,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": false,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_REQUIRED",
+        "py_files_count": 49,
+        "test_files_count": 28,
+        "ast_valid": true,
+        "ast_errors": [
+          "Fallo en ejecución de desktop_app.py: Traceback (most recent call last):\n  File \"C:\\Users\\Jonatthan\\Documents\\Github\\CodeAgent\\desktop_app.py\", line 251, in <module>\n    main()\n  File \"C:\\Users\\Jonatthan\\Documents\\Github\\CodeAgent\\desktop_app.py\", line 200, in main\n    print(\"\\U0001f4bb Lanzando CodeAgent Desktop IDE All-In-One v5.0\")\n  File \"C:\\Users\\Jonatthan\\AppData\\Roaming\\uv\\python\\cpython-3.11-windows-x86_64-none\\Lib\\encodings\\cp1252.py\", line 19, in encode\n    return codecs.charmap_encode(input,self.errors,encoding_table)[0]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nUnicodeEncodeError: 'charmap' codec can't encode character '\\U0001f4bb' in position 0: character maps to <undefined>\n"
+        ],
+        "tests_passed": true,
+        "ruff_passed": true,
+        "program_passed": false,
+        "program_output": "==================================================="
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 16:43:46",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Descompón la función monolítica main en localcode_server.py en sub-funciones mod",
+      "success": false,
+      "elapsed_seconds": 9.61,
+      "replans_count": 2,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": false,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_REQUIRED",
+        "py_files_count": 49,
+        "test_files_count": 28,
+        "ast_valid": true,
+        "ast_errors": [
+          "Fallo en ejecución de desktop_app.py: Traceback (most recent call last):\n  File \"C:\\Users\\Jonatthan\\Documents\\Github\\CodeAgent\\desktop_app.py\", line 251, in <module>\n    main()\n  File \"C:\\Users\\Jonatthan\\Documents\\Github\\CodeAgent\\desktop_app.py\", line 200, in main\n    print(\"\\U0001f4bb Lanzando CodeAgent Desktop IDE All-In-One v5.0\")\n  File \"C:\\Users\\Jonatthan\\AppData\\Roaming\\uv\\python\\cpython-3.11-windows-x86_64-none\\Lib\\encodings\\cp1252.py\", line 19, in encode\n    return codecs.charmap_encode(input,self.errors,encoding_table)[0]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nUnicodeEncodeError: 'charmap' codec can't encode character '\\U0001f4bb' in position 0: character maps to <undefined>\n"
+        ],
+        "tests_passed": true,
+        "ruff_passed": true,
+        "program_passed": false,
+        "program_output": "==================================================="
+      },
+      "tool_calls_count": 0
     }
   ],
   "tool_events": [
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-28 17:51:38",
-      "success": true,
-      "duration_seconds": 0.005,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "listar_directorio_local",
-      "timestamp": "2026-08-28 17:51:38",
-      "success": true,
-      "duration_seconds": 0.001,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "leer_archivo_local",
-      "timestamp": "2026-08-28 17:51:37",
-      "success": true,
-      "duration_seconds": 0.001,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-28 17:51:37",
-      "success": true,
-      "duration_seconds": 0.014,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-28 17:51:37",
-      "success": true,
-      "duration_seconds": 0.002,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-28 17:51:37",
-      "success": true,
-      "duration_seconds": 0.015,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "editar_archivo_search_replace",
-      "timestamp": "2026-08-28 17:51:37",
-      "success": true,
-      "duration_seconds": 0.003,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-28 17:51:37",
-      "success": true,
-      "duration_seconds": 0.003,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-28 17:51:37",
-      "success": true,
-      "duration_seconds": 0.002,
-      "error_type": "None"
-    },
     {
       "tool_name": "editar_archivo_search_replace",
       "timestamp": "2026-08-28 17:51:16",
@@ -3817,6 +3757,69 @@
       "timestamp": "2026-08-28 15:07:58",
       "success": true,
       "duration_seconds": 0.002,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "editar_archivo_search_replace",
+      "timestamp": "2026-08-28 15:07:58",
+      "success": true,
+      "duration_seconds": 0.002,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 15:07:58",
+      "success": true,
+      "duration_seconds": 0.008,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 15:07:57",
+      "success": true,
+      "duration_seconds": 0.002,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "editar_archivo_search_replace",
+      "timestamp": "2026-08-28 15:07:48",
+      "success": true,
+      "duration_seconds": 0.003,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "editar_archivo_search_replace",
+      "timestamp": "2026-08-28 15:07:48",
+      "success": true,
+      "duration_seconds": 0.002,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 15:07:48",
+      "success": true,
+      "duration_seconds": 0.002,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 15:07:48",
+      "success": false,
+      "duration_seconds": 0.001,
+      "error_type": "replace: embedded null character in dst"
+    },
+    {
+      "tool_name": "ejecutar_comando_terminal",
+      "timestamp": "2026-08-28 15:07:44",
+      "success": false,
+      "duration_seconds": 0.45,
+      "error_type": "ExitCode: 1"
+    },
+    {
+      "tool_name": "editar_archivo_search_replace",
+      "timestamp": "2026-08-28 15:07:44",
+      "success": true,
+      "duration_seconds": 0.12,
       "error_type": "None"
     }
   ]

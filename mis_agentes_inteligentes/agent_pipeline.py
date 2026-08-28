@@ -16,8 +16,23 @@ import json
 import logging
 import os
 import subprocess
+import sys
 import threading
 import time
+
+if sys.platform == "win32":
+    _orig_popen_init = subprocess.Popen.__init__
+    def _silent_popen_init(self, *args, **kwargs):
+        kwargs["creationflags"] = kwargs.get("creationflags", 0) | getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000)
+        si = kwargs.get("startupinfo")
+        if si is None:
+            si = subprocess.STARTUPINFO()
+        si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+        si.wShowWindow = getattr(subprocess, "SW_HIDE", 0)
+        kwargs["startupinfo"] = si
+        _orig_popen_init(self, *args, **kwargs)
+    subprocess.Popen.__init__ = _silent_popen_init
+
 from collections.abc import Callable
 from enum import Enum
 from typing import Any
