@@ -56,13 +56,15 @@
     justify-content: space-between;
     padding: 0 10px;
     font-size: 12px;
-    z-index: 10;
+    z-index: 9999;
+    overflow: visible !important;
   }
   .menu-bar {
     display: flex;
     align-items: center;
     gap: 12px;
     color: var(--text-muted);
+    overflow: visible !important;
   }
   .menu-item {
     cursor: pointer;
@@ -484,8 +486,8 @@
 <!-- HEADER / TITLEBAR -->
 <header class="ide-header" role="banner">
   <div class="menu-bar">
-    <div class="menu-dropdown-wrap" style="position:relative; display:inline-block;">
-      <span class="menu-item" id="fileMenuBtn" style="user-select:none;">File</span>
+    <div class="menu-dropdown-wrap" style="position:relative; display:inline-block; overflow:visible;">
+      <span class="menu-item" id="fileMenuBtn" onclick="toggleFileMenu(event)" style="user-select:none; cursor:pointer;">File</span>
       <div class="dropdown-menu" id="fileDropdownMenu" style="display:none; position:absolute; top:100%; left:0; background:var(--bg-panel); border:1px solid var(--border-bright); border-radius:6px; min-width:230px; box-shadow:0 8px 24px rgba(0,0,0,0.6); z-index:999; padding:4px 0; font-size:12px;">
         <div class="menu-opt" onclick="onNewFile()"><span class="opt-text">📄 New File</span><span class="opt-shortcut">Ctrl+N</span></div>
         <div class="menu-opt" onclick="onNewWindow()"><span class="opt-text">🪟 New Window</span><span class="opt-shortcut">Ctrl+Shift+N</span></div>
@@ -816,16 +818,25 @@
   const fileBtn = $('fileMenuBtn');
   const fileMenu = $('fileDropdownMenu');
 
-  if (fileBtn && fileMenu) {
-    fileBtn.addEventListener('click', (e) => {
+  window.toggleFileMenu = function(e){
+    if(e){
       e.stopPropagation();
-      fileMenu.style.display = (fileMenu.style.display === 'none' || !fileMenu.style.display) ? 'block' : 'none';
-    });
+      e.preventDefault();
+    }
+    const m = document.getElementById('fileDropdownMenu');
+    if(m){
+      const isHidden = (m.style.display === 'none' || !m.style.display);
+      m.style.display = isHidden ? 'block' : 'none';
+    }
+  };
 
-    document.addEventListener('click', () => {
-      fileMenu.style.display = 'none';
-    });
-  }
+  document.addEventListener('click', function(e){
+    const wrap = document.querySelector('.menu-dropdown-wrap');
+    if(wrap && !wrap.contains(e.target)){
+      const m = document.getElementById('fileDropdownMenu');
+      if(m) m.style.display = 'none';
+    }
+  });
 
   window.onNewFile = function(){
     if(fileMenu) fileMenu.style.display = 'none';
