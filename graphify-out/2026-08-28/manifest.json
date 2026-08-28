@@ -70,8 +70,8 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1787880338.933139,
-    "ast_hash": "810c6cf6ef50a9051bfb7c7c3da33490",
+    "mtime": 1787934032.289831,
+    "ast_hash": "b6d6f9d3fe25ae9a15abc09f8f888e68",
     "semantic_hash": ""
   },
   "docker-compose.yml": {
@@ -115,8 +115,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/agent_pipeline.py": {
-    "mtime": 1787933836.0527296,
-    "ast_hash": "7e04d4f2adbb40f565b415d84e7a0366",
+    "mtime": 1787934465.6854057,
+    "ast_hash": "d64b7ed1457662370c242b21a9828daf",
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/claude_code_cli.py": {
@@ -235,8 +235,8 @@
     "semantic_hash": ""
   },
   "CHANGELOG.md": {
-    "mtime": 1787880331.7878668,
-    "ast_hash": "272d92066a7a6fba5586025761569320",
+    "mtime": 1787934028.5890017,
+    "ast_hash": "aba33ae443887de40047d6fd134cd849",
     "semantic_hash": ""
   },
   "docs/adr/ADR-001-smolagents-react-engine.md": {
@@ -285,8 +285,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/metrics_benchmarks.json": {
-    "mtime": 1787934012.7346044,
-    "ast_hash": "3cf338acf41fa1d21be1b4bba31e79b1",
+    "mtime": 1787934552.3194897,
+    "ast_hash": "eb66acf9e999285284d39d6f829eb2de",
     "semantic_hash": ""
   },
   "tests/test_state_machine.py": {
@@ -310,8 +310,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/benchmark_report_v42.md": {
-    "mtime": 1787933995.7034483,
-    "ast_hash": "40b1c294dbea5722e0edf6da0985c791",
+    "mtime": 1787934534.1354733,
+    "ast_hash": "34c1427abdbb4404dffc742c750d7109",
     "semantic_hash": ""
   },
   "tests/test_feedback_loop.py": {
@@ -355,8 +355,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/runtime/runtime.py": {
-    "mtime": 1787933844.3155713,
-    "ast_hash": "9199ea364d657634ddf3a2233f9dfe0c",
+    "mtime": 1787934483.1600626,
+    "ast_hash": "377c7302a1a1dc32dd591951766fe652",
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/storage/__init__.py": {
@@ -372,6 +372,11 @@
   "tests/test_runtime_storage.py": {
     "mtime": 1787933953.817136,
     "ast_hash": "2633074f895dd234c025086239ddd4a9",
+    "semantic_hash": ""
+  },
+  "tests/test_runtime_recovery.py": {
+    "mtime": 1787934491.5839367,
+    "ast_hash": "97515f24febf052630ddaf1aacaaa4b0",
     "semantic_hash": ""
   }
 }

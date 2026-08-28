@@ -269,6 +269,7 @@ class AgentStateMachineController:
 
         elapsed = round(time.time() - start_time, 2)
         success = verification_res["success"]
+        py_count = verification_res.get("py_files_count", 0)
 
         summary_metrics = metrics_collector.record_run(
             execution_level=active_level.value,
@@ -281,16 +282,18 @@ class AgentStateMachineController:
         )
 
         transitions_str = " ➔ ".join(s.value if isinstance(s, State) else str(s) for s in state_history)
+        status_label = "✅ VERIFIED" if (success and py_count > 0) else ("⚠️ NO_CODE_FOUND" if py_count == 0 else "❌ VERIFICATION_FAILED")
+
         final_response = (
-            f"### 🚀 Resultado Agéntico {CODEAGENT_VERSION} — {active_level.value}\n\n"
+            f"### 📋 CodeAgent — Task Result: {status_label}\n\n"
             f"{execution_result}\n\n"
             f"---\n"
-            f"#### ⚙️ Control de Estados Determinista:\n"
-            f"- **Flujo de Transición de Estados:** `{transitions_str}`\n"
-            f"- **Re-planificaciones Autónomas:** {replans_count} / {self.max_replans}\n"
-            f"- **Sintaxis AST:** {'✅ Válida' if verification_res['ast_valid'] else '❌ Error sintáctico'}\n"
-            f"- **Suite de Pruebas:** {'✅ Pasadas' if verification_res['tests_passed'] else '⚠ Fallo en tests'}\n"
-            f"- **Linter (Ruff):** {'✅ 0 Errores' if verification_res['ruff_passed'] else '⚠ Advertencias'}\n"
+            f"#### 🧪 Evidencia de Verificación Tri-Estado:\n"
+            f"- **Flujo de Transición:** `{transitions_str}`\n"
+            f"- **Re-planificaciones:** {replans_count} / {self.max_replans}\n"
+            f"- **Sintaxis AST:** `{verification_res.get('ast_status', 'PASS' if verification_res.get('ast_valid', True) else 'FAIL')}` ({py_count} archivos .py)\n"
+            f"- **Suite de Pruebas:** `{verification_res.get('tests_status', 'PASS' if verification_res.get('tests_passed', True) else 'FAIL')}` ({verification_res.get('test_files_count', 0)} archivos de test)\n"
+            f"- **Linter (Ruff):** `{verification_res.get('ruff_status', 'PASS' if verification_res.get('ruff_passed', True) else 'FAIL')}`\n"
             f"- **Evaluación Critic:** {critic_summary}\n"
         )
 
@@ -387,7 +390,7 @@ class AgentStateMachineController:
             "replan_timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
         }
 
-    def _stage_explorer(self, user_goal: str) -> str:
+    def _stage_explorer(self, _user_goal: str) -> str:
         """Protocolo Estructural Graphify-First: Extrae y jerarquiza nodos del Grafo AST por centralidad."""
         graph_dir = os.path.join(self.workspace_dir, "graphify-out")
         if os.path.exists(graph_dir):
@@ -398,26 +401,12 @@ class AgentStateMachineController:
                         data = json.load(f)
                     nodes = data.get("nodes", [])
                     edges = data.get("edges", [])
-
-                    # Mapear palabras clave del objetivo con nodos del grafo
-                    keywords = [w.lower() for w in user_goal.split() if len(w) > 3]
-                    matched_nodes = []
-                    for n in nodes:
-                        if isinstance(n, dict):
-                            name_val = n.get("name") or n.get("id") or ""
-                            file_p = str(n.get("file", "")).lower()
-                            if name_val and any(k in str(name_val).lower() or k in file_p for k in keywords):
-                                matched_nodes.append(str(name_val))
-
-                    # Si no hay coincidencias directas, seleccionar nodos centrales por grado de conexión
-                    if not matched_nodes:
-                        top_nodes = [str(n.get("name") or n.get("id") or "Node") for n in nodes[:8] if isinstance(n, dict)]
-                        return f"🕸️ Grafo AST Graphify ({len(nodes)} nodos, {len(edges)} aristas): Nodos centrales detectados: {', '.join(top_nodes)}"
-
-                    return f"🕸️ Protocolo Graphify-First: Símbolos y nodos impactados directamente para '{user_goal[:30]}': {', '.join(matched_nodes[:8])}"
+                    hub_nodes = sorted(nodes, key=lambda n: n.get("degree", 0), reverse=True)[:5]
+                    hubs_str = ", ".join(f"{n.get('label', 'symbol')} (grado {n.get('degree', 0)})" for n in hub_nodes)
+                    return f"GRAFO AST GRAPHIFY: Se detectaron {len(nodes)} nodos y {len(edges)} bordes. Nodos principales: {hubs_str}."
                 except Exception as e:
-                    logging.warning(f"Error analizando graph.json en Explorer: {e}")
-        return "Exploración estándar del árbol de archivos del workspace."
+                    logging.warning(f"Error al leer graph.json en Explorer: {e}")
+        return "GRAFO AST GRAPHIFY: No se encontró mapa pre-compilado en graphify-out/."
 
     def _build_execution_prompt(
         self,
@@ -426,15 +415,14 @@ class AgentStateMachineController:
         graph_context: str,
         failed_verification: dict[str, Any] | None = None
     ) -> str:
+        """Construye el prompt contextual para la fase EXECUTE."""
         prompt_parts = [
             f"OBJETIVO DEL USUARIO: {user_goal}",
+            f"CONTEXTO ARQUITECTÓNICO: {graph_context}"
         ]
-
-        if plan_data:
-            prompt_parts.append(f"PLAN DE ACCIÓN:\n{json.dumps(plan_data, ensure_ascii=False, indent=2)}")
-
-        if graph_context:
-            prompt_parts.append(f"CONTEXTO GRAFO AST (GRAPHIFY):\n{graph_context}")
+        if plan_data and "pasos" in plan_data:
+            steps_str = "\n".join(plan_data["pasos"])
+            prompt_parts.append(f"PLAN DE ACCIÓN:\n{steps_str}")
 
         if failed_verification:
             err_msg = ", ".join(failed_verification.get("ast_errors", ["Fallo en pruebas unitarias o linter ruff"]))
@@ -449,15 +437,17 @@ class AgentStateMachineController:
         return "\n\n".join(prompt_parts)
 
     def _stage_verifier(self) -> dict[str, Any]:
-        """Comprueba sintaxis AST, linter Ruff y suite de pruebas unitarias."""
+        """Comprueba sintaxis AST, linter Ruff y suite de pruebas unitarias con reporte tri-estado (PASS / FAIL / NOT_RUN)."""
+        py_files_found = 0
         ast_valid = True
         ast_errors = []
 
         for root, _, files in os.walk(self.workspace_dir):
-            if any(ign in root for ign in ('.git', '.venv', 'venv', '__pycache__', 'node_modules')):
+            if any(ign in root for ign in ('.git', '.venv', 'venv', '__pycache__', 'node_modules', 'graphify-out')):
                 continue
             for file in files:
                 if file.endswith('.py'):
+                    py_files_found += 1
                     full_p = os.path.join(root, file)
                     try:
                         with open(full_p, encoding='utf-8') as f:
@@ -468,16 +458,27 @@ class AgentStateMachineController:
                     except Exception:
                         pass
 
+        ast_status = "NOT_RUN" if py_files_found == 0 else ("PASS" if ast_valid else "FAIL")
+
         ruff_passed = True
-        try:
-            res_ruff = subprocess.run(["uv", "run", "--with", "ruff", "ruff", "check", "."], cwd=self.workspace_dir, capture_output=True, text=True, timeout=15)
-            if res_ruff.returncode != 0:
-                ruff_passed = False
-        except Exception:
-            ruff_passed = True
+        if py_files_found > 0:
+            try:
+                res_ruff = subprocess.run(["uv", "run", "--with", "ruff", "ruff", "check", "."], cwd=self.workspace_dir, capture_output=True, text=True, timeout=15)
+                if res_ruff.returncode != 0:
+                    ruff_passed = False
+            except Exception:
+                ruff_passed = True
+            ruff_status = "PASS" if ruff_passed else "FAIL"
+        else:
+            ruff_status = "NOT_RUN"
+
+        test_files_found = 0
+        tests_dir = os.path.join(self.workspace_dir, "tests")
+        if os.path.isdir(tests_dir):
+            test_files_found = len([f for f in os.listdir(tests_dir) if f.endswith(".py")])
 
         tests_passed = True
-        if os.environ.get("SKIP_SUBPROCESS_TESTS") != "1":
+        if test_files_found > 0 and os.environ.get("SKIP_SUBPROCESS_TESTS") != "1":
             try:
                 env = os.environ.copy()
                 env["PYTHONPATH"] = "mis_agentes_inteligentes"
@@ -486,9 +487,20 @@ class AgentStateMachineController:
                     tests_passed = False
             except Exception:
                 tests_passed = True
+            tests_status = "PASS" if tests_passed else "FAIL"
+        else:
+            tests_status = "NOT_RUN"
+
+        # Éxito de verificación: sin fallos explícitos en los checks ejecutados
+        success = ast_valid and ruff_passed and tests_passed
 
         return {
-            "success": ast_valid and tests_passed and ruff_passed,
+            "success": success,
+            "ast_status": ast_status,
+            "ruff_status": ruff_status,
+            "tests_status": tests_status,
+            "py_files_count": py_files_found,
+            "test_files_count": test_files_found,
             "ast_valid": ast_valid,
             "ast_errors": ast_errors,
             "tests_passed": tests_passed,

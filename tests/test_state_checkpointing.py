@@ -40,7 +40,7 @@ class TestStateCheckpointing(unittest.TestCase):
             agent_runner=mock_runner
         )
 
-        self.assertIn("Resultado Agéntico", response)
+        self.assertIn("CodeAgent — Task Result", response)
         self.assertEqual(metrics["execution_level"], ExecutionLevel.LEVEL_4_FULL.value)
         self.assertTrue(metrics["verifier_passed"])
 

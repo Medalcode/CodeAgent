@@ -57,7 +57,7 @@ class TestAgentStateMachineController(unittest.TestCase):
             level=ExecutionLevel.LEVEL_4_FULL
         )
 
-        self.assertIn("Control de Estados Determinista", response)
+        self.assertIn("Evidencia de Verificación Tri-Estado", response)
         self.assertEqual(metrics["execution_level"], ExecutionLevel.LEVEL_4_FULL.value)
 
     def test_benchmark_metrics_collector(self):

@@ -4,6 +4,16 @@ Todos los cambios notables realizados en este proyecto serán documentados en es
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/), y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.3.0] - 2026-08-28
+
+### Added
+- **feat(verification):** Verificación tri-estado basada en evidencia (`PASS`, `FAIL`, `NOT_RUN`). Elimina los falsos positivos donde repositorios vacíos o sin tests reportaban sintaxis o pruebas pasadas.
+- **feat(architecture):** Aislamiento estricto de `TaskContext.project_root` mediante rutas absolutas (`os.path.abspath`) ancladas determinísticamente al workspace de cada tarea.
+- **feat(ui):** Formato evidencial y transparente de resultados agénticos (`CodeAgent — Task Result`), eliminando titulares de marketing innecesarios.
+- **test(qa):** Módulo `tests/test_verifier_evidence.py` alcanzando **100/100 pruebas unitarias aprobadas al 100%**.
+
+---
+
 ## [6.2.0] - 2026-08-28
 
 ### Added

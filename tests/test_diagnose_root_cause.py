@@ -52,7 +52,7 @@ class TestDiagnoseRootCauseAndVersion(unittest.TestCase):
             session_id=self.session_id
         )
 
-        self.assertIn("Resultado Agéntico v4.4 Enterprise", response)
+        self.assertIn("CodeAgent — Task Result", response)
 
         # Cargar checkpoint guardado en sesión
         session_data = self.repo.load_session(self.session_id)
