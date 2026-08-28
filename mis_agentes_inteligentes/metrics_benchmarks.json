@@ -1,11 +1,35 @@
 {
-  "total_runs": 1203,
-  "successful_runs": 883,
+  "total_runs": 1204,
+  "successful_runs": 884,
   "total_replans": 648,
   "successful_recoveries": 109,
   "total_tool_calls": 699,
   "successful_tool_calls": 594,
   "history": [
+    {
+      "timestamp": "2026-08-28 18:08:41",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Crear script de prueba",
+      "success": true,
+      "elapsed_seconds": 32.1,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "PASS",
+        "py_files_count": 3,
+        "test_files_count": 0,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true,
+        "program_passed": true,
+        "program_output": ""
+      },
+      "tool_calls_count": 0
+    },
     {
       "timestamp": "2026-08-28 18:08:14",
       "execution_level": "Nivel 3 (Feature Standard)",
@@ -2329,33 +2353,6 @@
           "Fallo en ejecución de desktop_app.py: Traceback (most recent call last):\n  File \"C:\\Users\\Jonatthan\\Documents\\Github\\CodeAgent\\desktop_app.py\", line 266, in <module>\n    main()\n  File \"C:\\Users\\Jonatthan\\Documents\\Github\\CodeAgent\\desktop_app.py\", line 215, in main\n    print(\"\\U0001f4bb Lanzando CodeAgent Desktop IDE All-In-One v5.0\")\n  File \"C:\\Users\\Jonatthan\\AppData\\Roaming\\uv\\python\\cpython-3.11-windows-x86_64-none\\Lib\\encodings\\cp1252.py\", line 19, in encode\n    return codecs.charmap_encode(input,self.errors,encoding_table)[0]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nUnicodeEncodeError: 'charmap' codec can't encode character '\\U0001f4bb' in position 0: character maps to <undefined>\n"
         ],
         "tests_passed": true,
-        "ruff_passed": true,
-        "program_passed": false,
-        "program_output": "==================================================="
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 17:57:20",
-      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
-      "user_goal": "Resuelve la prueba unitaria fallida en test_state_machine.py asegurando que el b",
-      "success": false,
-      "elapsed_seconds": 13.19,
-      "replans_count": 2,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": false,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "FAIL",
-        "py_files_count": 49,
-        "test_files_count": 28,
-        "ast_valid": true,
-        "ast_errors": [
-          "La tarea requiere pruebas pero no se encontraron archivos .py en la carpeta tests/",
-          "Fallo en ejecución de desktop_app.py: Traceback (most recent call last):\n  File \"C:\\Users\\Jonatthan\\Documents\\Github\\CodeAgent\\desktop_app.py\", line 266, in <module>\n    main()\n  File \"C:\\Users\\Jonatthan\\Documents\\Github\\CodeAgent\\desktop_app.py\", line 215, in main\n    print(\"\\U0001f4bb Lanzando CodeAgent Desktop IDE All-In-One v5.0\")\n  File \"C:\\Users\\Jonatthan\\AppData\\Roaming\\uv\\python\\cpython-3.11-windows-x86_64-none\\Lib\\encodings\\cp1252.py\", line 19, in encode\n    return codecs.charmap_encode(input,self.errors,encoding_table)[0]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nUnicodeEncodeError: 'charmap' codec can't encode character '\\U0001f4bb' in position 0: character maps to <undefined>\n"
-        ],
-        "tests_passed": false,
         "ruff_passed": true,
         "program_passed": false,
         "program_output": "==================================================="
