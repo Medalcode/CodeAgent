@@ -1,7 +1,7 @@
 # Graph Report - CodeAgent  (2026-08-28)
 
 ## Corpus Check
-- 71 files · ~49,239 words
+- 71 files · ~49,405 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `d0a34031`
+- Built from commit: `cb964434`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -81,7 +81,7 @@
 - [6.8.0] - 2026-08-28
 - [6.9.0] - 2026-08-28
 - app.py
-- [6.4.0] - 2026-08-28
+- [6.3.0] - 2026-08-28
 - ejecutar_agentes
 - [6.11.0] - 2026-08-28
 - [6.2.0] - 2026-08-28
@@ -137,7 +137,7 @@ Nodes (6): _construir_contexto_workspace(), get_herramientas(), Pipeline de agen
 
 ### Community 5 - "Changelog"
 Cohesion: 0.20
-Nodes (9): [4.2.0] - 2026-08-27, [6.0.0] - 2026-08-28, [6.10.0] - 2026-08-28, [6.3.0] - 2026-08-28, Added, Added, Added, Added (+1 more)
+Nodes (9): [4.2.0] - 2026-08-27, [6.0.0] - 2026-08-28, [6.10.0] - 2026-08-28, [6.4.0] - 2026-08-28, Added, Added, Added, Added (+1 more)
 
 ### Community 6 - "💻 CodeAgent (v6.11 Enterprise)"
 Cohesion: 0.10

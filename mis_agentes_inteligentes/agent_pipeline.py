@@ -572,14 +572,10 @@ class AgentStateMachineController:
 
         active_py_files = task_py_files if task_py_files else [os.path.relpath(p, self.workspace_dir) for p in all_py_files]
 
-        # Directiva negativa explícita
-        has_neg = any(neg in user_goal_lower for neg in (
-            "no añadas tests", "no test", "no tests", "sin tests", "sin pruebas",
-            "sin test", "sin prueba", "no crees tests", "no crear tests",
-            "no ejecutes pytest", "no ejecutes unittest", "no ejecutes tests",
-            "no ejecutes pytest ni unittest"
+        # Directivas de ejecución negativas
+        has_exec_neg = any(neg in user_goal_lower for neg in (
+            "no ejecutes", "no correr", "sin ejecutar", "sin corre", "no run", "don't run"
         ))
-        user_requested_tests = not has_neg and any(k in user_goal_lower for k in ("test", "prueba", "unittest", "pytest", "cobertura", "assert"))
 
         # 2. Verificación de sintaxis AST (Task-Scoped con fallback a workspace)
         if not all_py_files:
@@ -602,6 +598,15 @@ class AgentStateMachineController:
         else:
             ast_status = "NOT_REQUIRED"
             ruff_status = "NOT_REQUIRED"
+
+        # Directiva de pruebas negativas
+        has_neg = any(neg in user_goal_lower for neg in (
+            "no añadas tests", "no test", "no tests", "sin tests", "sin pruebas",
+            "sin test", "sin prueba", "no crees tests", "no crear tests",
+            "no ejecutes pytest", "no ejecutes unittest", "no ejecutes tests",
+            "no ejecutes pytest ni unittest"
+        ))
+        user_requested_tests = not has_neg and any(k in user_goal_lower for k in ("test", "prueba", "unittest", "pytest", "cobertura", "assert"))
 
         # 3. Pruebas unitarias (Task-Scoped)
         tests_passed = True
@@ -643,14 +648,15 @@ class AgentStateMachineController:
         program_passed = True
         program_output = ""
         target_script = None
-        if "main.py" in task_modified_files:
-            target_script = "main.py"
-        elif task_py_files:
-            target_script = task_py_files[0]
-        elif any(k in user_goal_lower for k in ("ejecuta", "corre", "run")):
-            main_candidates = [f for f in task_modified_files if f.endswith(".py") and not _is_test_file(f)]
-            if main_candidates:
-                target_script = main_candidates[0]
+        if not has_exec_neg:
+            if "main.py" in task_modified_files:
+                target_script = "main.py"
+            elif task_py_files:
+                target_script = task_py_files[0]
+            elif any(k in user_goal_lower for k in ("ejecuta", "corre", "run")):
+                main_candidates = [f for f in task_modified_files if f.endswith(".py") and not _is_test_file(f)]
+                if main_candidates:
+                    target_script = main_candidates[0]
 
         if target_script:
             script_path = os.path.join(self.workspace_dir, target_script)
