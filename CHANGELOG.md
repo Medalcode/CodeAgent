@@ -4,6 +4,17 @@ Todos los cambios notables realizados en este proyecto serán documentados en es
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/), y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.0] - 2026-08-27
+
+### Added
+- **feat(ide):** Menú File interactivo y atajos de teclado (`Ctrl+N`, `Ctrl+O`, `Ctrl+S`, `Ctrl+Shift+S`, `Ctrl+W`, `Ctrl+Q`) en la UI Claude/Desktop.
+- **feat(ide):** Soporte para personalización de nombre y extensión en `Nuevo Archivo` y renombrado en vivo (✏️) en el árbol Explorer.
+- **feat(os-interop):** Integración con diálogos nativos del Explorador de Windows mediante PowerShell Forms Bridge (`DesktopIDEApi`) e inputs nativos HTML5.
+- **refactor(quality):** Escritura atómica de archivos (`_atomic_write_file`) con eliminación garantizada de temporales en caso de fallo de E/S.
+- **test(qa):** Resiliencia ante JSON corrupto en `JSONSessionRepository.load_session` y suite `tests/test_qa_edge_cases.py` alcanzando `91/91` pruebas aprobadas (100% OK).
+
+---
+
 ## [4.3.0] - 2026-08-27
 
 ### Added
