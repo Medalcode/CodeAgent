@@ -91,9 +91,11 @@ class ComplexityRiskEvaluator:
 class AgentStateMachineController:
     """Controlador determinista de estados, enrutador adaptativo y gestor de checkpointing."""
 
-    def __init__(self, workspace_dir: str | None = None, max_replans: int = 2):
+    def __init__(self, workspace_dir: str | None = None, max_replans: int = 2, db_manager: Any | None = None, event_bus: Any | None = None):
         self.workspace_dir = workspace_dir or os.getcwd()
         self.max_replans = max_replans
+        self._db_manager = db_manager
+        self._event_bus = event_bus
 
     def infer_execution_level(self, user_goal: str) -> ExecutionLevel:
         """Determina el Nivel de Ejecución óptimo usando la evaluación de complejidad y riesgo."""
@@ -140,8 +142,8 @@ class AgentStateMachineController:
         try:
             from runtime.event_bus import get_event_bus
             from storage.database import get_db_manager
-            db = get_db_manager()
-            bus = get_event_bus()
+            db = self._db_manager or get_db_manager()
+            bus = self._event_bus or get_event_bus()
 
             db.save_checkpoint(
                 task_id=session_id,

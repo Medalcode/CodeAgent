@@ -10,28 +10,27 @@ from storage.database import DatabaseManager, get_db_manager
 
 
 class CodeAgentRuntime:
-    """Motor de ejecución autónomo desacoplado para CodeAgent v6.0.
-    Permite iniciar, pausar, reanudar y consultar tareas agénticas sin depender de la UI.
+    """Motor de ejecución autónomo desacoplado para CodeAgent v6.1.
+    Gestión semántica estricta de Pausa (PAUSED), Reanudación (RESUMING) y Cancelación (CANCELLED).
     """
 
     def __init__(self, db_manager: DatabaseManager | None = None, event_bus: EventBus | None = None):
         self.db = db_manager or get_db_manager()
         self.event_bus = event_bus or get_event_bus()
         self._active_threads: dict[str, threading.Thread] = {}
-        self._stop_flags: dict[str, threading.Event] = {}
+        self._pause_flags: dict[str, threading.Event] = {}
+        self._cancel_flags: dict[str, threading.Event] = {}
 
     def start_task(self, goal: str, project_path: str = ".", agent_runner: Callable[[str], str] | None = None) -> str:
         """Inicia una nueva tarea agéntica de forma asíncrona y la registra en SQLite."""
         task_id = str(uuid.uuid4())
         abs_project = os.path.abspath(project_path)
 
-        # Importar dinámicamente para evitar dependencias circulares
         from agent_pipeline import AgentStateMachineController
 
         controller = AgentStateMachineController(workspace_dir=abs_project)
         level = controller.infer_execution_level(goal)
 
-        # Crear registro en SQLite
         self.db.create_task(task_id, abs_project, goal, level.value)
         self.event_bus.publish(task_id, "TASK_CREATED", {
             "task_id": task_id,
@@ -40,12 +39,14 @@ class CodeAgentRuntime:
             "execution_level": level.value
         })
 
-        stop_event = threading.Event()
-        self._stop_flags[task_id] = stop_event
+        pause_event = threading.Event()
+        cancel_event = threading.Event()
+        self._pause_flags[task_id] = pause_event
+        self._cancel_flags[task_id] = cancel_event
 
         thread = threading.Thread(
             target=self._run_task_worker,
-            args=(task_id, goal, abs_project, level, agent_runner, stop_event),
+            args=(task_id, goal, abs_project, level, agent_runner, pause_event, cancel_event),
             daemon=True,
             name=f"CodeAgentWorker-{task_id[:8]}"
         )
@@ -54,25 +55,31 @@ class CodeAgentRuntime:
 
         return task_id
 
-    def _run_task_worker(self, task_id: str, goal: str, project_path: str, level: Any, agent_runner: Callable[[str], str] | None, stop_event: threading.Event) -> None:
+    def _run_task_worker(
+        self,
+        task_id: str,
+        goal: str,
+        project_path: str,
+        level: Any,
+        agent_runner: Callable[[str], str] | None,
+        pause_event: threading.Event,
+        cancel_event: threading.Event
+    ) -> None:
         self.db.update_task_status(task_id, "RUNNING", current_state="PLAN")
         self.event_bus.publish(task_id, "STATE_CHANGED", {"state": "PLAN", "status": "RUNNING"})
 
         try:
             from agent_pipeline import AgentStateMachineController
 
-            controller = AgentStateMachineController(workspace_dir=project_path)
+            controller = AgentStateMachineController(workspace_dir=project_path, db_manager=self.db, event_bus=self.event_bus)
 
             def event_aware_runner(prompt: str) -> str:
                 self.event_bus.publish(task_id, "TOOL_EXECUTED", {"prompt": prompt[:120]})
                 if agent_runner:
                     return agent_runner(prompt)
-
-                # Fallback al ejecutor smolagents / litellm por defecto
                 try:
                     from tools import agente_desarrollador_codeagent
-                    res = agente_desarrollador_codeagent.run(prompt)
-                    return str(res)
+                    return str(agente_desarrollador_codeagent.run(prompt))
                 except Exception as ex:
                     return f"Respuesta de ejecución: {ex}"
 
@@ -83,9 +90,18 @@ class CodeAgentRuntime:
                 session_id=task_id
             )
 
-            if stop_event.is_set():
+            # Verificar cancelación activa
+            if cancel_event.is_set():
                 self.db.update_task_status(task_id, "CANCELLED", current_state="DONE")
                 self.event_bus.publish(task_id, "TASK_CANCELLED", {"task_id": task_id})
+                return
+
+            # Verificar pausa activa
+            if pause_event.is_set():
+                last_chk = self.db.get_latest_checkpoint(task_id)
+                current_st = last_chk.get("state", "EXECUTE") if last_chk else "EXECUTE"
+                self.db.update_task_status(task_id, "PAUSED", current_state=current_st)
+                self.event_bus.publish(task_id, "TASK_PAUSED", {"task_id": task_id, "state": current_st})
                 return
 
             # Guardar checkpoint final y evento de completado
@@ -116,29 +132,34 @@ class CodeAgentRuntime:
         return self.db.list_tasks(limit=limit)
 
     def pause_task(self, task_id: str) -> bool:
-        """Pausa una tarea activa."""
-        if task_id in self._stop_flags:
-            self._stop_flags[task_id].set()
-            self.db.update_task_status(task_id, "PAUSED")
-            self.event_bus.publish(task_id, "TASK_PAUSED", {"task_id": task_id})
+        """Pausa una tarea activa sin marcarla como cancelada."""
+        if task_id in self._pause_flags:
+            self._pause_flags[task_id].set()
+            task = self.get_task(task_id)
+            curr_state = task.get("current_state", "EXECUTE") if task else "EXECUTE"
+            self.db.update_task_status(task_id, "PAUSED", current_state=curr_state)
+            self.event_bus.publish(task_id, "TASK_PAUSED", {"task_id": task_id, "state": curr_state})
             return True
         return False
 
     def resume_task(self, task_id: str, agent_runner: Callable[[str], str] | None = None) -> bool:
-        """Reanuda una tarea desde su último checkpoint en SQLite."""
+        """Reanuda una tarea pausada desde su último checkpoint en SQLite."""
         task = self.get_task(task_id)
         if not task:
             return False
 
-        if task["status"] in ("COMPLETED", "FAILED"):
+        if task["status"] in ("COMPLETED", "CANCELLED", "FAILED"):
             return False
 
-        stop_event = threading.Event()
-        self._stop_flags[task_id] = stop_event
+        # Reset pause flag
+        pause_event = threading.Event()
+        cancel_event = threading.Event()
+        self._pause_flags[task_id] = pause_event
+        self._cancel_flags[task_id] = cancel_event
 
         thread = threading.Thread(
             target=self._run_resume_worker,
-            args=(task_id, agent_runner, stop_event),
+            args=(task_id, agent_runner, pause_event, cancel_event),
             daemon=True,
             name=f"CodeAgentResumeWorker-{task_id[:8]}"
         )
@@ -146,7 +167,13 @@ class CodeAgentRuntime:
         thread.start()
         return True
 
-    def _run_resume_worker(self, task_id: str, agent_runner: Callable[[str], str] | None, stop_event: threading.Event) -> None:
+    def _run_resume_worker(
+        self,
+        task_id: str,
+        agent_runner: Callable[[str], str] | None,
+        pause_event: threading.Event,
+        cancel_event: threading.Event
+    ) -> None:
         self.db.update_task_status(task_id, "RUNNING")
         self.event_bus.publish(task_id, "TASK_RESUMED", {"task_id": task_id})
 
@@ -157,7 +184,7 @@ class CodeAgentRuntime:
             if not task:
                 return
 
-            controller = AgentStateMachineController(workspace_dir=task["project_path"])
+            controller = AgentStateMachineController(workspace_dir=task["project_path"], db_manager=self.db, event_bus=self.event_bus)
 
             def event_aware_runner(prompt: str) -> str:
                 self.event_bus.publish(task_id, "TOOL_EXECUTED", {"prompt": prompt[:120]})
@@ -171,9 +198,16 @@ class CodeAgentRuntime:
 
             output_text, metrics = controller.resume_session(session_id=task_id, agent_runner=event_aware_runner)
 
-            if stop_event.is_set():
+            if cancel_event.is_set():
                 self.db.update_task_status(task_id, "CANCELLED", current_state="DONE")
                 self.event_bus.publish(task_id, "TASK_CANCELLED", {"task_id": task_id})
+                return
+
+            if pause_event.is_set():
+                last_chk = self.db.get_latest_checkpoint(task_id)
+                current_st = last_chk.get("state", "EXECUTE") if last_chk else "EXECUTE"
+                self.db.update_task_status(task_id, "PAUSED", current_state=current_st)
+                self.event_bus.publish(task_id, "TASK_PAUSED", {"task_id": task_id, "state": current_st})
                 return
 
             self.db.update_task_status(task_id, "COMPLETED", current_state="DONE")
@@ -185,8 +219,8 @@ class CodeAgentRuntime:
 
     def cancel_task(self, task_id: str) -> bool:
         """Cancela definitivamente una tarea."""
-        if task_id in self._stop_flags:
-            self._stop_flags[task_id].set()
+        if task_id in self._cancel_flags:
+            self._cancel_flags[task_id].set()
         self.db.update_task_status(task_id, "CANCELLED", current_state="DONE")
         self.event_bus.publish(task_id, "TASK_CANCELLED", {"task_id": task_id})
         return True
