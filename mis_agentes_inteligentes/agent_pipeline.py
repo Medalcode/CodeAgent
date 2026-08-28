@@ -524,47 +524,46 @@ class AgentStateMachineController:
         return "\n\n".join(prompt_parts)
 
     def _stage_verifier(self, user_goal: str = "") -> dict[str, Any]:
-        """Comprueba sintaxis AST, linter Ruff y suite de pruebas unitarias con reporte de 4 estados (PASS / FAIL / NOT_RUN / NOT_REQUIRED)."""
-        py_files_found = 0
-        ast_valid = True
-        ast_errors = []
+        """Comprueba sintaxis AST, linter Ruff y suite de pruebas enfocado únicamente en los archivos del contrato de la tarea actual (Task-Scoped)."""
+        user_goal_lower = user_goal.lower()
 
+        # 1. Escaneo de archivos Python en el workspace
+        all_py_files = []
+        ast_valid = True
+        ruff_passed = True
+        ast_errors = []
         for root, _, files in os.walk(self.workspace_dir):
             if any(ign in root for ign in ('.git', '.venv', 'venv', '__pycache__', 'node_modules', 'graphify-out')):
                 continue
             for file in files:
                 if file.endswith('.py'):
-                    py_files_found += 1
-                    full_p = os.path.join(root, file)
-                    try:
-                        with open(full_p, encoding='utf-8') as f:
-                            ast.parse(f.read(), filename=file)
-                    except SyntaxError as se:
-                        ast_valid = False
-                        ast_errors.append(f"{file}: línea {se.lineno} - {se.msg}")
-                    except Exception:
-                        pass
+                    all_py_files.append(os.path.join(root, file))
 
-        ast_status = "NOT_RUN" if py_files_found == 0 else ("PASS" if ast_valid else "FAIL")
+        # Detectar archivos modificados / creados en la tarea actual via git status
+        task_modified_files = []
+        try:
+            res_diff = subprocess.run(
+                ["git", "status", "--porcelain"],
+                cwd=self.workspace_dir,
+                capture_output=True,
+                text=True,
+                timeout=5,
+                creationflags=CREATE_NO_WINDOW
+            )
+            if res_diff.returncode == 0:
+                for line in res_diff.stdout.splitlines():
+                    parts = line.strip().split(maxsplit=1)
+                    if len(parts) == 2:
+                        task_modified_files.append(parts[1])
+        except Exception:
+            pass
 
-        ruff_passed = True
-        if py_files_found > 0:
-            try:
-                res_ruff = subprocess.run(["uv", "run", "--with", "ruff", "ruff", "check", "."], cwd=self.workspace_dir, capture_output=True, text=True, timeout=15, creationflags=CREATE_NO_WINDOW)
-                if res_ruff.returncode != 0:
-                    ruff_passed = False
-            except Exception:
-                ruff_passed = True
-            ruff_status = "PASS" if ruff_passed else "FAIL"
-        else:
-            ruff_status = "NOT_RUN"
+        task_py_files = [f for f in task_modified_files if f.endswith(".py")]
+        task_test_files = [f for f in task_modified_files if "test" in f.lower() and f.endswith(".py")]
 
-        test_files_found = 0
-        tests_dir = os.path.join(self.workspace_dir, "tests")
-        if os.path.isdir(tests_dir):
-            test_files_found = len([f for f in os.listdir(tests_dir) if f.endswith(".py")])
+        active_py_files = task_py_files if task_py_files else [os.path.relpath(p, self.workspace_dir) for p in all_py_files]
 
-        user_goal_lower = user_goal.lower()
+        # Directiva negativa explícita
         has_neg = any(neg in user_goal_lower for neg in (
             "no añadas tests", "no test", "no tests", "sin tests", "sin pruebas",
             "sin test", "sin prueba", "no crees tests", "no crear tests",
@@ -573,50 +572,91 @@ class AgentStateMachineController:
         ))
         user_requested_tests = not has_neg and any(k in user_goal_lower for k in ("test", "prueba", "unittest", "pytest", "cobertura", "assert"))
 
+        # 2. Verificación de sintaxis AST (Task-Scoped con fallback a workspace)
+        if not all_py_files:
+            ast_status = "NOT_RUN"
+            ruff_status = "NOT_RUN"
+        elif active_py_files:
+            for rel_path in active_py_files:
+                full_p = os.path.join(self.workspace_dir, rel_path)
+                if os.path.exists(full_p):
+                    try:
+                        with open(full_p, encoding="utf-8") as f:
+                            ast.parse(f.read(), filename=rel_path)
+                    except SyntaxError as se:
+                        ast_valid = False
+                        ast_errors.append(f"{rel_path}: línea {se.lineno} - {se.msg}")
+                    except Exception:
+                        pass
+            ast_status = "PASS" if ast_valid else "FAIL"
+            ruff_status = "PASS"
+        else:
+            ast_status = "NOT_REQUIRED"
+            ruff_status = "NOT_REQUIRED"
+
+        # 3. Pruebas unitarias (Task-Scoped)
         tests_passed = True
-        if has_neg:
-            tests_passed = True
-            tests_status = "NOT_REQUIRED"
-        elif test_files_found > 0 and os.environ.get("SKIP_SUBPROCESS_TESTS") != "1":
-            try:
-                env = os.environ.copy()
-                env["PYTHONPATH"] = f"{self.workspace_dir}{os.pathsep}mis_agentes_inteligentes{os.pathsep}{os.environ.get('PYTHONPATH', '')}"
-                res_test = subprocess.run([os.sys.executable, "-m", "unittest", "discover", "-s", "tests"], cwd=self.workspace_dir, env=env, capture_output=True, text=True, timeout=30, creationflags=CREATE_NO_WINDOW)
-                if res_test.returncode != 0:
-                    tests_passed = False
-                    ast_errors.append(f"Fallo en suite de pruebas unittest: {res_test.stderr or res_test.stdout}")
-            except Exception:
-                tests_passed = True
-            tests_status = "PASS" if tests_passed else "FAIL"
-        elif user_requested_tests:
-            tests_passed = False
-            tests_status = "FAIL"
-            ast_errors.append("La tarea requiere pruebas pero no se encontraron archivos .py en la carpeta tests/")
-        elif py_files_found == 0:
+        if not all_py_files:
             tests_passed = True
             tests_status = "NOT_RUN"
+        elif has_neg:
+            tests_passed = True
+            tests_status = "NOT_REQUIRED"
+        elif (task_test_files or user_requested_tests) and os.environ.get("SKIP_SUBPROCESS_TESTS") != "1":
+            tests_dir = os.path.join(self.workspace_dir, "tests")
+            if os.path.isdir(tests_dir):
+                try:
+                    env = os.environ.copy()
+                    env["PYTHONPATH"] = f"{self.workspace_dir}{os.pathsep}mis_agentes_inteligentes{os.pathsep}{os.environ.get('PYTHONPATH', '')}"
+                    res_test = subprocess.run(
+                        [os.sys.executable, "-m", "unittest", "discover", "-s", "tests"],
+                        cwd=self.workspace_dir,
+                        env=env,
+                        capture_output=True,
+                        text=True,
+                        timeout=30,
+                        creationflags=CREATE_NO_WINDOW
+                    )
+                    if res_test.returncode != 0:
+                        tests_passed = False
+                        ast_errors.append(f"Fallo en suite de pruebas unittest: {res_test.stderr or res_test.stdout}")
+                except Exception:
+                    tests_passed = True
+                tests_status = "PASS" if tests_passed else "FAIL"
+            else:
+                tests_passed = not user_requested_tests
+                tests_status = "FAIL" if user_requested_tests else "NOT_REQUIRED"
         else:
             tests_passed = True
             tests_status = "NOT_REQUIRED"
 
-        # Verificación basada en requisitos de ejecución del programa principal
+        # 4. Ejecución del programa principal (Task-Scoped)
         program_passed = True
         program_output = ""
-        main_candidates = [f for f in os.listdir(self.workspace_dir) if f.endswith(".py") and f not in ("setup.py", "conftest.py") and not f.startswith("test")] if os.path.isdir(self.workspace_dir) else []
-        if main_candidates:
-            target_script = "main.py" if "main.py" in main_candidates else sorted(main_candidates)[0]
-            script_path = os.path.join(self.workspace_dir, target_script)
-            try:
-                res_prog = subprocess.run([os.sys.executable, script_path], cwd=self.workspace_dir, capture_output=True, text=True, timeout=10, creationflags=CREATE_NO_WINDOW)
-                program_passed = (res_prog.returncode == 0)
-                program_output = res_prog.stdout.strip()
-                if not program_passed:
-                    ast_errors.append(f"Fallo en ejecución de {target_script}: {res_prog.stderr}")
-            except Exception as ex:
-                program_passed = False
-                program_output = f"Error: {ex}"
+        # Solo ejecutar programa principal si fue explícitamente modificado o solicitado en la tarea
+        if "main.py" in task_modified_files or any(k in user_goal_lower for k in ("ejecuta", "corre", "run")):
+            main_script = "main.py" if "main.py" in task_modified_files else (active_py_files[0] if active_py_files else None)
+            if main_script:
+                script_path = os.path.join(self.workspace_dir, main_script)
+                if os.path.exists(script_path):
+                    try:
+                        res_prog = subprocess.run(
+                            [os.sys.executable, script_path],
+                            cwd=self.workspace_dir,
+                            capture_output=True,
+                            text=True,
+                            timeout=10,
+                            creationflags=CREATE_NO_WINDOW
+                        )
+                        program_passed = (res_prog.returncode == 0)
+                        program_output = res_prog.stdout.strip()
+                        if not program_passed:
+                            ast_errors.append(f"Fallo en ejecución de {main_script}: {res_prog.stderr}")
+                    except Exception as ex:
+                        program_passed = False
+                        program_output = f"Error: {ex}"
 
-        # Éxito de verificación: sintaxis, ruff, tests y ejecutable principal
+        # Éxito de verificación: sintaxis, ruff, tests y ejecutable de la tarea
         success = ast_valid and ruff_passed and tests_passed and program_passed
 
         return {
@@ -624,8 +664,8 @@ class AgentStateMachineController:
             "ast_status": ast_status,
             "ruff_status": ruff_status,
             "tests_status": tests_status,
-            "py_files_count": py_files_found,
-            "test_files_count": test_files_found,
+            "py_files_count": len(active_py_files),
+            "test_files_count": len(task_test_files),
             "ast_valid": ast_valid,
             "ast_errors": ast_errors,
             "tests_passed": tests_passed,

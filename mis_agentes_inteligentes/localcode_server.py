@@ -436,6 +436,8 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
 
 
     def handle_fs_open_file_dialog(self):
+        now_str = time.strftime("%Y-%m-%d %H:%M:%S")
+        _safe_print(f"[{now_str}] [NATIVE_UI] HTTP GET /api/fs/open-file-dialog CALLED")
         try:
             filepath = _ps_file_dialog("Abrir Archivo — CodeAgent IDE")
             if filepath and os.path.exists(filepath):
@@ -454,6 +456,8 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
 
     def handle_fs_open_folder_dialog(self):
         global ACTIVE_WORKSPACE_DIR
+        now_str = time.strftime("%Y-%m-%d %H:%M:%S")
+        _safe_print(f"[{now_str}] [NATIVE_UI] HTTP GET /api/fs/open-folder-dialog CALLED")
         try:
             folderpath = _ps_folder_dialog("Abrir Carpeta de Proyecto — CodeAgent IDE")
             if folderpath and os.path.exists(folderpath):

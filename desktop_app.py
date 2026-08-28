@@ -140,6 +140,8 @@ class DesktopIDEApi:
 
     def open_file_dialog(self) -> dict[str, str] | None:
         """Abre el diálogo nativo del SO para seleccionar un archivo y devuelve su ruta y contenido."""
+        now_str = time.strftime("%Y-%m-%d %H:%M:%S")
+        print(f"[{now_str}] [NATIVE_UI] open_file_dialog CALLED")
         filepath = _ps_file_dialog("Abrir Archivo — CodeAgent IDE")
         if filepath and os.path.exists(filepath):
             try:
@@ -156,6 +158,8 @@ class DesktopIDEApi:
 
     def open_folder_dialog(self) -> dict[str, str] | None:
         """Abre el diálogo nativo del SO para seleccionar una carpeta y cambiar el workspace."""
+        now_str = time.strftime("%Y-%m-%d %H:%M:%S")
+        print(f"[{now_str}] [NATIVE_UI] open_folder_dialog CALLED")
         folderpath = _ps_folder_dialog("Abrir Carpeta de Proyecto — CodeAgent IDE")
         if folderpath and os.path.exists(folderpath):
             try:
@@ -171,6 +175,8 @@ class DesktopIDEApi:
 
     def save_file_dialog(self, content: str = "", default_filename: str = "Untitled.py") -> dict[str, str] | None:
         """Abre el diálogo nativo de Guardar Como para escribir contenido en disco."""
+        now_str = time.strftime("%Y-%m-%d %H:%M:%S")
+        print(f"[{now_str}] [NATIVE_UI] save_file_dialog CALLED (default: {default_filename})")
         filepath = _ps_save_dialog("Guardar Archivo Como — CodeAgent IDE", default_filename)
         if filepath:
             try:
@@ -186,6 +192,8 @@ class DesktopIDEApi:
 
     def write_file(self, path: str, content: str) -> bool:
         """Guarda directamente el contenido del buffer en una ruta existente."""
+        now_str = time.strftime("%Y-%m-%d %H:%M:%S")
+        print(f"[{now_str}] [AUTOSAVE] write_file CALLED for path={path}")
         try:
             with open(path, "w", encoding="utf-8") as f:
                 f.write(content)
@@ -195,14 +203,10 @@ class DesktopIDEApi:
             return False
 
     def new_window(self) -> bool:
-        """Inicia una nueva ventana de la aplicación de escritorio."""
-        try:
-            creationflags = getattr(subprocess, "CREATE_NO_WINDOW", 0)
-            subprocess.Popen([sys.executable, __file__], cwd=BASE_DIR, creationflags=creationflags)
-            return True
-        except Exception as e:
-            print(f"Error abriendo nueva ventana: {e}")
-            return False
+        """Inicia una nueva ventana de la aplicación de escritorio (DESACTIVADA POR POLÍTICA DE INSTANCIA ÚNICA)."""
+        now_str = time.strftime("%Y-%m-%d %H:%M:%S")
+        print(f"[{now_str}] [NATIVE_UI] new_window CALLED (BLOCKED by single-instance policy)")
+        return False
 
     def exit_app(self) -> None:
         """Finaliza el proceso de la ventana y la aplicación."""
