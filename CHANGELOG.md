@@ -4,6 +4,16 @@ Todos los cambios notables realizados en este proyecto serán documentados en es
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/), y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.3.0] - 2026-08-27
+
+### Added
+- **feat(architecture):** Bucle de Feedback Adaptativo Real con estado `State.DIAGNOSE` e inferencia condicional de re-exploración AST (`DIAGNOSE` ➔ `REPLAN` ➔ `EXPLORE` / `EXECUTE`).
+- **feat(metrics):** Instrumentación real de eventos de herramientas (`ToolEvent`) en `tools.py` y `benchmark_metrics.py` calculando la **Tasa de Éxito de Herramientas (Tool Success Rate %)** real.
+- **feat(evaluator):** Evaluador determinista de complejidad y riesgo (`ComplexityRiskEvaluator`) para la inferencia adaptativa de niveles de ejecución 1 a 4.
+- **test(qa):** Creación de la suite de pruebas `tests/test_feedback_loop.py` e integración global alcanzando `78/78` pruebas pasadas (100% éxito).
+
+---
+
 ## [4.2.0] - 2026-08-27
 
 ### Added

@@ -11,7 +11,21 @@ from datetime import date
 from enum import Enum
 
 import requests
+from benchmark_metrics import metrics_collector
 from smolagents import tool
+
+
+def track_tool_event(tool_name: str, success: bool, duration: float = 0.0, error_type: str | None = None):
+    """Rastrea e informa la ejecución de herramientas al colector de métricas."""
+    try:
+        metrics_collector.record_tool_event(
+            tool_name=tool_name,
+            success=success,
+            duration_seconds=duration,
+            error_type=error_type
+        )
+    except Exception as e:
+        logging.warning(f"Error rastreando evento de herramienta {tool_name}: {e}")
 
 
 class PermissionLevel(Enum):

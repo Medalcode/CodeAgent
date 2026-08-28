@@ -326,7 +326,7 @@
       "label": "._build_execution_prompt()",
       "file_type": "code",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L329",
+      "source_location": "L345",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_build_execution_prompt",
       "community": 10,
@@ -337,7 +337,7 @@
       "label": "._stage_verifier()",
       "file_type": "code",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L358",
+      "source_location": "L374",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_verifier",
       "community": 10,
@@ -348,7 +348,7 @@
       "label": "._stage_critic()",
       "file_type": "code",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L405",
+      "source_location": "L421",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_critic",
       "community": 10,
@@ -455,7 +455,7 @@
       "norm_label": "genera un plan de accion estructurado."
     },
     {
-      "label": "Consulta el Grafo AST Graphify en busca de contexto estructural.",
+      "label": "Protocolo Estructural Graphify-First: Extrae y jerarquiza nodos del Grafo AST\u2026",
       "file_type": "rationale",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
       "source_location": "L314",
@@ -463,15 +463,15 @@
       "id": "mis_agentes_inteligentes_agent_pipeline_rationale_314",
       "community": 10,
       "community_name": "AgentStateMachineController",
-      "norm_label": "consulta el grafo ast graphify en busca de contexto estructural."
+      "norm_label": "protocolo estructural graphify-first: extrae y jerarquiza nodos del grafo ast..."
     },
     {
       "label": "Comprueba sintaxis AST, linter Ruff y suite de pruebas unitarias.",
       "file_type": "rationale",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L359",
+      "source_location": "L375",
       "_origin": "ast",
-      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_359",
+      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_375",
       "community": 10,
       "community_name": "AgentStateMachineController",
       "norm_label": "comprueba sintaxis ast, linter ruff y suite de pruebas unitarias."
@@ -480,9 +480,9 @@
       "label": "Evaluaci\u00f3n de cumplimiento final.",
       "file_type": "rationale",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L406",
+      "source_location": "L422",
       "_origin": "ast",
-      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_406",
+      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_422",
       "community": 10,
       "community_name": "AgentStateMachineController",
       "norm_label": "evaluacion de cumplimiento final."
@@ -860,6 +860,127 @@
       "community": 22,
       "community_name": "BenchmarkMetricsCollector",
       "norm_label": "genera un reporte formateado en markdown con los kpis cuantitativos."
+    },
+    {
+      "label": "benchmark_suite.py",
+      "file_type": "code",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "mis_agentes_inteligentes_benchmark_suite",
+      "community": 34,
+      "community_name": "CodeAgentBenchmarkSuite",
+      "norm_label": "benchmark_suite.py"
+    },
+    {
+      "label": "CodeAgentBenchmarkSuite",
+      "file_type": "code",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L20",
+      "_origin": "ast",
+      "id": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite",
+      "community": 34,
+      "community_name": "CodeAgentBenchmarkSuite",
+      "norm_label": "codeagentbenchmarksuite"
+    },
+    {
+      "label": ".__init__()",
+      "file_type": "code",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L23",
+      "_origin": "ast",
+      "id": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite_init",
+      "community": 34,
+      "community_name": "CodeAgentBenchmarkSuite",
+      "norm_label": ".__init__()"
+    },
+    {
+      "label": ".get_benchmark_tasks()",
+      "file_type": "code",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L27",
+      "_origin": "ast",
+      "id": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite_get_benchmark_tasks",
+      "community": 34,
+      "community_name": "CodeAgentBenchmarkSuite",
+      "norm_label": ".get_benchmark_tasks()"
+    },
+    {
+      "label": "Any",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "mis_agentes_inteligentes_benchmark_suite_py_any",
+      "community": 34,
+      "community_name": "CodeAgentBenchmarkSuite",
+      "norm_label": "any"
+    },
+    {
+      "label": ".run_suite()",
+      "file_type": "code",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L66",
+      "_origin": "ast",
+      "id": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite_run_suite",
+      "community": 34,
+      "community_name": "CodeAgentBenchmarkSuite",
+      "norm_label": ".run_suite()"
+    },
+    {
+      "label": "._export_report_markdown()",
+      "file_type": "code",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L123",
+      "_origin": "ast",
+      "id": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite_export_report_markdown",
+      "community": 34,
+      "community_name": "CodeAgentBenchmarkSuite",
+      "norm_label": "._export_report_markdown()"
+    },
+    {
+      "label": "CodeAgent v4.2 Reproducible Benchmark Suite Suite estandarizada de 5 tareas\u2026",
+      "file_type": "rationale",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "mis_agentes_inteligentes_benchmark_suite_rationale_1",
+      "community": 34,
+      "community_name": "CodeAgentBenchmarkSuite",
+      "norm_label": "codeagent v4.2 reproducible benchmark suite suite estandarizada de 5 tareas..."
+    },
+    {
+      "label": "Ejecutor automatizado de la Suite de 5 Benchmarks Reales de Ingenier\u00eda.",
+      "file_type": "rationale",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L21",
+      "_origin": "ast",
+      "id": "mis_agentes_inteligentes_benchmark_suite_rationale_21",
+      "community": 34,
+      "community_name": "CodeAgentBenchmarkSuite",
+      "norm_label": "ejecutor automatizado de la suite de 5 benchmarks reales de ingenieria."
+    },
+    {
+      "label": "Ejecuta la suite completa de 5 tareas y compila el informe comparativo.",
+      "file_type": "rationale",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L67",
+      "_origin": "ast",
+      "id": "mis_agentes_inteligentes_benchmark_suite_rationale_67",
+      "community": 34,
+      "community_name": "CodeAgentBenchmarkSuite",
+      "norm_label": "ejecuta la suite completa de 5 tareas y compila el informe comparativo."
+    },
+    {
+      "label": "Exporta el reporte de benchmark en formato Markdown en\u2026",
+      "file_type": "rationale",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L124",
+      "_origin": "ast",
+      "id": "mis_agentes_inteligentes_benchmark_suite_rationale_124",
+      "community": 34,
+      "community_name": "CodeAgentBenchmarkSuite",
+      "norm_label": "exporta el reporte de benchmark en formato markdown en..."
     },
     {
       "label": "claude_code_cli.py",
@@ -2630,6 +2751,61 @@
       "norm_label": ".test_crear_agente_planning_interval()"
     },
     {
+      "label": "test_benchmark_suite.py",
+      "file_type": "code",
+      "source_file": "tests/test_benchmark_suite.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "tests_test_benchmark_suite",
+      "community": 34,
+      "community_name": "CodeAgentBenchmarkSuite",
+      "norm_label": "test_benchmark_suite.py"
+    },
+    {
+      "label": "TestCodeAgentBenchmarkSuite",
+      "file_type": "code",
+      "source_file": "tests/test_benchmark_suite.py",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "tests_test_benchmark_suite_testcodeagentbenchmarksuite",
+      "community": 34,
+      "community_name": "CodeAgentBenchmarkSuite",
+      "norm_label": "testcodeagentbenchmarksuite"
+    },
+    {
+      "label": ".setUp()",
+      "file_type": "code",
+      "source_file": "tests/test_benchmark_suite.py",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "tests_test_benchmark_suite_testcodeagentbenchmarksuite_setup",
+      "community": 34,
+      "community_name": "CodeAgentBenchmarkSuite",
+      "norm_label": ".setup()"
+    },
+    {
+      "label": ".test_get_benchmark_tasks_returns_5_tasks()",
+      "file_type": "code",
+      "source_file": "tests/test_benchmark_suite.py",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "tests_test_benchmark_suite_testcodeagentbenchmarksuite_test_get_benchmark_tasks_returns_5_tasks",
+      "community": 34,
+      "community_name": "CodeAgentBenchmarkSuite",
+      "norm_label": ".test_get_benchmark_tasks_returns_5_tasks()"
+    },
+    {
+      "label": ".test_run_suite_execution()",
+      "file_type": "code",
+      "source_file": "tests/test_benchmark_suite.py",
+      "source_location": "L24",
+      "_origin": "ast",
+      "id": "tests_test_benchmark_suite_testcodeagentbenchmarksuite_test_run_suite_execution",
+      "community": 34,
+      "community_name": "CodeAgentBenchmarkSuite",
+      "norm_label": ".test_run_suite_execution()"
+    },
+    {
       "label": "test_desktop_app.py",
       "file_type": "code",
       "source_file": "tests/test_desktop_app.py",
@@ -3219,8 +3395,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_session_manager",
-      "community": 34,
-      "community_name": "TestSessionManager",
+      "community": 0,
+      "community_name": "session_manager.py",
       "norm_label": "test_session_manager.py"
     },
     {
@@ -3230,8 +3406,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "tests_test_session_manager_testsessionmanager",
-      "community": 34,
-      "community_name": "TestSessionManager",
+      "community": 0,
+      "community_name": "session_manager.py",
       "norm_label": "testsessionmanager"
     },
     {
@@ -3241,8 +3417,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "tests_test_session_manager_testsessionmanager_setup",
-      "community": 34,
-      "community_name": "TestSessionManager",
+      "community": 0,
+      "community_name": "session_manager.py",
       "norm_label": ".setup()"
     },
     {
@@ -3252,8 +3428,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "tests_test_session_manager_testsessionmanager_teardown",
-      "community": 34,
-      "community_name": "TestSessionManager",
+      "community": 0,
+      "community_name": "session_manager.py",
       "norm_label": ".teardown()"
     },
     {
@@ -3263,8 +3439,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "tests_test_session_manager_testsessionmanager_test_create_and_load_session",
-      "community": 34,
-      "community_name": "TestSessionManager",
+      "community": 0,
+      "community_name": "session_manager.py",
       "norm_label": ".test_create_and_load_session()"
     },
     {
@@ -3274,8 +3450,8 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "tests_test_session_manager_testsessionmanager_test_list_sessions",
-      "community": 34,
-      "community_name": "TestSessionManager",
+      "community": 0,
+      "community_name": "session_manager.py",
       "norm_label": ".test_list_sessions()"
     },
     {
@@ -3285,8 +3461,8 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "tests_test_session_manager_testsessionmanager_test_rename_session",
-      "community": 34,
-      "community_name": "TestSessionManager",
+      "community": 0,
+      "community_name": "session_manager.py",
       "norm_label": ".test_rename_session()"
     },
     {
@@ -3296,8 +3472,8 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "tests_test_session_manager_testsessionmanager_test_delete_session",
-      "community": 34,
-      "community_name": "TestSessionManager",
+      "community": 0,
+      "community_name": "session_manager.py",
       "norm_label": ".test_delete_session()"
     },
     {
@@ -3307,8 +3483,8 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "tests_test_session_manager_testsessionmanager_test_delete_session_none",
-      "community": 34,
-      "community_name": "TestSessionManager",
+      "community": 0,
+      "community_name": "session_manager.py",
       "norm_label": ".test_delete_session_none()"
     },
     {
@@ -3318,8 +3494,8 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "tests_test_session_manager_testsessionmanager_test_export_session_to_markdown",
-      "community": 34,
-      "community_name": "TestSessionManager",
+      "community": 0,
+      "community_name": "session_manager.py",
       "norm_label": ".test_export_session_to_markdown()"
     },
     {
@@ -4016,15 +4192,15 @@
       "norm_label": "changelog"
     },
     {
-      "label": "[4.0.0] - 2026-08-27",
+      "label": "[4.2.0] - 2026-08-27",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
       "source_location": "L7",
       "_origin": "ast",
-      "id": "changelog_4_0_0_2026_08_27",
+      "id": "changelog_4_2_0_2026_08_27",
       "community": 5,
       "community_name": "Changelog",
-      "norm_label": "[4.0.0] - 2026-08-27"
+      "norm_label": "[4.2.0] - 2026-08-27"
     },
     {
       "label": "Added",
@@ -4038,10 +4214,32 @@
       "norm_label": "added"
     },
     {
+      "label": "[4.0.0] - 2026-08-27",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L17",
+      "_origin": "ast",
+      "id": "changelog_4_0_0_2026_08_27",
+      "community": 5,
+      "community_name": "Changelog",
+      "norm_label": "[4.0.0] - 2026-08-27"
+    },
+    {
+      "label": "Added",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L19",
+      "_origin": "ast",
+      "id": "changelog_added_19",
+      "community": 5,
+      "community_name": "Changelog",
+      "norm_label": "added"
+    },
+    {
       "label": "[3.5.0] - 2026-08-27",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L18",
+      "source_location": "L28",
       "_origin": "ast",
       "id": "changelog_3_5_0_2026_08_27",
       "community": 5,
@@ -4052,9 +4250,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L20",
+      "source_location": "L30",
       "_origin": "ast",
-      "id": "changelog_added_20",
+      "id": "changelog_added_30",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "added"
@@ -4063,7 +4261,7 @@
       "label": "Fixed",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L27",
+      "source_location": "L37",
       "_origin": "ast",
       "id": "changelog_fixed",
       "community": 5,
@@ -4074,7 +4272,7 @@
       "label": "[2.5.0] - 2026-08-26",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L33",
+      "source_location": "L43",
       "_origin": "ast",
       "id": "changelog_2_5_0_2026_08_26",
       "community": 5,
@@ -4085,9 +4283,9 @@
       "label": "Fixed",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L35",
+      "source_location": "L45",
       "_origin": "ast",
-      "id": "changelog_fixed_35",
+      "id": "changelog_fixed_45",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "fixed"
@@ -4096,9 +4294,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L40",
+      "source_location": "L50",
       "_origin": "ast",
-      "id": "changelog_added_40",
+      "id": "changelog_added_50",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "added"
@@ -4107,7 +4305,7 @@
       "label": "[2.4.0] - 2026-08-26",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L49",
+      "source_location": "L59",
       "_origin": "ast",
       "id": "changelog_2_4_0_2026_08_26",
       "community": 5,
@@ -4118,9 +4316,9 @@
       "label": "Fixed",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L51",
+      "source_location": "L61",
       "_origin": "ast",
-      "id": "changelog_fixed_51",
+      "id": "changelog_fixed_61",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "fixed"
@@ -4129,7 +4327,7 @@
       "label": "Refactored",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L56",
+      "source_location": "L66",
       "_origin": "ast",
       "id": "changelog_refactored",
       "community": 5,
@@ -4140,9 +4338,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L61",
+      "source_location": "L71",
       "_origin": "ast",
-      "id": "changelog_added_61",
+      "id": "changelog_added_71",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "added"
@@ -4151,7 +4349,7 @@
       "label": "[2.3.0] - 2026-08-04",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L67",
+      "source_location": "L77",
       "_origin": "ast",
       "id": "changelog_2_3_0_2026_08_04",
       "community": 5,
@@ -4162,9 +4360,9 @@
       "label": "Refactored",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L69",
+      "source_location": "L79",
       "_origin": "ast",
-      "id": "changelog_refactored_69",
+      "id": "changelog_refactored_79",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "refactored"
@@ -4173,7 +4371,7 @@
       "label": "Performance",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L75",
+      "source_location": "L85",
       "_origin": "ast",
       "id": "changelog_performance",
       "community": 5,
@@ -4184,9 +4382,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L78",
+      "source_location": "L88",
       "_origin": "ast",
-      "id": "changelog_added_78",
+      "id": "changelog_added_88",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "added"
@@ -4195,7 +4393,7 @@
       "label": "[2.2.1] - 2026-07-26",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L84",
+      "source_location": "L94",
       "_origin": "ast",
       "id": "changelog_2_2_1_2026_07_26",
       "community": 5,
@@ -4206,9 +4404,9 @@
       "label": "Fixed",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L86",
+      "source_location": "L96",
       "_origin": "ast",
-      "id": "changelog_fixed_86",
+      "id": "changelog_fixed_96",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "fixed"
@@ -4217,9 +4415,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L94",
+      "source_location": "L104",
       "_origin": "ast",
-      "id": "changelog_added_94",
+      "id": "changelog_added_104",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "added"
@@ -4228,7 +4426,7 @@
       "label": "[2.2.0] - 2026-07-25",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L99",
+      "source_location": "L109",
       "_origin": "ast",
       "id": "changelog_2_2_0_2026_07_25",
       "community": 5,
@@ -4239,9 +4437,9 @@
       "label": "Fixed",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L101",
+      "source_location": "L111",
       "_origin": "ast",
-      "id": "changelog_fixed_101",
+      "id": "changelog_fixed_111",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "fixed"
@@ -4250,9 +4448,9 @@
       "label": "Refactored",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L108",
+      "source_location": "L118",
       "_origin": "ast",
-      "id": "changelog_refactored_108",
+      "id": "changelog_refactored_118",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "refactored"
@@ -4261,9 +4459,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L112",
+      "source_location": "L122",
       "_origin": "ast",
-      "id": "changelog_added_112",
+      "id": "changelog_added_122",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "added"
@@ -4276,19 +4474,19 @@
       "_origin": "ast",
       "id": "readme",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.0 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v4.2 Enterprise)",
       "norm_label": "readme.md"
     },
     {
-      "label": "\ud83d\udcbb CodeAgent (v4.0 Enterprise)",
+      "label": "\ud83d\udcbb CodeAgent (v4.2 Enterprise)",
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "readme_codeagent_v4_0_enterprise",
+      "id": "readme_codeagent_v4_2_enterprise",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.0 Enterprise)",
-      "norm_label": "\ud83d\udcbb codeagent (v4.0 enterprise)"
+      "community_name": "\ud83d\udcbb CodeAgent (v4.2 Enterprise)",
+      "norm_label": "\ud83d\udcbb codeagent (v4.2 enterprise)"
     },
     {
       "label": "\ud83c\udfd7\ufe0f Arquitectura del Sistema (5 Capas Principales)",
@@ -4298,7 +4496,7 @@
       "_origin": "ast",
       "id": "readme_arquitectura_del_sistema_5_capas_principales",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.0 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v4.2 Enterprise)",
       "norm_label": "\ud83c\udfd7\ufe0f arquitectura del sistema (5 capas principales)"
     },
     {
@@ -4309,7 +4507,7 @@
       "_origin": "ast",
       "id": "readme_caracter\u00edsticas_principales_v3_0_enterprise",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.0 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v4.2 Enterprise)",
       "norm_label": "\u2728 caracteristicas principales (v3.0 enterprise)"
     },
     {
@@ -4320,7 +4518,7 @@
       "_origin": "ast",
       "id": "readme_proactividad_ag\u00e9ntica_observabilidad_y_calidad_de_c\u00f3digo_v2_5_0",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.0 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v4.2 Enterprise)",
       "norm_label": "\ud83d\ude80 proactividad agentica, observabilidad y calidad de codigo (v2.5.0)"
     },
     {
@@ -4331,7 +4529,7 @@
       "_origin": "ast",
       "id": "readme_\u00faltimas_mejoras_de_fiabilidad_calidad_t\u00e9cnica_y_qa_v2_3_0",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.0 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v4.2 Enterprise)",
       "norm_label": "\ud83d\udee1\ufe0f ultimas mejoras de fiabilidad, calidad tecnica y qa (v2.3.0)"
     },
     {
@@ -4342,7 +4540,7 @@
       "_origin": "ast",
       "id": "readme_\u00faltimas_mejoras_de_fiabilidad_seguridad_y_ux_v2_2_1",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.0 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v4.2 Enterprise)",
       "norm_label": "\ud83d\udee1\ufe0f ultimas mejoras de fiabilidad, seguridad y ux (v2.2.1)"
     },
     {
@@ -4353,7 +4551,7 @@
       "_origin": "ast",
       "id": "readme_\u00faltimas_mejoras_de_fiabilidad_seguridad_y_ux_v2_2",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.0 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v4.2 Enterprise)",
       "norm_label": "\ud83d\udee1\ufe0f ultimas mejoras de fiabilidad, seguridad y ux (v2.2)"
     },
     {
@@ -4364,7 +4562,7 @@
       "_origin": "ast",
       "id": "readme_\u00faltimas_mejoras_de_fiabilidad_y_ux_v2_1",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.0 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v4.2 Enterprise)",
       "norm_label": "\ud83d\udee1\ufe0f ultimas mejoras de fiabilidad y ux (v2.1)"
     },
     {
@@ -4375,7 +4573,7 @@
       "_origin": "ast",
       "id": "readme_\u00faltimas_mejoras_de_fiabilidad_y_ux_v2_0",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.0 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v4.2 Enterprise)",
       "norm_label": "\ud83d\udee1\ufe0f ultimas mejoras de fiabilidad y ux (v2.0)"
     },
     {
@@ -4386,7 +4584,7 @@
       "_origin": "ast",
       "id": "readme_orquestador_supervisor_agente",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.0 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v4.2 Enterprise)",
       "norm_label": "\ud83e\uddea orquestador supervisor-agente"
     },
     {
@@ -4397,7 +4595,7 @@
       "_origin": "ast",
       "id": "readme_benchmarks_3_niveles",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.0 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v4.2 Enterprise)",
       "norm_label": "benchmarks (3 niveles)"
     },
     {
@@ -4408,7 +4606,7 @@
       "_origin": "ast",
       "id": "readme_uso",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.0 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v4.2 Enterprise)",
       "norm_label": "uso"
     },
     {
@@ -4419,7 +4617,7 @@
       "_origin": "ast",
       "id": "readme_arquitectura",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.0 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v4.2 Enterprise)",
       "norm_label": "arquitectura"
     },
     {
@@ -4430,7 +4628,7 @@
       "_origin": "ast",
       "id": "readme_instalaci\u00f3n_y_ejecuci\u00f3n",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.0 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v4.2 Enterprise)",
       "norm_label": "\ud83d\ude80 instalacion y ejecucion"
     },
     {
@@ -4441,7 +4639,7 @@
       "_origin": "ast",
       "id": "readme_opci\u00f3n_1_arranque_r\u00e1pido_recomendado_para_windows",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.0 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v4.2 Enterprise)",
       "norm_label": "opcion 1: arranque rapido (recomendado para windows)"
     },
     {
@@ -4452,7 +4650,7 @@
       "_origin": "ast",
       "id": "readme_opci\u00f3n_2_ejecuci\u00f3n_manual",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.0 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v4.2 Enterprise)",
       "norm_label": "opcion 2: ejecucion manual"
     },
     {
@@ -4463,7 +4661,7 @@
       "_origin": "ast",
       "id": "readme_tecnolog\u00edas_utilizadas",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.0 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v4.2 Enterprise)",
       "norm_label": "\ud83d\udee0\ufe0f tecnologias utilizadas"
     },
     {
@@ -4474,7 +4672,7 @@
       "_origin": "ast",
       "id": "readme_knowledge_graph",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.0 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v4.2 Enterprise)",
       "norm_label": "knowledge graph"
     },
     {
@@ -4485,7 +4683,7 @@
       "_origin": "ast",
       "id": "readme_skills",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v4.0 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v4.2 Enterprise)",
       "norm_label": "skills"
     },
     {
@@ -4652,6 +4850,50 @@
       "community": 30,
       "community_name": "ADR-003: Compatibilidad y Polyfill de Pydantic v2 con LiteLLM",
       "norm_label": "consecuencias"
+    },
+    {
+      "label": "benchmark_report_v42.md",
+      "file_type": "document",
+      "source_file": "mis_agentes_inteligentes/benchmark_report_v42.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "mis_agentes_inteligentes_benchmark_report_v42",
+      "community": 46,
+      "community_name": "\ud83e\uddea Reporte Oficial de Benchmark Reales CodeAgent (v4.2 Enterprise)",
+      "norm_label": "benchmark_report_v42.md"
+    },
+    {
+      "label": "\ud83e\uddea Reporte Oficial de Benchmark Reales CodeAgent (v4.2 Enterprise)",
+      "file_type": "document",
+      "source_file": "mis_agentes_inteligentes/benchmark_report_v42.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "mis_agentes_inteligentes_benchmark_report_v42_reporte_oficial_de_benchmark_reales_codeagent_v4_2_enterprise",
+      "community": 46,
+      "community_name": "\ud83e\uddea Reporte Oficial de Benchmark Reales CodeAgent (v4.2 Enterprise)",
+      "norm_label": "\ud83e\uddea reporte oficial de benchmark reales codeagent (v4.2 enterprise)"
+    },
+    {
+      "label": "\ud83d\udcca Resultados por Tarea de Ingenier\u00eda",
+      "file_type": "document",
+      "source_file": "mis_agentes_inteligentes/benchmark_report_v42.md",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "mis_agentes_inteligentes_benchmark_report_v42_resultados_por_tarea_de_ingenier\u00eda",
+      "community": 46,
+      "community_name": "\ud83e\uddea Reporte Oficial de Benchmark Reales CodeAgent (v4.2 Enterprise)",
+      "norm_label": "\ud83d\udcca resultados por tarea de ingenieria"
+    },
+    {
+      "label": "\ud83d\udcc8 KPIs Globales Acumulados",
+      "file_type": "document",
+      "source_file": "mis_agentes_inteligentes/benchmark_report_v42.md",
+      "source_location": "L17",
+      "_origin": "ast",
+      "id": "mis_agentes_inteligentes_benchmark_report_v42_kpis_globales_acumulados",
+      "community": 46,
+      "community_name": "\ud83e\uddea Reporte Oficial de Benchmark Reales CodeAgent (v4.2 Enterprise)",
+      "norm_label": "\ud83d\udcc8 kpis globales acumulados"
     },
     {
       "label": "code-reviewer.md",
@@ -5400,8 +5642,8 @@
       "_origin": "semantic",
       "label": "mis_agentes_inteligentes.rag_tools",
       "file_type": "concept",
-      "community": 15,
-      "community_name": "CodeAgent",
+      "community": 45,
+      "community_name": "mis_agentes_inteligentes.rag_tools",
       "norm_label": "mis_agentes_inteligentes.rag_tools",
       "id": "59"
     },
@@ -5412,8 +5654,8 @@
       "_origin": "semantic",
       "label": "mis_agentes_inteligentes.rag_tools.init_chroma",
       "file_type": "concept",
-      "community": 15,
-      "community_name": "CodeAgent",
+      "community": 45,
+      "community_name": "mis_agentes_inteligentes.rag_tools",
       "norm_label": "mis_agentes_inteligentes.rag_tools.init_chroma",
       "id": "60"
     },
@@ -5424,8 +5666,8 @@
       "_origin": "semantic",
       "label": "mis_agentes_inteligentes.rag_tools.indexar_directorio_local",
       "file_type": "concept",
-      "community": 15,
-      "community_name": "CodeAgent",
+      "community": 45,
+      "community_name": "mis_agentes_inteligentes.rag_tools",
       "norm_label": "mis_agentes_inteligentes.rag_tools.indexar_directorio_local",
       "id": "61"
     },
@@ -5436,8 +5678,8 @@
       "_origin": "semantic",
       "label": "mis_agentes_inteligentes.rag_tools.preguntar_a_repositorio",
       "file_type": "concept",
-      "community": 15,
-      "community_name": "CodeAgent",
+      "community": 45,
+      "community_name": "mis_agentes_inteligentes.rag_tools",
       "norm_label": "mis_agentes_inteligentes.rag_tools.preguntar_a_repositorio",
       "id": "62"
     },
@@ -6295,6 +6537,18 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L16",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "mis_agentes_inteligentes_benchmark_suite",
+      "target": "mis_agentes_inteligentes_agent_pipeline",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "tests/test_agent_pipeline.py",
       "source_location": "L4",
       "weight": 1.0,
@@ -6373,6 +6627,17 @@
       "source": "mis_agentes_inteligentes_agent_pipeline_executionlevel",
       "target": "mis_agentes_inteligentes_agent_pipeline_py_enum",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L16",
+      "weight": 0.8,
+      "_origin": "ast",
+      "source": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite",
+      "target": "mis_agentes_inteligentes_agent_pipeline_executionlevel",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -6494,7 +6759,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L329",
+      "source_location": "L345",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_build_execution_prompt",
@@ -6554,7 +6819,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L405",
+      "source_location": "L421",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_critic",
@@ -6578,7 +6843,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L358",
+      "source_location": "L374",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_verifier",
@@ -6589,7 +6854,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L329",
+      "source_location": "L345",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller",
@@ -6666,7 +6931,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L405",
+      "source_location": "L421",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller",
@@ -6699,7 +6964,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L358",
+      "source_location": "L374",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller",
@@ -6716,6 +6981,29 @@
       "source": "mis_agentes_inteligentes_agent_pipeline_rationale_62",
       "target": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L16",
+      "weight": 0.8,
+      "_origin": "ast",
+      "source": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite",
+      "target": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L25",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite_init",
+      "target": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller"
     },
     {
       "relation": "uses",
@@ -6952,10 +7240,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L359",
+      "source_location": "L375",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_359",
+      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_375",
       "target": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_verifier",
       "confidence_score": 1.0
     },
@@ -6963,10 +7251,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L406",
+      "source_location": "L422",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_406",
+      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_422",
       "target": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_critic",
       "confidence_score": 1.0
     },
@@ -7435,6 +7723,18 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L17",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "mis_agentes_inteligentes_benchmark_suite",
+      "target": "mis_agentes_inteligentes_benchmark_metrics",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "tests/test_state_machine.py",
       "source_location": "L5",
       "weight": 1.0,
@@ -7729,6 +8029,200 @@
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_benchmark_metrics_rationale_138",
       "target": "mis_agentes_inteligentes_benchmark_metrics_benchmarkmetricscollector_get_benchmark_report_markdown",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L20",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "mis_agentes_inteligentes_benchmark_suite",
+      "target": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "mis_agentes_inteligentes_benchmark_suite_rationale_1",
+      "target": "mis_agentes_inteligentes_benchmark_suite",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_benchmark_suite.py",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_test_benchmark_suite",
+      "target": "mis_agentes_inteligentes_benchmark_suite",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L123",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite",
+      "target": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite_export_report_markdown",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L27",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite",
+      "target": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite_get_benchmark_tasks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L23",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite",
+      "target": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite_init",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L66",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite",
+      "target": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite_run_suite",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L21",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "mis_agentes_inteligentes_benchmark_suite_rationale_21",
+      "target": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "tests/test_benchmark_suite.py",
+      "source_location": "L5",
+      "weight": 0.8,
+      "_origin": "ast",
+      "source": "tests_test_benchmark_suite_testcodeagentbenchmarksuite",
+      "target": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_benchmark_suite.py",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_test_benchmark_suite_testcodeagentbenchmarksuite_setup",
+      "target": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite"
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L27",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite_get_benchmark_tasks",
+      "target": "mis_agentes_inteligentes_benchmark_suite_py_any",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L68",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite_run_suite",
+      "target": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite_get_benchmark_tasks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L123",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite_export_report_markdown",
+      "target": "mis_agentes_inteligentes_benchmark_suite_py_any",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L66",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite_run_suite",
+      "target": "mis_agentes_inteligentes_benchmark_suite_py_any",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L120",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite_run_suite",
+      "target": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite_export_report_markdown",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L67",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "mis_agentes_inteligentes_benchmark_suite_rationale_67",
+      "target": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite_run_suite",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "mis_agentes_inteligentes/benchmark_suite.py",
+      "source_location": "L124",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "mis_agentes_inteligentes_benchmark_suite_rationale_124",
+      "target": "mis_agentes_inteligentes_benchmark_suite_codeagentbenchmarksuite_export_report_markdown",
       "confidence_score": 1.0
     },
     {
@@ -11360,6 +11854,50 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "tests/test_benchmark_suite.py",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_test_benchmark_suite",
+      "target": "tests_test_benchmark_suite_testcodeagentbenchmarksuite",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_benchmark_suite.py",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_test_benchmark_suite_testcodeagentbenchmarksuite",
+      "target": "tests_test_benchmark_suite_testcodeagentbenchmarksuite_setup",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_benchmark_suite.py",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_test_benchmark_suite_testcodeagentbenchmarksuite",
+      "target": "tests_test_benchmark_suite_testcodeagentbenchmarksuite_test_get_benchmark_tasks_returns_5_tasks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_benchmark_suite.py",
+      "source_location": "L24",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_test_benchmark_suite_testcodeagentbenchmarksuite",
+      "target": "tests_test_benchmark_suite_testcodeagentbenchmarksuite_test_run_suite_execution",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "tests/test_desktop_app.py",
       "source_location": "L7",
       "weight": 1.0,
@@ -12697,7 +13235,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L99",
+      "source_location": "L109",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -12708,7 +13246,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L84",
+      "source_location": "L94",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -12719,7 +13257,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L67",
+      "source_location": "L77",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -12730,7 +13268,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L49",
+      "source_location": "L59",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -12741,7 +13279,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L33",
+      "source_location": "L43",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -12752,7 +13290,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L18",
+      "source_location": "L28",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -12763,7 +13301,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L7",
+      "source_location": "L17",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -12774,10 +13312,21 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "changelog_changelog",
+      "target": "changelog_4_2_0_2026_08_27",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
       "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "changelog_4_0_0_2026_08_27",
+      "source": "changelog_4_2_0_2026_08_27",
       "target": "changelog_added",
       "confidence_score": 1.0
     },
@@ -12785,18 +13334,29 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L20",
+      "source_location": "L19",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "changelog_3_5_0_2026_08_27",
-      "target": "changelog_added_20",
+      "source": "changelog_4_0_0_2026_08_27",
+      "target": "changelog_added_19",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L27",
+      "source_location": "L30",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "changelog_3_5_0_2026_08_27",
+      "target": "changelog_added_30",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L37",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_3_5_0_2026_08_27",
@@ -12807,22 +13367,33 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L40",
+      "source_location": "L50",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_5_0_2026_08_26",
-      "target": "changelog_added_40",
+      "target": "changelog_added_50",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L35",
+      "source_location": "L45",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_5_0_2026_08_26",
-      "target": "changelog_fixed_35",
+      "target": "changelog_fixed_45",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L71",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "changelog_2_4_0_2026_08_26",
+      "target": "changelog_added_71",
       "confidence_score": 1.0
     },
     {
@@ -12833,25 +13404,14 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_4_0_2026_08_26",
-      "target": "changelog_added_61",
+      "target": "changelog_fixed_61",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L51",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "changelog_2_4_0_2026_08_26",
-      "target": "changelog_fixed_51",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L56",
+      "source_location": "L66",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_4_0_2026_08_26",
@@ -12862,18 +13422,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L78",
+      "source_location": "L88",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_3_0_2026_08_04",
-      "target": "changelog_added_78",
+      "target": "changelog_added_88",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L75",
+      "source_location": "L85",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_3_0_2026_08_04",
@@ -12884,66 +13444,66 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L69",
+      "source_location": "L79",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_3_0_2026_08_04",
-      "target": "changelog_refactored_69",
+      "target": "changelog_refactored_79",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L94",
+      "source_location": "L104",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_2_1_2026_07_26",
-      "target": "changelog_added_94",
+      "target": "changelog_added_104",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L86",
+      "source_location": "L96",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_2_1_2026_07_26",
-      "target": "changelog_fixed_86",
+      "target": "changelog_fixed_96",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L112",
+      "source_location": "L122",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_2_0_2026_07_25",
-      "target": "changelog_added_112",
+      "target": "changelog_added_122",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L101",
+      "source_location": "L111",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_2_0_2026_07_25",
-      "target": "changelog_fixed_101",
+      "target": "changelog_fixed_111",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L108",
+      "source_location": "L118",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_2_0_2026_07_25",
-      "target": "changelog_refactored_108",
+      "target": "changelog_refactored_118",
       "confidence_score": 1.0
     },
     {
@@ -12954,7 +13514,7 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "readme",
-      "target": "readme_codeagent_v4_0_enterprise",
+      "target": "readme_codeagent_v4_2_enterprise",
       "confidence_score": 1.0
     },
     {
@@ -12964,7 +13524,7 @@
       "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "readme_codeagent_v4_0_enterprise",
+      "source": "readme_codeagent_v4_2_enterprise",
       "target": "readme_arquitectura_del_sistema_5_capas_principales",
       "confidence_score": 1.0
     },
@@ -12975,7 +13535,7 @@
       "source_location": "L42",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "readme_codeagent_v4_0_enterprise",
+      "source": "readme_codeagent_v4_2_enterprise",
       "target": "readme_caracter\u00edsticas_principales_v3_0_enterprise",
       "confidence_score": 1.0
     },
@@ -12986,7 +13546,7 @@
       "source_location": "L147",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "readme_codeagent_v4_0_enterprise",
+      "source": "readme_codeagent_v4_2_enterprise",
       "target": "readme_instalaci\u00f3n_y_ejecuci\u00f3n",
       "confidence_score": 1.0
     },
@@ -12997,7 +13557,7 @@
       "source_location": "L184",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "readme_codeagent_v4_0_enterprise",
+      "source": "readme_codeagent_v4_2_enterprise",
       "target": "readme_knowledge_graph",
       "confidence_score": 1.0
     },
@@ -13008,7 +13568,7 @@
       "source_location": "L111",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "readme_codeagent_v4_0_enterprise",
+      "source": "readme_codeagent_v4_2_enterprise",
       "target": "readme_orquestador_supervisor_agente",
       "confidence_score": 1.0
     },
@@ -13019,7 +13579,7 @@
       "source_location": "L188",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "readme_codeagent_v4_0_enterprise",
+      "source": "readme_codeagent_v4_2_enterprise",
       "target": "readme_skills",
       "confidence_score": 1.0
     },
@@ -13030,7 +13590,7 @@
       "source_location": "L176",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "readme_codeagent_v4_0_enterprise",
+      "source": "readme_codeagent_v4_2_enterprise",
       "target": "readme_tecnolog\u00edas_utilizadas",
       "confidence_score": 1.0
     },
@@ -13285,6 +13845,39 @@
       "_origin": "ast",
       "source": "docs_adr_adr_003_pydantic_v2_litellm_compatibility_adr_003_compatibilidad_y_polyfill_de_pydantic_v2_con_litellm",
       "target": "docs_adr_adr_003_pydantic_v2_litellm_compatibility_decisi\u00f3n",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "mis_agentes_inteligentes/benchmark_report_v42.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "mis_agentes_inteligentes_benchmark_report_v42",
+      "target": "mis_agentes_inteligentes_benchmark_report_v42_reporte_oficial_de_benchmark_reales_codeagent_v4_2_enterprise",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "mis_agentes_inteligentes/benchmark_report_v42.md",
+      "source_location": "L17",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "mis_agentes_inteligentes_benchmark_report_v42_reporte_oficial_de_benchmark_reales_codeagent_v4_2_enterprise",
+      "target": "mis_agentes_inteligentes_benchmark_report_v42_kpis_globales_acumulados",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "mis_agentes_inteligentes/benchmark_report_v42.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "mis_agentes_inteligentes_benchmark_report_v42_reporte_oficial_de_benchmark_reales_codeagent_v4_2_enterprise",
+      "target": "mis_agentes_inteligentes_benchmark_report_v42_resultados_por_tarea_de_ingenier\u00eda",
       "confidence_score": 1.0
     },
     {
@@ -14207,5 +14800,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "1969890526a7ded6e516ced5d10610977b50c20f"
+  "built_at_commit": "f81f5246302f79c2e3c95f6890cce59b94487fc3"
 }

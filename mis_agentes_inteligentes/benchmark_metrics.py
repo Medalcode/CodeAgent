@@ -103,14 +103,48 @@ class BenchmarkMetricsCollector:
         self._save_data(data)
         return self.compute_summary()
 
+    def record_tool_event(
+        self,
+        tool_name: str,
+        success: bool,
+        duration_seconds: float = 0.0,
+        error_type: str | None = None
+    ) -> None:
+        """Registra la ejecución real de una herramienta por el agente."""
+        data = self._load_data()
+        data["total_tool_calls"] = data.get("total_tool_calls", 0) + 1
+        if success:
+            data["successful_tool_calls"] = data.get("successful_tool_calls", 0) + 1
+
+        if "tool_events" not in data:
+            data["tool_events"] = []
+
+        event = {
+            "tool_name": tool_name,
+            "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+            "success": success,
+            "duration_seconds": round(duration_seconds, 3),
+            "error_type": error_type or "None"
+        }
+
+        data["tool_events"].insert(0, event)
+        data["tool_events"] = data["tool_events"][:200]
+        self._save_data(data)
+
     def compute_summary(self) -> dict[str, Any]:
-        """Calcula los KPIs cuantitativos agregados."""
+        """Calcula los KPIs cuantitativos agregados con datos reales."""
         data = self._load_data()
         total = data.get("total_runs", 0)
+        total_tools = data.get("total_tool_calls", 0)
+        success_tools = data.get("successful_tool_calls", 0)
+        tool_success_rate = round((success_tools / total_tools) * 100, 1) if total_tools > 0 else 100.0
+
         if total == 0:
             return {
                 "total_runs": 0,
                 "task_success_rate_pct": 0.0,
+                "tool_success_rate_pct": tool_success_rate,
+                "total_tool_calls": total_tools,
                 "autonomous_recovery_rate_pct": 0.0,
                 "avg_replans_per_task": 0.0,
                 "avg_elapsed_seconds": 0.0
@@ -129,6 +163,8 @@ class BenchmarkMetricsCollector:
         return {
             "total_runs": total,
             "task_success_rate_pct": round((success_count / total) * 100, 1),
+            "tool_success_rate_pct": tool_success_rate,
+            "total_tool_calls": total_tools,
             "autonomous_recovery_rate_pct": round((recoveries / max(1, replans)) * 100, 1) if replans > 0 else 100.0,
             "avg_replans_per_task": round(replans / total, 2),
             "avg_elapsed_seconds": round(avg_time, 2)

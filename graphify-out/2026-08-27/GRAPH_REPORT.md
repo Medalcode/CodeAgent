@@ -1,16 +1,16 @@
 # Graph Report - CodeAgent  (2026-08-27)
 
 ## Corpus Check
-- 52 files · ~26,436 words
+- 55 files · ~28,751 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 529 nodes · 747 edges · 45 communities (36 shown, 9 thin omitted)
-- Extraction: 77% EXTRACTED · 23% INFERRED · 0% AMBIGUOUS · INFERRED: 173 edges (avg confidence: 0.9)
+- 551 nodes · 778 edges · 47 communities (39 shown, 8 thin omitted)
+- Extraction: 77% EXTRACTED · 23% INFERRED · 0% AMBIGUOUS · INFERRED: 178 edges (avg confidence: 0.89)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `19698905`
+- Built from commit: `f81f5246`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -21,7 +21,7 @@
 - TestLocalCodeServer
 - main.py
 - Changelog
-- 💻 CodeAgent (v4.0 Enterprise)
+- 💻 CodeAgent (v4.2 Enterprise)
 - tool
 - mis_agentes_inteligentes/tools
 - mis_agentes_inteligentes.tools
@@ -49,25 +49,27 @@
 - ejecutar_comando_terminal
 - mis_agentes_inteligentes/main
 - mis_agentes_inteligentes/rag_tools
-- TestSessionManager
+- CodeAgentBenchmarkSuite
 - graphify.js
 - rules/graphify.md
 - workflows/graphify.md
 - config.py
 - __init__.py
 - start_hub.sh
+- mis_agentes_inteligentes.rag_tools
+- 🧪 Reporte Oficial de Benchmark Reales CodeAgent (v4.2 Enterprise)
 
 ## God Nodes (most connected - your core abstractions)
 1. `LocalCodeProxyHandler` - 20 edges
-2. `tool()` - 19 edges
-3. `TestTools` - 18 edges
-4. `AgentStateMachineController` - 17 edges
+2. `AgentStateMachineController` - 19 edges
+3. `tool()` - 19 edges
+4. `TestTools` - 18 edges
 5. `JSONSessionRepository` - 13 edges
 6. `TestLocalCodeServer` - 13 edges
 7. `TestAgentStateMachineController` - 12 edges
 8. `BenchmarkMetricsCollector` - 11 edges
 9. `escribir_archivo_local()` - 11 edges
-10. `ejecutar_agentes()` - 10 edges
+10. `CodeAgentBenchmarkSuite` - 10 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `TestAgentStateMachineController` --uses--> `BenchmarkMetricsCollector`  [INFERRED]
@@ -84,11 +86,11 @@
 ## Import Cycles
 - None detected.
 
-## Communities (45 total, 9 thin omitted)
+## Communities (47 total, 8 thin omitted)
 
 ### Community 0 - "session_manager.py"
-Cohesion: 0.11
-Nodes (11): ABC, BaseSessionRepository, create_new_session(), export_session_to_markdown(), init_sessions_dir(), JSONSessionRepository, load_session(), Interfaz abstracta para la gestión de sesiones de chat (Patrón Repositorio). (+3 more)
+Cohesion: 0.07
+Nodes (12): ABC, BaseSessionRepository, create_new_session(), export_session_to_markdown(), init_sessions_dir(), JSONSessionRepository, load_session(), Interfaz abstracta para la gestión de sesiones de chat (Patrón Repositorio). (+4 more)
 
 ### Community 1 - "LocalCodeProxyHandler"
 Cohesion: 0.17
@@ -107,12 +109,12 @@ Cohesion: 0.07
 Nodes (18): graphify, _guardar_sesion_actual(), Guarda los datos de la sesión activa en disco., Comprime texto y asegura la validez de los bloques de código markdown., _truncar_markdown(), main(), print_banner(), _construir_contexto_workspace() (+10 more)
 
 ### Community 5 - "Changelog"
-Cohesion: 0.08
-Nodes (24): [2.2.0] - 2026-07-25, [2.2.1] - 2026-07-26, [2.3.0] - 2026-08-04, [2.4.0] - 2026-08-26, [2.5.0] - 2026-08-26, [3.5.0] - 2026-08-27, [4.0.0] - 2026-08-27, Added (+16 more)
+Cohesion: 0.07
+Nodes (26): [2.2.0] - 2026-07-25, [2.2.1] - 2026-07-26, [2.3.0] - 2026-08-04, [2.4.0] - 2026-08-26, [2.5.0] - 2026-08-26, [3.5.0] - 2026-08-27, [4.0.0] - 2026-08-27, [4.2.0] - 2026-08-27 (+18 more)
 
-### Community 6 - "💻 CodeAgent (v4.0 Enterprise)"
+### Community 6 - "💻 CodeAgent (v4.2 Enterprise)"
 Cohesion: 0.10
-Nodes (19): Arquitectura, 🏗️ Arquitectura del Sistema (5 Capas Principales), Benchmarks (3 niveles), ✨ Características Principales (v3.0 Enterprise), 💻 CodeAgent (v4.0 Enterprise), 🚀 Instalación y Ejecución, Knowledge Graph, Opción 1: Arranque Rápido (Recomendado para Windows) (+11 more)
+Nodes (19): Arquitectura, 🏗️ Arquitectura del Sistema (5 Capas Principales), Benchmarks (3 niveles), ✨ Características Principales (v3.0 Enterprise), 💻 CodeAgent (v4.2 Enterprise), 🚀 Instalación y Ejecución, Knowledge Graph, Opción 1: Arranque Rápido (Recomendado para Windows) (+11 more)
 
 ### Community 7 - "tool"
 Cohesion: 0.12
@@ -147,8 +149,8 @@ Cohesion: 0.21
 Nodes (9): _bm25_score(), indexar_directorio_local(), init_chroma(), preguntar_a_repositorio(), Calcula una puntuación BM25 léxica simplificada basada en frecuencia de…, Realiza una búsqueda semántica sobre los archivos previamente indexados con…, Inicializa la base de datos ChromaDB y el modelo de embeddings., Escanea todos los archivos de código en un directorio local y los indexa en… (+1 more)
 
 ### Community 15 - "CodeAgent"
-Cohesion: 0.15
-Nodes (13): CodeAgent, mis_agentes_inteligentes/setup_db, setup_db.create_dummy_db, mis_agentes_inteligentes.app, mis_agentes_inteligentes.app.get_sessions_list, mis_agentes_inteligentes.rag_tools, mis_agentes_inteligentes.rag_tools.init_chroma, mis_agentes_inteligentes.rag_tools.indexar_directorio_local (+5 more)
+Cohesion: 0.22
+Nodes (9): CodeAgent, mis_agentes_inteligentes/setup_db, setup_db.create_dummy_db, mis_agentes_inteligentes.app, mis_agentes_inteligentes.app.get_sessions_list, mis_agentes_inteligentes.setup_db, mis_agentes_inteligentes.setup_db.create_dummy_db, mis_agentes_inteligentes/app (+1 more)
 
 ### Community 16 - "Test-Driven Development"
 Cohesion: 0.15
@@ -214,25 +216,37 @@ Nodes (4): mis_agentes_inteligentes/main, main.get_herramientas, main._construir
 Cohesion: 0.50
 Nodes (4): mis_agentes_inteligentes/rag_tools, rag_tools.init_chroma, rag_tools.indexar_directorio_local, rag_tools.preguntar_a_repositorio
 
+### Community 34 - "CodeAgentBenchmarkSuite"
+Cohesion: 0.17
+Nodes (7): CodeAgentBenchmarkSuite, Any, CodeAgent v4.2 Reproducible Benchmark Suite Suite estandarizada de 5 tareas…, Exporta el reporte de benchmark en formato Markdown en…, Ejecutor automatizado de la Suite de 5 Benchmarks Reales de Ingeniería., Ejecuta la suite completa de 5 tareas y compila el informe comparativo., TestCodeAgentBenchmarkSuite
+
+### Community 45 - "mis_agentes_inteligentes.rag_tools"
+Cohesion: 0.50
+Nodes (4): mis_agentes_inteligentes.rag_tools, mis_agentes_inteligentes.rag_tools.init_chroma, mis_agentes_inteligentes.rag_tools.indexar_directorio_local, mis_agentes_inteligentes.rag_tools.preguntar_a_repositorio
+
+### Community 46 - "🧪 Reporte Oficial de Benchmark Reales CodeAgent (v4.2 Enterprise)"
+Cohesion: 0.50
+Nodes (3): 📈 KPIs Globales Acumulados, 🧪 Reporte Oficial de Benchmark Reales CodeAgent (v4.2 Enterprise), 📊 Resultados por Tarea de Ingeniería
+
 ## Knowledge Gaps
-- **51 isolated node(s):** `start_hub.sh script`, `graphify`, `What a good test is`, `Seams — where tests go`, `Anti-patterns` (+46 more)
+- **54 isolated node(s):** `start_hub.sh script`, `graphify`, `What a good test is`, `Seams — where tests go`, `Anti-patterns` (+49 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **9 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **8 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
+- **Why does `AgentStateMachineController` connect `AgentStateMachineController` to `CodeAgentBenchmarkSuite`?**
+  _High betweenness centrality (0.057) - this node is a cross-community bridge._
 - **Why does `JSONSessionRepository` connect `session_manager.py` to `AgentStateMachineController`?**
-  _High betweenness centrality (0.046) - this node is a cross-community bridge._
+  _High betweenness centrality (0.051) - this node is a cross-community bridge._
 - **Why does `ejecutar_agentes()` connect `main.py` to `TestAgents`?**
-  _High betweenness centrality (0.046) - this node is a cross-community bridge._
+  _High betweenness centrality (0.044) - this node is a cross-community bridge._
 - **Are the 2 inferred relationships involving `LocalCodeProxyHandler` (e.g. with `TestE2ESystemSuite` and `TestLocalCodeServer`) actually correct?**
   _`LocalCodeProxyHandler` has 2 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 6 inferred relationships involving `AgentStateMachineController` (e.g. with `CodeAgentBenchmarkSuite` and `.__init__()`) actually correct?**
+  _`AgentStateMachineController` has 6 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 18 inferred relationships involving `mis_agentes_inteligentes/tools` (e.g. with `CodeAgent` and `tools.consultar_db`) actually correct?**
   _`mis_agentes_inteligentes/tools` has 18 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 18 inferred relationships involving `mis_agentes_inteligentes.tools` (e.g. with `CodeAgent` and `mis_agentes_inteligentes.tools.consultar_db`) actually correct?**
-  _`mis_agentes_inteligentes.tools` has 18 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `start_hub.sh script`, `graphify`, `What a good test is` to the rest of the system?**
-  _51 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `session_manager.py` be split into smaller, more focused modules?**
-  _Cohesion score 0.1111111111111111 - nodes in this community are weakly interconnected._
+  _54 weakly-connected nodes found - possible documentation gaps or missing edges._

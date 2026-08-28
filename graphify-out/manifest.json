@@ -35,8 +35,8 @@
     "semantic_hash": "a1355e8f77d7a9bdc1619866b5517ca6"
   },
   "mis_agentes_inteligentes/tools.py": {
-    "mtime": 1787865346.5021122,
-    "ast_hash": "84fa2bc8bdd03445b62ddc9ca1dd574d",
+    "mtime": 1787875609.1106155,
+    "ast_hash": "553168859ebce7f7d5248b0b705163fe",
     "semantic_hash": ""
   },
   "orquestador_agente.py": {
@@ -70,8 +70,8 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1787875265.2651954,
-    "ast_hash": "67271c5c67f58899e5926e1263d652dd",
+    "mtime": 1787875732.5208828,
+    "ast_hash": "8acbb47ce643190a4d69d70731d3a0e7",
     "semantic_hash": ""
   },
   "docker-compose.yml": {
@@ -115,8 +115,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/agent_pipeline.py": {
-    "mtime": 1787875157.9812946,
-    "ast_hash": "7246dfb5dae0daa308cd8ce48717eabb",
+    "mtime": 1787875623.7473004,
+    "ast_hash": "80bb921729d531b9cf3c72eba8ec9905",
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/claude_code_cli.py": {
@@ -235,8 +235,8 @@
     "semantic_hash": ""
   },
   "CHANGELOG.md": {
-    "mtime": 1787875258.1836085,
-    "ast_hash": "d1cd34f7b09228c3e555411a34b11016",
+    "mtime": 1787875729.7012608,
+    "ast_hash": "e767eae4ffc43ed19af6bf8749b0d364",
     "semantic_hash": ""
   },
   "docs/adr/ADR-001-smolagents-react-engine.md": {
@@ -280,13 +280,13 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/benchmark_metrics.py": {
-    "mtime": 1787874553.8683367,
-    "ast_hash": "130b24685ad756e6afc1fcc824c94b49",
+    "mtime": 1787875594.190145,
+    "ast_hash": "2cff67c812198a8fcdb0f46f69ae5ada",
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/metrics_benchmarks.json": {
-    "mtime": 1787875251.6047986,
-    "ast_hash": "3dd5e84ad19e5da57c8a1b363c30cb1d",
+    "mtime": 1787875723.0554626,
+    "ast_hash": "52294012b2c037af509973a72c06f6ff",
     "semantic_hash": ""
   },
   "tests/test_state_machine.py": {
@@ -310,8 +310,13 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/benchmark_report_v42.md": {
-    "mtime": 1787875248.4506867,
-    "ast_hash": "9d2c8071d690bac987a751999a20c8a6",
+    "mtime": 1787875703.0056038,
+    "ast_hash": "ad4148bdb95885f0dcf83ed5cdf29218",
+    "semantic_hash": ""
+  },
+  "tests/test_feedback_loop.py": {
+    "mtime": 1787875634.9155064,
+    "ast_hash": "9dec33f13a543767d67d465faa163385",
     "semantic_hash": ""
   }
 }

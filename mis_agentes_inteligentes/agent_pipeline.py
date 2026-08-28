@@ -37,8 +37,9 @@ class State(Enum):
     EXPLORE = "EXPLORE"
     EXECUTE = "EXECUTE"
     VERIFY = "VERIFY"
-    CRITIC = "CRITIC"
+    DIAGNOSE = "DIAGNOSE"
     REPLAN = "REPLAN"
+    CRITIC = "CRITIC"
     DONE = "DONE"
 
 
@@ -52,10 +53,37 @@ def _get_phase_cognitive_directive(state: State, failed_verification: dict[str, 
         return "DIRECTIVA DE FASE (EXECUTE): Estás en la fase EXECUTE. Especialízate en aplicar los parches sintácticos y modificaciones de código exactas usando las herramientas de archivos."
     elif state == State.VERIFY:
         return "DIRECTIVA DE FASE (VERIFY): Estás en la fase VERIFY. Especialízate en ejecutar ruff y la suite de pruebas unitarias para confirmar la validez sintáctica."
+    elif state == State.DIAGNOSE:
+        err_msg = ", ".join(failed_verification.get("ast_errors", [])) if failed_verification else "Fallo no especificado"
+        return f"DIRECTIVA DE FASE (DIAGNOSE): Analiza la causa raíz del siguiente fallo: {err_msg}. Determina si se trata de un error sintáctico, una falla en pruebas o una dependencia faltante."
     elif state == State.REPLAN:
         err_msg = ", ".join(failed_verification.get("ast_errors", ["Fallo en pruebas unitarias o linter ruff"])) if failed_verification else "Errores no especificados"
         return f"DIRECTIVA DE FASE (REPLAN): La verificación anterior falló con los siguientes errores exactos: {err_msg}. Tu único objetivo cognitivo ahora es corregir y reparar estas fallas."
     return ""
+
+
+class ComplexityRiskEvaluator:
+    """Evaluador determinista de complejidad, alcance e impacto en workspace."""
+
+    @staticmethod
+    def evaluate(user_goal: str) -> ExecutionLevel:
+        goal_lower = user_goal.lower()
+
+        # Intención: Informativa vs Modificación
+        is_query = any(p in goal_lower for p in ("qué hace", "explicar", "cómo funciona", "dónde está", "resumen", "revisa")) and not any(a in goal_lower for a in ("crea", "modifica", "corrige", "arregla", "refactoriza"))
+        if is_query:
+            return ExecutionLevel.LEVEL_1_CHAT
+
+        # Riesgo e Impacto
+        high_risk = any(c in goal_lower for c in ("refactoriza", "resuelve los linter warnings", "haz que los tests pasen", "arquitectura", "migra"))
+        if high_risk:
+            return ExecutionLevel.LEVEL_4_FULL
+
+        medium_action = any(a in goal_lower for a in ("formatea", "añade un comentario", "cambia el nombre", "elimina la línea"))
+        if medium_action:
+            return ExecutionLevel.LEVEL_2_ACTION
+
+        return ExecutionLevel.LEVEL_3_FEATURE
 
 
 class AgentStateMachineController:
@@ -66,26 +94,8 @@ class AgentStateMachineController:
         self.max_replans = max_replans
 
     def infer_execution_level(self, user_goal: str) -> ExecutionLevel:
-        """Determina automáticamente el Nivel de Ejecución óptimo según la intención del usuario."""
-        goal_lower = user_goal.lower()
-
-        # Nivel 1: Consultas puramente informativas o explicaciones
-        preguntas = ("qué hace", "explicar", "cómo funciona", "dónde está", "para qué sirve", "resumen", "revisa")
-        if any(p in goal_lower for p in preguntas) and not any(a in goal_lower for a in ("crea", "modifica", "corrige", "arregla", "refactoriza")):
-            return ExecutionLevel.LEVEL_1_CHAT
-
-        # Nivel 2: Modificaciones simples y puntuales de un solo archivo
-        acciones_simples = ("formatea", "añade un comentario", "cambia el nombre", "elimina la línea", "imprime")
-        if any(a in goal_lower for a in acciones_simples):
-            return ExecutionLevel.LEVEL_2_ACTION
-
-        # Nivel 4: Refactorizaciones complejas o resolución autónoma de errores/tests
-        complejos = ("refactoriza", "resuelve los linter warnings", "haz que los tests pasen", "arquitectura", "migra")
-        if any(c in goal_lower for c in complejos):
-            return ExecutionLevel.LEVEL_4_FULL
-
-        # Nivel 3: Por defecto para desarrollo de nuevas características o scripts
-        return ExecutionLevel.LEVEL_3_FEATURE
+        """Determina el Nivel de Ejecución óptimo usando la evaluación de complejidad y riesgo."""
+        return ComplexityRiskEvaluator.evaluate(user_goal)
 
     def _save_checkpoint(
         self,
@@ -203,15 +213,21 @@ class AgentStateMachineController:
                     current_state = State.CRITIC if active_level == ExecutionLevel.LEVEL_4_FULL else State.DONE
                 else:
                     if active_level == ExecutionLevel.LEVEL_4_FULL and replans_count < self.max_replans:
-                        current_state = State.REPLAN
+                        current_state = State.DIAGNOSE
                     else:
                         current_state = State.CRITIC if active_level == ExecutionLevel.LEVEL_4_FULL else State.DONE
+
+            elif current_state == State.DIAGNOSE:
+                logging.info(f"🔍 [StateMachine] Diagnosticando causas raíz del fallo en verificación: {verification_res.get('ast_errors')}")
+                current_state = State.REPLAN
 
             elif current_state == State.REPLAN:
                 replans_count += 1
                 recovered_autonomously = True
-                logging.info(f"🔄 [StateMachine] Re-planificación activa ({replans_count}/{self.max_replans}) por fallos en verificación.")
-                current_state = State.EXECUTE
+                logging.info(f"🔄 [StateMachine] Re-planificación activa ({replans_count}/{self.max_replans}) con estrategia de reparación.")
+                # Si hay errores de importación o módulo no encontrado, re-explorar el Grafo AST
+                has_import_err = any("import" in str(e).lower() or "module" in str(e).lower() for e in verification_res.get("ast_errors", []))
+                current_state = State.EXPLORE if has_import_err else State.EXECUTE
 
             elif current_state == State.CRITIC:
                 critic_summary = self._stage_critic(user_goal, verification_res)
