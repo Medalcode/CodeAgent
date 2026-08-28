@@ -17,6 +17,8 @@ import requests
 from benchmark_metrics import metrics_collector
 from smolagents import tool
 
+CREATE_NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if os.name == "nt" else 0
+
 
 def track_tool_event(tool_name: str, success: bool, duration: float = 0.0, error_type: str | None = None):
     """Rastrea e informa la ejecución de herramientas al colector de métricas."""
@@ -439,6 +441,7 @@ def ejecutar_comando_terminal(comando: str, directorio: str = "") -> str:
                 env=env,
                 encoding='utf-8',
                 errors='replace',
+                creationflags=CREATE_NO_WINDOW,
             )
         except FileNotFoundError:
             result = subprocess.run(
@@ -452,6 +455,7 @@ def ejecutar_comando_terminal(comando: str, directorio: str = "") -> str:
                 env=env,
                 encoding='utf-8',
                 errors='replace',
+                creationflags=CREATE_NO_WINDOW,
             )
         salida = result.stdout.strip() if result.stdout else ""
         error = result.stderr.strip() if result.stderr else ""
@@ -567,7 +571,7 @@ def git_status(ruta_repo: str = ".") -> str:
         ruta_repo: Ruta del repositorio git local.
     """
     try:
-        result = subprocess.run(["git", "status"], cwd=ruta_repo, capture_output=True, text=True)
+        result = subprocess.run(["git", "status"], cwd=ruta_repo, capture_output=True, text=True, creationflags=CREATE_NO_WINDOW)
         return result.stdout if result.returncode == 0 else f"Error: {result.stderr}"
     except Exception as e:
         return f"Error ejecutando git status: {e}"
@@ -580,7 +584,7 @@ def git_diff(ruta_repo: str = ".") -> str:
         ruta_repo: Ruta del repositorio git local.
     """
     try:
-        result = subprocess.run(["git", "diff"], cwd=ruta_repo, capture_output=True, text=True)
+        result = subprocess.run(["git", "diff"], cwd=ruta_repo, capture_output=True, text=True, creationflags=CREATE_NO_WINDOW)
         return result.stdout if result.stdout else "No hay cambios no commiteados."
     except Exception as e:
         return f"Error ejecutando git diff: {e}"
@@ -595,7 +599,7 @@ def git_add(archivos: str, ruta_repo: str = ".") -> str:
     """
     try:
         args = ["git", "add"] + shlex.split(archivos, posix=(os.name != 'nt'))
-        result = subprocess.run(args, cwd=ruta_repo, capture_output=True, text=True)
+        result = subprocess.run(args, cwd=ruta_repo, capture_output=True, text=True, creationflags=CREATE_NO_WINDOW)
         return f"Archivos añadidos al stage: {archivos}" if result.returncode == 0 else f"Error: {result.stderr}"
     except Exception as e:
         return f"Error ejecutando git add: {e}"
@@ -609,7 +613,7 @@ def git_commit(mensaje: str, ruta_repo: str = ".") -> str:
         ruta_repo: Ruta del repositorio git local.
     """
     try:
-        result = subprocess.run(["git", "commit", "-m", mensaje], cwd=ruta_repo, capture_output=True, text=True)
+        result = subprocess.run(["git", "commit", "-m", mensaje], cwd=ruta_repo, capture_output=True, text=True, creationflags=CREATE_NO_WINDOW)
         return result.stdout if result.returncode == 0 else f"Error: {result.stderr}"
     except Exception as e:
         return f"Error ejecutando git commit: {e}"
@@ -623,7 +627,7 @@ def git_push(ruta_repo: str = ".", rama: str = "main") -> str:
         rama: Rama a pushear (por defecto 'main').
     """
     try:
-        result = subprocess.run(["git", "push", "origin", rama], cwd=ruta_repo, capture_output=True, text=True)
+        result = subprocess.run(["git", "push", "origin", rama], cwd=ruta_repo, capture_output=True, text=True, creationflags=CREATE_NO_WINDOW)
         if result.returncode == 0:
             return f"Push exitoso a origin/{rama}.\n{result.stdout}"
         else:

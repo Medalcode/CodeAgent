@@ -24,6 +24,7 @@ from typing import Any
 
 from benchmark_metrics import metrics_collector
 
+CREATE_NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if os.name == "nt" else 0
 CODEAGENT_VERSION = "v4.4 Enterprise"
 
 
@@ -534,7 +535,7 @@ class AgentStateMachineController:
         ruff_passed = True
         if py_files_found > 0:
             try:
-                res_ruff = subprocess.run(["uv", "run", "--with", "ruff", "ruff", "check", "."], cwd=self.workspace_dir, capture_output=True, text=True, timeout=15)
+                res_ruff = subprocess.run(["uv", "run", "--with", "ruff", "ruff", "check", "."], cwd=self.workspace_dir, capture_output=True, text=True, timeout=15, creationflags=CREATE_NO_WINDOW)
                 if res_ruff.returncode != 0:
                     ruff_passed = False
             except Exception:
@@ -565,7 +566,7 @@ class AgentStateMachineController:
             try:
                 env = os.environ.copy()
                 env["PYTHONPATH"] = f"{self.workspace_dir}{os.pathsep}mis_agentes_inteligentes{os.pathsep}{os.environ.get('PYTHONPATH', '')}"
-                res_test = subprocess.run([os.sys.executable, "-m", "unittest", "discover", "-s", "tests"], cwd=self.workspace_dir, env=env, capture_output=True, text=True, timeout=30)
+                res_test = subprocess.run([os.sys.executable, "-m", "unittest", "discover", "-s", "tests"], cwd=self.workspace_dir, env=env, capture_output=True, text=True, timeout=30, creationflags=CREATE_NO_WINDOW)
                 if res_test.returncode != 0:
                     tests_passed = False
                     ast_errors.append(f"Fallo en suite de pruebas unittest: {res_test.stderr or res_test.stdout}")
@@ -591,7 +592,7 @@ class AgentStateMachineController:
             target_script = "main.py" if "main.py" in main_candidates else sorted(main_candidates)[0]
             script_path = os.path.join(self.workspace_dir, target_script)
             try:
-                res_prog = subprocess.run([os.sys.executable, script_path], cwd=self.workspace_dir, capture_output=True, text=True, timeout=10)
+                res_prog = subprocess.run([os.sys.executable, script_path], cwd=self.workspace_dir, capture_output=True, text=True, timeout=10, creationflags=CREATE_NO_WINDOW)
                 program_passed = (res_prog.returncode == 0)
                 program_output = res_prog.stdout.strip()
                 if not program_passed:
@@ -622,7 +623,7 @@ class AgentStateMachineController:
         """Evaluación crítica objetiva del diff, requisitos e integridad del workspace."""
         diff_files = []
         try:
-            res_diff = subprocess.run(["git", "status", "--porcelain"], cwd=self.workspace_dir, capture_output=True, text=True, timeout=5)
+            res_diff = subprocess.run(["git", "status", "--porcelain"], cwd=self.workspace_dir, capture_output=True, text=True, timeout=5, creationflags=CREATE_NO_WINDOW)
             if res_diff.returncode == 0:
                 diff_files = [line.strip() for line in res_diff.stdout.splitlines() if line.strip()]
         except Exception:

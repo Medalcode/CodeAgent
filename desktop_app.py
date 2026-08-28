@@ -87,10 +87,12 @@ def launch_server_bg():
     return False
 
 
+CREATE_NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if os.name == "nt" else 0
+
 def _ps_file_dialog(title: str = "Abrir Archivo") -> str | None:
     ps_cmd = f"[System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms') | Out-Null; $f = New-Object System.Windows.Forms.OpenFileDialog; $f.Title = '{title}'; $f.Filter = 'Todos los archivos (*.*)|*.*'; if($f.ShowDialog() -eq 'OK'){{ $f.FileName }}"
     try:
-        res = subprocess.run(["powershell", "-NoProfile", "-Command", ps_cmd], capture_output=True, text=True, timeout=60)
+        res = subprocess.run(["powershell", "-NoProfile", "-Command", ps_cmd], capture_output=True, text=True, timeout=60, creationflags=CREATE_NO_WINDOW)
         path = res.stdout.strip()
         return path if path and os.path.exists(path) else None
     except Exception as e:
@@ -100,7 +102,7 @@ def _ps_file_dialog(title: str = "Abrir Archivo") -> str | None:
 def _ps_folder_dialog(title: str = "Abrir Carpeta de Proyecto") -> str | None:
     ps_cmd = f"[System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms') | Out-Null; $f = New-Object System.Windows.Forms.FolderBrowserDialog; $f.Description = '{title}'; if($f.ShowDialog() -eq 'OK'){{ $f.SelectedPath }}"
     try:
-        res = subprocess.run(["powershell", "-NoProfile", "-Command", ps_cmd], capture_output=True, text=True, timeout=60)
+        res = subprocess.run(["powershell", "-NoProfile", "-Command", ps_cmd], capture_output=True, text=True, timeout=60, creationflags=CREATE_NO_WINDOW)
         path = res.stdout.strip()
         return path if path and os.path.exists(path) else None
     except Exception as e:
@@ -110,7 +112,7 @@ def _ps_folder_dialog(title: str = "Abrir Carpeta de Proyecto") -> str | None:
 def _ps_save_dialog(title: str = "Guardar Archivo Como", default_filename: str = "Untitled.py") -> str | None:
     ps_cmd = f"[System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms') | Out-Null; $f = New-Object System.Windows.Forms.SaveFileDialog; $f.Title = '{title}'; $f.FileName = '{default_filename}'; if($f.ShowDialog() -eq 'OK'){{ $f.FileName }}"
     try:
-        res = subprocess.run(["powershell", "-NoProfile", "-Command", ps_cmd], capture_output=True, text=True, timeout=60)
+        res = subprocess.run(["powershell", "-NoProfile", "-Command", ps_cmd], capture_output=True, text=True, timeout=60, creationflags=CREATE_NO_WINDOW)
         path = res.stdout.strip()
         return path if path else None
     except Exception as e:
