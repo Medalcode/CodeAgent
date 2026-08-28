@@ -1,4 +1,5 @@
 import base64
+import contextlib
 import difflib
 import logging
 import os
@@ -10,6 +11,7 @@ import threading
 import time
 from datetime import date
 from enum import Enum
+from typing import Any
 
 import requests
 from benchmark_metrics import metrics_collector
@@ -448,6 +450,15 @@ def ejecutar_comando_terminal(comando: str, directorio: str = "") -> str:
         salida = result.stdout.strip() if result.stdout else ""
         error = result.stderr.strip() if result.stderr else ""
 
+        # Registrar tarea en el buffer para renderizado en el UI de Chat
+        with contextlib.suppress(Exception):
+            TERMINAL_TASKS_BUFFER.append({
+                "comando": comando,
+                "cwd": cwd,
+                "exit_code": result.returncode,
+                "output": salida if result.returncode == 0 else (error or salida)
+            })
+
         header = f"[Ejecutado en: {cwd}]\n"
         if result.returncode == 0:
             return f"{header}✅ Éxito (código 0)\n{salida}"
@@ -457,6 +468,15 @@ def ejecutar_comando_terminal(comando: str, directorio: str = "") -> str:
         return "Error: Timeout de 60 segundos superado. El comando tardó demasiado."
     except Exception as e:
         return f"Error de ejecución crítica: {e}"
+
+TERMINAL_TASKS_BUFFER: list[dict[str, Any]] = []
+
+def get_terminal_tasks_buffer() -> list[dict[str, Any]]:
+    return list(TERMINAL_TASKS_BUFFER)
+
+def clear_terminal_tasks_buffer() -> None:
+    global TERMINAL_TASKS_BUFFER
+    TERMINAL_TASKS_BUFFER.clear()
 try:
     from googlesearch import search
 except ImportError:

@@ -58,10 +58,13 @@ class BenchmarkMetricsCollector:
         dir_path = os.path.dirname(self.filepath)
         if not os.path.exists(dir_path):
             os.makedirs(dir_path, exist_ok=True)
-        with tempfile.NamedTemporaryFile("w", dir=dir_path, delete=False, encoding="utf-8") as tf:
-            json.dump(data, tf, indent=2, ensure_ascii=False)
-            temp_name = tf.name
-        os.replace(temp_name, self.filepath)
+        try:
+            with tempfile.NamedTemporaryFile("w", dir=dir_path, delete=False, encoding="utf-8") as tf:
+                json.dump(data, tf, indent=2, ensure_ascii=False)
+                temp_name = tf.name
+            os.replace(temp_name, self.filepath)
+        except Exception as e:
+            logging.warning(f"Aviso guardando métricas en {self.filepath}: {e}")
 
     def record_run(
         self,

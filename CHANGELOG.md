@@ -4,6 +4,15 @@ Todos los cambios notables realizados en este proyecto serán documentados en es
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/), y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.5.0] - 2026-08-28
+
+### Added
+- **feat(ui):** Integradas **Tarjetas de Terminal (`.terminal-card`)** en el flujo de chat para renderizar comandos ejecutados, código de salida y stdout/stderr.
+- **feat(ui):** Cada tarjeta de terminal incluye un botón dedicado **"📋 Copiar Comando"** para copiar comandos de consola con un clic.
+- **feat(tools):** Buffer de eventos de tareas de terminal (`TERMINAL_TASKS_BUFFER`) en `tools.py` integrado con el endpoint `/api/agent/chat`.
+
+---
+
 ## [6.4.0] - 2026-08-28
 
 ### Added

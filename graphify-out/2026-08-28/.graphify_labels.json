@@ -2,10 +2,10 @@
   "0": "session_manager.py",
   "1": "LocalCodeProxyHandler",
   "2": "TestRegressionSuite",
-  "3": "DatabaseManager",
+  "3": "CodeAgentRuntime",
   "4": "main.py",
   "5": "Changelog",
-  "6": "💻 CodeAgent (v6.0 Enterprise)",
+  "6": "💻 CodeAgent (v6.2 Enterprise)",
   "7": "tool",
   "8": "mis_agentes_inteligentes/tools",
   "9": "mis_agentes_inteligentes.tools",
@@ -47,8 +47,13 @@
   "45": "mis_agentes_inteligentes.rag_tools",
   "46": "🧪 Reporte Oficial de Benchmark Reales CodeAgent (v4.2 Enterprise)",
   "47": "app.py",
-  "48": "set_active_workspace",
+  "48": "DatabaseManager",
   "49": "ejecutar_agentes",
   "50": "TestAgents",
-  "51": "claude_code_cli.py"
+  "51": "claude_code_cli.py",
+  "52": "Event",
+  "53": "EventBus",
+  "54": "event_bus.py",
+  "55": "TestRuntimeRecoveryAndPauseSemantics",
+  "56": "TestVerifierEvidenceAndWorkspaceIsolation"
 }

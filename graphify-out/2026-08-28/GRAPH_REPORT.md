@@ -1,16 +1,16 @@
 # Graph Report - CodeAgent  (2026-08-28)
 
 ## Corpus Check
-- 67 files · ~43,019 words
+- 68 files · ~44,280 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 698 nodes · 1060 edges · 52 communities (43 shown, 9 thin omitted)
-- Extraction: 78% EXTRACTED · 22% INFERRED · 0% AMBIGUOUS · INFERRED: 233 edges (avg confidence: 0.84)
+- 707 nodes · 1078 edges · 57 communities (45 shown, 12 thin omitted)
+- Extraction: 78% EXTRACTED · 22% INFERRED · 0% AMBIGUOUS · INFERRED: 240 edges (avg confidence: 0.83)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `97f7e47a`
+- Built from commit: `5a82514d`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -18,10 +18,10 @@
 - session_manager.py
 - LocalCodeProxyHandler
 - TestRegressionSuite
-- DatabaseManager
+- CodeAgentRuntime
 - main.py
 - Changelog
-- 💻 CodeAgent (v6.0 Enterprise)
+- 💻 CodeAgent (v6.2 Enterprise)
 - tool
 - mis_agentes_inteligentes/tools
 - mis_agentes_inteligentes.tools
@@ -59,16 +59,21 @@
 - mis_agentes_inteligentes.rag_tools
 - 🧪 Reporte Oficial de Benchmark Reales CodeAgent (v4.2 Enterprise)
 - app.py
-- set_active_workspace
+- DatabaseManager
 - ejecutar_agentes
 - TestAgents
 - claude_code_cli.py
+- Event
+- EventBus
+- event_bus.py
+- TestRuntimeRecoveryAndPauseSemantics
+- TestVerifierEvidenceAndWorkspaceIsolation
 
 ## God Nodes (most connected - your core abstractions)
-1. `AgentStateMachineController` - 31 edges
-2. `LocalCodeProxyHandler` - 24 edges
-3. `DatabaseManager` - 23 edges
-4. `CodeAgentRuntime` - 20 edges
+1. `AgentStateMachineController` - 34 edges
+2. `DatabaseManager` - 25 edges
+3. `LocalCodeProxyHandler` - 24 edges
+4. `CodeAgentRuntime` - 22 edges
 5. `tool()` - 19 edges
 6. `TestTools` - 18 edges
 7. `JSONSessionRepository` - 17 edges
@@ -91,19 +96,19 @@
 ## Import Cycles
 - None detected.
 
-## Communities (52 total, 9 thin omitted)
+## Communities (57 total, 12 thin omitted)
 
 ### Community 0 - "session_manager.py"
 Cohesion: 0.06
 Nodes (14): ABC, BaseSessionRepository, create_new_session(), export_session_to_markdown(), init_sessions_dir(), JSONSessionRepository, load_session(), Interfaz abstracta para la gestión de sesiones de chat (Patrón Repositorio). (+6 more)
 
 ### Community 1 - "LocalCodeProxyHandler"
-Cohesion: 0.09
-Nodes (12): _inc_metric(), LocalCodeProxyHandler, main(), _ps_file_dialog(), _ps_folder_dialog(), Imprime texto de forma segura sin crash por UnicodeEncodeError en Windows…, Servidor TCP/HTTP multihilo no bloqueante para peticiones concurrentes., _safe_print() (+4 more)
+Cohesion: 0.07
+Nodes (15): _inc_metric(), LocalCodeProxyHandler, main(), _ps_file_dialog(), _ps_folder_dialog(), Imprime texto de forma segura sin crash por UnicodeEncodeError en Windows…, Servidor TCP/HTTP multihilo no bloqueante para peticiones concurrentes., _safe_print() (+7 more)
 
-### Community 3 - "DatabaseManager"
-Cohesion: 0.05
-Nodes (28): Connection, Event, EventBus, get_event_bus(), Any, Bus de eventos persistente con patrón Observador (Event Sourcing)., Registra un callback de escucha de eventos en tiempo real., Elimina un callback de escucha. (+20 more)
+### Community 3 - "CodeAgentRuntime"
+Cohesion: 0.16
+Nodes (9): CodeAgentRuntime, Any, Obtiene la información de la tarea, su estado actual y el último checkpoint., Motor de ejecución autónomo desacoplado para CodeAgent v6.1. Gestión semántica…, Lista las tareas recientes guardadas en SQLite., Pausa una tarea activa sin marcarla como cancelada., Reanuda una tarea pausada desde su último checkpoint en SQLite., Cancela definitivamente una tarea. (+1 more)
 
 ### Community 4 - "main.py"
 Cohesion: 0.21
@@ -111,11 +116,11 @@ Nodes (6): _construir_contexto_workspace(), get_herramientas(), Pipeline de agen
 
 ### Community 5 - "Changelog"
 Cohesion: 0.06
-Nodes (32): [2.2.0] - 2026-07-25, [2.2.1] - 2026-07-26, [2.3.0] - 2026-08-04, [2.4.0] - 2026-08-26, [2.5.0] - 2026-08-26, [3.5.0] - 2026-08-27, [4.0.0] - 2026-08-27, [4.2.0] - 2026-08-27 (+24 more)
+Nodes (34): [2.2.0] - 2026-07-25, [2.2.1] - 2026-07-26, [2.3.0] - 2026-08-04, [2.4.0] - 2026-08-26, [2.5.0] - 2026-08-26, [3.5.0] - 2026-08-27, [4.0.0] - 2026-08-27, [4.2.0] - 2026-08-27 (+26 more)
 
-### Community 6 - "💻 CodeAgent (v6.0 Enterprise)"
+### Community 6 - "💻 CodeAgent (v6.2 Enterprise)"
 Cohesion: 0.10
-Nodes (19): Arquitectura, 🏗️ Arquitectura del Sistema (5 Capas Principales), Benchmarks (3 niveles), ✨ Características Principales (v3.0 Enterprise), 💻 CodeAgent (v6.0 Enterprise), 🚀 Instalación y Ejecución, Knowledge Graph, Opción 1: Arranque Rápido (Recomendado para Windows) (+11 more)
+Nodes (19): Arquitectura, 🏗️ Arquitectura del Sistema (5 Capas Principales), Benchmarks (3 niveles), ✨ Características Principales (v3.0 Enterprise), 💻 CodeAgent (v6.2 Enterprise), 🚀 Instalación y Ejecución, Knowledge Graph, Opción 1: Arranque Rápido (Recomendado para Windows) (+11 more)
 
 ### Community 7 - "tool"
 Cohesion: 0.11
@@ -131,11 +136,11 @@ Nodes (18): mis_agentes_inteligentes.tools, mis_agentes_inteligentes.tools.consu
 
 ### Community 10 - "AgentStateMachineController"
 Cohesion: 0.05
-Nodes (28): AgentStateMachineController, ComplexityRiskEvaluator, ExecutionLevel, _get_phase_cognitive_directive(), Any, Enum, CodeAgent v4.0 Deterministic State Machine Controller & Adaptive Pipeline…, Determina el Nivel de Ejecución óptimo usando la evaluación de complejidad y… (+20 more)
+Nodes (29): AgentStateMachineController, ComplexityRiskEvaluator, ExecutionLevel, _get_phase_cognitive_directive(), Any, Enum, CodeAgent v4.0 Deterministic State Machine Controller & Adaptive Pipeline…, Determina el Nivel de Ejecución óptimo usando la evaluación de complejidad y… (+21 more)
 
 ### Community 11 - "_detectar_raiz_proyecto"
-Cohesion: 0.15
-Nodes (10): _detectar_raiz_proyecto(), leer_archivo_local(), listar_directorio_local(), obtener_contexto_workspace(), Rastrea e informa la ejecución de herramientas al colector de métricas., Sube directorios hasta encontrar un marcador de raíz de repo (.git, AGENTS.md,…, Lista los archivos y carpetas de un directorio local y devuelve el contenido…, Lee el contenido de un archivo local en tu disco duro para poder analizar su… (+2 more)
+Cohesion: 0.12
+Nodes (12): _detectar_raiz_proyecto(), get_active_workspace(), leer_archivo_local(), listar_directorio_local(), obtener_contexto_workspace(), Rastrea e informa la ejecución de herramientas al colector de métricas., Devuelve el espacio de trabajo activo de forma thread-safe., Sube directorios hasta encontrar un marcador de raíz de repo (.git, AGENTS.md,… (+4 more)
 
 ### Community 12 - "mis_agentes_inteligentes.main"
 Cohesion: 0.50
@@ -237,9 +242,9 @@ Nodes (3): 📈 KPIs Globales Acumulados, 🧪 Reporte Oficial de Benchmark Real
 Cohesion: 0.20
 Nodes (5): graphify, _guardar_sesion_actual(), Guarda los datos de la sesión activa en disco., Comprime texto y asegura la validez de los bloques de código markdown., _truncar_markdown()
 
-### Community 48 - "set_active_workspace"
-Cohesion: 0.22
-Nodes (5): get_active_workspace(), Establece el directorio del espacio de trabajo activo de forma thread-safe para…, Devuelve el espacio de trabajo activo de forma thread-safe., set_active_workspace(), TestWorkspaceIsolation
+### Community 48 - "DatabaseManager"
+Cohesion: 0.29
+Nodes (4): Connection, DatabaseManager, Any, Gestor de almacenamiento persistente SQLite multihilo seguro para CodeAgent…
 
 ### Community 49 - "ejecutar_agentes"
 Cohesion: 0.28
@@ -249,25 +254,33 @@ Nodes (6): get_model(), Instancia dinámicamente el modelo LiteLLMModel según e
 Cohesion: 0.39
 Nodes (3): Enrutador automático mejorado con scoring ponderado., route_prompt(), TestAgents
 
+### Community 52 - "Event"
+Cohesion: 0.17
+Nodes (7): Event, Any, Registra un callback de escucha de eventos en tiempo real., Elimina un callback de escucha., Persiste el evento en SQLite y notifica a todos los suscriptores activos., Obtiene la corriente de eventos guardados para reconstruir el estado visual en…, Inicia una nueva tarea agéntica de forma asíncrona y la registra en SQLite.
+
+### Community 53 - "EventBus"
+Cohesion: 0.21
+Nodes (5): EventBus, get_event_bus(), Bus de eventos persistente con patrón Observador (Event Sourcing)., get_db_manager(), TestRuntimeAndStorage
+
 ## Knowledge Gaps
-- **57 isolated node(s):** `start_hub.sh script`, `graphify`, `What a good test is`, `Seams — where tests go`, `Anti-patterns` (+52 more)
+- **58 isolated node(s):** `start_hub.sh script`, `graphify`, `What a good test is`, `Seams — where tests go`, `Anti-patterns` (+53 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **9 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **12 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `AgentStateMachineController` connect `AgentStateMachineController` to `session_manager.py`, `CodeAgentBenchmarkSuite`, `DatabaseManager`?**
-  _High betweenness centrality (0.126) - this node is a cross-community bridge._
-- **Why does `CodeAgentRuntime` connect `DatabaseManager` to `LocalCodeProxyHandler`, `AgentStateMachineController`?**
-  _High betweenness centrality (0.071) - this node is a cross-community bridge._
-- **Why does `set_active_workspace()` connect `set_active_workspace` to `LocalCodeProxyHandler`, `tools.py`, `DesktopIDEApi`?**
-  _High betweenness centrality (0.052) - this node is a cross-community bridge._
-- **Are the 16 inferred relationships involving `AgentStateMachineController` (e.g. with `CodeAgentBenchmarkSuite` and `.__init__()`) actually correct?**
-  _`AgentStateMachineController` has 16 INFERRED edges - model-reasoned connections that need verification._
+- **Why does `AgentStateMachineController` connect `AgentStateMachineController` to `session_manager.py`, `CodeAgentBenchmarkSuite`, `CodeAgentRuntime`, `Event`, `TestRuntimeRecoveryAndPauseSemantics`, `TestVerifierEvidenceAndWorkspaceIsolation`?**
+  _High betweenness centrality (0.125) - this node is a cross-community bridge._
+- **Why does `CodeAgentRuntime` connect `CodeAgentRuntime` to `LocalCodeProxyHandler`, `AgentStateMachineController`, `DatabaseManager`, `Event`, `EventBus`, `event_bus.py`, `TestRuntimeRecoveryAndPauseSemantics`, `TestVerifierEvidenceAndWorkspaceIsolation`?**
+  _High betweenness centrality (0.063) - this node is a cross-community bridge._
+- **Why does `set_active_workspace()` connect `LocalCodeProxyHandler` to `tools.py`, `_detectar_raiz_proyecto`, `DesktopIDEApi`?**
+  _High betweenness centrality (0.050) - this node is a cross-community bridge._
+- **Are the 19 inferred relationships involving `AgentStateMachineController` (e.g. with `CodeAgentBenchmarkSuite` and `.__init__()`) actually correct?**
+  _`AgentStateMachineController` has 19 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 9 inferred relationships involving `DatabaseManager` (e.g. with `Event` and `EventBus`) actually correct?**
+  _`DatabaseManager` has 9 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 2 inferred relationships involving `LocalCodeProxyHandler` (e.g. with `TestE2ESystemSuite` and `TestLocalCodeServer`) actually correct?**
   _`LocalCodeProxyHandler` has 2 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 7 inferred relationships involving `DatabaseManager` (e.g. with `Event` and `EventBus`) actually correct?**
-  _`DatabaseManager` has 7 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 7 inferred relationships involving `CodeAgentRuntime` (e.g. with `AgentStateMachineController` and `EventBus`) actually correct?**
-  _`CodeAgentRuntime` has 7 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 9 inferred relationships involving `CodeAgentRuntime` (e.g. with `AgentStateMachineController` and `EventBus`) actually correct?**
+  _`CodeAgentRuntime` has 9 INFERRED edges - model-reasoned connections that need verification._

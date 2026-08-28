@@ -530,8 +530,13 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
         api_key = data.get("api_key", "")
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
         try:
-            from tools import set_active_workspace
+            from tools import (
+                clear_terminal_tasks_buffer,
+                get_terminal_tasks_buffer,
+                set_active_workspace,
+            )
             set_active_workspace(ACTIVE_WORKSPACE_DIR)
+            clear_terminal_tasks_buffer()
         except Exception:
             pass
 
@@ -545,9 +550,16 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
                 agent_type=agent_type,
                 selected_tools=selected_tools
             )
+            term_tasks = []
+            try:
+                from tools import get_terminal_tasks_buffer
+                term_tasks = get_terminal_tasks_buffer()
+            except Exception:
+                pass
+
             _safe_print(f"[LocalCode Server] ✅ Agente respondió con éxito en {metricas.get('tiempo_segundos', 0)}s\n")
             _inc_metric("successful_requests")
-            self._send_json({"success": True, "respuesta": respuesta, "metricas": metricas})
+            self._send_json({"success": True, "respuesta": respuesta, "metricas": metricas, "terminal_tasks": term_tasks})
         except Exception as e:
             _safe_print(f"[LocalCode Server] ❌ Error en Agente: {e}\n")
             _inc_metric("failed_requests")
