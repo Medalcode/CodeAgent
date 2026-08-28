@@ -1192,10 +1192,6 @@
       clearInterval(timerInterval);
       currentFetchAbortController = null;
 
-      if(workingBubble && workingBubble.parentNode){
-        workingBubble.parentNode.removeChild(workingBubble);
-      }
-
       const elapsed = Math.max(1, Math.round((Date.now() - startTime) / 1000));
       const acc = $('reasoningAccordion');
       if(acc) {
@@ -1220,16 +1216,17 @@
         `<div style="display:flex; justify-content:flex-end; margin-top:8px;">` +
         `<button class="copy-btn" onclick="copyMsgText(this)" style="background:var(--bg-hover); border:1px solid var(--border); color:var(--text-bright); padding:4px 10px; border-radius:4px; font-size:11px; cursor:pointer; display:inline-flex; align-items:center; gap:4px; user-select:none;">📋 Copiar Respuesta</button>` +
         `</div>`;
-      $('messagesContainer').appendChild(botMsg);
 
-      // Auto-refresh del árbol de archivos de inmediato tras la respuesta del agente
-      await reloadWorkspaceFiles();
-    } catch(e) {
-      clearInterval(timerInterval);
+      // Reemplazo instantáneo sin espacio ni tiempo muerto
       if(workingBubble && workingBubble.parentNode){
-        workingBubble.parentNode.removeChild(workingBubble);
+        workingBubble.parentNode.replaceChild(botMsg, workingBubble);
+      } else {
+        $('messagesContainer').appendChild(botMsg);
       }
 
+      reloadWorkspaceFiles().catch(() => {});
+    } catch(e) {
+      clearInterval(timerInterval);
       const elapsed = Math.max(1, Math.round((Date.now() - startTime) / 1000));
       $('reasoningHeader').innerHTML = `<span>Worked for ${elapsed}s</span><span>></span>`;
 
@@ -1237,9 +1234,14 @@
       botMsg.className = 'msg-bubble-assistant';
       botMsg.style.color = 'var(--red)';
       botMsg.innerHTML = `<strong>❌ Error en CodeAgent:</strong> ${escapeHtml(e.message || e)}`;
-      $('messagesContainer').appendChild(botMsg);
 
-      await reloadWorkspaceFiles();
+      if(workingBubble && workingBubble.parentNode){
+        workingBubble.parentNode.replaceChild(botMsg, workingBubble);
+      } else {
+        $('messagesContainer').appendChild(botMsg);
+      }
+
+      reloadWorkspaceFiles().catch(() => {});
     }
     $('chatBody').scrollTop = $('chatBody').scrollHeight;
   });
