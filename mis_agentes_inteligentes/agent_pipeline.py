@@ -19,6 +19,7 @@ import subprocess
 import sys
 import threading
 import time
+from dataclasses import dataclass
 
 if sys.platform == "win32":
     _orig_popen_init = subprocess.Popen.__init__
@@ -81,28 +82,92 @@ def _get_phase_cognitive_directive(state: State, failed_verification: dict[str, 
     return ""
 
 
+class TaskType(Enum):
+    CHAT = "CHAT"
+    ACTION = "ACTION"
+    FEATURE = "FEATURE"
+
+
+@dataclass
+class TaskContract:
+    task_type: TaskType
+    execution_level: ExecutionLevel
+    requires_code_verification: bool
+    requires_tests: bool
+    requires_execution: bool
+    tools_allowed: bool
+    files_allowed: bool
+
+
 class ComplexityRiskEvaluator:
     """Evaluador determinista de complejidad, alcance e impacto en workspace."""
 
     @staticmethod
     def evaluate(user_goal: str) -> ExecutionLevel:
-        goal_lower = user_goal.lower()
+        goal_lower = user_goal.lower().strip()
 
-        # Intención: Informativa vs Modificación
-        is_query = any(p in goal_lower for p in ("qué hace", "explicar", "cómo funciona", "dónde está", "resumen", "revisa")) and not any(a in goal_lower for a in ("crea", "modifica", "corrige", "arregla", "refactoriza"))
-        if is_query:
+        # 1. Indicadores explícitos de Conversación / Zero-Tool (Level 1 CHAT)
+        chat_keywords = (
+            "responde únicamente", "responde ok", "responde con", "hola", "saluda",
+            "dime", "explícame", "explica", "gracias", "quién eres", "qué puedes hacer",
+            "sin herramientas", "sin modificar", "sin tocar", "no ejecutes nada",
+            "no crees nada", "no abras", "únicamente con", "únicamente ok", "únicamente el texto"
+        )
+        is_explicit_chat = any(k in goal_lower for k in chat_keywords)
+
+        mutation_verbs = ("crea", "escribe", "modifica", "ejecuta", "elimina", "construye", "refactoriza", "arregla", "implementa", "añade", "agrega")
+        has_mutation = any(v in goal_lower for v in mutation_verbs)
+
+        is_query = any(p in goal_lower for p in ("qué hace", "explicar", "cómo funciona", "dónde está", "resumen", "revisa")) and not has_mutation
+
+        if is_explicit_chat or is_query or (not has_mutation and len(goal_lower.split()) <= 12):
             return ExecutionLevel.LEVEL_1_CHAT
 
-        # Riesgo e Impacto
+        # 2. Operaciones complejas de alto riesgo (Level 4 FULL)
         high_risk = any(c in goal_lower for c in ("refactoriza", "resuelve los linter warnings", "haz que los tests pasen", "arquitectura", "migra"))
         if high_risk:
             return ExecutionLevel.LEVEL_4_FULL
 
-        medium_action = any(a in goal_lower for a in ("formatea", "añade un comentario", "cambia el nombre", "elimina la línea"))
-        if medium_action:
+        # 3. Acciones directas de alcance limitado (Level 2 ACTION)
+        single_file_action = any(a in goal_lower for a in ("crea únicamente", "crea un archivo", "escribe en", "formatea", "añade un comentario", "cambia el nombre", "elimina la línea"))
+        if single_file_action:
             return ExecutionLevel.LEVEL_2_ACTION
 
         return ExecutionLevel.LEVEL_3_FEATURE
+
+    @staticmethod
+    def build_contract(user_goal: str) -> TaskContract:
+        level = ComplexityRiskEvaluator.evaluate(user_goal)
+        if level == ExecutionLevel.LEVEL_1_CHAT:
+            return TaskContract(
+                task_type=TaskType.CHAT,
+                execution_level=level,
+                requires_code_verification=False,
+                requires_tests=False,
+                requires_execution=False,
+                tools_allowed=False,
+                files_allowed=False
+            )
+        elif level == ExecutionLevel.LEVEL_2_ACTION:
+            return TaskContract(
+                task_type=TaskType.ACTION,
+                execution_level=level,
+                requires_code_verification=True,
+                requires_tests=False,
+                requires_execution=True,
+                tools_allowed=True,
+                files_allowed=True
+            )
+        else:
+            return TaskContract(
+                task_type=TaskType.FEATURE,
+                execution_level=level,
+                requires_code_verification=True,
+                requires_tests=True,
+                requires_execution=True,
+                tools_allowed=True,
+                files_allowed=True
+            )
 
 
 class AgentStateMachineController:

@@ -623,7 +623,7 @@
       "label": "._stage_critic()",
       "file_type": "code",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L715",
+      "source_location": "L721",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_critic",
       "community": 10,
@@ -799,9 +799,9 @@
       "label": "Evaluaci\u00f3n cr\u00edtica objetiva del diff, requisitos e integridad del workspace.",
       "file_type": "rationale",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L716",
+      "source_location": "L722",
       "_origin": "ast",
-      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_716",
+      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_722",
       "community": 10,
       "community_name": "AgentStateMachineController",
       "norm_label": "evaluacion critica objetiva del diff, requisitos e integridad del workspace."
@@ -9531,7 +9531,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L715",
+      "source_location": "L721",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_critic",
@@ -9735,7 +9735,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L715",
+      "source_location": "L721",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller",
@@ -10368,10 +10368,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L716",
+      "source_location": "L722",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_716",
+      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_722",
       "target": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_critic",
       "confidence_score": 1.0
     },
@@ -21397,5 +21397,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "cb96443477fbb655ca3230e339ba0a34f7714798"
+  "built_at_commit": "373778ed0695bbd073f9e8681dd4f0f2bef4ad13"
 }
