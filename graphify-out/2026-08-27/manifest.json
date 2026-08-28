@@ -35,8 +35,8 @@
     "semantic_hash": "a1355e8f77d7a9bdc1619866b5517ca6"
   },
   "mis_agentes_inteligentes/tools.py": {
-    "mtime": 1787876365.7315302,
-    "ast_hash": "61b6a46a7edfed034cdca2eebf28564a",
+    "mtime": 1787879964.8852754,
+    "ast_hash": "5b8da473390529ae13ec1552b2823682",
     "semantic_hash": ""
   },
   "orquestador_agente.py": {
@@ -105,8 +105,8 @@
     "semantic_hash": ""
   },
   "desktop_app.py": {
-    "mtime": 1787877590.2345536,
-    "ast_hash": "806686abc63b263a90d079658082ee38",
+    "mtime": 1787878686.0111215,
+    "ast_hash": "559573a8f6fe2d68cf6399c8a952f4ef",
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/__init__.py": {
@@ -130,8 +130,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/localcode_server.py": {
-    "mtime": 1787877510.9709597,
-    "ast_hash": "6d60b6a42cb3abc4f71bbdcd548a5393",
+    "mtime": 1787878803.5742803,
+    "ast_hash": "06d197930137acefdf7c64794f3a486d",
     "semantic_hash": ""
   },
   "pyproject.toml": {
@@ -270,8 +270,8 @@
     "semantic_hash": ""
   },
   "localcode_claude_ui.html": {
-    "mtime": 1787878077.5305176,
-    "ast_hash": "6ef7acbde69007762cf246049499117a",
+    "mtime": 1787878672.1588545,
+    "ast_hash": "6f2e7122a9d8dfce68e44b5e8331358b",
     "semantic_hash": ""
   },
   "tests/test_desktop_app.py": {
@@ -285,8 +285,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/metrics_benchmarks.json": {
-    "mtime": 1787878107.443055,
-    "ast_hash": "2a210e4fea9d53a6c7b6b41ab0fd7816",
+    "mtime": 1787880045.3304536,
+    "ast_hash": "1174841f4dcad7dc48f7efe2d8acbdbd",
     "semantic_hash": ""
   },
   "tests/test_state_machine.py": {
@@ -310,8 +310,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/benchmark_report_v42.md": {
-    "mtime": 1787877766.0338748,
-    "ast_hash": "56ca99af7a3481299b4b7570a804685c",
+    "mtime": 1787880026.8192983,
+    "ast_hash": "e5a012dd4c5667a7bd615e0216da132f",
     "semantic_hash": ""
   },
   "tests/test_feedback_loop.py": {
@@ -330,8 +330,13 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/localcode_claude_ui.html": {
-    "mtime": 1787878077.5305176,
-    "ast_hash": "6ef7acbde69007762cf246049499117a",
+    "mtime": 1787878672.1588545,
+    "ast_hash": "6f2e7122a9d8dfce68e44b5e8331358b",
+    "semantic_hash": ""
+  },
+  "tests/test_refactored_quality.py": {
+    "mtime": 1787879983.782287,
+    "ast_hash": "fb02b793df636cfebb088d5a49a531f2",
     "semantic_hash": ""
   }
 }

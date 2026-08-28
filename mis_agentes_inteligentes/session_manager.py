@@ -72,8 +72,11 @@ class JSONSessionRepository(BaseSessionRepository):
         self._init_dir()
         filepath = os.path.join(self.sessions_dir, f"{session_id}.json")
         if os.path.exists(filepath):
-            with open(filepath, encoding="utf-8") as f:
-                return json.load(f)
+            try:
+                with open(filepath, encoding="utf-8") as f:
+                    return json.load(f)
+            except (json.JSONDecodeError, OSError):
+                return None
         return None
 
     def save_session(self, session_id: str, data: dict) -> None:
