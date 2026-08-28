@@ -266,7 +266,7 @@ class AgentStateMachineController:
                 if verification_res["success"]:
                     current_state = State.CRITIC if active_level == ExecutionLevel.LEVEL_4_FULL else State.DONE
                 else:
-                    if active_level == ExecutionLevel.LEVEL_4_FULL and replans_count < self.max_replans:
+                    if active_level in (ExecutionLevel.LEVEL_3_FEATURE, ExecutionLevel.LEVEL_4_FULL) and replans_count < self.max_replans:
                         current_state = State.DIAGNOSE
                     else:
                         current_state = State.CRITIC if active_level == ExecutionLevel.LEVEL_4_FULL else State.DONE
@@ -311,6 +311,16 @@ class AgentStateMachineController:
         transitions_str = " ➔ ".join(s.value if isinstance(s, State) else str(s) for s in state_history)
         status_label = "✅ VERIFIED" if (success and py_count > 0) else ("⚠️ NO_CODE_FOUND" if py_count == 0 else "❌ VERIFICATION_FAILED")
 
+        tests_st = verification_res.get("tests_status", "NOT_REQUIRED")
+        if tests_st == "PASS":
+            tests_fmt = "✅ PASS (Pruebas unitarias pasadas al 100%)"
+        elif tests_st == "FAIL":
+            tests_fmt = "❌ FAIL (Fallo en suite de pruebas)"
+        elif tests_st == "NOT_RUN":
+            tests_fmt = "⚪ NOT_RUN (Sin suite de pruebas)"
+        else:
+            tests_fmt = "⚪ NOT_REQUIRED (Sin directiva de pruebas requerida)"
+
         final_response = (
             f"### 📋 CodeAgent — Task Result: {status_label}\n\n"
             f"{execution_result}\n\n"
@@ -318,9 +328,9 @@ class AgentStateMachineController:
             f"#### 🧪 Evidencia de Verificación Tri-Estado:\n"
             f"- **Flujo de Transición:** `{transitions_str}`\n"
             f"- **Re-planificaciones:** {replans_count} / {self.max_replans}\n"
-            f"- **Sintaxis AST:** `{verification_res.get('ast_status', 'PASS' if verification_res.get('ast_valid', True) else 'FAIL')}` ({py_count} archivos .py)\n"
-            f"- **Suite de Pruebas:** `{verification_res.get('tests_status', 'PASS' if verification_res.get('tests_passed', True) else 'FAIL')}` ({verification_res.get('test_files_count', 0)} archivos de test)\n"
-            f"- **Linter (Ruff):** `{verification_res.get('ruff_status', 'PASS' if verification_res.get('ruff_passed', True) else 'FAIL')}`\n"
+            f"- **Sintaxis AST:** `{verification_res.get('ast_status', 'PASS')}` ({py_count} archivos .py)\n"
+            f"- **Suite de Pruebas:** {tests_fmt} ({verification_res.get('test_files_count', 0)} archivos de test)\n"
+            f"- **Linter (Ruff):** `{verification_res.get('ruff_status', 'PASS')}`\n"
             f"- **Evaluación Critic:** {critic_summary}\n"
         )
 

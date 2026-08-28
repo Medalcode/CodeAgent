@@ -1,16 +1,16 @@
 # Graph Report - CodeAgent  (2026-08-28)
 
 ## Corpus Check
-- 70 files · ~47,502 words
+- 70 files · ~47,795 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 738 nodes · 1131 edges · 53 communities (42 shown, 11 thin omitted)
+- 738 nodes · 1131 edges · 52 communities (42 shown, 10 thin omitted)
 - Extraction: 78% EXTRACTED · 22% INFERRED · 0% AMBIGUOUS · INFERRED: 254 edges (avg confidence: 0.83)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `325092bf`
+- Built from commit: `6eb8414b`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -60,7 +60,6 @@
 - DatabaseManager
 - TestTaskTimeoutSafeguardAndCancellation
 - EventBus
-- TestRuntimeAndStorage
 - runtime.py
 - TestVerifierEvidenceAndWorkspaceIsolation
 - mis_agentes_inteligentes.rag_tools
@@ -92,7 +91,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (53 total, 11 thin omitted)
+## Communities (52 total, 10 thin omitted)
 
 ### Community 0 - "session_manager.py"
 Cohesion: 0.06
@@ -219,8 +218,8 @@ Cohesion: 0.22
 Nodes (8): clear_terminal_tasks_buffer(), is_command_approved(), is_sensitive_command(), PermissionLevel, pre_approve_command(), Enum, Niveles de autorización para la ejecución segura de herramientas agénticas., TestTerminalHITLApproval
 
 ### Community 32 - "Event"
-Cohesion: 0.29
-Nodes (4): Event, Registra un callback de escucha de eventos en tiempo real., Elimina un callback de escucha., Inicia una nueva tarea agéntica de forma asíncrona y la registra en SQLite.
+Cohesion: 0.17
+Nodes (7): Event, Any, Registra un callback de escucha de eventos en tiempo real., Elimina un callback de escucha., Persiste el evento en SQLite y notifica a todos los suscriptores activos., Obtiene la corriente de eventos guardados para reconstruir el estado visual en…, Inicia una nueva tarea agéntica de forma asíncrona y la registra en SQLite.
 
 ### Community 33 - "mis_agentes_inteligentes/rag_tools"
 Cohesion: 0.50
@@ -235,12 +234,12 @@ Cohesion: 0.50
 Nodes (3): 📈 KPIs Globales Acumulados, 🧪 Reporte Oficial de Benchmark Reales CodeAgent (v4.2 Enterprise), 📊 Resultados por Tarea de Ingeniería
 
 ### Community 48 - "DatabaseManager"
-Cohesion: 0.29
-Nodes (4): Connection, DatabaseManager, Any, Gestor de almacenamiento persistente SQLite multihilo seguro para CodeAgent…
+Cohesion: 0.23
+Nodes (5): Connection, DatabaseManager, get_db_manager(), Any, Gestor de almacenamiento persistente SQLite multihilo seguro para CodeAgent…
 
 ### Community 52 - "EventBus"
-Cohesion: 0.14
-Nodes (7): EventBus, Any, Bus de eventos persistente con patrón Observador (Event Sourcing)., Persiste el evento en SQLite y notifica a todos los suscriptores activos., Obtiene la corriente de eventos guardados para reconstruir el estado visual en…, get_db_manager(), TestRuntimeRecoveryAndPauseSemantics
+Cohesion: 0.15
+Nodes (4): EventBus, Bus de eventos persistente con patrón Observador (Event Sourcing)., TestRuntimeRecoveryAndPauseSemantics, TestRuntimeAndStorage
 
 ### Community 57 - "mis_agentes_inteligentes.rag_tools"
 Cohesion: 0.50
@@ -249,14 +248,14 @@ Nodes (4): mis_agentes_inteligentes.rag_tools, mis_agentes_inteligentes.rag_tool
 ## Knowledge Gaps
 - **64 isolated node(s):** `start_hub.sh script`, `graphify`, `What a good test is`, `Seams — where tests go`, `Anti-patterns` (+59 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **11 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **10 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `AgentStateMachineController` connect `AgentStateMachineController` to `Event`, `CodeAgentBenchmarkSuite`, `CodeAgentRuntime`, `EventBus`, `BenchmarkMetricsCollector`, `TestVerifierEvidenceAndWorkspaceIsolation`?**
   _High betweenness centrality (0.086) - this node is a cross-community bridge._
-- **Why does `CodeAgentRuntime` connect `CodeAgentRuntime` to `Event`, `LocalCodeProxyHandler`, `AgentStateMachineController`, `DatabaseManager`, `TestTaskTimeoutSafeguardAndCancellation`, `EventBus`, `TestRuntimeAndStorage`, `runtime.py`, `TestVerifierEvidenceAndWorkspaceIsolation`?**
+- **Why does `CodeAgentRuntime` connect `CodeAgentRuntime` to `Event`, `LocalCodeProxyHandler`, `AgentStateMachineController`, `DatabaseManager`, `TestTaskTimeoutSafeguardAndCancellation`, `EventBus`, `runtime.py`, `TestVerifierEvidenceAndWorkspaceIsolation`?**
   _High betweenness centrality (0.064) - this node is a cross-community bridge._
 - **Are the 19 inferred relationships involving `AgentStateMachineController` (e.g. with `CodeAgentBenchmarkSuite` and `.__init__()`) actually correct?**
   _`AgentStateMachineController` has 19 INFERRED edges - model-reasoned connections that need verification._

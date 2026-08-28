@@ -4,6 +4,15 @@ Todos los cambios notables realizados en este proyecto serán documentados en es
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/), y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.10.0] - 2026-08-28
+
+### Added
+- **feat(architecture):** Habilitada autorecuperación autónoma `DIAGNOSE -> REPLAN -> EXECUTE` para tareas de **Nivel 3 (Feature Standard)** ante fallos de verificación.
+- **feat(ui):** Renderizado determinista y formateo explícito en el reporte final de verificación para `NOT_REQUIRED` (`⚪ NOT_REQUIRED (Sin directiva de pruebas requerida)`).
+- **test(qa):** Creado módulo `tests/test_tdd_recovery_loop.py` validando el ciclo TDD completo (`FAIL -> DIAGNOSE -> REPLAN -> FIX -> PASS`). Suite total con **106/106 pruebas unitarias pasadas al 100%**.
+
+---
+
 ## [6.9.0] - 2026-08-28
 
 ### Added

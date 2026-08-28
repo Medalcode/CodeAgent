@@ -70,8 +70,8 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1787942651.445611,
-    "ast_hash": "0c3b211094b3f5dc67bb756d9479371b",
+    "mtime": 1787944096.2460442,
+    "ast_hash": "1ed401479a13abf34e3e40bff1a02368",
     "semantic_hash": ""
   },
   "docker-compose.yml": {
@@ -115,8 +115,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/agent_pipeline.py": {
-    "mtime": 1787943989.1780436,
-    "ast_hash": "de1bca565afedc11c5037ffd4545cf44",
+    "mtime": 1787946028.3947954,
+    "ast_hash": "9319db7c17a4e98f08f37aca0f2f8a7b",
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/claude_code_cli.py": {
@@ -235,8 +235,8 @@
     "semantic_hash": ""
   },
   "CHANGELOG.md": {
-    "mtime": 1787942645.977285,
-    "ast_hash": "1b54bbf056ce70d5e15fc8304b85bc79",
+    "mtime": 1787944092.849923,
+    "ast_hash": "aff9071ee1209bd4204248a643afee4b",
     "semantic_hash": ""
   },
   "docs/adr/ADR-001-smolagents-react-engine.md": {
@@ -285,8 +285,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/metrics_benchmarks.json": {
-    "mtime": 1787944078.3717937,
-    "ast_hash": "6735edd929f3bf6b0206fbc4bf46dd68",
+    "mtime": 1787946154.495556,
+    "ast_hash": "262f13bb534396292bc2fa595a6b6ad5",
     "semantic_hash": ""
   },
   "tests/test_state_machine.py": {
@@ -310,8 +310,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/benchmark_report_v42.md": {
-    "mtime": 1787944057.578204,
-    "ast_hash": "caced2b5e6b1a5a4276df88a03379299",
+    "mtime": 1787946127.1768897,
+    "ast_hash": "02a0a22f2350d7962a05c3969954f3eb",
     "semantic_hash": ""
   },
   "tests/test_feedback_loop.py": {
@@ -392,6 +392,11 @@
   "tests/test_terminal_hitl_approval.py": {
     "mtime": 1787940436.6202574,
     "ast_hash": "6083533ec538a4921ac3ae3f1151d3c9",
+    "semantic_hash": ""
+  },
+  "tests/test_tdd_recovery_loop.py": {
+    "mtime": 1787946072.1606412,
+    "ast_hash": "f51a396c654edcdd9c725b137c37a162",
     "semantic_hash": ""
   }
 }

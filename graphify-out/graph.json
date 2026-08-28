@@ -513,7 +513,7 @@
       "label": ".run_pipeline()",
       "file_type": "code",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L338",
+      "source_location": "L348",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_run_pipeline",
       "community": 10,
@@ -524,7 +524,7 @@
       "label": ".resume_session()",
       "file_type": "code",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L342",
+      "source_location": "L352",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_resume_session",
       "community": 10,
@@ -535,7 +535,7 @@
       "label": "._stage_planner()",
       "file_type": "code",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L382",
+      "source_location": "L392",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_planner",
       "community": 10,
@@ -546,7 +546,7 @@
       "label": "._stage_diagnose()",
       "file_type": "code",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L393",
+      "source_location": "L403",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_diagnose",
       "community": 10,
@@ -557,7 +557,7 @@
       "label": "._stage_replan()",
       "file_type": "code",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L407",
+      "source_location": "L417",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_replan",
       "community": 10,
@@ -568,7 +568,7 @@
       "label": "._stage_explorer()",
       "file_type": "code",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L420",
+      "source_location": "L430",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_explorer",
       "community": 10,
@@ -579,7 +579,7 @@
       "label": "._build_execution_prompt()",
       "file_type": "code",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L438",
+      "source_location": "L448",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_build_execution_prompt",
       "community": 10,
@@ -590,7 +590,7 @@
       "label": "._stage_verifier()",
       "file_type": "code",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L466",
+      "source_location": "L476",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_verifier",
       "community": 10,
@@ -601,7 +601,7 @@
       "label": "._stage_critic()",
       "file_type": "code",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L550",
+      "source_location": "L560",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_critic",
       "community": 10,
@@ -689,9 +689,9 @@
       "label": "Alias de compatibilidad hacia atr\u00e1s para la versi\u00f3n v3.0.",
       "file_type": "rationale",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L339",
+      "source_location": "L349",
       "_origin": "ast",
-      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_339",
+      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_349",
       "community": 10,
       "community_name": "AgentStateMachineController",
       "norm_label": "alias de compatibilidad hacia atras para la version v3.0."
@@ -700,9 +700,9 @@
       "label": "Reanuda la ejecuci\u00f3n ag\u00e9ntica desde el \u00faltimo StateCheckpoint persistido en la\u2026",
       "file_type": "rationale",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L343",
+      "source_location": "L353",
       "_origin": "ast",
-      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_343",
+      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_353",
       "community": 10,
       "community_name": "AgentStateMachineController",
       "norm_label": "reanuda la ejecucion agentica desde el ultimo statecheckpoint persistido en la..."
@@ -711,9 +711,9 @@
       "label": "Genera un plan de acci\u00f3n estructurado.",
       "file_type": "rationale",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L383",
+      "source_location": "L393",
       "_origin": "ast",
-      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_383",
+      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_393",
       "community": 10,
       "community_name": "AgentStateMachineController",
       "norm_label": "genera un plan de accion estructurado."
@@ -722,9 +722,9 @@
       "label": "Genera un RootCauseReport estructurado aislando la causa ra\u00edz del fallo.",
       "file_type": "rationale",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L394",
+      "source_location": "L404",
       "_origin": "ast",
-      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_394",
+      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_404",
       "community": 10,
       "community_name": "AgentStateMachineController",
       "norm_label": "genera un rootcausereport estructurado aislando la causa raiz del fallo."
@@ -733,9 +733,9 @@
       "label": "Genera un UpdatedPlan estructurado incorporando el ajuste estrat\u00e9gico del\u2026",
       "file_type": "rationale",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L408",
+      "source_location": "L418",
       "_origin": "ast",
-      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_408",
+      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_418",
       "community": 10,
       "community_name": "AgentStateMachineController",
       "norm_label": "genera un updatedplan estructurado incorporando el ajuste estrategico del..."
@@ -744,9 +744,9 @@
       "label": "Protocolo Estructural Graphify-First: Extrae y jerarquiza nodos del Grafo AST\u2026",
       "file_type": "rationale",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L421",
+      "source_location": "L431",
       "_origin": "ast",
-      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_421",
+      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_431",
       "community": 10,
       "community_name": "AgentStateMachineController",
       "norm_label": "protocolo estructural graphify-first: extrae y jerarquiza nodos del grafo ast..."
@@ -755,9 +755,9 @@
       "label": "Construye el prompt contextual para la fase EXECUTE.",
       "file_type": "rationale",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L445",
+      "source_location": "L455",
       "_origin": "ast",
-      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_445",
+      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_455",
       "community": 10,
       "community_name": "AgentStateMachineController",
       "norm_label": "construye el prompt contextual para la fase execute."
@@ -766,9 +766,9 @@
       "label": "Comprueba sintaxis AST, linter Ruff y suite de pruebas unitarias con reporte de\u2026",
       "file_type": "rationale",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L467",
+      "source_location": "L477",
       "_origin": "ast",
-      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_467",
+      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_477",
       "community": 10,
       "community_name": "AgentStateMachineController",
       "norm_label": "comprueba sintaxis ast, linter ruff y suite de pruebas unitarias con reporte de..."
@@ -777,9 +777,9 @@
       "label": "Evaluaci\u00f3n de cumplimiento final.",
       "file_type": "rationale",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L551",
+      "source_location": "L561",
       "_origin": "ast",
-      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_551",
+      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_561",
       "community": 10,
       "community_name": "AgentStateMachineController",
       "norm_label": "evaluacion de cumplimiento final."
@@ -1925,7 +1925,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_runtime_init",
       "community": 54,
-      "community_name": "runtime.py",
+      "community_name": "database.py",
       "norm_label": "runtime/__init__.py"
     },
     {
@@ -1936,7 +1936,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_runtime_init_rationale_1",
       "community": 54,
-      "community_name": "runtime.py",
+      "community_name": "database.py",
       "norm_label": "modulo de runtime autonomo y event bus para codeagent v6.0 enterprise."
     },
     {
@@ -1947,7 +1947,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_runtime_event_bus",
       "community": 54,
-      "community_name": "runtime.py",
+      "community_name": "database.py",
       "norm_label": "event_bus.py"
     },
     {
@@ -1958,7 +1958,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_runtime_event_bus_event",
       "community": 32,
-      "community_name": "Event",
+      "community_name": "EventBus",
       "norm_label": "event"
     },
     {
@@ -1968,7 +1968,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_runtime_event_bus_eventbus",
-      "community": 52,
+      "community": 32,
       "community_name": "EventBus",
       "norm_label": "eventbus"
     },
@@ -1979,8 +1979,8 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_runtime_event_bus_eventbus_init",
-      "community": 48,
-      "community_name": "DatabaseManager",
+      "community": 32,
+      "community_name": "EventBus",
       "norm_label": ".__init__()"
     },
     {
@@ -1991,7 +1991,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_runtime_event_bus_eventbus_subscribe",
       "community": 32,
-      "community_name": "Event",
+      "community_name": "EventBus",
       "norm_label": ".subscribe()"
     },
     {
@@ -2002,7 +2002,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_runtime_event_bus_eventbus_unsubscribe",
       "community": 32,
-      "community_name": "Event",
+      "community_name": "EventBus",
       "norm_label": ".unsubscribe()"
     },
     {
@@ -2013,7 +2013,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_runtime_event_bus_eventbus_publish",
       "community": 32,
-      "community_name": "Event",
+      "community_name": "EventBus",
       "norm_label": ".publish()"
     },
     {
@@ -2024,7 +2024,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_runtime_event_bus_py_any",
       "community": 32,
-      "community_name": "Event",
+      "community_name": "EventBus",
       "norm_label": "any"
     },
     {
@@ -2035,7 +2035,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_runtime_event_bus_eventbus_get_events",
       "community": 32,
-      "community_name": "Event",
+      "community_name": "EventBus",
       "norm_label": ".get_events()"
     },
     {
@@ -2056,7 +2056,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_runtime_event_bus_rationale_21",
-      "community": 52,
+      "community": 32,
       "community_name": "EventBus",
       "norm_label": "bus de eventos persistente con patron observador (event sourcing)."
     },
@@ -2068,7 +2068,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_runtime_event_bus_rationale_29",
       "community": 32,
-      "community_name": "Event",
+      "community_name": "EventBus",
       "norm_label": "registra un callback de escucha de eventos en tiempo real."
     },
     {
@@ -2079,7 +2079,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_runtime_event_bus_rationale_35",
       "community": 32,
-      "community_name": "Event",
+      "community_name": "EventBus",
       "norm_label": "elimina un callback de escucha."
     },
     {
@@ -2090,7 +2090,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_runtime_event_bus_rationale_41",
       "community": 32,
-      "community_name": "Event",
+      "community_name": "EventBus",
       "norm_label": "persiste el evento en sqlite y notifica a todos los suscriptores activos."
     },
     {
@@ -2101,7 +2101,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_runtime_event_bus_rationale_64",
       "community": 32,
-      "community_name": "Event",
+      "community_name": "EventBus",
       "norm_label": "obtiene la corriente de eventos guardados para reconstruir el estado visual en..."
     },
     {
@@ -2112,7 +2112,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_runtime_runtime",
       "community": 54,
-      "community_name": "runtime.py",
+      "community_name": "database.py",
       "norm_label": "runtime.py"
     },
     {
@@ -2133,8 +2133,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_runtime_runtime_codeagentruntime_init",
-      "community": 48,
-      "community_name": "DatabaseManager",
+      "community": 32,
+      "community_name": "EventBus",
       "norm_label": ".__init__()"
     },
     {
@@ -2145,7 +2145,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_runtime_runtime_codeagentruntime_start_task",
       "community": 32,
-      "community_name": "Event",
+      "community_name": "EventBus",
       "norm_label": ".start_task()"
     },
     {
@@ -2277,7 +2277,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_runtime_runtime_rationale_26",
       "community": 32,
-      "community_name": "Event",
+      "community_name": "EventBus",
       "norm_label": "inicia una nueva tarea agentica de forma asincrona y la registra en sqlite."
     },
     {
@@ -2703,7 +2703,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_storage_init",
       "community": 54,
-      "community_name": "runtime.py",
+      "community_name": "database.py",
       "norm_label": "storage/__init__.py"
     },
     {
@@ -2714,7 +2714,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_storage_init_rationale_1",
       "community": 54,
-      "community_name": "runtime.py",
+      "community_name": "database.py",
       "norm_label": "modulo de almacenamiento persistente local sqlite para codeagent v6.0..."
     },
     {
@@ -2725,7 +2725,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_storage_database",
       "community": 54,
-      "community_name": "runtime.py",
+      "community_name": "database.py",
       "norm_label": "database.py"
     },
     {
@@ -2889,8 +2889,8 @@
       "source_location": "L200",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_storage_database_get_db_manager",
-      "community": 48,
-      "community_name": "DatabaseManager",
+      "community": 32,
+      "community_name": "EventBus",
       "norm_label": "get_db_manager()"
     },
     {
@@ -4099,8 +4099,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_diagnose_root_cause",
-      "community": 10,
-      "community_name": "AgentStateMachineController",
+      "community": 0,
+      "community_name": "session_manager.py",
       "norm_label": "test_diagnose_root_cause.py"
     },
     {
@@ -4110,8 +4110,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "tests_test_diagnose_root_cause_testdiagnoserootcauseandversion",
-      "community": 10,
-      "community_name": "AgentStateMachineController",
+      "community": 0,
+      "community_name": "session_manager.py",
       "norm_label": "testdiagnoserootcauseandversion"
     },
     {
@@ -4121,8 +4121,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "tests_test_diagnose_root_cause_testdiagnoserootcauseandversion_setup",
-      "community": 10,
-      "community_name": "AgentStateMachineController",
+      "community": 0,
+      "community_name": "session_manager.py",
       "norm_label": ".setup()"
     },
     {
@@ -4132,8 +4132,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "tests_test_diagnose_root_cause_testdiagnoserootcauseandversion_test_version_unification_constant",
-      "community": 10,
-      "community_name": "AgentStateMachineController",
+      "community": 0,
+      "community_name": "session_manager.py",
       "norm_label": ".test_version_unification_constant()"
     },
     {
@@ -4143,8 +4143,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "tests_test_diagnose_root_cause_testdiagnoserootcauseandversion_test_stage_diagnose_generates_root_cause_report",
-      "community": 10,
-      "community_name": "AgentStateMachineController",
+      "community": 0,
+      "community_name": "session_manager.py",
       "norm_label": ".test_stage_diagnose_generates_root_cause_report()"
     },
     {
@@ -4154,8 +4154,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "tests_test_diagnose_root_cause_testdiagnoserootcauseandversion_test_stage_replan_generates_updated_plan",
-      "community": 10,
-      "community_name": "AgentStateMachineController",
+      "community": 0,
+      "community_name": "session_manager.py",
       "norm_label": ".test_stage_replan_generates_updated_plan()"
     },
     {
@@ -4165,8 +4165,8 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "tests_test_diagnose_root_cause_testdiagnoserootcauseandversion_test_full_diagnose_and_replan_checkpoint_persistence",
-      "community": 10,
-      "community_name": "AgentStateMachineController",
+      "community": 0,
+      "community_name": "session_manager.py",
       "norm_label": ".test_full_diagnose_and_replan_checkpoint_persistence()"
     },
     {
@@ -4881,7 +4881,7 @@
       "_origin": "ast",
       "id": "tests_test_runtime_recovery",
       "community": 54,
-      "community_name": "runtime.py",
+      "community_name": "database.py",
       "norm_label": "test_runtime_recovery.py"
     },
     {
@@ -4892,7 +4892,7 @@
       "_origin": "ast",
       "id": "tests_test_runtime_recovery_testruntimerecoveryandpausesemantics",
       "community": 52,
-      "community_name": "EventBus",
+      "community_name": "TestRuntimeRecoveryAndPauseSemantics",
       "norm_label": "testruntimerecoveryandpausesemantics"
     },
     {
@@ -4903,7 +4903,7 @@
       "_origin": "ast",
       "id": "tests_test_runtime_recovery_testruntimerecoveryandpausesemantics_setup",
       "community": 52,
-      "community_name": "EventBus",
+      "community_name": "TestRuntimeRecoveryAndPauseSemantics",
       "norm_label": ".setup()"
     },
     {
@@ -4914,7 +4914,7 @@
       "_origin": "ast",
       "id": "tests_test_runtime_recovery_testruntimerecoveryandpausesemantics_teardown",
       "community": 52,
-      "community_name": "EventBus",
+      "community_name": "TestRuntimeRecoveryAndPauseSemantics",
       "norm_label": ".teardown()"
     },
     {
@@ -4925,7 +4925,7 @@
       "_origin": "ast",
       "id": "tests_test_runtime_recovery_testruntimerecoveryandpausesemantics_test_pause_vs_cancel_semantics",
       "community": 52,
-      "community_name": "EventBus",
+      "community_name": "TestRuntimeRecoveryAndPauseSemantics",
       "norm_label": ".test_pause_vs_cancel_semantics()"
     },
     {
@@ -4936,7 +4936,7 @@
       "_origin": "ast",
       "id": "tests_test_runtime_recovery_testruntimerecoveryandpausesemantics_test_intermediate_checkpoints_per_phase",
       "community": 52,
-      "community_name": "EventBus",
+      "community_name": "TestRuntimeRecoveryAndPauseSemantics",
       "norm_label": ".test_intermediate_checkpoints_per_phase()"
     },
     {
@@ -4947,7 +4947,7 @@
       "_origin": "ast",
       "id": "tests_test_runtime_recovery_testruntimerecoveryandpausesemantics_test_ui_disconnect_does_not_cancel_task",
       "community": 52,
-      "community_name": "EventBus",
+      "community_name": "TestRuntimeRecoveryAndPauseSemantics",
       "norm_label": ".test_ui_disconnect_does_not_cancel_task()"
     },
     {
@@ -4958,7 +4958,7 @@
       "_origin": "ast",
       "id": "tests_test_runtime_recovery_testruntimerecoveryandpausesemantics_test_task_recovery_from_checkpoint",
       "community": 52,
-      "community_name": "EventBus",
+      "community_name": "TestRuntimeRecoveryAndPauseSemantics",
       "norm_label": ".test_task_recovery_from_checkpoint()"
     },
     {
@@ -4969,7 +4969,7 @@
       "_origin": "ast",
       "id": "tests_test_runtime_storage",
       "community": 54,
-      "community_name": "runtime.py",
+      "community_name": "database.py",
       "norm_label": "test_runtime_storage.py"
     },
     {
@@ -4979,8 +4979,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "tests_test_runtime_storage_testruntimeandstorage",
-      "community": 52,
-      "community_name": "EventBus",
+      "community": 47,
+      "community_name": "TestRuntimeAndStorage",
       "norm_label": "testruntimeandstorage"
     },
     {
@@ -4990,8 +4990,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "tests_test_runtime_storage_testruntimeandstorage_setup",
-      "community": 52,
-      "community_name": "EventBus",
+      "community": 47,
+      "community_name": "TestRuntimeAndStorage",
       "norm_label": ".setup()"
     },
     {
@@ -5001,8 +5001,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "tests_test_runtime_storage_testruntimeandstorage_teardown",
-      "community": 52,
-      "community_name": "EventBus",
+      "community": 47,
+      "community_name": "TestRuntimeAndStorage",
       "norm_label": ".teardown()"
     },
     {
@@ -5012,8 +5012,8 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "tests_test_runtime_storage_testruntimeandstorage_test_database_task_crud",
-      "community": 52,
-      "community_name": "EventBus",
+      "community": 47,
+      "community_name": "TestRuntimeAndStorage",
       "norm_label": ".test_database_task_crud()"
     },
     {
@@ -5023,8 +5023,8 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "tests_test_runtime_storage_testruntimeandstorage_test_event_bus_publishing_and_sourcing",
-      "community": 52,
-      "community_name": "EventBus",
+      "community": 47,
+      "community_name": "TestRuntimeAndStorage",
       "norm_label": ".test_event_bus_publishing_and_sourcing()"
     },
     {
@@ -5034,8 +5034,8 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "tests_test_runtime_storage_testruntimeandstorage_test_runtime_start_and_get_task",
-      "community": 52,
-      "community_name": "EventBus",
+      "community": 47,
+      "community_name": "TestRuntimeAndStorage",
       "norm_label": ".test_runtime_start_and_get_task()"
     },
     {
@@ -5045,8 +5045,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_session_manager",
-      "community": 0,
-      "community_name": "session_manager.py",
+      "community": 45,
+      "community_name": "TestSessionManager",
       "norm_label": "test_session_manager.py"
     },
     {
@@ -5056,8 +5056,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "tests_test_session_manager_testsessionmanager",
-      "community": 0,
-      "community_name": "session_manager.py",
+      "community": 45,
+      "community_name": "TestSessionManager",
       "norm_label": "testsessionmanager"
     },
     {
@@ -5067,8 +5067,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "tests_test_session_manager_testsessionmanager_setup",
-      "community": 0,
-      "community_name": "session_manager.py",
+      "community": 45,
+      "community_name": "TestSessionManager",
       "norm_label": ".setup()"
     },
     {
@@ -5078,8 +5078,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "tests_test_session_manager_testsessionmanager_teardown",
-      "community": 0,
-      "community_name": "session_manager.py",
+      "community": 45,
+      "community_name": "TestSessionManager",
       "norm_label": ".teardown()"
     },
     {
@@ -5089,8 +5089,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "tests_test_session_manager_testsessionmanager_test_create_and_load_session",
-      "community": 0,
-      "community_name": "session_manager.py",
+      "community": 45,
+      "community_name": "TestSessionManager",
       "norm_label": ".test_create_and_load_session()"
     },
     {
@@ -5100,8 +5100,8 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "tests_test_session_manager_testsessionmanager_test_list_sessions",
-      "community": 0,
-      "community_name": "session_manager.py",
+      "community": 45,
+      "community_name": "TestSessionManager",
       "norm_label": ".test_list_sessions()"
     },
     {
@@ -5111,8 +5111,8 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "tests_test_session_manager_testsessionmanager_test_rename_session",
-      "community": 0,
-      "community_name": "session_manager.py",
+      "community": 45,
+      "community_name": "TestSessionManager",
       "norm_label": ".test_rename_session()"
     },
     {
@@ -5122,8 +5122,8 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "tests_test_session_manager_testsessionmanager_test_delete_session",
-      "community": 0,
-      "community_name": "session_manager.py",
+      "community": 45,
+      "community_name": "TestSessionManager",
       "norm_label": ".test_delete_session()"
     },
     {
@@ -5133,8 +5133,8 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "tests_test_session_manager_testsessionmanager_test_delete_session_none",
-      "community": 0,
-      "community_name": "session_manager.py",
+      "community": 45,
+      "community_name": "TestSessionManager",
       "norm_label": ".test_delete_session_none()"
     },
     {
@@ -5144,8 +5144,8 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "tests_test_session_manager_testsessionmanager_test_export_session_to_markdown",
-      "community": 0,
-      "community_name": "session_manager.py",
+      "community": 45,
+      "community_name": "TestSessionManager",
       "norm_label": ".test_export_session_to_markdown()"
     },
     {
@@ -5365,7 +5365,7 @@
       "_origin": "ast",
       "id": "tests_test_task_timeout_safeguard",
       "community": 54,
-      "community_name": "runtime.py",
+      "community_name": "database.py",
       "norm_label": "test_task_timeout_safeguard.py"
     },
     {
@@ -5422,6 +5422,72 @@
       "community": 49,
       "community_name": "TestTaskTimeoutSafeguardAndCancellation",
       "norm_label": ".test_runtime_cancel_task_safeguard()"
+    },
+    {
+      "label": "test_tdd_recovery_loop.py",
+      "file_type": "code",
+      "source_file": "tests/test_tdd_recovery_loop.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "tests_test_tdd_recovery_loop",
+      "community": 54,
+      "community_name": "database.py",
+      "norm_label": "test_tdd_recovery_loop.py"
+    },
+    {
+      "label": "TestTDDRecoveryLoop",
+      "file_type": "code",
+      "source_file": "tests/test_tdd_recovery_loop.py",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "tests_test_tdd_recovery_loop_testtddrecoveryloop",
+      "community": 10,
+      "community_name": "AgentStateMachineController",
+      "norm_label": "testtddrecoveryloop"
+    },
+    {
+      "label": ".setUp()",
+      "file_type": "code",
+      "source_file": "tests/test_tdd_recovery_loop.py",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "tests_test_tdd_recovery_loop_testtddrecoveryloop_setup",
+      "community": 10,
+      "community_name": "AgentStateMachineController",
+      "norm_label": ".setup()"
+    },
+    {
+      "label": ".tearDown()",
+      "file_type": "code",
+      "source_file": "tests/test_tdd_recovery_loop.py",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "tests_test_tdd_recovery_loop_testtddrecoveryloop_teardown",
+      "community": 10,
+      "community_name": "AgentStateMachineController",
+      "norm_label": ".teardown()"
+    },
+    {
+      "label": ".test_tdd_recovery_flow()",
+      "file_type": "code",
+      "source_file": "tests/test_tdd_recovery_loop.py",
+      "source_location": "L25",
+      "_origin": "ast",
+      "id": "tests_test_tdd_recovery_loop_testtddrecoveryloop_test_tdd_recovery_flow",
+      "community": 10,
+      "community_name": "AgentStateMachineController",
+      "norm_label": ".test_tdd_recovery_flow()"
+    },
+    {
+      "label": "Verifica la capacidad de autorecuperaci\u00f3n TDD (FAIL -> DIAGNOSE -> REPLAN ->\u2026",
+      "file_type": "rationale",
+      "source_file": "tests/test_tdd_recovery_loop.py",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "tests_test_tdd_recovery_loop_rationale_12",
+      "community": 10,
+      "community_name": "AgentStateMachineController",
+      "norm_label": "verifica la capacidad de autorecuperacion tdd (fail -> diagnose -> replan ->..."
     },
     {
       "label": "test_terminal_hitl_approval.py",
@@ -5684,7 +5750,7 @@
       "_origin": "ast",
       "id": "tests_test_verifier_evidence",
       "community": 54,
-      "community_name": "runtime.py",
+      "community_name": "database.py",
       "norm_label": "test_verifier_evidence.py"
     },
     {
@@ -6029,15 +6095,15 @@
       "norm_label": "changelog"
     },
     {
-      "label": "[6.8.0] - 2026-08-28",
+      "label": "[6.9.0] - 2026-08-28",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
       "source_location": "L7",
       "_origin": "ast",
-      "id": "changelog_6_8_0_2026_08_28",
+      "id": "changelog_6_9_0_2026_08_28",
       "community": 5,
       "community_name": "Changelog",
-      "norm_label": "[6.8.0] - 2026-08-28"
+      "norm_label": "[6.9.0] - 2026-08-28"
     },
     {
       "label": "Added",
@@ -6051,15 +6117,15 @@
       "norm_label": "added"
     },
     {
-      "label": "[6.7.0] - 2026-08-28",
+      "label": "[6.8.0] - 2026-08-28",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
       "source_location": "L17",
       "_origin": "ast",
-      "id": "changelog_6_7_0_2026_08_28",
+      "id": "changelog_6_8_0_2026_08_28",
       "community": 5,
       "community_name": "Changelog",
-      "norm_label": "[6.7.0] - 2026-08-28"
+      "norm_label": "[6.8.0] - 2026-08-28"
     },
     {
       "label": "Added",
@@ -6073,15 +6139,15 @@
       "norm_label": "added"
     },
     {
-      "label": "[6.6.0] - 2026-08-28",
+      "label": "[6.7.0] - 2026-08-28",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
       "source_location": "L27",
       "_origin": "ast",
-      "id": "changelog_6_6_0_2026_08_28",
+      "id": "changelog_6_7_0_2026_08_28",
       "community": 5,
       "community_name": "Changelog",
-      "norm_label": "[6.6.0] - 2026-08-28"
+      "norm_label": "[6.7.0] - 2026-08-28"
     },
     {
       "label": "Added",
@@ -6095,15 +6161,15 @@
       "norm_label": "added"
     },
     {
-      "label": "[6.5.0] - 2026-08-28",
+      "label": "[6.6.0] - 2026-08-28",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
       "source_location": "L37",
       "_origin": "ast",
-      "id": "changelog_6_5_0_2026_08_28",
+      "id": "changelog_6_6_0_2026_08_28",
       "community": 5,
       "community_name": "Changelog",
-      "norm_label": "[6.5.0] - 2026-08-28"
+      "norm_label": "[6.6.0] - 2026-08-28"
     },
     {
       "label": "Added",
@@ -6117,10 +6183,32 @@
       "norm_label": "added"
     },
     {
+      "label": "[6.5.0] - 2026-08-28",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L47",
+      "_origin": "ast",
+      "id": "changelog_6_5_0_2026_08_28",
+      "community": 5,
+      "community_name": "Changelog",
+      "norm_label": "[6.5.0] - 2026-08-28"
+    },
+    {
+      "label": "Added",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L49",
+      "_origin": "ast",
+      "id": "changelog_added_49",
+      "community": 5,
+      "community_name": "Changelog",
+      "norm_label": "added"
+    },
+    {
       "label": "[6.4.0] - 2026-08-28",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L46",
+      "source_location": "L56",
       "_origin": "ast",
       "id": "changelog_6_4_0_2026_08_28",
       "community": 5,
@@ -6131,9 +6219,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L48",
+      "source_location": "L58",
       "_origin": "ast",
-      "id": "changelog_added_48",
+      "id": "changelog_added_58",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "added"
@@ -6142,34 +6230,12 @@
       "label": "[6.3.0] - 2026-08-28",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L55",
+      "source_location": "L65",
       "_origin": "ast",
       "id": "changelog_6_3_0_2026_08_28",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "[6.3.0] - 2026-08-28"
-    },
-    {
-      "label": "Added",
-      "file_type": "document",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L57",
-      "_origin": "ast",
-      "id": "changelog_added_57",
-      "community": 5,
-      "community_name": "Changelog",
-      "norm_label": "added"
-    },
-    {
-      "label": "[6.2.0] - 2026-08-28",
-      "file_type": "document",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L65",
-      "_origin": "ast",
-      "id": "changelog_6_2_0_2026_08_28",
-      "community": 5,
-      "community_name": "Changelog",
-      "norm_label": "[6.2.0] - 2026-08-28"
     },
     {
       "label": "Added",
@@ -6183,10 +6249,32 @@
       "norm_label": "added"
     },
     {
+      "label": "[6.2.0] - 2026-08-28",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L75",
+      "_origin": "ast",
+      "id": "changelog_6_2_0_2026_08_28",
+      "community": 5,
+      "community_name": "Changelog",
+      "norm_label": "[6.2.0] - 2026-08-28"
+    },
+    {
+      "label": "Added",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L77",
+      "_origin": "ast",
+      "id": "changelog_added_77",
+      "community": 5,
+      "community_name": "Changelog",
+      "norm_label": "added"
+    },
+    {
       "label": "[6.0.0] - 2026-08-28",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L73",
+      "source_location": "L83",
       "_origin": "ast",
       "id": "changelog_6_0_0_2026_08_28",
       "community": 5,
@@ -6197,9 +6285,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L75",
+      "source_location": "L85",
       "_origin": "ast",
-      "id": "changelog_added_75",
+      "id": "changelog_added_85",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "added"
@@ -6208,7 +6296,7 @@
       "label": "[5.3.0] - 2026-08-27",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L84",
+      "source_location": "L94",
       "_origin": "ast",
       "id": "changelog_5_3_0_2026_08_27",
       "community": 5,
@@ -6219,9 +6307,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L86",
+      "source_location": "L96",
       "_origin": "ast",
-      "id": "changelog_added_86",
+      "id": "changelog_added_96",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "added"
@@ -6230,34 +6318,12 @@
       "label": "[4.3.0] - 2026-08-27",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L95",
+      "source_location": "L105",
       "_origin": "ast",
       "id": "changelog_4_3_0_2026_08_27",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "[4.3.0] - 2026-08-27"
-    },
-    {
-      "label": "Added",
-      "file_type": "document",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L97",
-      "_origin": "ast",
-      "id": "changelog_added_97",
-      "community": 5,
-      "community_name": "Changelog",
-      "norm_label": "added"
-    },
-    {
-      "label": "[4.2.0] - 2026-08-27",
-      "file_type": "document",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L105",
-      "_origin": "ast",
-      "id": "changelog_4_2_0_2026_08_27",
-      "community": 5,
-      "community_name": "Changelog",
-      "norm_label": "[4.2.0] - 2026-08-27"
     },
     {
       "label": "Added",
@@ -6271,15 +6337,15 @@
       "norm_label": "added"
     },
     {
-      "label": "[4.0.0] - 2026-08-27",
+      "label": "[4.2.0] - 2026-08-27",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
       "source_location": "L115",
       "_origin": "ast",
-      "id": "changelog_4_0_0_2026_08_27",
+      "id": "changelog_4_2_0_2026_08_27",
       "community": 5,
       "community_name": "Changelog",
-      "norm_label": "[4.0.0] - 2026-08-27"
+      "norm_label": "[4.2.0] - 2026-08-27"
     },
     {
       "label": "Added",
@@ -6293,10 +6359,32 @@
       "norm_label": "added"
     },
     {
+      "label": "[4.0.0] - 2026-08-27",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L125",
+      "_origin": "ast",
+      "id": "changelog_4_0_0_2026_08_27",
+      "community": 5,
+      "community_name": "Changelog",
+      "norm_label": "[4.0.0] - 2026-08-27"
+    },
+    {
+      "label": "Added",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L127",
+      "_origin": "ast",
+      "id": "changelog_added_127",
+      "community": 5,
+      "community_name": "Changelog",
+      "norm_label": "added"
+    },
+    {
       "label": "[3.5.0] - 2026-08-27",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L126",
+      "source_location": "L136",
       "_origin": "ast",
       "id": "changelog_3_5_0_2026_08_27",
       "community": 5,
@@ -6307,9 +6395,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L128",
+      "source_location": "L138",
       "_origin": "ast",
-      "id": "changelog_added_128",
+      "id": "changelog_added_138",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "added"
@@ -6318,7 +6406,7 @@
       "label": "Fixed",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L135",
+      "source_location": "L145",
       "_origin": "ast",
       "id": "changelog_fixed",
       "community": 5,
@@ -6329,7 +6417,7 @@
       "label": "[2.5.0] - 2026-08-26",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L141",
+      "source_location": "L151",
       "_origin": "ast",
       "id": "changelog_2_5_0_2026_08_26",
       "community": 5,
@@ -6340,9 +6428,9 @@
       "label": "Fixed",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L143",
+      "source_location": "L153",
       "_origin": "ast",
-      "id": "changelog_fixed_143",
+      "id": "changelog_fixed_153",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "fixed"
@@ -6351,9 +6439,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L148",
+      "source_location": "L158",
       "_origin": "ast",
-      "id": "changelog_added_148",
+      "id": "changelog_added_158",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "added"
@@ -6362,7 +6450,7 @@
       "label": "[2.4.0] - 2026-08-26",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L157",
+      "source_location": "L167",
       "_origin": "ast",
       "id": "changelog_2_4_0_2026_08_26",
       "community": 5,
@@ -6373,9 +6461,9 @@
       "label": "Fixed",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L159",
+      "source_location": "L169",
       "_origin": "ast",
-      "id": "changelog_fixed_159",
+      "id": "changelog_fixed_169",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "fixed"
@@ -6384,7 +6472,7 @@
       "label": "Refactored",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L164",
+      "source_location": "L174",
       "_origin": "ast",
       "id": "changelog_refactored",
       "community": 5,
@@ -6395,9 +6483,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L169",
+      "source_location": "L179",
       "_origin": "ast",
-      "id": "changelog_added_169",
+      "id": "changelog_added_179",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "added"
@@ -6406,7 +6494,7 @@
       "label": "[2.3.0] - 2026-08-04",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L175",
+      "source_location": "L185",
       "_origin": "ast",
       "id": "changelog_2_3_0_2026_08_04",
       "community": 5,
@@ -6417,9 +6505,9 @@
       "label": "Refactored",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L177",
+      "source_location": "L187",
       "_origin": "ast",
-      "id": "changelog_refactored_177",
+      "id": "changelog_refactored_187",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "refactored"
@@ -6428,7 +6516,7 @@
       "label": "Performance",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L183",
+      "source_location": "L193",
       "_origin": "ast",
       "id": "changelog_performance",
       "community": 5,
@@ -6439,9 +6527,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L186",
+      "source_location": "L196",
       "_origin": "ast",
-      "id": "changelog_added_186",
+      "id": "changelog_added_196",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "added"
@@ -6450,7 +6538,7 @@
       "label": "[2.2.1] - 2026-07-26",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L192",
+      "source_location": "L202",
       "_origin": "ast",
       "id": "changelog_2_2_1_2026_07_26",
       "community": 5,
@@ -6461,9 +6549,9 @@
       "label": "Fixed",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L194",
+      "source_location": "L204",
       "_origin": "ast",
-      "id": "changelog_fixed_194",
+      "id": "changelog_fixed_204",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "fixed"
@@ -6472,9 +6560,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L202",
+      "source_location": "L212",
       "_origin": "ast",
-      "id": "changelog_added_202",
+      "id": "changelog_added_212",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "added"
@@ -6483,7 +6571,7 @@
       "label": "[2.2.0] - 2026-07-25",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L207",
+      "source_location": "L217",
       "_origin": "ast",
       "id": "changelog_2_2_0_2026_07_25",
       "community": 5,
@@ -6494,9 +6582,9 @@
       "label": "Fixed",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L209",
+      "source_location": "L219",
       "_origin": "ast",
-      "id": "changelog_fixed_209",
+      "id": "changelog_fixed_219",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "fixed"
@@ -6505,9 +6593,9 @@
       "label": "Refactored",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L216",
+      "source_location": "L226",
       "_origin": "ast",
-      "id": "changelog_refactored_216",
+      "id": "changelog_refactored_226",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "refactored"
@@ -6516,9 +6604,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L220",
+      "source_location": "L230",
       "_origin": "ast",
-      "id": "changelog_added_220",
+      "id": "changelog_added_230",
       "community": 5,
       "community_name": "Changelog",
       "norm_label": "added"
@@ -6531,19 +6619,19 @@
       "_origin": "ast",
       "id": "readme",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v6.8 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v6.9 Enterprise)",
       "norm_label": "readme.md"
     },
     {
-      "label": "\ud83d\udcbb CodeAgent (v6.8 Enterprise)",
+      "label": "\ud83d\udcbb CodeAgent (v6.9 Enterprise)",
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "readme_codeagent_v6_8_enterprise",
+      "id": "readme_codeagent_v6_9_enterprise",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v6.8 Enterprise)",
-      "norm_label": "\ud83d\udcbb codeagent (v6.8 enterprise)"
+      "community_name": "\ud83d\udcbb CodeAgent (v6.9 Enterprise)",
+      "norm_label": "\ud83d\udcbb codeagent (v6.9 enterprise)"
     },
     {
       "label": "\ud83c\udfd7\ufe0f Arquitectura del Sistema (5 Capas Principales)",
@@ -6553,7 +6641,7 @@
       "_origin": "ast",
       "id": "readme_arquitectura_del_sistema_5_capas_principales",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v6.8 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v6.9 Enterprise)",
       "norm_label": "\ud83c\udfd7\ufe0f arquitectura del sistema (5 capas principales)"
     },
     {
@@ -6564,7 +6652,7 @@
       "_origin": "ast",
       "id": "readme_caracter\u00edsticas_principales_v3_0_enterprise",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v6.8 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v6.9 Enterprise)",
       "norm_label": "\u2728 caracteristicas principales (v3.0 enterprise)"
     },
     {
@@ -6575,7 +6663,7 @@
       "_origin": "ast",
       "id": "readme_proactividad_ag\u00e9ntica_observabilidad_y_calidad_de_c\u00f3digo_v2_5_0",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v6.8 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v6.9 Enterprise)",
       "norm_label": "\ud83d\ude80 proactividad agentica, observabilidad y calidad de codigo (v2.5.0)"
     },
     {
@@ -6586,7 +6674,7 @@
       "_origin": "ast",
       "id": "readme_\u00faltimas_mejoras_de_fiabilidad_calidad_t\u00e9cnica_y_qa_v2_3_0",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v6.8 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v6.9 Enterprise)",
       "norm_label": "\ud83d\udee1\ufe0f ultimas mejoras de fiabilidad, calidad tecnica y qa (v2.3.0)"
     },
     {
@@ -6597,7 +6685,7 @@
       "_origin": "ast",
       "id": "readme_\u00faltimas_mejoras_de_fiabilidad_seguridad_y_ux_v2_2_1",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v6.8 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v6.9 Enterprise)",
       "norm_label": "\ud83d\udee1\ufe0f ultimas mejoras de fiabilidad, seguridad y ux (v2.2.1)"
     },
     {
@@ -6608,7 +6696,7 @@
       "_origin": "ast",
       "id": "readme_\u00faltimas_mejoras_de_fiabilidad_seguridad_y_ux_v2_2",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v6.8 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v6.9 Enterprise)",
       "norm_label": "\ud83d\udee1\ufe0f ultimas mejoras de fiabilidad, seguridad y ux (v2.2)"
     },
     {
@@ -6619,7 +6707,7 @@
       "_origin": "ast",
       "id": "readme_\u00faltimas_mejoras_de_fiabilidad_y_ux_v2_1",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v6.8 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v6.9 Enterprise)",
       "norm_label": "\ud83d\udee1\ufe0f ultimas mejoras de fiabilidad y ux (v2.1)"
     },
     {
@@ -6630,7 +6718,7 @@
       "_origin": "ast",
       "id": "readme_\u00faltimas_mejoras_de_fiabilidad_y_ux_v2_0",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v6.8 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v6.9 Enterprise)",
       "norm_label": "\ud83d\udee1\ufe0f ultimas mejoras de fiabilidad y ux (v2.0)"
     },
     {
@@ -6641,7 +6729,7 @@
       "_origin": "ast",
       "id": "readme_orquestador_supervisor_agente",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v6.8 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v6.9 Enterprise)",
       "norm_label": "\ud83e\uddea orquestador supervisor-agente"
     },
     {
@@ -6652,7 +6740,7 @@
       "_origin": "ast",
       "id": "readme_benchmarks_3_niveles",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v6.8 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v6.9 Enterprise)",
       "norm_label": "benchmarks (3 niveles)"
     },
     {
@@ -6663,7 +6751,7 @@
       "_origin": "ast",
       "id": "readme_uso",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v6.8 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v6.9 Enterprise)",
       "norm_label": "uso"
     },
     {
@@ -6674,7 +6762,7 @@
       "_origin": "ast",
       "id": "readme_arquitectura",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v6.8 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v6.9 Enterprise)",
       "norm_label": "arquitectura"
     },
     {
@@ -6685,7 +6773,7 @@
       "_origin": "ast",
       "id": "readme_instalaci\u00f3n_y_ejecuci\u00f3n",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v6.8 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v6.9 Enterprise)",
       "norm_label": "\ud83d\ude80 instalacion y ejecucion"
     },
     {
@@ -6696,7 +6784,7 @@
       "_origin": "ast",
       "id": "readme_opci\u00f3n_1_arranque_r\u00e1pido_recomendado_para_windows",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v6.8 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v6.9 Enterprise)",
       "norm_label": "opcion 1: arranque rapido (recomendado para windows)"
     },
     {
@@ -6707,7 +6795,7 @@
       "_origin": "ast",
       "id": "readme_opci\u00f3n_2_ejecuci\u00f3n_manual",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v6.8 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v6.9 Enterprise)",
       "norm_label": "opcion 2: ejecucion manual"
     },
     {
@@ -6718,7 +6806,7 @@
       "_origin": "ast",
       "id": "readme_tecnolog\u00edas_utilizadas",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v6.8 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v6.9 Enterprise)",
       "norm_label": "\ud83d\udee0\ufe0f tecnologias utilizadas"
     },
     {
@@ -6729,7 +6817,7 @@
       "_origin": "ast",
       "id": "readme_knowledge_graph",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v6.8 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v6.9 Enterprise)",
       "norm_label": "knowledge graph"
     },
     {
@@ -6740,7 +6828,7 @@
       "_origin": "ast",
       "id": "readme_skills",
       "community": 6,
-      "community_name": "\ud83d\udcbb CodeAgent (v6.8 Enterprise)",
+      "community_name": "\ud83d\udcbb CodeAgent (v6.9 Enterprise)",
       "norm_label": "skills"
     },
     {
@@ -8982,6 +9070,18 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "tests/test_tdd_recovery_loop.py",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_test_tdd_recovery_loop",
+      "target": "mis_agentes_inteligentes_agent_pipeline",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "tests/test_verifier_evidence.py",
       "source_location": "L6",
       "weight": 1.0,
@@ -9224,7 +9324,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L438",
+      "source_location": "L448",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_build_execution_prompt",
@@ -9260,7 +9360,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L342",
+      "source_location": "L352",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_resume_session",
@@ -9284,7 +9384,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L338",
+      "source_location": "L348",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_run_pipeline",
@@ -9308,7 +9408,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L550",
+      "source_location": "L560",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_critic",
@@ -9320,7 +9420,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L393",
+      "source_location": "L403",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_diagnose",
@@ -9332,7 +9432,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L382",
+      "source_location": "L392",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_planner",
@@ -9344,7 +9444,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L407",
+      "source_location": "L417",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_replan",
@@ -9356,7 +9456,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L466",
+      "source_location": "L476",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_verifier",
@@ -9424,7 +9524,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L438",
+      "source_location": "L448",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller",
@@ -9468,7 +9568,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L342",
+      "source_location": "L352",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller",
@@ -9490,7 +9590,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L338",
+      "source_location": "L348",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller",
@@ -9512,7 +9612,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L550",
+      "source_location": "L560",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller",
@@ -9523,7 +9623,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L393",
+      "source_location": "L403",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller",
@@ -9534,7 +9634,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L420",
+      "source_location": "L430",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller",
@@ -9545,7 +9645,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L382",
+      "source_location": "L392",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller",
@@ -9556,7 +9656,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L407",
+      "source_location": "L417",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller",
@@ -9567,7 +9667,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L466",
+      "source_location": "L476",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller",
@@ -9773,6 +9873,29 @@
     {
       "relation": "uses",
       "confidence": "INFERRED",
+      "source_file": "tests/test_tdd_recovery_loop.py",
+      "source_location": "L6",
+      "weight": 0.8,
+      "_origin": "ast",
+      "source": "tests_test_tdd_recovery_loop_testtddrecoveryloop",
+      "target": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_tdd_recovery_loop.py",
+      "source_location": "L50",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_test_tdd_recovery_loop_testtddrecoveryloop_test_tdd_recovery_flow",
+      "target": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
       "source_file": "tests/test_verifier_evidence.py",
       "source_location": "L6",
       "weight": 0.8,
@@ -9892,7 +10015,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L372",
+      "source_location": "L382",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_resume_session",
@@ -9988,7 +10111,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L340",
+      "source_location": "L350",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_run_pipeline",
@@ -10010,10 +10133,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L339",
+      "source_location": "L349",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_339",
+      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_349",
       "target": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_run_pipeline",
       "confidence_score": 1.0
     },
@@ -10021,10 +10144,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L343",
+      "source_location": "L353",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_343",
+      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_353",
       "target": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_resume_session",
       "confidence_score": 1.0
     },
@@ -10032,10 +10155,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L383",
+      "source_location": "L393",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_383",
+      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_393",
       "target": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_planner",
       "confidence_score": 1.0
     },
@@ -10043,10 +10166,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L394",
+      "source_location": "L404",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_394",
+      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_404",
       "target": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_diagnose",
       "confidence_score": 1.0
     },
@@ -10054,10 +10177,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L408",
+      "source_location": "L418",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_408",
+      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_418",
       "target": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_replan",
       "confidence_score": 1.0
     },
@@ -10065,10 +10188,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L421",
+      "source_location": "L431",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_421",
+      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_431",
       "target": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_explorer",
       "confidence_score": 1.0
     },
@@ -10076,10 +10199,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L445",
+      "source_location": "L455",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_445",
+      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_455",
       "target": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_build_execution_prompt",
       "confidence_score": 1.0
     },
@@ -10087,10 +10210,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L467",
+      "source_location": "L477",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_467",
+      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_477",
       "target": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_verifier",
       "confidence_score": 1.0
     },
@@ -10098,10 +10221,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L551",
+      "source_location": "L561",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_551",
+      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_561",
       "target": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_critic",
       "confidence_score": 1.0
     },
@@ -13076,6 +13199,18 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_tdd_recovery_loop.py",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_test_tdd_recovery_loop",
+      "target": "mis_agentes_inteligentes_runtime_event_bus",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "mis_agentes_inteligentes/runtime/event_bus.py",
@@ -13430,6 +13565,18 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_runtime_runtime_codeagentruntime_init",
+      "target": "mis_agentes_inteligentes_runtime_event_bus_get_event_bus"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_tdd_recovery_loop.py",
+      "source_location": "L19",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_test_tdd_recovery_loop_testtddrecoveryloop_setup",
       "target": "mis_agentes_inteligentes_runtime_event_bus_get_event_bus"
     },
     {
@@ -14636,6 +14783,18 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "tests/test_tdd_recovery_loop.py",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_test_tdd_recovery_loop",
+      "target": "mis_agentes_inteligentes_storage_database",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "tests/test_verifier_evidence.py",
       "source_location": "L8",
       "weight": 1.0,
@@ -15095,6 +15254,18 @@
       "source": "mis_agentes_inteligentes_storage_database_databasemanager_record_event",
       "target": "mis_agentes_inteligentes_storage_database_py_any",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_tdd_recovery_loop.py",
+      "source_location": "L20",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_test_tdd_recovery_loop_testtddrecoveryloop_setup",
+      "target": "mis_agentes_inteligentes_storage_database_get_db_manager"
     },
     {
       "relation": "contains",
@@ -18607,6 +18778,61 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "tests/test_tdd_recovery_loop.py",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_test_tdd_recovery_loop",
+      "target": "tests_test_tdd_recovery_loop_testtddrecoveryloop",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_tdd_recovery_loop.py",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_test_tdd_recovery_loop_rationale_12",
+      "target": "tests_test_tdd_recovery_loop_testtddrecoveryloop",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_tdd_recovery_loop.py",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_test_tdd_recovery_loop_testtddrecoveryloop",
+      "target": "tests_test_tdd_recovery_loop_testtddrecoveryloop_setup",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_tdd_recovery_loop.py",
+      "source_location": "L22",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_test_tdd_recovery_loop_testtddrecoveryloop",
+      "target": "tests_test_tdd_recovery_loop_testtddrecoveryloop_teardown",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_tdd_recovery_loop.py",
+      "source_location": "L25",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_test_tdd_recovery_loop_testtddrecoveryloop",
+      "target": "tests_test_tdd_recovery_loop_testtddrecoveryloop_test_tdd_recovery_flow",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "tests/test_terminal_hitl_approval.py",
       "source_location": "L11",
       "weight": 1.0,
@@ -19114,7 +19340,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L207",
+      "source_location": "L217",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -19125,7 +19351,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L192",
+      "source_location": "L202",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -19136,7 +19362,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L175",
+      "source_location": "L185",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -19147,7 +19373,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L157",
+      "source_location": "L167",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -19158,7 +19384,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L141",
+      "source_location": "L151",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -19169,7 +19395,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L126",
+      "source_location": "L136",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -19180,7 +19406,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L115",
+      "source_location": "L125",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -19191,7 +19417,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L105",
+      "source_location": "L115",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -19202,7 +19428,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L95",
+      "source_location": "L105",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -19213,7 +19439,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L84",
+      "source_location": "L94",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -19224,7 +19450,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L73",
+      "source_location": "L83",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -19235,7 +19461,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L65",
+      "source_location": "L75",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -19246,7 +19472,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L55",
+      "source_location": "L65",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -19257,7 +19483,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L46",
+      "source_location": "L56",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -19268,7 +19494,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L37",
+      "source_location": "L47",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -19279,7 +19505,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L27",
+      "source_location": "L37",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -19290,7 +19516,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L17",
+      "source_location": "L27",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -19301,7 +19527,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L7",
+      "source_location": "L17",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog",
@@ -19312,10 +19538,21 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "changelog_changelog",
+      "target": "changelog_6_9_0_2026_08_28",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
       "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "changelog_6_8_0_2026_08_28",
+      "source": "changelog_6_9_0_2026_08_28",
       "target": "changelog_added",
       "confidence_score": 1.0
     },
@@ -19326,7 +19563,7 @@
       "source_location": "L19",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "changelog_6_7_0_2026_08_28",
+      "source": "changelog_6_8_0_2026_08_28",
       "target": "changelog_added_19",
       "confidence_score": 1.0
     },
@@ -19337,7 +19574,7 @@
       "source_location": "L29",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "changelog_6_6_0_2026_08_28",
+      "source": "changelog_6_7_0_2026_08_28",
       "target": "changelog_added_29",
       "confidence_score": 1.0
     },
@@ -19348,7 +19585,7 @@
       "source_location": "L39",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "changelog_6_5_0_2026_08_28",
+      "source": "changelog_6_6_0_2026_08_28",
       "target": "changelog_added_39",
       "confidence_score": 1.0
     },
@@ -19356,22 +19593,22 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L48",
+      "source_location": "L49",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "changelog_6_4_0_2026_08_28",
-      "target": "changelog_added_48",
+      "source": "changelog_6_5_0_2026_08_28",
+      "target": "changelog_added_49",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L57",
+      "source_location": "L58",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "changelog_6_3_0_2026_08_28",
-      "target": "changelog_added_57",
+      "source": "changelog_6_4_0_2026_08_28",
+      "target": "changelog_added_58",
       "confidence_score": 1.0
     },
     {
@@ -19381,7 +19618,7 @@
       "source_location": "L67",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "changelog_6_2_0_2026_08_28",
+      "source": "changelog_6_3_0_2026_08_28",
       "target": "changelog_added_67",
       "confidence_score": 1.0
     },
@@ -19389,33 +19626,33 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L75",
+      "source_location": "L77",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "changelog_6_2_0_2026_08_28",
+      "target": "changelog_added_77",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L85",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_6_0_0_2026_08_28",
-      "target": "changelog_added_75",
+      "target": "changelog_added_85",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L86",
+      "source_location": "L96",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_5_3_0_2026_08_27",
-      "target": "changelog_added_86",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L97",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "changelog_4_3_0_2026_08_27",
-      "target": "changelog_added_97",
+      "target": "changelog_added_96",
       "confidence_score": 1.0
     },
     {
@@ -19425,7 +19662,7 @@
       "source_location": "L107",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "changelog_4_2_0_2026_08_27",
+      "source": "changelog_4_3_0_2026_08_27",
       "target": "changelog_added_107",
       "confidence_score": 1.0
     },
@@ -19436,7 +19673,7 @@
       "source_location": "L117",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "changelog_4_0_0_2026_08_27",
+      "source": "changelog_4_2_0_2026_08_27",
       "target": "changelog_added_117",
       "confidence_score": 1.0
     },
@@ -19444,18 +19681,29 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L128",
+      "source_location": "L127",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "changelog_3_5_0_2026_08_27",
-      "target": "changelog_added_128",
+      "source": "changelog_4_0_0_2026_08_27",
+      "target": "changelog_added_127",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L135",
+      "source_location": "L138",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "changelog_3_5_0_2026_08_27",
+      "target": "changelog_added_138",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L145",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_3_5_0_2026_08_27",
@@ -19466,22 +19714,33 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L148",
+      "source_location": "L158",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_5_0_2026_08_26",
-      "target": "changelog_added_148",
+      "target": "changelog_added_158",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L143",
+      "source_location": "L153",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_5_0_2026_08_26",
-      "target": "changelog_fixed_143",
+      "target": "changelog_fixed_153",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L179",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "changelog_2_4_0_2026_08_26",
+      "target": "changelog_added_179",
       "confidence_score": 1.0
     },
     {
@@ -19492,25 +19751,14 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_4_0_2026_08_26",
-      "target": "changelog_added_169",
+      "target": "changelog_fixed_169",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L159",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "changelog_2_4_0_2026_08_26",
-      "target": "changelog_fixed_159",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L164",
+      "source_location": "L174",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_4_0_2026_08_26",
@@ -19521,18 +19769,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L186",
+      "source_location": "L196",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_3_0_2026_08_04",
-      "target": "changelog_added_186",
+      "target": "changelog_added_196",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L183",
+      "source_location": "L193",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_3_0_2026_08_04",
@@ -19543,66 +19791,66 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L177",
+      "source_location": "L187",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_3_0_2026_08_04",
-      "target": "changelog_refactored_177",
+      "target": "changelog_refactored_187",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L202",
+      "source_location": "L212",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_2_1_2026_07_26",
-      "target": "changelog_added_202",
+      "target": "changelog_added_212",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L194",
+      "source_location": "L204",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_2_1_2026_07_26",
-      "target": "changelog_fixed_194",
+      "target": "changelog_fixed_204",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L220",
+      "source_location": "L230",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_2_0_2026_07_25",
-      "target": "changelog_added_220",
+      "target": "changelog_added_230",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L209",
+      "source_location": "L219",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_2_0_2026_07_25",
-      "target": "changelog_fixed_209",
+      "target": "changelog_fixed_219",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L216",
+      "source_location": "L226",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_2_2_0_2026_07_25",
-      "target": "changelog_refactored_216",
+      "target": "changelog_refactored_226",
       "confidence_score": 1.0
     },
     {
@@ -19613,7 +19861,7 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "readme",
-      "target": "readme_codeagent_v6_8_enterprise",
+      "target": "readme_codeagent_v6_9_enterprise",
       "confidence_score": 1.0
     },
     {
@@ -19623,7 +19871,7 @@
       "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "readme_codeagent_v6_8_enterprise",
+      "source": "readme_codeagent_v6_9_enterprise",
       "target": "readme_arquitectura_del_sistema_5_capas_principales",
       "confidence_score": 1.0
     },
@@ -19634,7 +19882,7 @@
       "source_location": "L42",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "readme_codeagent_v6_8_enterprise",
+      "source": "readme_codeagent_v6_9_enterprise",
       "target": "readme_caracter\u00edsticas_principales_v3_0_enterprise",
       "confidence_score": 1.0
     },
@@ -19645,7 +19893,7 @@
       "source_location": "L147",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "readme_codeagent_v6_8_enterprise",
+      "source": "readme_codeagent_v6_9_enterprise",
       "target": "readme_instalaci\u00f3n_y_ejecuci\u00f3n",
       "confidence_score": 1.0
     },
@@ -19656,7 +19904,7 @@
       "source_location": "L184",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "readme_codeagent_v6_8_enterprise",
+      "source": "readme_codeagent_v6_9_enterprise",
       "target": "readme_knowledge_graph",
       "confidence_score": 1.0
     },
@@ -19667,7 +19915,7 @@
       "source_location": "L111",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "readme_codeagent_v6_8_enterprise",
+      "source": "readme_codeagent_v6_9_enterprise",
       "target": "readme_orquestador_supervisor_agente",
       "confidence_score": 1.0
     },
@@ -19678,7 +19926,7 @@
       "source_location": "L188",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "readme_codeagent_v6_8_enterprise",
+      "source": "readme_codeagent_v6_9_enterprise",
       "target": "readme_skills",
       "confidence_score": 1.0
     },
@@ -19689,7 +19937,7 @@
       "source_location": "L176",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "readme_codeagent_v6_8_enterprise",
+      "source": "readme_codeagent_v6_9_enterprise",
       "target": "readme_tecnolog\u00edas_utilizadas",
       "confidence_score": 1.0
     },
@@ -20899,5 +21147,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "6eb8414b771734c806f602da15a88e643563e2fb"
+  "built_at_commit": "c9a2a40220eeb0e5cb6adbc841f9636f445d4551"
 }

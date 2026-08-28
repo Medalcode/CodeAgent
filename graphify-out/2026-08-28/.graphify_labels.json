@@ -48,7 +48,6 @@
   "48": "DatabaseManager",
   "49": "TestTaskTimeoutSafeguardAndCancellation",
   "52": "EventBus",
-  "53": "TestRuntimeAndStorage",
   "54": "runtime.py",
   "56": "TestVerifierEvidenceAndWorkspaceIsolation",
   "57": "mis_agentes_inteligentes.rag_tools"
