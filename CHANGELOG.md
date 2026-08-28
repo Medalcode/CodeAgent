@@ -4,6 +4,14 @@ Todos los cambios notables realizados en este proyecto serán documentados en es
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/), y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.2.0] - 2026-08-28
+
+### Added
+- **feat(ui):** Habilitada la selección de texto libre con mouse (`user-select: text !important`) en el historial de chat, respuestas del asistente y bloques de código.
+- **feat(ui):** Botón **"📋 Copiar Respuesta"** integrado en cada respuesta del agente para copiar con un clic al portapapeles con confirmación visual ("✅ ¡Copiado!").
+
+---
+
 ## [6.0.0] - 2026-08-28
 
 ### Added

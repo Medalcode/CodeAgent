@@ -385,6 +385,16 @@
     color: var(--text);
     line-height: 1.6;
     font-size: 13px;
+    user-select: text !important;
+    -webkit-user-select: text !important;
+  }
+  .msg-bubble-user {
+    user-select: text !important;
+    -webkit-user-select: text !important;
+  }
+  .chat-body, textarea, input, code, pre {
+    user-select: text !important;
+    -webkit-user-select: text !important;
   }
   .msg-bubble-assistant h1, .msg-bubble-assistant h2, .msg-bubble-assistant h3 {
     color: var(--text-bright);
@@ -848,6 +858,33 @@
     return html;
   }
 
+  window.copyMsgText = function(btnEl){
+    const msgCard = btnEl.closest('.msg-bubble-assistant');
+    if(!msgCard) return;
+
+    // Obtener texto seleccionable excluyendo el propio botón
+    const clone = msgCard.cloneNode(true);
+    const btnDiv = clone.querySelector('.copy-btn');
+    if(btnDiv && btnDiv.parentNode) btnDiv.parentNode.removeChild(btnDiv);
+    const textToCopy = clone.innerText.trim();
+
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        btnEl.innerHTML = '✅ ¡Copiado!';
+        setTimeout(() => { btnEl.innerHTML = '📋 Copiar Respuesta'; }, 2000);
+      });
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = textToCopy;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      btnEl.innerHTML = '✅ ¡Copiado!';
+      setTimeout(() => { btnEl.innerHTML = '📋 Copiar Respuesta'; }, 2000);
+    }
+  };
+
   async function reloadWorkspaceFiles(){
     try {
       const res = await fetch('/api/workspace/tree');
@@ -975,7 +1012,10 @@
       const botMsg = document.createElement('div');
       botMsg.className = 'msg-bubble-assistant';
       const rawContent = data.respuesta || data.response || "Tarea ejecutada correctamente.";
-      botMsg.innerHTML = renderSafeMarkdown(rawContent);
+      botMsg.innerHTML = renderSafeMarkdown(rawContent) +
+        `<div style="display:flex; justify-content:flex-end; margin-top:8px;">` +
+        `<button class="copy-btn" onclick="copyMsgText(this)" style="background:var(--bg-hover); border:1px solid var(--border); color:var(--text-bright); padding:4px 10px; border-radius:4px; font-size:11px; cursor:pointer; display:inline-flex; align-items:center; gap:4px; user-select:none;">📋 Copiar Respuesta</button>` +
+        `</div>`;
       $('messagesContainer').appendChild(botMsg);
 
       // Auto-refresh del árbol de archivos de inmediato tras la respuesta del agente
