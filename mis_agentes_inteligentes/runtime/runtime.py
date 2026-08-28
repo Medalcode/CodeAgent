@@ -80,6 +80,10 @@ class CodeAgentRuntime:
             controller = AgentStateMachineController(workspace_dir=project_path, db_manager=self.db, event_bus=self.event_bus)
 
             def event_aware_runner(prompt: str) -> str:
+                if cancel_event.is_set():
+                    raise InterruptedError("CANCELLED")
+                if pause_event.is_set():
+                    raise InterruptedError("PAUSED")
                 t_start = time.time()
                 self.event_bus.publish(task_id, "LLM_CALL_STARTED", {
                     "prompt_snippet": prompt[:100],
@@ -101,22 +105,41 @@ class CodeAgentRuntime:
                     "duration": round(t_end - t_start, 2),
                     "timestamp": t_end
                 })
+                if cancel_event.is_set():
+                    raise InterruptedError("CANCELLED")
+                if pause_event.is_set():
+                    raise InterruptedError("PAUSED")
                 return res
 
-            output_text, metrics = controller.run(
-                user_goal=goal,
-                agent_runner=event_aware_runner,
-                level=level,
-                session_id=task_id
-            )
+            try:
+                output_text, metrics = controller.run(
+                    user_goal=goal,
+                    agent_runner=event_aware_runner,
+                    level=level,
+                    session_id=task_id,
+                    cancel_event=cancel_event,
+                    pause_event=pause_event
+                )
+            except InterruptedError as ie:
+                if str(ie) == "CANCELLED" or cancel_event.is_set():
+                    self.db.update_task_status(task_id, "CANCELLED", current_state="DONE")
+                    self.event_bus.publish(task_id, "TASK_CANCELLED", {"task_id": task_id})
+                    return
+                if str(ie) == "PAUSED" or pause_event.is_set():
+                    last_chk = self.db.get_latest_checkpoint(task_id)
+                    current_st = last_chk.get("state", "EXECUTE") if last_chk else "EXECUTE"
+                    self.db.update_task_status(task_id, "PAUSED", current_state=current_st)
+                    self.event_bus.publish(task_id, "TASK_PAUSED", {"task_id": task_id, "state": current_st})
+                    return
+                raise
 
-            # Verificar cancelación activa
+            # Verificar cancelación activa tras ejecución
             if cancel_event.is_set():
                 self.db.update_task_status(task_id, "CANCELLED", current_state="DONE")
                 self.event_bus.publish(task_id, "TASK_CANCELLED", {"task_id": task_id})
                 return
 
-            # Verificar pausa activa
+            # Verificar pausa activa tras ejecución
             if pause_event.is_set():
                 last_chk = self.db.get_latest_checkpoint(task_id)
                 current_st = last_chk.get("state", "EXECUTE") if last_chk else "EXECUTE"
@@ -207,16 +230,45 @@ class CodeAgentRuntime:
             controller = AgentStateMachineController(workspace_dir=task["project_path"], db_manager=self.db, event_bus=self.event_bus)
 
             def event_aware_runner(prompt: str) -> str:
+                if cancel_event.is_set():
+                    raise InterruptedError("CANCELLED")
+                if pause_event.is_set():
+                    raise InterruptedError("PAUSED")
                 self.event_bus.publish(task_id, "TOOL_EXECUTED", {"prompt": prompt[:120]})
+                res = ""
                 if agent_runner:
-                    return agent_runner(prompt)
-                try:
-                    from tools import agente_desarrollador_codeagent
-                    return str(agente_desarrollador_codeagent.run(prompt))
-                except Exception as ex:
-                    return f"Respuesta de ejecución: {ex}"
+                    res = agent_runner(prompt)
+                else:
+                    try:
+                        from tools import agente_desarrollador_codeagent
+                        res = str(agente_desarrollador_codeagent.run(prompt))
+                    except Exception as ex:
+                        res = f"Respuesta de ejecución: {ex}"
+                if cancel_event.is_set():
+                    raise InterruptedError("CANCELLED")
+                if pause_event.is_set():
+                    raise InterruptedError("PAUSED")
+                return res
 
-            output_text, metrics = controller.resume_session(session_id=task_id, agent_runner=event_aware_runner)
+            try:
+                output_text, metrics = controller.resume_session(
+                    session_id=task_id,
+                    agent_runner=event_aware_runner,
+                    cancel_event=cancel_event,
+                    pause_event=pause_event
+                )
+            except InterruptedError as ie:
+                if str(ie) == "CANCELLED" or cancel_event.is_set():
+                    self.db.update_task_status(task_id, "CANCELLED", current_state="DONE")
+                    self.event_bus.publish(task_id, "TASK_CANCELLED", {"task_id": task_id})
+                    return
+                if str(ie) == "PAUSED" or pause_event.is_set():
+                    last_chk = self.db.get_latest_checkpoint(task_id)
+                    current_st = last_chk.get("state", "EXECUTE") if last_chk else "EXECUTE"
+                    self.db.update_task_status(task_id, "PAUSED", current_state=current_st)
+                    self.event_bus.publish(task_id, "TASK_PAUSED", {"task_id": task_id, "state": current_st})
+                    return
+                raise
 
             if cancel_event.is_set():
                 self.db.update_task_status(task_id, "CANCELLED", current_state="DONE")

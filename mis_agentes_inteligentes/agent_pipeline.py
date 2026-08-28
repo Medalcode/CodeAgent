@@ -16,6 +16,7 @@ import json
 import logging
 import os
 import subprocess
+import threading
 import time
 from collections.abc import Callable
 from enum import Enum
@@ -183,7 +184,9 @@ class AgentStateMachineController:
         session_id: str | None = None,
         start_state: State | None = None,
         initial_replans: int = 0,
-        initial_verification: dict[str, Any] | None = None
+        initial_verification: dict[str, Any] | None = None,
+        cancel_event: threading.Event | None = None,
+        pause_event: threading.Event | None = None
     ) -> tuple[str, dict[str, Any]]:
         """Ejecuta el ciclo agéntico mediante la Máquina de Estados Determinista."""
         start_time = time.time()
@@ -202,6 +205,8 @@ class AgentStateMachineController:
 
         # Nivel 1: Atajo ultra-rápido para consultas puras de chat
         if active_level == ExecutionLevel.LEVEL_1_CHAT:
+            if cancel_event and cancel_event.is_set():
+                raise InterruptedError("CANCELLED")
             directive = _get_phase_cognitive_directive(State.EXECUTE)
             full_prompt = f"{directive}\n\n{user_goal}"
             if agent_runner:
@@ -230,9 +235,13 @@ class AgentStateMachineController:
             )
 
         while current_state != State.DONE:
+            if cancel_event and cancel_event.is_set():
+                raise InterruptedError("CANCELLED")
+            if pause_event and pause_event.is_set():
+                raise InterruptedError("PAUSED")
             if session_id and self._db_manager:
                 db_task = self._db_manager.get_task(session_id)
-                if db_task and db_task.get("status") == "CANCELLED":
+                if db_task and db_task.get("status") in ("CANCELLED", "PAUSED"):
                     break
 
             if current_state not in state_history:
@@ -354,16 +363,34 @@ class AgentStateMachineController:
         """Alias de compatibilidad hacia atrás para la versión v3.0."""
         return self.run(user_goal=user_goal, agent_runner=agent_runner)
 
-    def resume_session(self, session_id: str, agent_runner: Callable[[str], str] | None = None) -> tuple[str, dict[str, Any]]:
-        """Reanuda la ejecución agéntica desde el último StateCheckpoint persistido en la sesión."""
+    def resume_session(
+        self,
+        session_id: str,
+        agent_runner: Callable[[str], str] | None = None,
+        cancel_event: threading.Event | None = None,
+        pause_event: threading.Event | None = None
+    ) -> tuple[str, dict[str, Any]]:
+        """Reanuda la ejecución desde una sesión JSON o checkpoint de SQLite."""
         from session_manager import load_session
+        checkpoint = None
         data = load_session(session_id)
-        if not data or "memory" not in data:
-            return "Error: No se encontró la sesión o no tiene memoria persistente.", {}
+        if data and "memory" in data and isinstance(data["memory"], dict):
+            checkpoint = data.get("memory", {}).get("working", {}).get("state_checkpoint")
 
-        checkpoint = data.get("memory", {}).get("working", {}).get("state_checkpoint")
+        if not checkpoint and self._db_manager:
+            chk_db = self._db_manager.get_latest_checkpoint(session_id)
+            task_db = self._db_manager.get_task(session_id)
+            if chk_db:
+                checkpoint = {
+                    "user_goal": task_db.get("goal", "") if task_db else "",
+                    "current_state": chk_db.get("state", "EXECUTE"),
+                    "replans_count": chk_db.get("replans_count", 0),
+                    "failed_verification": chk_db.get("failed_verification"),
+                    "execution_level": task_db.get("execution_level", "LEVEL_4_FULL") if task_db else "LEVEL_4_FULL"
+                }
+
         if not checkpoint:
-            return "No se encontró ningún checkpoint de estado en esta sesión.", {}
+            return "Error: No se encontró checkpoint ni en memoria ni en SQLite para esta sesión.", {}
 
         user_goal = checkpoint.get("user_goal", "")
         state_str = checkpoint.get("current_state")
@@ -391,7 +418,9 @@ class AgentStateMachineController:
             session_id=session_id,
             start_state=resumed_state,
             initial_replans=replans_count,
-            initial_verification=failed_verification
+            initial_verification=failed_verification,
+            cancel_event=cancel_event,
+            pause_event=pause_event
         )
 
     def _stage_planner(self, user_goal: str) -> dict[str, Any]:

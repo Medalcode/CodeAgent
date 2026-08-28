@@ -10,6 +10,8 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
 - **fix(verifier):** Corregido bug crítico en `_stage_verifier()` donde la presencia de archivos de test antiguos en el workspace invalidaba la directiva explícita del usuario (`has_neg: "No crees tests"`). Ahora `has_neg` anula estrictamente la ejecución de `unittest` devolviendo `NOT_REQUIRED`.
 - **feat(verifier):** Incorporada **Verificación Basada en Requisitos de Ejecución del Programa Principal (`program_passed` y `program_output`)**, ejecutando de forma segura el script principal (ej. `main.py` o similar) para recopilar evidencia empírica de salida estándar.
 - **feat(critic):** Refactorizado `_stage_critic()` para realizar una evaluación objetiva real del diff de Git (`git status --porcelain`) y la salida empírica del ejecutable principal en lugar de devolver texto genérico estático.
+- **fix(runtime):** **Interrupción Inmediata de Cancelación/Pausa (0.015s)**: Propagación de `cancel_event` y `pause_event` dentro de `event_aware_runner` lanzando `InterruptedError` inmediatamente antes y después de llamadas LLM/Herramientas, e interrupción instantánea del bucle de la máquina de estados.
+- **feat(recovery):** **Reanudación Dual de Sesión (SQLite WAL + JSON)**: Fallback automático a los checkpoints de SQLite en `resume_session()` garantizando que la reanudación reconstruya `user_goal`, `replans_count`, `failed_verification` y `current_state` incluso tras cierres inesperados de la aplicación.
 
 ---
 
