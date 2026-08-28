@@ -23,6 +23,8 @@ from typing import Any
 
 from benchmark_metrics import metrics_collector
 
+CODEAGENT_VERSION = "v4.4 Enterprise"
+
 
 class ExecutionLevel(Enum):
     LEVEL_1_CHAT = "Nivel 1 (Chat Directo)"
@@ -104,7 +106,9 @@ class AgentStateMachineController:
         execution_level: ExecutionLevel,
         user_goal: str,
         replans_count: int,
-        failed_verification: dict[str, Any] | None = None
+        failed_verification: dict[str, Any] | None = None,
+        diagnostic_report: dict[str, Any] | None = None,
+        plan_data: dict[str, Any] | None = None
     ):
         """Persiste el estado activo de la Máquina de Estados en la sesión JSON."""
         if not session_id:
@@ -124,6 +128,8 @@ class AgentStateMachineController:
                     "user_goal": user_goal,
                     "replans_count": replans_count,
                     "failed_verification": failed_verification or {},
+                    "diagnostic_report": diagnostic_report or {},
+                    "plan_data": plan_data or {},
                     "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
                 }
                 save_session(session_id, data)
@@ -149,6 +155,7 @@ class AgentStateMachineController:
         replans_count = initial_replans
         recovered_autonomously = initial_replans > 0
         plan_data = {}
+        diagnostic_report = {}
         graph_context = ""
         verification_res = initial_verification or {"success": True, "ast_valid": True, "tests_passed": True, "ruff_passed": True}
         critic_summary = "N/A"
@@ -187,7 +194,7 @@ class AgentStateMachineController:
             if current_state not in state_history:
                 state_history.append(current_state)
 
-            self._save_checkpoint(session_id, current_state, active_level, user_goal, replans_count, verification_res)
+            self._save_checkpoint(session_id, current_state, active_level, user_goal, replans_count, verification_res, diagnostic_report, plan_data)
 
             if current_state == State.PLAN:
                 plan_data = self._stage_planner(user_goal)
@@ -218,16 +225,16 @@ class AgentStateMachineController:
                         current_state = State.CRITIC if active_level == ExecutionLevel.LEVEL_4_FULL else State.DONE
 
             elif current_state == State.DIAGNOSE:
-                logging.info(f"🔍 [StateMachine] Diagnosticando causas raíz del fallo en verificación: {verification_res.get('ast_errors')}")
+                diagnostic_report = self._stage_diagnose(verification_res, user_goal)
+                logging.info(f"🔍 [StateMachine] RootCauseReport generado: {diagnostic_report['root_cause']}")
                 current_state = State.REPLAN
 
             elif current_state == State.REPLAN:
                 replans_count += 1
                 recovered_autonomously = True
-                logging.info(f"🔄 [StateMachine] Re-planificación activa ({replans_count}/{self.max_replans}) con estrategia de reparación.")
-                # Si hay errores de importación o módulo no encontrado, re-explorar el Grafo AST
-                has_import_err = any("import" in str(e).lower() or "module" in str(e).lower() for e in verification_res.get("ast_errors", []))
-                current_state = State.EXPLORE if has_import_err else State.EXECUTE
+                plan_data = self._stage_replan(plan_data, diagnostic_report)
+                logging.info(f"🔄 [StateMachine] UpdatedPlan generado (Re-planificación {replans_count}/{self.max_replans}).")
+                current_state = State.EXPLORE if diagnostic_report.get("requires_reexploration") else State.EXECUTE
 
             elif current_state == State.CRITIC:
                 critic_summary = self._stage_critic(user_goal, verification_res)
@@ -248,7 +255,7 @@ class AgentStateMachineController:
 
         transitions_str = " ➔ ".join(s.value if isinstance(s, State) else str(s) for s in state_history)
         final_response = (
-            f"### 🚀 Resultado Agéntico v4.0 — {active_level.value}\n\n"
+            f"### 🚀 Resultado Agéntico {CODEAGENT_VERSION} — {active_level.value}\n\n"
             f"{execution_result}\n\n"
             f"---\n"
             f"#### ⚙️ Control de Estados Determinista:\n"
@@ -324,6 +331,33 @@ class AgentStateMachineController:
                 "2. Aplicar parches con editar_archivo_search_replace o escribir_archivo_local",
                 "3. Validar sintaxis AST y suite de pruebas unitarias"
             ]
+        }
+
+    def _stage_diagnose(self, verification_res: dict[str, Any], _user_goal: str) -> dict[str, Any]:
+        """Genera un RootCauseReport estructurado aislando la causa raíz del fallo."""
+        ast_errors = verification_res.get("ast_errors", [])
+        err_str = ", ".join(str(e) for e in ast_errors) if ast_errors else "Fallo en suite de pruebas o linter"
+
+        requires_reexploration = any(k in err_str.lower() for k in ("import", "module", "not found", "nameerror", "attributeerror"))
+        return {
+            "root_cause": err_str,
+            "failed_assumption": "El código recién modificado cumplía la sintaxis y los contratos de los módulos.",
+            "strategy_change": "Re-explorar el Grafo AST con Graphify para identificar símbolos o importaciones faltantes." if requires_reexploration else "Corregir aserciones y adaptar la lógica interna del parche.",
+            "requires_reexploration": requires_reexploration,
+            "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
+        }
+
+    def _stage_replan(self, plan_data: dict[str, Any], diagnostic_report: dict[str, Any]) -> dict[str, Any]:
+        """Genera un UpdatedPlan estructurado incorporando el ajuste estratégico del diagnóstico."""
+        pasos_previos = list(plan_data.get("pasos", [])) if plan_data else []
+        strategy = diagnostic_report.get("strategy_change", "Re-evaluar la implementación del parche.")
+        pasos_previos.append(f"AJUSTE ESTRATÉGICO POR DIAGNÓSTICO: {strategy}")
+
+        return {
+            "objetivo": plan_data.get("objetivo", ""),
+            "pasos": pasos_previos,
+            "diagnostic_report": diagnostic_report,
+            "replan_timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
         }
 
     def _stage_explorer(self, user_goal: str) -> str:

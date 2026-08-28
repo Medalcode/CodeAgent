@@ -7,6 +7,7 @@ import sqlite3
 import subprocess
 import tempfile
 import threading
+import time
 from datetime import date
 from enum import Enum
 
@@ -283,12 +284,16 @@ def listar_directorio_local(ruta: str = ".") -> str:
     Args:
         ruta: Ruta al directorio local a listar.
     """
+    t0 = time.time()
     try:
         if not ruta or ruta == ".":
             ruta = _detectar_raiz_proyecto(".")
         archivos = os.listdir(ruta)
-        return f"Contenido de {os.path.abspath(ruta)}:\n" + "\n".join(archivos)
+        res = f"Contenido de {os.path.abspath(ruta)}:\n" + "\n".join(archivos)
+        track_tool_event("listar_directorio_local", True, time.time() - t0)
+        return res
     except Exception as e:
+        track_tool_event("listar_directorio_local", False, time.time() - t0, str(e))
         return f"Error al listar {ruta}: {e}"
 
 @tool
@@ -298,6 +303,7 @@ def leer_archivo_local(ruta_archivo: str) -> str:
     Args:
         ruta_archivo: Ruta al archivo local a leer.
     """
+    t0 = time.time()
     try:
         if not os.path.isabs(ruta_archivo):
             ruta_archivo = os.path.join(_detectar_raiz_proyecto("."), ruta_archivo)
@@ -305,8 +311,10 @@ def leer_archivo_local(ruta_archivo: str) -> str:
             contenido = f.read(150000)
             if f.read(1):
                 contenido += "\n\n... [CONTENIDO TRUNCADO POR LÍMITE DE TAMAÑO (150KB)]"
+            track_tool_event("leer_archivo_local", True, time.time() - t0)
             return contenido
     except Exception as e:
+        track_tool_event("leer_archivo_local", False, time.time() - t0, str(e))
         return f"Error al leer {ruta_archivo}: {e}"
 
 def _verificar_sintaxis_post_edicion(ruta_archivo: str) -> str:
