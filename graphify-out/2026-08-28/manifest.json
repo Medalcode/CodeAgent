@@ -115,8 +115,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/agent_pipeline.py": {
-    "mtime": 1787933836.0527296,
-    "ast_hash": "7e04d4f2adbb40f565b415d84e7a0366",
+    "mtime": 1787876578.7160645,
+    "ast_hash": "7ead5dc480a225e5776458035b3a7b3a",
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/claude_code_cli.py": {
@@ -130,8 +130,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/localcode_server.py": {
-    "mtime": 1787933814.6943152,
-    "ast_hash": "803bb98d225393675bb491f6169f2c5d",
+    "mtime": 1787878803.5742803,
+    "ast_hash": "06d197930137acefdf7c64794f3a486d",
     "semantic_hash": ""
   },
   "pyproject.toml": {
@@ -285,8 +285,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/metrics_benchmarks.json": {
-    "mtime": 1787934012.7346044,
-    "ast_hash": "3cf338acf41fa1d21be1b4bba31e79b1",
+    "mtime": 1787881027.3983014,
+    "ast_hash": "f82f5f65678983c2cc239ce449decb3c",
     "semantic_hash": ""
   },
   "tests/test_state_machine.py": {
@@ -310,8 +310,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/benchmark_report_v42.md": {
-    "mtime": 1787933995.7034483,
-    "ast_hash": "40b1c294dbea5722e0edf6da0985c791",
+    "mtime": 1787881007.4410226,
+    "ast_hash": "bcff93b811b1cd5dc288782fc9c117f1",
     "semantic_hash": ""
   },
   "tests/test_feedback_loop.py": {
@@ -342,36 +342,6 @@
   "tests/test_qa_edge_cases.py": {
     "mtime": 1787880140.0747292,
     "ast_hash": "75bb32ec70b48ad9b9f25a158c922f63",
-    "semantic_hash": ""
-  },
-  "mis_agentes_inteligentes/runtime/__init__.py": {
-    "mtime": 1787933743.6928766,
-    "ast_hash": "d4daaec3368def1e7d988fe6aa01d5b8",
-    "semantic_hash": ""
-  },
-  "mis_agentes_inteligentes/runtime/event_bus.py": {
-    "mtime": 1787933819.1699991,
-    "ast_hash": "9fcb54bb2d82c5f0a95a8c86fb618766",
-    "semantic_hash": ""
-  },
-  "mis_agentes_inteligentes/runtime/runtime.py": {
-    "mtime": 1787933844.3155713,
-    "ast_hash": "9199ea364d657634ddf3a2233f9dfe0c",
-    "semantic_hash": ""
-  },
-  "mis_agentes_inteligentes/storage/__init__.py": {
-    "mtime": 1787933731.1502216,
-    "ast_hash": "443db3864709720b950ed8b7ebac949d",
-    "semantic_hash": ""
-  },
-  "mis_agentes_inteligentes/storage/database.py": {
-    "mtime": 1787933802.585563,
-    "ast_hash": "1da3d720967382187d112421140aa9cb",
-    "semantic_hash": ""
-  },
-  "tests/test_runtime_storage.py": {
-    "mtime": 1787933953.817136,
-    "ast_hash": "2633074f895dd234c025086239ddd4a9",
     "semantic_hash": ""
   }
 }

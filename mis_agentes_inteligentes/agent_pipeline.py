@@ -134,7 +134,32 @@ class AgentStateMachineController:
                 }
                 save_session(session_id, data)
         except Exception as e:
-            logging.warning(f"No se pudo guardar checkpoint de estado: {e}")
+            logging.warning(f"No se pudo guardar checkpoint JSON: {e}")
+
+        # Integración con Almacenamiento Persistente SQLite y EventBus (v6.0)
+        try:
+            from runtime.event_bus import get_event_bus
+            from storage.database import get_db_manager
+            db = get_db_manager()
+            bus = get_event_bus()
+
+            db.save_checkpoint(
+                task_id=session_id,
+                state=current_state.value,
+                plan=str(plan_data) if plan_data else None,
+                failed_verification=failed_verification,
+                replans_count=replans_count
+            )
+            db.update_task_status(session_id, "RUNNING", current_state=current_state.value)
+            bus.publish(session_id, "STATE_CHANGED", {
+                "state": current_state.value,
+                "execution_level": execution_level.value,
+                "replans_count": replans_count,
+                "failed_verification": failed_verification,
+                "diagnostic_report": diagnostic_report
+            })
+        except Exception as ex:
+            logging.debug(f"Aviso en registro SQLite checkpoint: {ex}")
 
     def run(
         self,

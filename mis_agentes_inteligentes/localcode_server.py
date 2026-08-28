@@ -108,6 +108,8 @@ class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
             self.handle_docs()
         elif clean_path.startswith("/api/workspace/tree"):
             self.handle_workspace_tree()
+        elif clean_path.startswith("/api/tasks"):
+            self.handle_tasks_get(clean_path)
         elif any(clean_path.startswith(p) for p in ("/api/chat", "/api/tags", "/api/version", "/api/generate", "/api/embeddings", "/v1/")):
             self.proxy_to_ollama("GET")
         else:
@@ -119,7 +121,7 @@ class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
                 self._send_json({
                     "error": "Ruta no encontrada (404)",
                     "path_solicitada": self.path,
-                    "rutas_disponibles": ["/", "/localcode_claude_ui.html", "/docs", "/metrics", "/api/agent/chat", "/api/workspace/tree"]
+                    "rutas_disponibles": ["/", "/localcode_claude_ui.html", "/docs", "/metrics", "/api/agent/chat", "/api/workspace/tree", "/api/tasks"]
                 }, 404)
 
     def handle_metrics(self):
@@ -222,12 +224,66 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
             self.handle_github_import()
         elif self.path.startswith("/api/workspace/save") or self.path.startswith("/api/fs/save"):
             self.handle_save_file()
+        elif self.path.startswith("/api/tasks"):
+            self.handle_tasks_post(self.path.split('?')[0])
         elif self.path.startswith("/api/agent/chat"):
             self.handle_agent_chat()
         elif self.path.startswith("/api/chat") or self.path.startswith("/api/tags"):
             self.proxy_to_ollama("POST")
+
+    def handle_tasks_get(self, clean_path: str):
+        parts = [p for p in clean_path.split("/") if p]
+        from runtime.runtime import get_runtime
+        runtime = get_runtime()
+
+        if len(parts) == 2:  # /api/tasks
+            tasks = runtime.list_tasks()
+            self._send_json({"success": True, "tasks": tasks})
+        elif len(parts) == 3:  # /api/tasks/<task_id>
+            task_id = parts[2]
+            task = runtime.get_task(task_id)
+            if not task:
+                self._send_json({"success": False, "error": "Tarea no encontrada"}, 404)
+            else:
+                self._send_json({"success": True, "task": task})
+        elif len(parts) == 4 and parts[3] == "events":  # /api/tasks/<task_id>/events
+            task_id = parts[2]
+            parsed = urllib.parse.urlparse(self.path)
+            params = urllib.parse.parse_qs(parsed.query)
+            since_id = int(params.get("since_id", [0])[0])
+            events = runtime.get_events(task_id, since_id=since_id)
+            self._send_json({"success": True, "task_id": task_id, "events": events})
         else:
-            super().do_POST()
+            self._send_json({"error": "Ruta de tareas no válida"}, 400)
+
+    def handle_tasks_post(self, clean_path: str):
+        parts = [p for p in clean_path.split("/") if p]
+        from runtime.runtime import get_runtime
+        runtime = get_runtime()
+
+        if len(parts) == 2:  # POST /api/tasks
+            data = self._get_post_body()
+            goal = data.get("goal", "").strip() or data.get("prompt", "").strip()
+            project_path = data.get("project_path", "").strip() or ACTIVE_WORKSPACE_DIR
+            if not goal:
+                self._send_json({"success": False, "error": "Falta el objetivo ('goal')"}, 400)
+                return
+            task_id = runtime.start_task(goal=goal, project_path=project_path)
+            self._send_json({"success": True, "task_id": task_id})
+        elif len(parts) == 4 and parts[3] == "resume":  # POST /api/tasks/<task_id>/resume
+            task_id = parts[2]
+            res = runtime.resume_task(task_id)
+            self._send_json({"success": res, "task_id": task_id})
+        elif len(parts) == 4 and parts[3] == "pause":  # POST /api/tasks/<task_id>/pause
+            task_id = parts[2]
+            res = runtime.pause_task(task_id)
+            self._send_json({"success": res, "task_id": task_id})
+        elif len(parts) == 4 and parts[3] == "cancel":  # POST /api/tasks/<task_id>/cancel
+            task_id = parts[2]
+            res = runtime.cancel_task(task_id)
+            self._send_json({"success": res, "task_id": task_id})
+        else:
+            self._send_json({"error": "Acción de tareas no válida"}, 400)
 
     def _send_json(self, data, code=200):
         self.send_response(code)

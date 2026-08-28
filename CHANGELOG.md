@@ -4,6 +4,17 @@ Todos los cambios notables realizados en este proyecto serán documentados en es
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/), y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.0.0] - 2026-08-28
+
+### Added
+- **feat(architecture):** Motor de Runtime Autónomo Desacoplado (`CodeAgentRuntime`) en `runtime/runtime.py` con métodos `start_task()`, `get_task()`, `pause_task()`, `resume_task()`, `cancel_task()` y `get_events()`.
+- **feat(storage):** Almacenamiento Persistente Local SQLite (`storage/database.py`) en modo WAL con tablas `tasks`, `checkpoints`, `events` (Event Sourcing) y `metrics`.
+- **feat(events):** Bus de Eventos Persistente (`runtime/event_bus.py`) que registra la línea de tiempo completa de eventos agénticos y los emite a suscriptores.
+- **feat(api):** Endpoints REST `/api/tasks`, `/api/tasks/<id>`, `/api/tasks/<id>/events`, `/api/tasks/<id>/resume` para reconexión instantánea post-recarga de UI (F5).
+- **test(qa):** Suite `tests/test_runtime_storage.py` alcanzando **94/94 pruebas pasadas al 100%**.
+
+---
+
 ## [5.3.0] - 2026-08-27
 
 ### Added
