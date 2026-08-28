@@ -285,8 +285,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/metrics_benchmarks.json": {
-    "mtime": 1787953898.6128187,
-    "ast_hash": "1e0b96b20f945698b49a275d7556c345",
+    "mtime": 1787954318.7086904,
+    "ast_hash": "497f151a6e3ad8b4d92c7a9e5516c999",
     "semantic_hash": ""
   },
   "tests/test_state_machine.py": {
@@ -310,8 +310,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/benchmark_report_v42.md": {
-    "mtime": 1787953822.256018,
-    "ast_hash": "9110a1a4c9f23ab57c3095db6209437c",
+    "mtime": 1787954253.822294,
+    "ast_hash": "3488c856f1d867f1b6fcf4e9e2f41a7f",
     "semantic_hash": ""
   },
   "tests/test_feedback_loop.py": {
@@ -330,8 +330,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/localcode_claude_ui.html": {
-    "mtime": 1787940429.4213464,
-    "ast_hash": "a08abf9476aa2374d71ebc22e51f96e4",
+    "mtime": 1787954132.1665711,
+    "ast_hash": "6e7ea42d0898f73f0050307bda16340e",
     "semantic_hash": ""
   },
   "tests/test_refactored_quality.py": {

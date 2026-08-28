@@ -1252,7 +1252,7 @@
   });
 
   let untitledCount = 0;
-  let isAutoSaveEnabled = true;
+  let isAutoSaveEnabled = false;
 
   // TOGGLE MENU DESPLEGABLE FILE
   const fileBtn = $('fileMenuBtn');
@@ -1350,9 +1350,9 @@
 
     const newFileObj = {
       name: cleanName,
-      path: cleanName,
+      path: '',
       content: template,
-      isUntitled: false,
+      isUntitled: true,
       isModified: true
     };
     files.unshift(newFileObj);
@@ -1403,11 +1403,13 @@
     if(input) input.click();
   };
 
-  window.onSaveFile = async function(){
+  window.onSaveFile = async function(isAutoSave = false){
     if(fileMenu) fileMenu.style.display = 'none';
     if(!activeFile) return;
 
-    if(activeFile.isUntitled || !activeFile.path || activeFile.path.startsWith('Untitled')){
+    const hasValidPath = activeFile.path && !activeFile.isUntitled && !activeFile.path.startsWith('Untitled') && (activeFile.path.includes('/') || activeFile.path.includes('\\'));
+    if(!hasValidPath){
+      if(isAutoSave) return; // NUNCA abrir cuadro de diálogo interactivo durante el guardado automático de fondo
       return window.onSaveFileAs();
     }
 
@@ -1433,7 +1435,7 @@
           renderTree();
         }
       } catch(e){
-        alert('Error al guardar archivo: ' + e.message);
+        if(!isAutoSave) alert('Error al guardar archivo: ' + e.message);
       }
     }
   };
@@ -1482,8 +1484,8 @@
   };
 
   setInterval(() => {
-    if(isAutoSaveEnabled && activeFile && activeFile.isModified && !activeFile.isUntitled){
-      window.onSaveFile();
+    if(isAutoSaveEnabled && activeFile && activeFile.isModified && !activeFile.isUntitled && activeFile.path && (activeFile.path.includes('/') || activeFile.path.includes('\\'))){
+      window.onSaveFile(true);
     }
   }, 4000);
 
