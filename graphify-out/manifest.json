@@ -285,8 +285,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/metrics_benchmarks.json": {
-    "mtime": 1787954894.5168629,
-    "ast_hash": "24ac70d725af386e2cd4d1053c4bc0c2",
+    "mtime": 1787954962.025809,
+    "ast_hash": "42d84b563188ae63cdaf39ee58d48ffd",
     "semantic_hash": ""
   },
   "tests/test_state_machine.py": {
