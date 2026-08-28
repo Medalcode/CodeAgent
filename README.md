@@ -1,4 +1,4 @@
-# 💻 CodeAgent (v6.8 Enterprise)
+# 💻 CodeAgent (v6.9 Enterprise)
 
 > **Un entorno local y extensible para construir y supervisar agentes de código autónomos.**
 

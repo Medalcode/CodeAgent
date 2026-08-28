@@ -4,6 +4,16 @@ Todos los cambios notables realizados en este proyecto serán documentados en es
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/), y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.9.0] - 2026-08-28
+
+### Added
+- **feat(llm):** Incorporado **timeout duro de 120s (`request_timeout=120`)** a `LiteLLMModel` en llamadas a Ollama para prevenir cuelgues indefinidos.
+- **feat(verifier):** Añadido filtrado inteligente de directivas negativas ("No añadas tests", "sin pruebas") para asegurar la devolución de `NOT_REQUIRED`.
+- **feat(verifier):** Inclusión automática de `self.workspace_dir` en `PYTHONPATH` para ejecución correcta de `unittest` en proyectos aislados.
+- **test(qa):** Suite de **5 Pruebas de Benchmark** ejecutadas y validadas con 100% de éxito.
+
+---
+
 ## [6.8.0] - 2026-08-28
 
 ### Added

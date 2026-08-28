@@ -121,6 +121,7 @@ def get_model(provider: str, model_name: str, api_key: str = ""):
             model_id=f"ollama_chat/{model_name}",
             api_base=OLLAMA_TARGET,
             num_ctx=OLLAMA_NUM_CTX,
+            request_timeout=120,
         )
 
     provider_map = {

@@ -504,16 +504,19 @@ class AgentStateMachineController:
         if os.path.isdir(tests_dir):
             test_files_found = len([f for f in os.listdir(tests_dir) if f.endswith(".py")])
 
-        user_requested_tests = any(k in user_goal.lower() for k in ("test", "prueba", "unittest", "pytest", "cobertura", "assert"))
+        user_goal_lower = user_goal.lower()
+        has_neg = any(neg in user_goal_lower for neg in ("no añadas tests", "no test", "no tests", "sin tests", "sin pruebas", "sin test", "sin prueba", "no crees tests", "no crear tests"))
+        user_requested_tests = not has_neg and any(k in user_goal_lower for k in ("test", "prueba", "unittest", "pytest", "cobertura", "assert"))
 
         tests_passed = True
         if test_files_found > 0 and os.environ.get("SKIP_SUBPROCESS_TESTS") != "1":
             try:
                 env = os.environ.copy()
-                env["PYTHONPATH"] = "mis_agentes_inteligentes"
+                env["PYTHONPATH"] = f"{self.workspace_dir}{os.pathsep}mis_agentes_inteligentes{os.pathsep}{os.environ.get('PYTHONPATH', '')}"
                 res_test = subprocess.run([os.sys.executable, "-m", "unittest", "discover", "-s", "tests"], cwd=self.workspace_dir, env=env, capture_output=True, text=True, timeout=30)
                 if res_test.returncode != 0:
                     tests_passed = False
+                    ast_errors.append(f"Fallo en suite de pruebas unittest: {res_test.stderr or res_test.stdout}")
             except Exception:
                 tests_passed = True
             tests_status = "PASS" if tests_passed else "FAIL"
