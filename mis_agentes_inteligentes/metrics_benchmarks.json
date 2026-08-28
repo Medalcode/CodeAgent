@@ -1,11 +1,28 @@
 {
-  "total_runs": 145,
-  "successful_runs": 142,
+  "total_runs": 146,
+  "successful_runs": 143,
   "total_replans": 25,
   "successful_recoveries": 16,
   "total_tool_calls": 20,
   "successful_tool_calls": 13,
   "history": [
+    {
+      "timestamp": "2026-08-27 20:24:32",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Crear script de prueba",
+      "success": true,
+      "elapsed_seconds": 33.28,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
     {
       "timestamp": "2026-08-27 20:24:17",
       "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
@@ -1673,23 +1690,6 @@
       "user_goal": "Crea el endpoint /api/benchmark/summary en localcode_server.py devolviendo los K",
       "success": true,
       "elapsed_seconds": 3.13,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-27 20:00:17",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Descompón la función monolítica main en localcode_server.py en sub-funciones mod",
-      "success": true,
-      "elapsed_seconds": 3.07,
       "replans_count": 0,
       "recovered_autonomously": false,
       "verification": {
