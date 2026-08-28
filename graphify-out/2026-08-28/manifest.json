@@ -35,8 +35,8 @@
     "semantic_hash": "a1355e8f77d7a9bdc1619866b5517ca6"
   },
   "mis_agentes_inteligentes/tools.py": {
-    "mtime": 1787879964.8852754,
-    "ast_hash": "5b8da473390529ae13ec1552b2823682",
+    "mtime": 1787938644.12202,
+    "ast_hash": "f1492c51048ead17403a8c13ee41d05f",
     "semantic_hash": ""
   },
   "orquestador_agente.py": {
@@ -70,8 +70,8 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1787936004.5654302,
-    "ast_hash": "43470c9569629116bdb9b54095104541",
+    "mtime": 1787938434.533793,
+    "ast_hash": "07ef951e8eec9eda999d96b272aa347f",
     "semantic_hash": ""
   },
   "docker-compose.yml": {
@@ -130,8 +130,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/localcode_server.py": {
-    "mtime": 1787933814.6943152,
-    "ast_hash": "803bb98d225393675bb491f6169f2c5d",
+    "mtime": 1787938650.2638283,
+    "ast_hash": "155b56805aab968d613f7288347094ce",
     "semantic_hash": ""
   },
   "pyproject.toml": {
@@ -235,8 +235,8 @@
     "semantic_hash": ""
   },
   "CHANGELOG.md": {
-    "mtime": 1787936000.0005684,
-    "ast_hash": "957844e2459d826d6f56ffa40da1f141",
+    "mtime": 1787938430.8495343,
+    "ast_hash": "7a861d2d3b0ca87febe198d429095b79",
     "semantic_hash": ""
   },
   "docs/adr/ADR-001-smolagents-react-engine.md": {
@@ -270,8 +270,8 @@
     "semantic_hash": ""
   },
   "localcode_claude_ui.html": {
-    "mtime": 1787935911.28231,
-    "ast_hash": "ec8abc11565fedd37fac463678dea6ea",
+    "mtime": 1787938620.2870026,
+    "ast_hash": "177a0369ae157691942a94e69f093245",
     "semantic_hash": ""
   },
   "tests/test_desktop_app.py": {
@@ -285,8 +285,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/metrics_benchmarks.json": {
-    "mtime": 1787937246.23526,
-    "ast_hash": "b75963ad081d5918a1c045a4ef4fb39f",
+    "mtime": 1787938737.4180095,
+    "ast_hash": "cb9e38d7acadbd9ad8bae9562f7e9830",
     "semantic_hash": ""
   },
   "tests/test_state_machine.py": {
@@ -310,8 +310,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/benchmark_report_v42.md": {
-    "mtime": 1787937219.4091446,
-    "ast_hash": "aef106cab8dc5e49155a23607607d542",
+    "mtime": 1787938708.6706295,
+    "ast_hash": "aa982a8e8150895f30e7a41d3263f614",
     "semantic_hash": ""
   },
   "tests/test_feedback_loop.py": {
@@ -330,8 +330,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/localcode_claude_ui.html": {
-    "mtime": 1787935911.28231,
-    "ast_hash": "ec8abc11565fedd37fac463678dea6ea",
+    "mtime": 1787938620.2870026,
+    "ast_hash": "177a0369ae157691942a94e69f093245",
     "semantic_hash": ""
   },
   "tests/test_refactored_quality.py": {

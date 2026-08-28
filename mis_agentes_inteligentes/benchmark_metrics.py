@@ -8,6 +8,7 @@ Registra, calcula y persiste métricas cuantitativas reproducibles de rendimient
 - Average Tool Calls / Replans
 """
 import json
+import logging
 import os
 import tempfile
 import time

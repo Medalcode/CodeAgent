@@ -46,6 +46,7 @@ class TestRuntimeRecoveryAndPauseSemantics(unittest.TestCase):
             project_path=self.temp_dir.name,
             agent_runner=slow_runner
         )
+        time.sleep(0.05)
         res_cancel = self.runtime.cancel_task(task_id2)
         self.assertTrue(res_cancel)
 

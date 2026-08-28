@@ -426,6 +426,7 @@ def ejecutar_comando_terminal(comando: str, directorio: str = "") -> str:
         try:
             result = subprocess.run(
                 cmd_args,
+                stdin=subprocess.DEVNULL,
                 shell=use_shell,
                 capture_output=True,
                 text=True,
@@ -438,6 +439,7 @@ def ejecutar_comando_terminal(comando: str, directorio: str = "") -> str:
         except FileNotFoundError:
             result = subprocess.run(
                 comando,
+                stdin=subprocess.DEVNULL,
                 shell=True,
                 capture_output=True,
                 text=True,

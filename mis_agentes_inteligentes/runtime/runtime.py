@@ -65,6 +65,11 @@ class CodeAgentRuntime:
         pause_event: threading.Event,
         cancel_event: threading.Event
     ) -> None:
+        if cancel_event.is_set():
+            self.db.update_task_status(task_id, "CANCELLED", current_state="DONE")
+            self.event_bus.publish(task_id, "TASK_CANCELLED", {"task_id": task_id})
+            return
+
         self.db.update_task_status(task_id, "RUNNING", current_state="PLAN")
         self.event_bus.publish(task_id, "STATE_CHANGED", {"state": "PLAN", "status": "RUNNING"})
 

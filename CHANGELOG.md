@@ -4,6 +4,16 @@ Todos los cambios notables realizados en este proyecto serán documentados en es
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/), y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.6.0] - 2026-08-28
+
+### Added
+- **feat(runtime):** Deshabilitado el Stdin interactivo (`stdin=subprocess.DEVNULL`) en `ejecutar_comando_terminal` para prevenir cuelgues indefinidos en comandos que soliciten teclado.
+- **feat(ui):** Integrado botón **"⏹️ Cancelar Tarea"** con `AbortController` en la tarjeta en vivo de progreso del chat.
+- **feat(ui):** Alerta de tiempo transcurrido en vivo (`⚠️ Tarea ejecutándose por más de 60s...`) para visibilidad inmediata del usuario.
+- **test(qa):** Módulo `tests/test_task_timeout_safeguard.py` con **102/102 pruebas unitarias aprobadas al 100%**.
+
+---
+
 ## [6.5.0] - 2026-08-28
 
 ### Added

@@ -1047,6 +1047,15 @@
   reloadWorkspaceFiles();
   setInterval(reloadWorkspaceFiles, 4000);
 
+  let currentFetchAbortController = null;
+
+  window.cancelCurrentActiveTask = function() {
+    if(currentFetchAbortController) {
+      currentFetchAbortController.abort();
+      currentFetchAbortController = null;
+    }
+  };
+
   // ENVIAR MENSAJE AL AGENTE
   $('sendBtn').addEventListener('click', async () => {
     const text = $('chatInput').value.trim();
@@ -1078,12 +1087,18 @@
     let phaseIdx = 0;
 
     workingBubble.innerHTML = `
-      <div class="working-header">
-        <span class="working-spinner">⚙️</span>
-        <span>CodeAgent trabajando (<span id="workingTimer">0s</span>)...</span>
+      <div class="working-header" style="display:flex; align-items:center; justify-content:space-between;">
+        <div>
+          <span class="working-spinner">⚙️</span>
+          <span>CodeAgent trabajando (<span id="workingTimer">0s</span>)...</span>
+        </div>
+        <button id="cancelTaskBtn" onclick="cancelCurrentActiveTask()" style="background:#da3633; border:1px solid #f85149; color:#ffffff; padding:3px 8px; border-radius:4px; font-size:11px; cursor:pointer; font-weight:600;">⏹️ Cancelar Tarea</button>
       </div>
       <div class="working-steps" id="workingStepText">
         ${phases[0]}
+      </div>
+      <div id="workingWarning" style="display:none; color:#d29922; font-size:11px; margin-top:4px; font-weight:500;">
+        ⚠️ Tarea ejecutándose por más de 60s. Puedes esperar o usar 'Cancelar Tarea'.
       </div>
     `;
 
@@ -1095,6 +1110,11 @@
       const timerEl = document.getElementById('workingTimer');
       if(timerEl) timerEl.textContent = `${secCount}s`;
 
+      if(secCount >= 60) {
+        const warnEl = document.getElementById('workingWarning');
+        if(warnEl) warnEl.style.display = 'block';
+      }
+
       if(secCount % 3 === 0 && phaseIdx < phases.length - 1){
         phaseIdx++;
         const stepEl = document.getElementById('workingStepText');
@@ -1102,10 +1122,13 @@
       }
     }, 1000);
 
+    currentFetchAbortController = new AbortController();
+
     try {
       const res = await fetch('/api/agent/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        signal: currentFetchAbortController.signal,
         body: JSON.stringify({
           prompt: text,
           agent_type: "CodeAgent Developer",
@@ -1115,6 +1138,7 @@
       });
       const data = await res.json();
       clearInterval(timerInterval);
+      currentFetchAbortController = null;
 
       if(workingBubble && workingBubble.parentNode){
         workingBubble.parentNode.removeChild(workingBubble);

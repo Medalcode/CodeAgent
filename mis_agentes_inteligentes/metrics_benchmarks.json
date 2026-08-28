@@ -1,11 +1,1100 @@
 {
-  "total_runs": 620,
-  "successful_runs": 590,
-  "total_replans": 77,
-  "successful_recoveries": 51,
-  "total_tool_calls": 258,
-  "successful_tool_calls": 219,
+  "total_runs": 671,
+  "successful_runs": 641,
+  "total_replans": 86,
+  "successful_recoveries": 57,
+  "total_tool_calls": 315,
+  "successful_tool_calls": 260,
   "history": [
+    {
+      "timestamp": "2026-08-28 14:03:17",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Crear proyecto de prueba",
+      "success": true,
+      "elapsed_seconds": 0.08,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "NOT_RUN",
+        "ruff_status": "NOT_RUN",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 0,
+        "test_files_count": 0,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:03:17",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Refactoriza el parser de expresiones",
+      "success": true,
+      "elapsed_seconds": 4.05,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:03:12",
+      "execution_level": "Nivel 1 (Chat Directo)",
+      "user_goal": "¿Qué hace la función main?",
+      "success": true,
+      "elapsed_seconds": 0.0,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_valid": true,
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:03:12",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Implementar autenticación JWT",
+      "success": true,
+      "elapsed_seconds": 4.55,
+      "replans_count": 2,
+      "recovered_autonomously": true,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:03:08",
+      "execution_level": "Nivel 2 (Acción Rápida)",
+      "user_goal": "Formatea el codigo",
+      "success": true,
+      "elapsed_seconds": 0.08,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "NOT_RUN",
+        "ruff_status": "NOT_RUN",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 0,
+        "test_files_count": 0,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:03:07",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Genera reportes de pruebas",
+      "success": true,
+      "elapsed_seconds": 0.36,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "NOT_RUN",
+        "ruff_status": "NOT_RUN",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 0,
+        "test_files_count": 0,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:03:07",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Refactoriza el modulo auth",
+      "success": true,
+      "elapsed_seconds": 0.46,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "NOT_RUN",
+        "ruff_status": "NOT_RUN",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 0,
+        "test_files_count": 0,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:03:06",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Por favor refactoriza la función en tools.py para arreglar el bug",
+      "success": true,
+      "elapsed_seconds": 4.41,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:03:01",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Refactoriza módulo X",
+      "success": true,
+      "elapsed_seconds": 0.02,
+      "replans_count": 1,
+      "recovered_autonomously": true,
+      "verification": {
+        "success": true,
+        "ast_valid": true,
+        "tests_passed": true,
+        "ruff_passed": true,
+        "ast_errors": []
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:03:01",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Escribir un script de prueba E2E",
+      "success": true,
+      "elapsed_seconds": 4.49,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:02:56",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Refactoriza módulo X",
+      "success": true,
+      "elapsed_seconds": 4.72,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:02:52",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Consulta el Grafo AST Graphify para identificar los símbolos conectados a JSONSe",
+      "success": true,
+      "elapsed_seconds": 4.71,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:02:47",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Resuelve la prueba unitaria fallida en test_state_machine.py asegurando que el b",
+      "success": true,
+      "elapsed_seconds": 3.95,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:02:43",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Crea el endpoint /api/benchmark/summary en localcode_server.py devolviendo los K",
+      "success": true,
+      "elapsed_seconds": 3.2,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:02:40",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Descompón la función monolítica main en localcode_server.py en sub-funciones mod",
+      "success": true,
+      "elapsed_seconds": 4.44,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:02:35",
+      "execution_level": "Nivel 2 (Acción Rápida)",
+      "user_goal": "Corrige el error sintáctico de comillas en la función _safe_print en localcode_s",
+      "success": true,
+      "elapsed_seconds": 4.48,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:02:31",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Crear script de prueba",
+      "success": true,
+      "elapsed_seconds": 4.72,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:01:52",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Crear proyecto de prueba",
+      "success": true,
+      "elapsed_seconds": 0.23,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "NOT_RUN",
+        "ruff_status": "NOT_RUN",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 0,
+        "test_files_count": 0,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:01:51",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Refactoriza el parser de expresiones",
+      "success": true,
+      "elapsed_seconds": 4.45,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:01:46",
+      "execution_level": "Nivel 1 (Chat Directo)",
+      "user_goal": "¿Qué hace la función main?",
+      "success": true,
+      "elapsed_seconds": 0.0,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_valid": true,
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:01:46",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Implementar autenticación JWT",
+      "success": true,
+      "elapsed_seconds": 5.01,
+      "replans_count": 2,
+      "recovered_autonomously": true,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:01:41",
+      "execution_level": "Nivel 2 (Acción Rápida)",
+      "user_goal": "Formatea el codigo",
+      "success": true,
+      "elapsed_seconds": 0.11,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "NOT_RUN",
+        "ruff_status": "NOT_RUN",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 0,
+        "test_files_count": 0,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:01:41",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Genera reportes de pruebas",
+      "success": true,
+      "elapsed_seconds": 0.47,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "NOT_RUN",
+        "ruff_status": "NOT_RUN",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 0,
+        "test_files_count": 0,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:01:40",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Refactoriza el modulo auth",
+      "success": true,
+      "elapsed_seconds": 0.54,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "NOT_RUN",
+        "ruff_status": "NOT_RUN",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 0,
+        "test_files_count": 0,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:01:39",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Por favor refactoriza la función en tools.py para arreglar el bug",
+      "success": true,
+      "elapsed_seconds": 3.54,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:01:35",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Refactoriza módulo X",
+      "success": true,
+      "elapsed_seconds": 0.01,
+      "replans_count": 1,
+      "recovered_autonomously": true,
+      "verification": {
+        "success": true,
+        "ast_valid": true,
+        "tests_passed": true,
+        "ruff_passed": true,
+        "ast_errors": []
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:01:35",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Escribir un script de prueba E2E",
+      "success": true,
+      "elapsed_seconds": 4.44,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:01:30",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Refactoriza módulo X",
+      "success": true,
+      "elapsed_seconds": 4.65,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:01:26",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Consulta el Grafo AST Graphify para identificar los símbolos conectados a JSONSe",
+      "success": true,
+      "elapsed_seconds": 4.45,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:01:21",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Resuelve la prueba unitaria fallida en test_state_machine.py asegurando que el b",
+      "success": true,
+      "elapsed_seconds": 4.31,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:01:17",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Crea el endpoint /api/benchmark/summary en localcode_server.py devolviendo los K",
+      "success": true,
+      "elapsed_seconds": 4.29,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:01:13",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Descompón la función monolítica main en localcode_server.py en sub-funciones mod",
+      "success": true,
+      "elapsed_seconds": 4.48,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:01:08",
+      "execution_level": "Nivel 2 (Acción Rápida)",
+      "user_goal": "Corrige el error sintáctico de comillas en la función _safe_print en localcode_s",
+      "success": true,
+      "elapsed_seconds": 4.35,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 14:01:04",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Crear script de prueba",
+      "success": true,
+      "elapsed_seconds": 4.37,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 13:59:56",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Crear proyecto de prueba",
+      "success": true,
+      "elapsed_seconds": 0.17,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "NOT_RUN",
+        "ruff_status": "NOT_RUN",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 0,
+        "test_files_count": 0,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 13:59:56",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Refactoriza el parser de expresiones",
+      "success": true,
+      "elapsed_seconds": 4.29,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 13:59:51",
+      "execution_level": "Nivel 1 (Chat Directo)",
+      "user_goal": "¿Qué hace la función main?",
+      "success": true,
+      "elapsed_seconds": 0.0,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_valid": true,
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 13:59:51",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Implementar autenticación JWT",
+      "success": true,
+      "elapsed_seconds": 4.51,
+      "replans_count": 2,
+      "recovered_autonomously": true,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 13:59:47",
+      "execution_level": "Nivel 2 (Acción Rápida)",
+      "user_goal": "Formatea el codigo",
+      "success": true,
+      "elapsed_seconds": 0.08,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "NOT_RUN",
+        "ruff_status": "NOT_RUN",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 0,
+        "test_files_count": 0,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 13:59:46",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Genera reportes de pruebas",
+      "success": true,
+      "elapsed_seconds": 0.35,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "NOT_RUN",
+        "ruff_status": "NOT_RUN",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 0,
+        "test_files_count": 0,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 13:59:46",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Refactoriza el modulo auth",
+      "success": true,
+      "elapsed_seconds": 0.47,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "NOT_RUN",
+        "ruff_status": "NOT_RUN",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 0,
+        "test_files_count": 0,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 13:59:45",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Por favor refactoriza la función en tools.py para arreglar el bug",
+      "success": true,
+      "elapsed_seconds": 4.33,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 13:59:40",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Refactoriza módulo X",
+      "success": true,
+      "elapsed_seconds": 0.02,
+      "replans_count": 1,
+      "recovered_autonomously": true,
+      "verification": {
+        "success": true,
+        "ast_valid": true,
+        "tests_passed": true,
+        "ruff_passed": true,
+        "ast_errors": []
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 13:59:40",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Escribir un script de prueba E2E",
+      "success": true,
+      "elapsed_seconds": 4.3,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 13:59:35",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Refactoriza módulo X",
+      "success": true,
+      "elapsed_seconds": 4.78,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 13:59:31",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Consulta el Grafo AST Graphify para identificar los símbolos conectados a JSONSe",
+      "success": true,
+      "elapsed_seconds": 3.18,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 13:59:27",
+      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
+      "user_goal": "Resuelve la prueba unitaria fallida en test_state_machine.py asegurando que el b",
+      "success": true,
+      "elapsed_seconds": 3.14,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 13:59:24",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Crea el endpoint /api/benchmark/summary en localcode_server.py devolviendo los K",
+      "success": true,
+      "elapsed_seconds": 3.05,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 13:59:21",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Descompón la función monolítica main en localcode_server.py en sub-funciones mod",
+      "success": true,
+      "elapsed_seconds": 3.15,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 13:59:18",
+      "execution_level": "Nivel 2 (Acción Rápida)",
+      "user_goal": "Corrige el error sintáctico de comillas en la función _safe_print en localcode_s",
+      "success": true,
+      "elapsed_seconds": 3.15,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-28 13:59:15",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Crear script de prueba",
+      "success": true,
+      "elapsed_seconds": 4.1,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_status": "PASS",
+        "ruff_status": "PASS",
+        "tests_status": "NOT_RUN",
+        "py_files_count": 47,
+        "test_files_count": 26,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
     {
       "timestamp": "2026-08-28 13:38:57",
       "execution_level": "Nivel 3 (Feature Standard)",
@@ -1045,1089 +2134,408 @@
         "ruff_passed": true
       },
       "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:15:21",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear script de prueba",
-      "success": true,
-      "elapsed_seconds": 33.57,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "PASS",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:15:17",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear script de prueba",
-      "success": true,
-      "elapsed_seconds": 33.36,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "PASS",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:14:44",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear script de prueba",
-      "success": true,
-      "elapsed_seconds": 33.28,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "PASS",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:14:40",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear script de prueba",
-      "success": true,
-      "elapsed_seconds": 33.5,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "PASS",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:14:06",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear script de prueba",
-      "success": true,
-      "elapsed_seconds": 33.22,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "PASS",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:14:01",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear script de prueba",
-      "success": true,
-      "elapsed_seconds": 33.57,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "PASS",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:13:59",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear proyecto de prueba",
-      "success": true,
-      "elapsed_seconds": 0.12,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "NOT_RUN",
-        "ruff_status": "NOT_RUN",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 0,
-        "test_files_count": 0,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:13:59",
-      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
-      "user_goal": "Refactoriza el parser de expresiones",
-      "success": true,
-      "elapsed_seconds": 3.37,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:13:55",
-      "execution_level": "Nivel 1 (Chat Directo)",
-      "user_goal": "¿Qué hace la función main?",
-      "success": true,
-      "elapsed_seconds": 0.0,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_valid": true,
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:13:55",
-      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
-      "user_goal": "Implementar autenticación JWT",
-      "success": true,
-      "elapsed_seconds": 3.51,
-      "replans_count": 2,
-      "recovered_autonomously": true,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:13:52",
-      "execution_level": "Nivel 2 (Acción Rápida)",
-      "user_goal": "Formatea el codigo",
-      "success": true,
-      "elapsed_seconds": 0.07,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "NOT_RUN",
-        "ruff_status": "NOT_RUN",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 0,
-        "test_files_count": 0,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:13:51",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Genera reportes de pruebas",
-      "success": true,
-      "elapsed_seconds": 0.29,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "NOT_RUN",
-        "ruff_status": "NOT_RUN",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 0,
-        "test_files_count": 0,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:13:51",
-      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
-      "user_goal": "Refactoriza el modulo auth",
-      "success": true,
-      "elapsed_seconds": 0.37,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "NOT_RUN",
-        "ruff_status": "NOT_RUN",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 0,
-        "test_files_count": 0,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:13:50",
-      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
-      "user_goal": "Por favor refactoriza la función en tools.py para arreglar el bug",
-      "success": true,
-      "elapsed_seconds": 3.54,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:13:46",
-      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
-      "user_goal": "Refactoriza módulo X",
-      "success": true,
-      "elapsed_seconds": 0.01,
-      "replans_count": 1,
-      "recovered_autonomously": true,
-      "verification": {
-        "success": true,
-        "ast_valid": true,
-        "tests_passed": true,
-        "ruff_passed": true,
-        "ast_errors": []
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:13:46",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Escribir un script de prueba E2E",
-      "success": true,
-      "elapsed_seconds": 3.49,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:13:43",
-      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
-      "user_goal": "Refactoriza módulo X",
-      "success": true,
-      "elapsed_seconds": 3.68,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:13:39",
-      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
-      "user_goal": "Consulta el Grafo AST Graphify para identificar los símbolos conectados a JSONSe",
-      "success": true,
-      "elapsed_seconds": 3.62,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:13:35",
-      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
-      "user_goal": "Resuelve la prueba unitaria fallida en test_state_machine.py asegurando que el b",
-      "success": true,
-      "elapsed_seconds": 3.45,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:13:32",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crea el endpoint /api/benchmark/summary en localcode_server.py devolviendo los K",
-      "success": true,
-      "elapsed_seconds": 3.34,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:13:28",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Descompón la función monolítica main en localcode_server.py en sub-funciones mod",
-      "success": true,
-      "elapsed_seconds": 3.59,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:13:28",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear script de prueba",
-      "success": true,
-      "elapsed_seconds": 33.19,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "PASS",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:13:25",
-      "execution_level": "Nivel 2 (Acción Rápida)",
-      "user_goal": "Corrige el error sintáctico de comillas en la función _safe_print en localcode_s",
-      "success": true,
-      "elapsed_seconds": 3.66,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:13:23",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear script de prueba",
-      "success": true,
-      "elapsed_seconds": 33.3,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "PASS",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:13:21",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear script de prueba",
-      "success": true,
-      "elapsed_seconds": 3.45,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:12:52",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear script de prueba",
-      "success": true,
-      "elapsed_seconds": 33.11,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "PASS",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:12:47",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear script de prueba",
-      "success": true,
-      "elapsed_seconds": 33.41,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "PASS",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:12:14",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear script de prueba",
-      "success": true,
-      "elapsed_seconds": 33.26,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "PASS",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:12:13",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear proyecto de prueba",
-      "success": true,
-      "elapsed_seconds": 0.08,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "NOT_RUN",
-        "ruff_status": "NOT_RUN",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 0,
-        "test_files_count": 0,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:12:13",
-      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
-      "user_goal": "Refactoriza el parser de expresiones",
-      "success": true,
-      "elapsed_seconds": 3.59,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:12:09",
-      "execution_level": "Nivel 1 (Chat Directo)",
-      "user_goal": "¿Qué hace la función main?",
-      "success": true,
-      "elapsed_seconds": 0.0,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_valid": true,
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:12:09",
-      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
-      "user_goal": "Implementar autenticación JWT",
-      "success": true,
-      "elapsed_seconds": 3.55,
-      "replans_count": 2,
-      "recovered_autonomously": true,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:12:09",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear script de prueba",
-      "success": true,
-      "elapsed_seconds": 33.44,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "PASS",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:12:06",
-      "execution_level": "Nivel 2 (Acción Rápida)",
-      "user_goal": "Formatea el codigo",
-      "success": true,
-      "elapsed_seconds": 0.06,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "NOT_RUN",
-        "ruff_status": "NOT_RUN",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 0,
-        "test_files_count": 0,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:12:05",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Genera reportes de pruebas",
-      "success": true,
-      "elapsed_seconds": 0.28,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "NOT_RUN",
-        "ruff_status": "NOT_RUN",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 0,
-        "test_files_count": 0,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:12:05",
-      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
-      "user_goal": "Refactoriza el modulo auth",
-      "success": true,
-      "elapsed_seconds": 0.34,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "NOT_RUN",
-        "ruff_status": "NOT_RUN",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 0,
-        "test_files_count": 0,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:12:04",
-      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
-      "user_goal": "Por favor refactoriza la función en tools.py para arreglar el bug",
-      "success": true,
-      "elapsed_seconds": 3.32,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:12:01",
-      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
-      "user_goal": "Refactoriza módulo X",
-      "success": true,
-      "elapsed_seconds": 0.01,
-      "replans_count": 1,
-      "recovered_autonomously": true,
-      "verification": {
-        "success": true,
-        "ast_valid": true,
-        "tests_passed": true,
-        "ruff_passed": true,
-        "ast_errors": []
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:12:00",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Escribir un script de prueba E2E",
-      "success": true,
-      "elapsed_seconds": 3.4,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:11:57",
-      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
-      "user_goal": "Refactoriza módulo X",
-      "success": true,
-      "elapsed_seconds": 3.51,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:11:53",
-      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
-      "user_goal": "Consulta el Grafo AST Graphify para identificar los símbolos conectados a JSONSe",
-      "success": true,
-      "elapsed_seconds": 3.42,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:11:50",
-      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
-      "user_goal": "Resuelve la prueba unitaria fallida en test_state_machine.py asegurando que el b",
-      "success": true,
-      "elapsed_seconds": 3.44,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:11:47",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crea el endpoint /api/benchmark/summary en localcode_server.py devolviendo los K",
-      "success": true,
-      "elapsed_seconds": 3.34,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:11:43",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Descompón la función monolítica main en localcode_server.py en sub-funciones mod",
-      "success": true,
-      "elapsed_seconds": 3.44,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:11:40",
-      "execution_level": "Nivel 2 (Acción Rápida)",
-      "user_goal": "Corrige el error sintáctico de comillas en la función _safe_print en localcode_s",
-      "success": true,
-      "elapsed_seconds": 3.25,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:11:37",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear script de prueba",
-      "success": false,
-      "elapsed_seconds": 33.27,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": false,
-        "ast_status": "PASS",
-        "ruff_status": "FAIL",
-        "tests_status": "PASS",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": false
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:11:36",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear script de prueba",
-      "success": true,
-      "elapsed_seconds": 3.43,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "NOT_RUN",
-        "py_files_count": 46,
-        "test_files_count": 25,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:11:32",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear script de prueba",
-      "success": false,
-      "elapsed_seconds": 33.37,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": false,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": false
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:11:01",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear script de prueba",
-      "success": true,
-      "elapsed_seconds": 33.18,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:10:55",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear script de prueba",
-      "success": true,
-      "elapsed_seconds": 33.3,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 13:10:25",
-      "execution_level": "Nivel 3 (Feature Standard)",
-      "user_goal": "Crear script de prueba",
-      "success": true,
-      "elapsed_seconds": 33.07,
-      "replans_count": 0,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": true,
-        "ast_valid": true,
-        "ast_errors": [],
-        "tests_passed": true,
-        "ruff_passed": true
-      },
-      "tool_calls_count": 0
     }
   ],
   "tool_events": [
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 14:03:17",
+      "success": true,
+      "duration_seconds": 0.002,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "listar_directorio_local",
+      "timestamp": "2026-08-28 14:03:17",
+      "success": true,
+      "duration_seconds": 0.0,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "leer_archivo_local",
+      "timestamp": "2026-08-28 14:03:17",
+      "success": true,
+      "duration_seconds": 0.002,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 14:03:17",
+      "success": true,
+      "duration_seconds": 0.002,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 14:03:17",
+      "success": true,
+      "duration_seconds": 0.001,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 14:03:17",
+      "success": true,
+      "duration_seconds": 0.003,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "editar_archivo_search_replace",
+      "timestamp": "2026-08-28 14:03:17",
+      "success": true,
+      "duration_seconds": 0.003,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 14:03:17",
+      "success": true,
+      "duration_seconds": 0.002,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 14:03:17",
+      "success": true,
+      "duration_seconds": 0.004,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 14:03:16",
+      "success": false,
+      "duration_seconds": 0.001,
+      "error_type": "[WinError 183] No se puede crear un archivo que ya existe: 'C:\\\\Users\\\\Jonatthan\\\\Documents\\\\Github\\\\Pruebas\\\\calculadora_simple'"
+    },
+    {
+      "tool_name": "editar_archivo_search_replace",
+      "timestamp": "2026-08-28 14:03:06",
+      "success": true,
+      "duration_seconds": 0.014,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "editar_archivo_search_replace",
+      "timestamp": "2026-08-28 14:03:06",
+      "success": true,
+      "duration_seconds": 0.002,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 14:03:06",
+      "success": true,
+      "duration_seconds": 0.016,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 14:03:06",
+      "success": false,
+      "duration_seconds": 0.002,
+      "error_type": "replace: embedded null character in dst"
+    },
+    {
+      "tool_name": "ejecutar_comando_terminal",
+      "timestamp": "2026-08-28 14:03:01",
+      "success": false,
+      "duration_seconds": 0.45,
+      "error_type": "ExitCode: 1"
+    },
+    {
+      "tool_name": "editar_archivo_search_replace",
+      "timestamp": "2026-08-28 14:03:01",
+      "success": true,
+      "duration_seconds": 0.12,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "editar_archivo_search_replace",
+      "timestamp": "2026-08-28 14:02:40",
+      "success": false,
+      "duration_seconds": 0.0,
+      "error_type": "[Errno 2] No such file or directory: 'calculadora_simple/README.md'"
+    },
+    {
+      "tool_name": "editar_archivo_search_replace",
+      "timestamp": "2026-08-28 14:02:40",
+      "success": false,
+      "duration_seconds": 0.0,
+      "error_type": "[Errno 2] No such file or directory: 'calculadora_simple/main.py'"
+    },
+    {
+      "tool_name": "editar_archivo_search_replace",
+      "timestamp": "2026-08-28 14:02:39",
+      "success": false,
+      "duration_seconds": 0.0,
+      "error_type": "[Errno 2] No such file or directory: 'calculadora_simple/calculator.py'"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 14:01:51",
+      "success": true,
+      "duration_seconds": 0.002,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "listar_directorio_local",
+      "timestamp": "2026-08-28 14:01:51",
+      "success": true,
+      "duration_seconds": 0.0,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "leer_archivo_local",
+      "timestamp": "2026-08-28 14:01:51",
+      "success": true,
+      "duration_seconds": 0.001,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 14:01:51",
+      "success": true,
+      "duration_seconds": 0.004,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 14:01:51",
+      "success": true,
+      "duration_seconds": 0.002,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 14:01:51",
+      "success": true,
+      "duration_seconds": 0.004,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "editar_archivo_search_replace",
+      "timestamp": "2026-08-28 14:01:51",
+      "success": true,
+      "duration_seconds": 0.002,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 14:01:51",
+      "success": true,
+      "duration_seconds": 0.002,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 14:01:51",
+      "success": true,
+      "duration_seconds": 0.002,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "editar_archivo_search_replace",
+      "timestamp": "2026-08-28 14:01:40",
+      "success": true,
+      "duration_seconds": 0.028,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "editar_archivo_search_replace",
+      "timestamp": "2026-08-28 14:01:39",
+      "success": true,
+      "duration_seconds": 0.006,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 14:01:39",
+      "success": true,
+      "duration_seconds": 0.01,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 14:01:39",
+      "success": false,
+      "duration_seconds": 0.002,
+      "error_type": "replace: embedded null character in dst"
+    },
+    {
+      "tool_name": "ejecutar_comando_terminal",
+      "timestamp": "2026-08-28 14:01:35",
+      "success": false,
+      "duration_seconds": 0.45,
+      "error_type": "ExitCode: 1"
+    },
+    {
+      "tool_name": "editar_archivo_search_replace",
+      "timestamp": "2026-08-28 14:01:35",
+      "success": true,
+      "duration_seconds": 0.12,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 13:59:56",
+      "success": true,
+      "duration_seconds": 0.002,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "listar_directorio_local",
+      "timestamp": "2026-08-28 13:59:56",
+      "success": true,
+      "duration_seconds": 0.001,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "leer_archivo_local",
+      "timestamp": "2026-08-28 13:59:56",
+      "success": true,
+      "duration_seconds": 0.002,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 13:59:56",
+      "success": true,
+      "duration_seconds": 0.004,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 13:59:56",
+      "success": true,
+      "duration_seconds": 0.001,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 13:59:56",
+      "success": true,
+      "duration_seconds": 0.005,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "editar_archivo_search_replace",
+      "timestamp": "2026-08-28 13:59:56",
+      "success": true,
+      "duration_seconds": 0.004,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 13:59:56",
+      "success": true,
+      "duration_seconds": 0.003,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 13:59:56",
+      "success": true,
+      "duration_seconds": 0.003,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "editar_archivo_search_replace",
+      "timestamp": "2026-08-28 13:59:45",
+      "success": true,
+      "duration_seconds": 0.005,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "editar_archivo_search_replace",
+      "timestamp": "2026-08-28 13:59:45",
+      "success": true,
+      "duration_seconds": 0.003,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 13:59:45",
+      "success": true,
+      "duration_seconds": 0.002,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 13:59:45",
+      "success": false,
+      "duration_seconds": 0.001,
+      "error_type": "replace: embedded null character in dst"
+    },
+    {
+      "tool_name": "ejecutar_comando_terminal",
+      "timestamp": "2026-08-28 13:59:40",
+      "success": false,
+      "duration_seconds": 0.45,
+      "error_type": "ExitCode: 1"
+    },
+    {
+      "tool_name": "editar_archivo_search_replace",
+      "timestamp": "2026-08-28 13:59:40",
+      "success": true,
+      "duration_seconds": 0.12,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 13:56:04",
+      "success": false,
+      "duration_seconds": 0.0,
+      "error_type": "[WinError 183] No se puede crear un archivo que ya existe: 'C:\\\\Users\\\\Jonatthan\\\\Documents\\\\Github\\\\Pruebas\\\\calculadora_simple'"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 13:56:04",
+      "success": false,
+      "duration_seconds": 0.001,
+      "error_type": "[WinError 183] No se puede crear un archivo que ya existe: 'C:\\\\Users\\\\Jonatthan\\\\Documents\\\\Github\\\\Pruebas\\\\calculadora_simple'"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 13:56:04",
+      "success": false,
+      "duration_seconds": 0.001,
+      "error_type": "[WinError 183] No se puede crear un archivo que ya existe: 'C:\\\\Users\\\\Jonatthan\\\\Documents\\\\Github\\\\Pruebas\\\\calculadora_simple'"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 13:55:05",
+      "success": false,
+      "duration_seconds": 0.001,
+      "error_type": "[WinError 183] No se puede crear un archivo que ya existe: 'C:\\\\Users\\\\Jonatthan\\\\Documents\\\\Github\\\\Pruebas\\\\calculadora_simple'"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 13:55:05",
+      "success": false,
+      "duration_seconds": 0.0,
+      "error_type": "[WinError 183] No se puede crear un archivo que ya existe: 'C:\\\\Users\\\\Jonatthan\\\\Documents\\\\Github\\\\Pruebas\\\\calculadora_simple'"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 13:55:05",
+      "success": false,
+      "duration_seconds": 0.0,
+      "error_type": "[WinError 183] No se puede crear un archivo que ya existe: 'C:\\\\Users\\\\Jonatthan\\\\Documents\\\\Github\\\\Pruebas\\\\calculadora_simple'"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 13:55:05",
+      "success": true,
+      "duration_seconds": 0.001,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "listar_directorio_local",
+      "timestamp": "2026-08-28 13:50:02",
+      "success": true,
+      "duration_seconds": 0.001,
+      "error_type": "None"
+    },
     {
       "tool_name": "escribir_archivo_local",
       "timestamp": "2026-08-28 13:38:57",
@@ -3127,405 +3535,6 @@
       "timestamp": "2026-08-28 12:19:01",
       "success": true,
       "duration_seconds": 0.008,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-28 12:19:01",
-      "success": true,
-      "duration_seconds": 0.008,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "editar_archivo_search_replace",
-      "timestamp": "2026-08-28 12:18:55",
-      "success": true,
-      "duration_seconds": 0.015,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "editar_archivo_search_replace",
-      "timestamp": "2026-08-28 12:18:55",
-      "success": true,
-      "duration_seconds": 0.007,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-28 12:18:55",
-      "success": true,
-      "duration_seconds": 0.011,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-28 12:18:55",
-      "success": false,
-      "duration_seconds": 0.001,
-      "error_type": "replace: embedded null character in dst"
-    },
-    {
-      "tool_name": "ejecutar_comando_terminal",
-      "timestamp": "2026-08-28 12:18:51",
-      "success": false,
-      "duration_seconds": 0.45,
-      "error_type": "ExitCode: 1"
-    },
-    {
-      "tool_name": "editar_archivo_search_replace",
-      "timestamp": "2026-08-28 12:18:51",
-      "success": true,
-      "duration_seconds": 0.12,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:37:07",
-      "success": true,
-      "duration_seconds": 0.003,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "listar_directorio_local",
-      "timestamp": "2026-08-27 21:37:07",
-      "success": true,
-      "duration_seconds": 0.0,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "leer_archivo_local",
-      "timestamp": "2026-08-27 21:37:07",
-      "success": true,
-      "duration_seconds": 0.002,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:37:07",
-      "success": true,
-      "duration_seconds": 0.003,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:37:07",
-      "success": true,
-      "duration_seconds": 0.001,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:37:07",
-      "success": true,
-      "duration_seconds": 0.003,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "editar_archivo_search_replace",
-      "timestamp": "2026-08-27 21:37:07",
-      "success": true,
-      "duration_seconds": 0.003,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:37:07",
-      "success": true,
-      "duration_seconds": 0.003,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:37:07",
-      "success": true,
-      "duration_seconds": 0.003,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "editar_archivo_search_replace",
-      "timestamp": "2026-08-27 21:36:59",
-      "success": true,
-      "duration_seconds": 0.012,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "editar_archivo_search_replace",
-      "timestamp": "2026-08-27 21:36:59",
-      "success": true,
-      "duration_seconds": 0.002,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:36:59",
-      "success": true,
-      "duration_seconds": 0.003,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:36:59",
-      "success": false,
-      "duration_seconds": 0.001,
-      "error_type": "replace: embedded null character in dst"
-    },
-    {
-      "tool_name": "ejecutar_comando_terminal",
-      "timestamp": "2026-08-27 21:36:55",
-      "success": false,
-      "duration_seconds": 0.45,
-      "error_type": "ExitCode: 1"
-    },
-    {
-      "tool_name": "editar_archivo_search_replace",
-      "timestamp": "2026-08-27 21:36:55",
-      "success": true,
-      "duration_seconds": 0.12,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:26:51",
-      "success": true,
-      "duration_seconds": 0.011,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "listar_directorio_local",
-      "timestamp": "2026-08-27 21:26:51",
-      "success": true,
-      "duration_seconds": 0.0,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "leer_archivo_local",
-      "timestamp": "2026-08-27 21:26:51",
-      "success": true,
-      "duration_seconds": 0.002,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:26:51",
-      "success": true,
-      "duration_seconds": 0.003,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:26:51",
-      "success": true,
-      "duration_seconds": 0.001,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:26:51",
-      "success": true,
-      "duration_seconds": 0.002,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "editar_archivo_search_replace",
-      "timestamp": "2026-08-27 21:26:51",
-      "success": true,
-      "duration_seconds": 0.002,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:26:51",
-      "success": true,
-      "duration_seconds": 0.002,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:26:51",
-      "success": true,
-      "duration_seconds": 0.002,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "editar_archivo_search_replace",
-      "timestamp": "2026-08-27 21:26:43",
-      "success": true,
-      "duration_seconds": 0.011,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "editar_archivo_search_replace",
-      "timestamp": "2026-08-27 21:26:43",
-      "success": true,
-      "duration_seconds": 0.004,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:26:43",
-      "success": true,
-      "duration_seconds": 0.002,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:26:43",
-      "success": false,
-      "duration_seconds": 0.001,
-      "error_type": "replace: embedded null character in dst"
-    },
-    {
-      "tool_name": "ejecutar_comando_terminal",
-      "timestamp": "2026-08-27 21:26:39",
-      "success": false,
-      "duration_seconds": 0.45,
-      "error_type": "ExitCode: 1"
-    },
-    {
-      "tool_name": "editar_archivo_search_replace",
-      "timestamp": "2026-08-27 21:26:39",
-      "success": true,
-      "duration_seconds": 0.12,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:24:32",
-      "success": true,
-      "duration_seconds": 0.002,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "listar_directorio_local",
-      "timestamp": "2026-08-27 21:24:32",
-      "success": true,
-      "duration_seconds": 0.0,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "leer_archivo_local",
-      "timestamp": "2026-08-27 21:24:32",
-      "success": true,
-      "duration_seconds": 0.001,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:24:32",
-      "success": true,
-      "duration_seconds": 0.003,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:24:32",
-      "success": true,
-      "duration_seconds": 0.002,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:24:32",
-      "success": true,
-      "duration_seconds": 0.002,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "editar_archivo_search_replace",
-      "timestamp": "2026-08-27 21:24:32",
-      "success": true,
-      "duration_seconds": 0.002,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:24:32",
-      "success": true,
-      "duration_seconds": 0.002,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:24:32",
-      "success": true,
-      "duration_seconds": 0.002,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "editar_archivo_search_replace",
-      "timestamp": "2026-08-27 21:24:25",
-      "success": true,
-      "duration_seconds": 0.003,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "editar_archivo_search_replace",
-      "timestamp": "2026-08-27 21:24:25",
-      "success": true,
-      "duration_seconds": 0.002,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:24:25",
-      "success": true,
-      "duration_seconds": 0.002,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:24:25",
-      "success": false,
-      "duration_seconds": 0.001,
-      "error_type": "replace: embedded null character in dst"
-    },
-    {
-      "tool_name": "ejecutar_comando_terminal",
-      "timestamp": "2026-08-27 21:24:21",
-      "success": false,
-      "duration_seconds": 0.45,
-      "error_type": "ExitCode: 1"
-    },
-    {
-      "tool_name": "editar_archivo_search_replace",
-      "timestamp": "2026-08-27 21:24:21",
-      "success": true,
-      "duration_seconds": 0.12,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:23:20",
-      "success": true,
-      "duration_seconds": 0.002,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "listar_directorio_local",
-      "timestamp": "2026-08-27 21:23:20",
-      "success": true,
-      "duration_seconds": 0.0,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "leer_archivo_local",
-      "timestamp": "2026-08-27 21:23:20",
-      "success": true,
-      "duration_seconds": 0.001,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:23:20",
-      "success": true,
-      "duration_seconds": 0.003,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-27 21:23:20",
-      "success": true,
-      "duration_seconds": 0.001,
       "error_type": "None"
     }
   ]
