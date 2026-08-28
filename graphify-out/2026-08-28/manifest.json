@@ -105,8 +105,8 @@
     "semantic_hash": ""
   },
   "desktop_app.py": {
-    "mtime": 1787953685.6041262,
-    "ast_hash": "e0b8b854dec5b2c8f2f6d30f0c246541",
+    "mtime": 1787954628.9219418,
+    "ast_hash": "52545798031737f36bb7414877616f01",
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/__init__.py": {
@@ -115,8 +115,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/agent_pipeline.py": {
-    "mtime": 1787953702.1170056,
-    "ast_hash": "43a3592e8716505279ca6f0c26441a8b",
+    "mtime": 1787954838.1927235,
+    "ast_hash": "75bd8bf63bb50d607e3791817260d676",
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/claude_code_cli.py": {
@@ -130,8 +130,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/localcode_server.py": {
-    "mtime": 1787953659.6655989,
-    "ast_hash": "6e6c03557422de70cb7714fed99d131d",
+    "mtime": 1787954637.5293539,
+    "ast_hash": "6f3f39fdcea70d9deb2026c919914128",
     "semantic_hash": ""
   },
   "pyproject.toml": {
@@ -285,8 +285,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/metrics_benchmarks.json": {
-    "mtime": 1787954463.3578124,
-    "ast_hash": "00737ea8ff45c97ddcdd2c2dc15fb54e",
+    "mtime": 1787954962.025809,
+    "ast_hash": "42d84b563188ae63cdaf39ee58d48ffd",
     "semantic_hash": ""
   },
   "tests/test_state_machine.py": {
@@ -310,8 +310,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/benchmark_report_v42.md": {
-    "mtime": 1787954253.822294,
-    "ast_hash": "3488c856f1d867f1b6fcf4e9e2f41a7f",
+    "mtime": 1787954878.65424,
+    "ast_hash": "8975200e4f19a93d4b83a29b40abebaf",
     "semantic_hash": ""
   },
   "tests/test_feedback_loop.py": {

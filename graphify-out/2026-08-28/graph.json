@@ -172,7 +172,7 @@
       "label": ".open_folder_dialog()",
       "file_type": "code",
       "source_file": "desktop_app.py",
-      "source_location": "L157",
+      "source_location": "L159",
       "_origin": "ast",
       "id": "desktop_app_desktopideapi_open_folder_dialog",
       "community": 21,
@@ -183,7 +183,7 @@
       "label": ".save_file_dialog()",
       "file_type": "code",
       "source_file": "desktop_app.py",
-      "source_location": "L172",
+      "source_location": "L176",
       "_origin": "ast",
       "id": "desktop_app_desktopideapi_save_file_dialog",
       "community": 21,
@@ -194,7 +194,7 @@
       "label": ".write_file()",
       "file_type": "code",
       "source_file": "desktop_app.py",
-      "source_location": "L187",
+      "source_location": "L193",
       "_origin": "ast",
       "id": "desktop_app_desktopideapi_write_file",
       "community": 21,
@@ -205,7 +205,7 @@
       "label": ".new_window()",
       "file_type": "code",
       "source_file": "desktop_app.py",
-      "source_location": "L197",
+      "source_location": "L205",
       "_origin": "ast",
       "id": "desktop_app_desktopideapi_new_window",
       "community": 21,
@@ -216,7 +216,7 @@
       "label": ".exit_app()",
       "file_type": "code",
       "source_file": "desktop_app.py",
-      "source_location": "L207",
+      "source_location": "L211",
       "_origin": "ast",
       "id": "desktop_app_desktopideapi_exit_app",
       "community": 21,
@@ -227,7 +227,7 @@
       "label": "main()",
       "file_type": "code",
       "source_file": "desktop_app.py",
-      "source_location": "L213",
+      "source_location": "L217",
       "_origin": "ast",
       "id": "desktop_app_main",
       "community": 21,
@@ -293,9 +293,9 @@
       "label": "Abre el di\u00e1logo nativo del SO para seleccionar una carpeta y cambiar el\u2026",
       "file_type": "rationale",
       "source_file": "desktop_app.py",
-      "source_location": "L158",
+      "source_location": "L160",
       "_origin": "ast",
-      "id": "desktop_app_rationale_158",
+      "id": "desktop_app_rationale_160",
       "community": 21,
       "community_name": "desktop_app.py",
       "norm_label": "abre el dialogo nativo del so para seleccionar una carpeta y cambiar el..."
@@ -304,9 +304,9 @@
       "label": "Abre el di\u00e1logo nativo de Guardar Como para escribir contenido en disco.",
       "file_type": "rationale",
       "source_file": "desktop_app.py",
-      "source_location": "L173",
+      "source_location": "L177",
       "_origin": "ast",
-      "id": "desktop_app_rationale_173",
+      "id": "desktop_app_rationale_177",
       "community": 21,
       "community_name": "desktop_app.py",
       "norm_label": "abre el dialogo nativo de guardar como para escribir contenido en disco."
@@ -315,31 +315,31 @@
       "label": "Guarda directamente el contenido del buffer en una ruta existente.",
       "file_type": "rationale",
       "source_file": "desktop_app.py",
-      "source_location": "L188",
+      "source_location": "L194",
       "_origin": "ast",
-      "id": "desktop_app_rationale_188",
+      "id": "desktop_app_rationale_194",
       "community": 21,
       "community_name": "desktop_app.py",
       "norm_label": "guarda directamente el contenido del buffer en una ruta existente."
     },
     {
-      "label": "Inicia una nueva ventana de la aplicaci\u00f3n de escritorio.",
+      "label": "Inicia una nueva ventana de la aplicaci\u00f3n de escritorio (DESACTIVADA POR\u2026",
       "file_type": "rationale",
       "source_file": "desktop_app.py",
-      "source_location": "L198",
+      "source_location": "L206",
       "_origin": "ast",
-      "id": "desktop_app_rationale_198",
+      "id": "desktop_app_rationale_206",
       "community": 21,
       "community_name": "desktop_app.py",
-      "norm_label": "inicia una nueva ventana de la aplicacion de escritorio."
+      "norm_label": "inicia una nueva ventana de la aplicacion de escritorio (desactivada por..."
     },
     {
       "label": "Finaliza el proceso de la ventana y la aplicaci\u00f3n.",
       "file_type": "rationale",
       "source_file": "desktop_app.py",
-      "source_location": "L208",
+      "source_location": "L212",
       "_origin": "ast",
-      "id": "desktop_app_rationale_208",
+      "id": "desktop_app_rationale_212",
       "community": 21,
       "community_name": "desktop_app.py",
       "norm_label": "finaliza el proceso de la ventana y la aplicacion."
@@ -623,7 +623,7 @@
       "label": "._stage_critic()",
       "file_type": "code",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L637",
+      "source_location": "L677",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_critic",
       "community": 10,
@@ -785,7 +785,7 @@
       "norm_label": "construye el prompt contextual para la fase execute."
     },
     {
-      "label": "Comprueba sintaxis AST, linter Ruff y suite de pruebas unitarias con reporte de\u2026",
+      "label": "Comprueba sintaxis AST, linter Ruff y suite de pruebas enfocado \u00fanicamente en\u2026",
       "file_type": "rationale",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
       "source_location": "L527",
@@ -793,15 +793,15 @@
       "id": "mis_agentes_inteligentes_agent_pipeline_rationale_527",
       "community": 10,
       "community_name": "AgentStateMachineController",
-      "norm_label": "comprueba sintaxis ast, linter ruff y suite de pruebas unitarias con reporte de..."
+      "norm_label": "comprueba sintaxis ast, linter ruff y suite de pruebas enfocado unicamente en..."
     },
     {
       "label": "Evaluaci\u00f3n cr\u00edtica objetiva del diff, requisitos e integridad del workspace.",
       "file_type": "rationale",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L638",
+      "source_location": "L678",
       "_origin": "ast",
-      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_638",
+      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_678",
       "community": 10,
       "community_name": "AgentStateMachineController",
       "norm_label": "evaluacion critica objetiva del diff, requisitos e integridad del workspace."
@@ -814,7 +814,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents",
       "community": 62,
-      "community_name": "TestAgents",
+      "community_name": "agents.py",
       "norm_label": "agents.py"
     },
     {
@@ -836,7 +836,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_load_subagents_from_disk",
       "community": 62,
-      "community_name": "TestAgents",
+      "community_name": "agents.py",
       "norm_label": "load_subagents_from_disk()"
     },
     {
@@ -847,7 +847,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_get_available_agents",
       "community": 62,
-      "community_name": "TestAgents",
+      "community_name": "agents.py",
       "norm_label": "get_available_agents()"
     },
     {
@@ -857,7 +857,7 @@
       "source_location": "L209",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_route_prompt",
-      "community": 62,
+      "community": 2,
       "community_name": "TestAgents",
       "norm_label": "route_prompt()"
     },
@@ -869,7 +869,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_detectar_modelo_local",
       "community": 62,
-      "community_name": "TestAgents",
+      "community_name": "agents.py",
       "norm_label": "_detectar_modelo_local()"
     },
     {
@@ -880,7 +880,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_crear_agente",
       "community": 62,
-      "community_name": "TestAgents",
+      "community_name": "agents.py",
       "norm_label": "crear_agente()"
     },
     {
@@ -902,7 +902,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_rationale_148",
       "community": 62,
-      "community_name": "TestAgents",
+      "community_name": "agents.py",
       "norm_label": "lee todos los archivos .md en la carpeta subagents/ y parsea su yaml..."
     },
     {
@@ -913,7 +913,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_rationale_196",
       "community": 62,
-      "community_name": "TestAgents",
+      "community_name": "agents.py",
       "norm_label": "devuelve la lista completa de agentes disponibles (fijos + dinamicos)."
     },
     {
@@ -923,7 +923,7 @@
       "source_location": "L210",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_rationale_210",
-      "community": 62,
+      "community": 2,
       "community_name": "TestAgents",
       "norm_label": "enrutador automatico mejorado con scoring ponderado."
     },
@@ -935,7 +935,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_rationale_318",
       "community": 62,
-      "community_name": "TestAgents",
+      "community_name": "agents.py",
       "norm_label": "detecta si el modelo es local (ollama) basandose en el model_id."
     },
     {
@@ -946,7 +946,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_rationale_325",
       "community": 62,
-      "community_name": "TestAgents",
+      "community_name": "agents.py",
       "norm_label": "crea el codeagent de smolagents. fix: usa instructions para smolagents >=1.26...."
     },
     {
@@ -1330,8 +1330,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_claude_code_cli",
-      "community": 71,
-      "community_name": "ejecutar_agentes",
+      "community": 63,
+      "community_name": "claude_code_cli.py",
       "norm_label": "claude_code_cli.py"
     },
     {
@@ -1341,8 +1341,8 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_claude_code_cli_print_banner",
-      "community": 71,
-      "community_name": "ejecutar_agentes",
+      "community": 63,
+      "community_name": "claude_code_cli.py",
       "norm_label": "print_banner()"
     },
     {
@@ -1352,8 +1352,8 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_claude_code_cli_main",
-      "community": 71,
-      "community_name": "ejecutar_agentes",
+      "community": 63,
+      "community_name": "claude_code_cli.py",
       "norm_label": "main()"
     },
     {
@@ -1668,7 +1668,7 @@
       "label": ".handle_fs_open_folder_dialog()",
       "file_type": "code",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L455",
+      "source_location": "L457",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler_handle_fs_open_folder_dialog",
       "community": 1,
@@ -1679,7 +1679,7 @@
       "label": ".handle_github_import()",
       "file_type": "code",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L475",
+      "source_location": "L479",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler_handle_github_import",
       "community": 1,
@@ -1690,7 +1690,7 @@
       "label": ".handle_agent_chat()",
       "file_type": "code",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L540",
+      "source_location": "L544",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler_handle_agent_chat",
       "community": 1,
@@ -1701,7 +1701,7 @@
       "label": ".proxy_to_ollama()",
       "file_type": "code",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L610",
+      "source_location": "L614",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler_proxy_to_ollama",
       "community": 1,
@@ -1712,7 +1712,7 @@
       "label": "ThreadedTCPServer",
       "file_type": "code",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L652",
+      "source_location": "L656",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_localcode_server_threadedtcpserver",
       "community": 1,
@@ -1723,7 +1723,7 @@
       "label": "main()",
       "file_type": "code",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L658",
+      "source_location": "L662",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_localcode_server_main",
       "community": 1,
@@ -1745,9 +1745,9 @@
       "label": "Servidor TCP/HTTP multihilo no bloqueante para peticiones concurrentes.",
       "file_type": "rationale",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L653",
+      "source_location": "L657",
       "_origin": "ast",
-      "id": "mis_agentes_inteligentes_localcode_server_rationale_653",
+      "id": "mis_agentes_inteligentes_localcode_server_rationale_657",
       "community": 1,
       "community_name": "LocalCodeProxyHandler",
       "norm_label": "servidor tcp/http multihilo no bloqueante para peticiones concurrentes."
@@ -2944,7 +2944,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools",
-      "community": 26,
+      "community": 31,
       "community_name": "tools.py",
       "norm_label": "tools.py"
     },
@@ -2955,7 +2955,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_silent_popen_init",
-      "community": 26,
+      "community": 31,
       "community_name": "tools.py",
       "norm_label": "_silent_popen_init()"
     },
@@ -2966,8 +2966,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_track_tool_event",
-      "community": 11,
-      "community_name": "_detectar_raiz_proyecto",
+      "community": 18,
+      "community_name": "escribir_archivo_local",
       "norm_label": "track_tool_event()"
     },
     {
@@ -2978,7 +2978,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_permissionlevel",
       "community": 26,
-      "community_name": "tools.py",
+      "community_name": "PermissionLevel",
       "norm_label": "permissionlevel"
     },
     {
@@ -2989,7 +2989,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_py_enum",
       "community": 26,
-      "community_name": "tools.py",
+      "community_name": "PermissionLevel",
       "norm_label": "enum"
     },
     {
@@ -3000,7 +3000,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_check_tool_permission",
       "community": 26,
-      "community_name": "tools.py",
+      "community_name": "PermissionLevel",
       "norm_label": "check_tool_permission()"
     },
     {
@@ -3098,8 +3098,8 @@
       "source_location": "L255",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_set_active_workspace",
-      "community": 1,
-      "community_name": "LocalCodeProxyHandler",
+      "community": 21,
+      "community_name": "desktop_app.py",
       "norm_label": "set_active_workspace()"
     },
     {
@@ -3109,8 +3109,8 @@
       "source_location": "L265",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_get_active_workspace",
-      "community": 11,
-      "community_name": "_detectar_raiz_proyecto",
+      "community": 21,
+      "community_name": "desktop_app.py",
       "norm_label": "get_active_workspace()"
     },
     {
@@ -3121,7 +3121,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_detectar_raiz_proyecto",
       "community": 11,
-      "community_name": "_detectar_raiz_proyecto",
+      "community_name": "TestTools",
       "norm_label": "_detectar_raiz_proyecto()"
     },
     {
@@ -3132,7 +3132,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_listar_directorio_local",
       "community": 11,
-      "community_name": "_detectar_raiz_proyecto",
+      "community_name": "TestTools",
       "norm_label": "listar_directorio_local()"
     },
     {
@@ -3143,7 +3143,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_leer_archivo_local",
       "community": 11,
-      "community_name": "_detectar_raiz_proyecto",
+      "community_name": "TestTools",
       "norm_label": "leer_archivo_local()"
     },
     {
@@ -3154,7 +3154,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_verificar_sintaxis_post_edicion",
       "community": 18,
-      "community_name": "TestTools",
+      "community_name": "escribir_archivo_local",
       "norm_label": "_verificar_sintaxis_post_edicion()"
     },
     {
@@ -3164,8 +3164,8 @@
       "source_location": "L353",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_atomic_write_file",
-      "community": 26,
-      "community_name": "tools.py",
+      "community": 18,
+      "community_name": "escribir_archivo_local",
       "norm_label": "_atomic_write_file()"
     },
     {
@@ -3176,7 +3176,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_escribir_archivo_local",
       "community": 18,
-      "community_name": "TestTools",
+      "community_name": "escribir_archivo_local",
       "norm_label": "escribir_archivo_local()"
     },
     {
@@ -3186,8 +3186,8 @@
       "source_location": "L396",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_ejecutar_comando_terminal",
-      "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community": 11,
+      "community_name": "TestTools",
       "norm_label": "ejecutar_comando_terminal()"
     },
     {
@@ -3197,8 +3197,8 @@
       "source_location": "L498",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_get_terminal_tasks_buffer",
-      "community": 1,
-      "community_name": "LocalCodeProxyHandler",
+      "community": 31,
+      "community_name": "tools.py",
       "norm_label": "get_terminal_tasks_buffer()"
     },
     {
@@ -3208,8 +3208,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_py_any",
-      "community": 1,
-      "community_name": "LocalCodeProxyHandler",
+      "community": 31,
+      "community_name": "tools.py",
       "norm_label": "any"
     },
     {
@@ -3219,7 +3219,7 @@
       "source_location": "L501",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_clear_terminal_tasks_buffer",
-      "community": 26,
+      "community": 31,
       "community_name": "tools.py",
       "norm_label": "clear_terminal_tasks_buffer()"
     },
@@ -3242,7 +3242,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_editar_archivo_search_replace",
       "community": 18,
-      "community_name": "TestTools",
+      "community_name": "escribir_archivo_local",
       "norm_label": "editar_archivo_search_replace()"
     },
     {
@@ -3308,7 +3308,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_obtener_contexto_workspace",
       "community": 11,
-      "community_name": "_detectar_raiz_proyecto",
+      "community_name": "TestTools",
       "norm_label": "obtener_contexto_workspace()"
     },
     {
@@ -3319,7 +3319,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_is_sensitive_command",
       "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community_name": "tools.py",
       "norm_label": "is_sensitive_command()"
     },
     {
@@ -3330,7 +3330,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_pre_approve_command",
       "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community_name": "tools.py",
       "norm_label": "pre_approve_command()"
     },
     {
@@ -3341,7 +3341,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_is_command_approved",
       "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community_name": "tools.py",
       "norm_label": "is_command_approved()"
     },
     {
@@ -3351,8 +3351,8 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_38",
-      "community": 11,
-      "community_name": "_detectar_raiz_proyecto",
+      "community": 18,
+      "community_name": "escribir_archivo_local",
       "norm_label": "rastrea e informa la ejecucion de herramientas al colector de metricas."
     },
     {
@@ -3363,7 +3363,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_51",
       "community": 26,
-      "community_name": "tools.py",
+      "community_name": "PermissionLevel",
       "norm_label": "niveles de autorizacion para la ejecucion segura de herramientas agenticas."
     },
     {
@@ -3374,7 +3374,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_70",
       "community": 26,
-      "community_name": "tools.py",
+      "community_name": "PermissionLevel",
       "norm_label": "valida si el permiso actual autoriza la ejecucion de la herramienta."
     },
     {
@@ -3450,8 +3450,8 @@
       "source_location": "L256",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_256",
-      "community": 1,
-      "community_name": "LocalCodeProxyHandler",
+      "community": 21,
+      "community_name": "desktop_app.py",
       "norm_label": "establece el directorio del espacio de trabajo activo de forma thread-safe para..."
     },
     {
@@ -3461,8 +3461,8 @@
       "source_location": "L266",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_266",
-      "community": 11,
-      "community_name": "_detectar_raiz_proyecto",
+      "community": 21,
+      "community_name": "desktop_app.py",
       "norm_label": "devuelve el espacio de trabajo activo de forma thread-safe."
     },
     {
@@ -3473,7 +3473,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_273",
       "community": 11,
-      "community_name": "_detectar_raiz_proyecto",
+      "community_name": "TestTools",
       "norm_label": "sube directorios hasta encontrar un marcador de raiz de repo (.git, agents.md,..."
     },
     {
@@ -3484,7 +3484,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_300",
       "community": 11,
-      "community_name": "_detectar_raiz_proyecto",
+      "community_name": "TestTools",
       "norm_label": "lista los archivos y carpetas de un directorio local y devuelve el contenido..."
     },
     {
@@ -3495,7 +3495,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_319",
       "community": 11,
-      "community_name": "_detectar_raiz_proyecto",
+      "community_name": "TestTools",
       "norm_label": "lee el contenido de un archivo local en tu disco duro para poder analizar su..."
     },
     {
@@ -3506,7 +3506,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_339",
       "community": 18,
-      "community_name": "TestTools",
+      "community_name": "escribir_archivo_local",
       "norm_label": "verifica automaticamente la sintaxis del archivo modificado (ej. ast.parse para..."
     },
     {
@@ -3516,8 +3516,8 @@
       "source_location": "L354",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_354",
-      "community": 26,
-      "community_name": "tools.py",
+      "community": 18,
+      "community_name": "escribir_archivo_local",
       "norm_label": "escribe un archivo de forma atomica con limpieza segura de temporales en caso..."
     },
     {
@@ -3528,7 +3528,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_374",
       "community": 18,
-      "community_name": "TestTools",
+      "community_name": "escribir_archivo_local",
       "norm_label": "crea o sobreescribe un archivo local con el contenido proporcionado. util para..."
     },
     {
@@ -3538,8 +3538,8 @@
       "source_location": "L397",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_397",
-      "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community": 11,
+      "community_name": "TestTools",
       "norm_label": "ejecuta un comando en la terminal del sistema operativo (ej. pytest, ls, pip..."
     },
     {
@@ -3561,7 +3561,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_538",
       "community": 18,
-      "community_name": "TestTools",
+      "community_name": "escribir_archivo_local",
       "norm_label": "importante: usala para modificar partes de un archivo sin reescribirlo todo...."
     },
     {
@@ -3627,7 +3627,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_653",
       "community": 11,
-      "community_name": "_detectar_raiz_proyecto",
+      "community_name": "TestTools",
       "norm_label": "funcion de utilidad para el comando @workspace. genera un resumen del entorno."
     },
     {
@@ -3846,7 +3846,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "tests_test_agents_testagents",
-      "community": 62,
+      "community": 2,
       "community_name": "TestAgents",
       "norm_label": "testagents"
     },
@@ -3857,7 +3857,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_route_prompt_github",
-      "community": 62,
+      "community": 2,
       "community_name": "TestAgents",
       "norm_label": ".test_route_prompt_github()"
     },
@@ -3868,7 +3868,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_route_prompt_editor",
-      "community": 62,
+      "community": 2,
       "community_name": "TestAgents",
       "norm_label": ".test_route_prompt_editor()"
     },
@@ -3879,7 +3879,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_route_prompt_productivity",
-      "community": 62,
+      "community": 2,
       "community_name": "TestAgents",
       "norm_label": ".test_route_prompt_productivity()"
     },
@@ -3890,7 +3890,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_route_prompt_general",
-      "community": 62,
+      "community": 2,
       "community_name": "TestAgents",
       "norm_label": ".test_route_prompt_general()"
     },
@@ -3902,7 +3902,7 @@
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_get_available_agents",
       "community": 62,
-      "community_name": "TestAgents",
+      "community_name": "agents.py",
       "norm_label": ".test_get_available_agents()"
     },
     {
@@ -3913,7 +3913,7 @@
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_load_subagents_from_disk",
       "community": 62,
-      "community_name": "TestAgents",
+      "community_name": "agents.py",
       "norm_label": ".test_load_subagents_from_disk()"
     },
     {
@@ -3934,7 +3934,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_route_prompt_subagents",
-      "community": 62,
+      "community": 2,
       "community_name": "TestAgents",
       "norm_label": ".test_route_prompt_subagents()"
     },
@@ -3946,7 +3946,7 @@
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_crear_agente_planning_interval",
       "community": 62,
-      "community_name": "TestAgents",
+      "community_name": "agents.py",
       "norm_label": ".test_crear_agente_planning_interval()"
     },
     {
@@ -4132,8 +4132,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "tests_test_desktop_ide_testdesktopideapi_test_workspace_management",
-      "community": 11,
-      "community_name": "_detectar_raiz_proyecto",
+      "community": 21,
+      "community_name": "desktop_app.py",
       "norm_label": ".test_workspace_management()"
     },
     {
@@ -4781,8 +4781,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_refactored_quality",
-      "community": 26,
-      "community_name": "tools.py",
+      "community": 18,
+      "community_name": "escribir_archivo_local",
       "norm_label": "test_refactored_quality.py"
     },
     {
@@ -4792,8 +4792,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "tests_test_refactored_quality_testtechnicalqualityrefactor",
-      "community": 26,
-      "community_name": "tools.py",
+      "community": 18,
+      "community_name": "escribir_archivo_local",
       "norm_label": "testtechnicalqualityrefactor"
     },
     {
@@ -4803,8 +4803,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "tests_test_refactored_quality_testtechnicalqualityrefactor_test_atomic_write_file_success",
-      "community": 26,
-      "community_name": "tools.py",
+      "community": 18,
+      "community_name": "escribir_archivo_local",
       "norm_label": ".test_atomic_write_file_success()"
     },
     {
@@ -4814,8 +4814,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "tests_test_refactored_quality_testtechnicalqualityrefactor_test_atomic_write_file_cleanup_on_error",
-      "community": 26,
-      "community_name": "tools.py",
+      "community": 18,
+      "community_name": "escribir_archivo_local",
       "norm_label": ".test_atomic_write_file_cleanup_on_error()"
     },
     {
@@ -4826,7 +4826,7 @@
       "_origin": "ast",
       "id": "tests_test_refactored_quality_testtechnicalqualityrefactor_test_escribir_y_editar_archivo_refactored",
       "community": 18,
-      "community_name": "TestTools",
+      "community_name": "escribir_archivo_local",
       "norm_label": ".test_escribir_y_editar_archivo_refactored()"
     },
     {
@@ -4837,7 +4837,7 @@
       "_origin": "ast",
       "id": "tests_test_refactored_quality_testtechnicalqualityrefactor_test_permission_levels",
       "community": 26,
-      "community_name": "tools.py",
+      "community_name": "PermissionLevel",
       "norm_label": ".test_permission_levels()"
     },
     {
@@ -4858,8 +4858,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "tests_test_regression_testregressionsuite",
-      "community": 69,
-      "community_name": "app.py",
+      "community": 49,
+      "community_name": "TestRegressionSuite",
       "norm_label": "testregressionsuite"
     },
     {
@@ -4869,8 +4869,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "tests_test_regression_testregressionsuite_test_truncar_markdown_corto",
-      "community": 69,
-      "community_name": "app.py",
+      "community": 49,
+      "community_name": "TestRegressionSuite",
       "norm_label": ".test_truncar_markdown_corto()"
     },
     {
@@ -4880,8 +4880,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "tests_test_regression_testregressionsuite_test_truncar_markdown_largo_con_codigo_abierto",
-      "community": 69,
-      "community_name": "app.py",
+      "community": 49,
+      "community_name": "TestRegressionSuite",
       "norm_label": ".test_truncar_markdown_largo_con_codigo_abierto()"
     },
     {
@@ -4891,8 +4891,8 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "tests_test_regression_testregressionsuite_test_session_manager_invalid_inputs",
-      "community": 69,
-      "community_name": "app.py",
+      "community": 49,
+      "community_name": "TestRegressionSuite",
       "norm_label": ".test_session_manager_invalid_inputs()"
     },
     {
@@ -4902,8 +4902,8 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "tests_test_regression_testregressionsuite_test_editar_archivo_search_replace_exact_match",
-      "community": 69,
-      "community_name": "app.py",
+      "community": 49,
+      "community_name": "TestRegressionSuite",
       "norm_label": ".test_editar_archivo_search_replace_exact_match()"
     },
     {
@@ -5430,8 +5430,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "tests_test_task_timeout_safeguard_testtasktimeoutsafeguardandcancellation",
-      "community": 3,
-      "community_name": "CodeAgentRuntime",
+      "community": 56,
+      "community_name": "TestTaskTimeoutSafeguardAndCancellation",
       "norm_label": "testtasktimeoutsafeguardandcancellation"
     },
     {
@@ -5441,8 +5441,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "tests_test_task_timeout_safeguard_testtasktimeoutsafeguardandcancellation_setup",
-      "community": 3,
-      "community_name": "CodeAgentRuntime",
+      "community": 56,
+      "community_name": "TestTaskTimeoutSafeguardAndCancellation",
       "norm_label": ".setup()"
     },
     {
@@ -5452,8 +5452,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "tests_test_task_timeout_safeguard_testtasktimeoutsafeguardandcancellation_teardown",
-      "community": 3,
-      "community_name": "CodeAgentRuntime",
+      "community": 56,
+      "community_name": "TestTaskTimeoutSafeguardAndCancellation",
       "norm_label": ".teardown()"
     },
     {
@@ -5463,8 +5463,8 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "tests_test_task_timeout_safeguard_testtasktimeoutsafeguardandcancellation_test_subprocess_stdin_devnull",
-      "community": 3,
-      "community_name": "CodeAgentRuntime",
+      "community": 56,
+      "community_name": "TestTaskTimeoutSafeguardAndCancellation",
       "norm_label": ".test_subprocess_stdin_devnull()"
     },
     {
@@ -5474,8 +5474,8 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "tests_test_task_timeout_safeguard_testtasktimeoutsafeguardandcancellation_test_runtime_cancel_task_safeguard",
-      "community": 3,
-      "community_name": "CodeAgentRuntime",
+      "community": 56,
+      "community_name": "TestTaskTimeoutSafeguardAndCancellation",
       "norm_label": ".test_runtime_cancel_task_safeguard()"
     },
     {
@@ -5552,7 +5552,7 @@
       "_origin": "ast",
       "id": "tests_test_terminal_hitl_approval",
       "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community_name": "tools.py",
       "norm_label": "test_terminal_hitl_approval.py"
     },
     {
@@ -5563,7 +5563,7 @@
       "_origin": "ast",
       "id": "tests_test_terminal_hitl_approval_testterminalhitlapproval",
       "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community_name": "tools.py",
       "norm_label": "testterminalhitlapproval"
     },
     {
@@ -5574,7 +5574,7 @@
       "_origin": "ast",
       "id": "tests_test_terminal_hitl_approval_testterminalhitlapproval_test_safe_command_classification",
       "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community_name": "tools.py",
       "norm_label": ".test_safe_command_classification()"
     },
     {
@@ -5585,7 +5585,7 @@
       "_origin": "ast",
       "id": "tests_test_terminal_hitl_approval_testterminalhitlapproval_test_sensitive_command_classification",
       "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community_name": "tools.py",
       "norm_label": ".test_sensitive_command_classification()"
     },
     {
@@ -5596,7 +5596,7 @@
       "_origin": "ast",
       "id": "tests_test_terminal_hitl_approval_testterminalhitlapproval_test_sensitive_command_requires_approval_flow",
       "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community_name": "tools.py",
       "norm_label": ".test_sensitive_command_requires_approval_flow()"
     },
     {
@@ -5606,8 +5606,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_tools",
-      "community": 26,
-      "community_name": "tools.py",
+      "community": 11,
+      "community_name": "TestTools",
       "norm_label": "test_tools.py"
     },
     {
@@ -5617,7 +5617,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "tests_test_tools_testtools",
-      "community": 18,
+      "community": 11,
       "community_name": "TestTools",
       "norm_label": "testtools"
     },
@@ -5629,7 +5629,7 @@
       "_origin": "ast",
       "id": "tests_test_tools_testtools_test_listar_directorio_local",
       "community": 11,
-      "community_name": "_detectar_raiz_proyecto",
+      "community_name": "TestTools",
       "norm_label": ".test_listar_directorio_local()"
     },
     {
@@ -5640,7 +5640,7 @@
       "_origin": "ast",
       "id": "tests_test_tools_testtools_test_leer_archivo_local",
       "community": 11,
-      "community_name": "_detectar_raiz_proyecto",
+      "community_name": "TestTools",
       "norm_label": ".test_leer_archivo_local()"
     },
     {
@@ -5651,7 +5651,7 @@
       "_origin": "ast",
       "id": "tests_test_tools_testtools_test_escribir_archivo_local",
       "community": 18,
-      "community_name": "TestTools",
+      "community_name": "escribir_archivo_local",
       "norm_label": ".test_escribir_archivo_local()"
     },
     {
@@ -5662,7 +5662,7 @@
       "_origin": "ast",
       "id": "tests_test_tools_testtools_test_editar_archivo_search_replace_exito",
       "community": 18,
-      "community_name": "TestTools",
+      "community_name": "escribir_archivo_local",
       "norm_label": ".test_editar_archivo_search_replace_exito()"
     },
     {
@@ -5673,7 +5673,7 @@
       "_origin": "ast",
       "id": "tests_test_tools_testtools_test_editar_archivo_search_replace_no_encontrado",
       "community": 18,
-      "community_name": "TestTools",
+      "community_name": "escribir_archivo_local",
       "norm_label": ".test_editar_archivo_search_replace_no_encontrado()"
     },
     {
@@ -5684,7 +5684,7 @@
       "_origin": "ast",
       "id": "tests_test_tools_testtools_test_editar_archivo_search_replace_ambiguo",
       "community": 18,
-      "community_name": "TestTools",
+      "community_name": "escribir_archivo_local",
       "norm_label": ".test_editar_archivo_search_replace_ambiguo()"
     },
     {
@@ -5716,8 +5716,8 @@
       "source_location": "L85",
       "_origin": "ast",
       "id": "tests_test_tools_testtools_test_ejecutar_comando_terminal_seguro",
-      "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community": 11,
+      "community_name": "TestTools",
       "norm_label": ".test_ejecutar_comando_terminal_seguro()"
     },
     {
@@ -5727,8 +5727,8 @@
       "source_location": "L90",
       "_origin": "ast",
       "id": "tests_test_tools_testtools_test_ejecutar_comando_terminal_blacklist",
-      "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community": 11,
+      "community_name": "TestTools",
       "norm_label": ".test_ejecutar_comando_terminal_blacklist()"
     },
     {
@@ -5739,7 +5739,7 @@
       "_origin": "ast",
       "id": "tests_test_tools_testtools_test_escribir_archivo_local_directorio_anidado",
       "community": 18,
-      "community_name": "TestTools",
+      "community_name": "escribir_archivo_local",
       "norm_label": ".test_escribir_archivo_local_directorio_anidado()"
     },
     {
@@ -5750,7 +5750,7 @@
       "_origin": "ast",
       "id": "tests_test_tools_testtools_test_verificar_sintaxis_post_edicion_warning",
       "community": 18,
-      "community_name": "TestTools",
+      "community_name": "escribir_archivo_local",
       "norm_label": ".test_verificar_sintaxis_post_edicion_warning()"
     },
     {
@@ -5760,8 +5760,8 @@
       "source_location": "L110",
       "_origin": "ast",
       "id": "tests_test_tools_testtools_test_ejecutar_comando_terminal_sandbox_strict",
-      "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community": 11,
+      "community_name": "TestTools",
       "norm_label": ".test_ejecutar_comando_terminal_sandbox_strict()"
     },
     {
@@ -5772,7 +5772,7 @@
       "_origin": "ast",
       "id": "tests_test_tools_testtools_test_detectar_raiz_proyecto",
       "community": 11,
-      "community_name": "_detectar_raiz_proyecto",
+      "community_name": "TestTools",
       "norm_label": ".test_detectar_raiz_proyecto()"
     },
     {
@@ -5783,7 +5783,7 @@
       "_origin": "ast",
       "id": "tests_test_tools_testtools_test_obtener_contexto_workspace_graphify",
       "community": 11,
-      "community_name": "_detectar_raiz_proyecto",
+      "community_name": "TestTools",
       "norm_label": ".test_obtener_contexto_workspace_graphify()"
     },
     {
@@ -5794,7 +5794,7 @@
       "_origin": "ast",
       "id": "tests_test_tools_testtools_test_check_tool_permission",
       "community": 26,
-      "community_name": "tools.py",
+      "community_name": "PermissionLevel",
       "norm_label": ".test_check_tool_permission()"
     },
     {
@@ -5815,8 +5815,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "tests_test_verifier_evidence_testverifierevidenceandworkspaceisolation",
-      "community": 2,
-      "community_name": "TestVerifierEvidenceAndWorkspaceIsolation",
+      "community": 3,
+      "community_name": "CodeAgentRuntime",
       "norm_label": "testverifierevidenceandworkspaceisolation"
     },
     {
@@ -5826,8 +5826,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "tests_test_verifier_evidence_testverifierevidenceandworkspaceisolation_setup",
-      "community": 2,
-      "community_name": "TestVerifierEvidenceAndWorkspaceIsolation",
+      "community": 3,
+      "community_name": "CodeAgentRuntime",
       "norm_label": ".setup()"
     },
     {
@@ -5837,8 +5837,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "tests_test_verifier_evidence_testverifierevidenceandworkspaceisolation_teardown",
-      "community": 2,
-      "community_name": "TestVerifierEvidenceAndWorkspaceIsolation",
+      "community": 3,
+      "community_name": "CodeAgentRuntime",
       "norm_label": ".teardown()"
     },
     {
@@ -5848,8 +5848,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "tests_test_verifier_evidence_testverifierevidenceandworkspaceisolation_test_verifier_returns_not_run_for_empty_workspace",
-      "community": 2,
-      "community_name": "TestVerifierEvidenceAndWorkspaceIsolation",
+      "community": 3,
+      "community_name": "CodeAgentRuntime",
       "norm_label": ".test_verifier_returns_not_run_for_empty_workspace()"
     },
     {
@@ -5859,8 +5859,8 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "tests_test_verifier_evidence_testverifierevidenceandworkspaceisolation_test_workspace_isolation_across_tasks",
-      "community": 2,
-      "community_name": "TestVerifierEvidenceAndWorkspaceIsolation",
+      "community": 3,
+      "community_name": "CodeAgentRuntime",
       "norm_label": ".test_workspace_isolation_across_tasks()"
     },
     {
@@ -5870,8 +5870,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_workspace_isolation",
-      "community": 1,
-      "community_name": "LocalCodeProxyHandler",
+      "community": 21,
+      "community_name": "desktop_app.py",
       "norm_label": "test_workspace_isolation.py"
     },
     {
@@ -5881,8 +5881,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "tests_test_workspace_isolation_testworkspaceisolation",
-      "community": 1,
-      "community_name": "LocalCodeProxyHandler",
+      "community": 21,
+      "community_name": "desktop_app.py",
       "norm_label": "testworkspaceisolation"
     },
     {
@@ -5892,8 +5892,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "tests_test_workspace_isolation_testworkspaceisolation_setup",
-      "community": 1,
-      "community_name": "LocalCodeProxyHandler",
+      "community": 21,
+      "community_name": "desktop_app.py",
       "norm_label": ".setup()"
     },
     {
@@ -5903,8 +5903,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "tests_test_workspace_isolation_testworkspaceisolation_teardown",
-      "community": 1,
-      "community_name": "LocalCodeProxyHandler",
+      "community": 21,
+      "community_name": "desktop_app.py",
       "norm_label": ".teardown()"
     },
     {
@@ -5914,8 +5914,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "tests_test_workspace_isolation_testworkspaceisolation_test_set_active_workspace_isolation",
-      "community": 1,
-      "community_name": "LocalCodeProxyHandler",
+      "community": 21,
+      "community_name": "desktop_app.py",
       "norm_label": ".test_set_active_workspace_isolation()"
     },
     {
@@ -6310,8 +6310,8 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "changelog_6_4_0_2026_08_28",
-      "community": 5,
-      "community_name": "Changelog",
+      "community": 70,
+      "community_name": "[6.4.0] - 2026-08-28",
       "norm_label": "[6.4.0] - 2026-08-28"
     },
     {
@@ -6321,8 +6321,8 @@
       "source_location": "L78",
       "_origin": "ast",
       "id": "changelog_added_78",
-      "community": 5,
-      "community_name": "Changelog",
+      "community": 70,
+      "community_name": "[6.4.0] - 2026-08-28",
       "norm_label": "added"
     },
     {
@@ -6332,8 +6332,8 @@
       "source_location": "L85",
       "_origin": "ast",
       "id": "changelog_6_3_0_2026_08_28",
-      "community": 63,
-      "community_name": "[6.3.0] - 2026-08-28",
+      "community": 5,
+      "community_name": "Changelog",
       "norm_label": "[6.3.0] - 2026-08-28"
     },
     {
@@ -6343,8 +6343,8 @@
       "source_location": "L87",
       "_origin": "ast",
       "id": "changelog_added_87",
-      "community": 63,
-      "community_name": "[6.3.0] - 2026-08-28",
+      "community": 5,
+      "community_name": "Changelog",
       "norm_label": "added"
     },
     {
@@ -8502,7 +8502,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "desktop_app.py",
-      "source_location": "L213",
+      "source_location": "L217",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_app",
@@ -8606,7 +8606,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop_app.py",
-      "source_location": "L219",
+      "source_location": "L223",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_app_main",
@@ -8665,7 +8665,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop_app.py",
-      "source_location": "L220",
+      "source_location": "L224",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_app_main",
@@ -8700,7 +8700,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop_app.py",
-      "source_location": "L225",
+      "source_location": "L229",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_app_main",
@@ -8748,7 +8748,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop_app.py",
-      "source_location": "L226",
+      "source_location": "L230",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_app_main",
@@ -8760,7 +8760,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop_app.py",
-      "source_location": "L143",
+      "source_location": "L145",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_app_desktopideapi_open_file_dialog",
@@ -8772,7 +8772,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop_app.py",
-      "source_location": "L159",
+      "source_location": "L163",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_app_desktopideapi_open_folder_dialog",
@@ -8784,7 +8784,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop_app.py",
-      "source_location": "L174",
+      "source_location": "L180",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_app_desktopideapi_save_file_dialog",
@@ -8795,7 +8795,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop_app.py",
-      "source_location": "L207",
+      "source_location": "L211",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_app_desktopideapi",
@@ -8817,7 +8817,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop_app.py",
-      "source_location": "L197",
+      "source_location": "L205",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_app_desktopideapi",
@@ -8839,7 +8839,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop_app.py",
-      "source_location": "L157",
+      "source_location": "L159",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_app_desktopideapi",
@@ -8850,7 +8850,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop_app.py",
-      "source_location": "L172",
+      "source_location": "L176",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_app_desktopideapi",
@@ -8861,7 +8861,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop_app.py",
-      "source_location": "L187",
+      "source_location": "L193",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_app_desktopideapi",
@@ -8873,7 +8873,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop_app.py",
-      "source_location": "L234",
+      "source_location": "L238",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_app_main",
@@ -8943,7 +8943,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "desktop_app.py",
-      "source_location": "L163",
+      "source_location": "L167",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_app_desktopideapi_open_folder_dialog",
@@ -8953,10 +8953,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "desktop_app.py",
-      "source_location": "L158",
+      "source_location": "L160",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "desktop_app_rationale_158",
+      "source": "desktop_app_rationale_160",
       "target": "desktop_app_desktopideapi_open_folder_dialog",
       "confidence_score": 1.0
     },
@@ -8964,10 +8964,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "desktop_app.py",
-      "source_location": "L173",
+      "source_location": "L177",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "desktop_app_rationale_173",
+      "source": "desktop_app_rationale_177",
       "target": "desktop_app_desktopideapi_save_file_dialog",
       "confidence_score": 1.0
     },
@@ -8975,10 +8975,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "desktop_app.py",
-      "source_location": "L188",
+      "source_location": "L194",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "desktop_app_rationale_188",
+      "source": "desktop_app_rationale_194",
       "target": "desktop_app_desktopideapi_write_file",
       "confidence_score": 1.0
     },
@@ -8986,10 +8986,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "desktop_app.py",
-      "source_location": "L198",
+      "source_location": "L206",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "desktop_app_rationale_198",
+      "source": "desktop_app_rationale_206",
       "target": "desktop_app_desktopideapi_new_window",
       "confidence_score": 1.0
     },
@@ -8997,10 +8997,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "desktop_app.py",
-      "source_location": "L208",
+      "source_location": "L212",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "desktop_app_rationale_208",
+      "source": "desktop_app_rationale_212",
       "target": "desktop_app_desktopideapi_exit_app",
       "confidence_score": 1.0
     },
@@ -9531,7 +9531,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L637",
+      "source_location": "L677",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_critic",
@@ -9735,7 +9735,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L637",
+      "source_location": "L677",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller",
@@ -10368,10 +10368,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L638",
+      "source_location": "L678",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_638",
+      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_678",
       "target": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_critic",
       "confidence_score": 1.0
     },
@@ -11507,7 +11507,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L658",
+      "source_location": "L662",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_localcode_server",
@@ -11574,7 +11574,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L652",
+      "source_location": "L656",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_localcode_server",
@@ -11622,7 +11622,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L603",
+      "source_location": "L607",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler_handle_agent_chat",
@@ -11634,7 +11634,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L569",
+      "source_location": "L573",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler_handle_agent_chat",
@@ -11646,7 +11646,31 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L672",
+      "source_location": "L440",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler_handle_fs_open_file_dialog",
+      "target": "mis_agentes_inteligentes_localcode_server_safe_print",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "mis_agentes_inteligentes/localcode_server.py",
+      "source_location": "L460",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler_handle_fs_open_folder_dialog",
+      "target": "mis_agentes_inteligentes_localcode_server_safe_print",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "mis_agentes_inteligentes/localcode_server.py",
+      "source_location": "L676",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_localcode_server_main",
@@ -11669,7 +11693,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L440",
+      "source_location": "L442",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler_handle_fs_open_file_dialog",
@@ -11681,7 +11705,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L458",
+      "source_location": "L462",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler_handle_fs_open_folder_dialog",
@@ -11747,7 +11771,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L540",
+      "source_location": "L544",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler",
@@ -11780,7 +11804,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L455",
+      "source_location": "L457",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler",
@@ -11791,7 +11815,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L475",
+      "source_location": "L479",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler",
@@ -11901,7 +11925,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L610",
+      "source_location": "L614",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler",
@@ -11993,7 +12017,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L630",
+      "source_location": "L634",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler_proxy_to_ollama",
@@ -12317,7 +12341,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L566",
+      "source_location": "L570",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler_handle_agent_chat",
@@ -12329,7 +12353,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L444",
+      "source_location": "L446",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler_handle_fs_open_file_dialog",
@@ -12341,7 +12365,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L464",
+      "source_location": "L468",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler_handle_fs_open_folder_dialog",
@@ -12353,7 +12377,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L480",
+      "source_location": "L484",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler_handle_github_import",
@@ -12401,7 +12425,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L541",
+      "source_location": "L545",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler_handle_agent_chat",
@@ -12413,7 +12437,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L476",
+      "source_location": "L480",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler_handle_github_import",
@@ -12449,7 +12473,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L463",
+      "source_location": "L467",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler_handle_fs_open_folder_dialog",
@@ -12498,7 +12522,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L462",
+      "source_location": "L466",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler_handle_fs_open_folder_dialog",
@@ -12510,7 +12534,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L581",
+      "source_location": "L585",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler_handle_agent_chat",
@@ -12522,7 +12546,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L598",
+      "source_location": "L602",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler_handle_agent_chat",
@@ -12534,7 +12558,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L580",
+      "source_location": "L584",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_localcode_server_localcodeproxyhandler_handle_agent_chat",
@@ -12545,7 +12569,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L665",
+      "source_location": "L669",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_localcode_server_main",
@@ -12556,10 +12580,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/localcode_server.py",
-      "source_location": "L653",
+      "source_location": "L657",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "mis_agentes_inteligentes_localcode_server_rationale_653",
+      "source": "mis_agentes_inteligentes_localcode_server_rationale_657",
       "target": "mis_agentes_inteligentes_localcode_server_threadedtcpserver",
       "confidence_score": 1.0
     },
@@ -21373,5 +21397,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "8dda4a1b0614e780c00c68940b6ce38d9cd0fad0"
+  "built_at_commit": "92e6f35a213be422f01fbe360c809889dc10bb54"
 }

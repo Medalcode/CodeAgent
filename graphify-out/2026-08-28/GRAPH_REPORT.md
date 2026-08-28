@@ -1,23 +1,23 @@
 # Graph Report - CodeAgent  (2026-08-28)
 
 ## Corpus Check
-- 71 files · ~50,604 words
+- 71 files · ~49,684 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 755 nodes · 1156 edges · 71 communities (49 shown, 22 thin omitted)
+- 755 nodes · 1158 edges · 74 communities (50 shown, 24 thin omitted)
 - Extraction: 77% EXTRACTED · 23% INFERRED · 0% AMBIGUOUS · INFERRED: 262 edges (avg confidence: 0.82)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `8dda4a1b`
+- Built from commit: `92e6f35a`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - session_manager.py
 - LocalCodeProxyHandler
-- TestVerifierEvidenceAndWorkspaceIsolation
+- TestAgents
 - CodeAgentRuntime
 - main.py
 - Changelog
@@ -26,14 +26,14 @@
 - mis_agentes_inteligentes/tools
 - mis_agentes_inteligentes.tools
 - AgentStateMachineController
-- _detectar_raiz_proyecto
+- TestTools
 - mis_agentes_inteligentes.main
 - orquestador_agente.py
 - rag_tools.py
 - CodeAgent
 - Test-Driven Development
 - orquestador_agente
-- TestTools
+- escribir_archivo_local
 - mis_agentes_inteligentes/session_manager
 - mis_agentes_inteligentes.session_manager
 - desktop_app.py
@@ -41,12 +41,12 @@
 - _make_github_request
 - mis_agentes_inteligentes/agents
 - mis_agentes_inteligentes.agents
-- tools.py
+- PermissionLevel
 - TestSmokeSystem
 - ADR-001: Selección de smolagents como Motor ReAct
 - ADR-002: Proxy HTTP Multihilo Ligero Basado en http.server Nativo
 - ADR-003: Compatibilidad y Polyfill de Pydantic v2 con LiteLLM
-- ejecutar_comando_terminal
+- tools.py
 - EventBus
 - mis_agentes_inteligentes/rag_tools
 - CodeAgentBenchmarkSuite
@@ -60,25 +60,28 @@
 - 🧪 Reporte Oficial de Benchmark Reales CodeAgent (v4.2 Enterprise)
 - TestRuntimeAndStorage
 - DatabaseManager
+- TestRegressionSuite
 - [2.3.0] - 2026-08-04
 - [2.4.0] - 2026-08-26
 - TestRuntimeRecoveryAndPauseSemantics
 - [2.2.1] - 2026-07-26
 - database.py
 - [2.5.0] - 2026-08-26
+- TestTaskTimeoutSafeguardAndCancellation
 - mis_agentes_inteligentes.rag_tools
 - [3.5.0] - 2026-08-27
 - [4.0.0] - 2026-08-27
 - [4.3.0] - 2026-08-27
 - [5.3.0] - 2026-08-27
-- TestAgents
-- [6.3.0] - 2026-08-28
+- agents.py
+- claude_code_cli.py
 - [6.5.0] - 2026-08-28
 - [6.6.0] - 2026-08-28
 - [6.7.0] - 2026-08-28
 - [6.8.0] - 2026-08-28
 - [6.9.0] - 2026-08-28
 - app.py
+- [6.4.0] - 2026-08-28
 - ejecutar_agentes
 - [6.11.0] - 2026-08-28
 - [6.2.0] - 2026-08-28
@@ -110,15 +113,19 @@
 ## Import Cycles
 - None detected.
 
-## Communities (71 total, 22 thin omitted)
+## Communities (74 total, 24 thin omitted)
 
 ### Community 0 - "session_manager.py"
 Cohesion: 0.06
 Nodes (14): ABC, BaseSessionRepository, create_new_session(), export_session_to_markdown(), init_sessions_dir(), JSONSessionRepository, load_session(), Interfaz abstracta para la gestión de sesiones de chat (Patrón Repositorio). (+6 more)
 
 ### Community 1 - "LocalCodeProxyHandler"
-Cohesion: 0.07
-Nodes (17): _inc_metric(), LocalCodeProxyHandler, main(), _ps_file_dialog(), _ps_folder_dialog(), Imprime texto de forma segura sin crash por UnicodeEncodeError en Windows…, Servidor TCP/HTTP multihilo no bloqueante para peticiones concurrentes., _safe_print() (+9 more)
+Cohesion: 0.09
+Nodes (12): _inc_metric(), LocalCodeProxyHandler, main(), _ps_file_dialog(), _ps_folder_dialog(), Imprime texto de forma segura sin crash por UnicodeEncodeError en Windows…, Servidor TCP/HTTP multihilo no bloqueante para peticiones concurrentes., _safe_print() (+4 more)
+
+### Community 2 - "TestAgents"
+Cohesion: 0.39
+Nodes (3): Enrutador automático mejorado con scoring ponderado., route_prompt(), TestAgents
 
 ### Community 3 - "CodeAgentRuntime"
 Cohesion: 0.13
@@ -130,7 +137,7 @@ Nodes (6): _construir_contexto_workspace(), get_herramientas(), Pipeline de agen
 
 ### Community 5 - "Changelog"
 Cohesion: 0.20
-Nodes (9): [4.2.0] - 2026-08-27, [6.0.0] - 2026-08-28, [6.10.0] - 2026-08-28, [6.4.0] - 2026-08-28, Added, Added, Added, Added (+1 more)
+Nodes (9): [4.2.0] - 2026-08-27, [6.0.0] - 2026-08-28, [6.10.0] - 2026-08-28, [6.3.0] - 2026-08-28, Added, Added, Added, Added (+1 more)
 
 ### Community 6 - "💻 CodeAgent (v6.11 Enterprise)"
 Cohesion: 0.10
@@ -152,9 +159,9 @@ Nodes (18): mis_agentes_inteligentes.tools, mis_agentes_inteligentes.tools.consu
 Cohesion: 0.05
 Nodes (32): AgentStateMachineController, ComplexityRiskEvaluator, ExecutionLevel, _get_phase_cognitive_directive(), Any, Enum, CodeAgent v4.0 Deterministic State Machine Controller & Adaptive Pipeline…, Controlador determinista de estados, enrutador adaptativo y gestor de… (+24 more)
 
-### Community 11 - "_detectar_raiz_proyecto"
-Cohesion: 0.12
-Nodes (12): _detectar_raiz_proyecto(), get_active_workspace(), leer_archivo_local(), listar_directorio_local(), obtener_contexto_workspace(), Devuelve el espacio de trabajo activo de forma thread-safe., Sube directorios hasta encontrar un marcador de raíz de repo (.git, AGENTS.md,…, Lista los archivos y carpetas de un directorio local y devuelve el contenido… (+4 more)
+### Community 11 - "TestTools"
+Cohesion: 0.14
+Nodes (11): _detectar_raiz_proyecto(), ejecutar_comando_terminal(), leer_archivo_local(), listar_directorio_local(), obtener_contexto_workspace(), Sube directorios hasta encontrar un marcador de raíz de repo (.git, AGENTS.md,…, Lista los archivos y carpetas de un directorio local y devuelve el contenido…, Lee el contenido de un archivo local en tu disco duro para poder analizar su… (+3 more)
 
 ### Community 12 - "mis_agentes_inteligentes.main"
 Cohesion: 0.50
@@ -180,9 +187,9 @@ Nodes (10): Designing for Mockability, When to Mock, Anti-patterns, Rules of the
 Cohesion: 0.17
 Nodes (12): orquestador_agente.validar_sintaxis, orquestador_agente.aplicar, orquestador_agente.restaurar_agents, orquestador_agente.main, orquestador_agente, orquestador_agente.supervisor, orquestador_agente.backup_archivos_trabajo, orquestador_agente.restaurar_archivos_trabajo (+4 more)
 
-### Community 18 - "TestTools"
-Cohesion: 0.24
-Nodes (7): editar_archivo_search_replace(), escribir_archivo_local(), Verifica automáticamente la sintaxis del archivo modificado (ej. ast.parse para…, Crea o sobreescribe un archivo local con el contenido proporcionado. Útil para…, IMPORTANTE: Úsala para modificar partes de un archivo SIN reescribirlo todo.…, _verificar_sintaxis_post_edicion(), TestTools
+### Community 18 - "escribir_archivo_local"
+Cohesion: 0.13
+Nodes (11): _atomic_write_file(), editar_archivo_search_replace(), escribir_archivo_local(), Verifica automáticamente la sintaxis del archivo modificado (ej. ast.parse para…, Escribe un archivo de forma atómica con limpieza segura de temporales en caso…, Crea o sobreescribe un archivo local con el contenido proporcionado. Útil para…, Rastrea e informa la ejecución de herramientas al colector de métricas., IMPORTANTE: Úsala para modificar partes de un archivo SIN reescribirlo todo.… (+3 more)
 
 ### Community 19 - "mis_agentes_inteligentes/session_manager"
 Cohesion: 0.22
@@ -193,8 +200,8 @@ Cohesion: 0.22
 Nodes (9): mis_agentes_inteligentes.session_manager, mis_agentes_inteligentes.session_manager.init_sessions_dir, mis_agentes_inteligentes.session_manager.create_new_session, mis_agentes_inteligentes.session_manager.list_sessions, mis_agentes_inteligentes.session_manager.load_session, mis_agentes_inteligentes.session_manager.save_session, mis_agentes_inteligentes.session_manager.delete_session, mis_agentes_inteligentes.session_manager.rename_session (+1 more)
 
 ### Community 21 - "desktop_app.py"
-Cohesion: 0.08
-Nodes (22): check_ollama_running(), check_server_running(), DesktopIDEApi, launch_ollama_bg(), launch_server_bg(), main(), _ps_file_dialog(), _ps_folder_dialog() (+14 more)
+Cohesion: 0.06
+Nodes (27): check_ollama_running(), check_server_running(), DesktopIDEApi, launch_ollama_bg(), launch_server_bg(), main(), _ps_file_dialog(), _ps_folder_dialog() (+19 more)
 
 ### Community 22 - "BenchmarkMetricsCollector"
 Cohesion: 0.13
@@ -212,9 +219,9 @@ Nodes (6): mis_agentes_inteligentes/agents, agents.get_model, agents.load_subage
 Cohesion: 0.33
 Nodes (6): mis_agentes_inteligentes.agents, mis_agentes_inteligentes.agents.get_model, mis_agentes_inteligentes.agents.load_subagents_from_disk, mis_agentes_inteligentes.agents.get_available_agents, mis_agentes_inteligentes.agents.route_prompt, mis_agentes_inteligentes.agents.crear_agente
 
-### Community 26 - "tools.py"
-Cohesion: 0.16
-Nodes (9): _atomic_write_file(), check_tool_permission(), clear_terminal_tasks_buffer(), PermissionLevel, Enum, Escribe un archivo de forma atómica con limpieza segura de temporales en caso…, Niveles de autorización para la ejecución segura de herramientas agénticas., Valida si el permiso actual autoriza la ejecución de la herramienta. (+1 more)
+### Community 26 - "PermissionLevel"
+Cohesion: 0.29
+Nodes (5): check_tool_permission(), PermissionLevel, Enum, Niveles de autorización para la ejecución segura de herramientas agénticas., Valida si el permiso actual autoriza la ejecución de la herramienta.
 
 ### Community 28 - "ADR-001: Selección de smolagents como Motor ReAct"
 Cohesion: 0.40
@@ -228,9 +235,9 @@ Nodes (4): ADR-002: Proxy HTTP Multihilo Ligero Basado en http.server Nativo, Co
 Cohesion: 0.40
 Nodes (4): ADR-003: Compatibilidad y Polyfill de Pydantic v2 con LiteLLM, Consecuencias, Contexto, Decisión
 
-### Community 31 - "ejecutar_comando_terminal"
-Cohesion: 0.19
-Nodes (6): ejecutar_comando_terminal(), is_command_approved(), is_sensitive_command(), pre_approve_command(), Ejecuta un comando en la terminal del sistema operativo (ej. pytest, ls, pip…, TestTerminalHITLApproval
+### Community 31 - "tools.py"
+Cohesion: 0.21
+Nodes (7): clear_terminal_tasks_buffer(), get_terminal_tasks_buffer(), is_command_approved(), is_sensitive_command(), pre_approve_command(), Any, TestTerminalHITLApproval
 
 ### Community 32 - "EventBus"
 Cohesion: 0.16
@@ -280,31 +287,31 @@ Nodes (4): mis_agentes_inteligentes.rag_tools, mis_agentes_inteligentes.rag_tool
 Cohesion: 0.67
 Nodes (3): [3.5.0] - 2026-08-27, Added, Fixed
 
-### Community 62 - "TestAgents"
-Cohesion: 0.16
-Nodes (11): crear_agente(), _detectar_modelo_local(), get_available_agents(), load_subagents_from_disk(), Lee todos los archivos .md en la carpeta subagents/ y parsea su YAML…, Devuelve la lista completa de agentes disponibles (Fijos + Dinámicos)., Enrutador automático mejorado con scoring ponderado., Detecta si el modelo es local (Ollama) basándose en el model_id. (+3 more)
+### Community 62 - "agents.py"
+Cohesion: 0.21
+Nodes (8): crear_agente(), _detectar_modelo_local(), get_available_agents(), load_subagents_from_disk(), Lee todos los archivos .md en la carpeta subagents/ y parsea su YAML…, Devuelve la lista completa de agentes disponibles (Fijos + Dinámicos)., Detecta si el modelo es local (Ollama) basándose en el model_id., Crea el CodeAgent de smolagents. FIX: usa instructions para smolagents >=1.26.…
 
 ### Community 69 - "app.py"
-Cohesion: 0.13
-Nodes (6): graphify, _guardar_sesion_actual(), Guarda los datos de la sesión activa en disco., Comprime texto y asegura la validez de los bloques de código markdown., _truncar_markdown(), TestRegressionSuite
+Cohesion: 0.20
+Nodes (5): graphify, _guardar_sesion_actual(), Guarda los datos de la sesión activa en disco., Comprime texto y asegura la validez de los bloques de código markdown., _truncar_markdown()
 
 ### Community 71 - "ejecutar_agentes"
-Cohesion: 0.21
-Nodes (8): get_model(), Instancia dinámicamente el modelo LiteLLMModel según el proveedor elegido., main(), print_banner(), ejecutar_agentes(), Pipeline principal usando smolagents. FIX: el historial ya no se manda como…, patch, TestIntegrationPipeline
+Cohesion: 0.28
+Nodes (6): get_model(), Instancia dinámicamente el modelo LiteLLMModel según el proveedor elegido., ejecutar_agentes(), Pipeline principal usando smolagents. FIX: el historial ya no se manda como…, patch, TestIntegrationPipeline
 
 ## Knowledge Gaps
 - **67 isolated node(s):** `start_hub.sh script`, `graphify`, `What a good test is`, `Seams — where tests go`, `Anti-patterns` (+62 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **22 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **24 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `AgentStateMachineController` connect `AgentStateMachineController` to `session_manager.py`, `EventBus`, `CodeAgentBenchmarkSuite`, `CodeAgentRuntime`, `TestVerifierEvidenceAndWorkspaceIsolation`, `TestRuntimeRecoveryAndPauseSemantics`, `BenchmarkMetricsCollector`?**
+- **Why does `AgentStateMachineController` connect `AgentStateMachineController` to `session_manager.py`, `EventBus`, `CodeAgentBenchmarkSuite`, `CodeAgentRuntime`, `TestRuntimeRecoveryAndPauseSemantics`, `BenchmarkMetricsCollector`?**
   _High betweenness centrality (0.087) - this node is a cross-community bridge._
-- **Why does `CodeAgentRuntime` connect `CodeAgentRuntime` to `EventBus`, `LocalCodeProxyHandler`, `TestVerifierEvidenceAndWorkspaceIsolation`, `AgentStateMachineController`, `TestRuntimeAndStorage`, `DatabaseManager`, `TestRuntimeRecoveryAndPauseSemantics`, `database.py`?**
+- **Why does `CodeAgentRuntime` connect `CodeAgentRuntime` to `EventBus`, `LocalCodeProxyHandler`, `AgentStateMachineController`, `TestRuntimeAndStorage`, `DatabaseManager`, `TestRuntimeRecoveryAndPauseSemantics`, `database.py`, `TestTaskTimeoutSafeguardAndCancellation`?**
   _High betweenness centrality (0.062) - this node is a cross-community bridge._
-- **Why does `ejecutar_agentes()` connect `ejecutar_agentes` to `main.py`, `TestAgents`?**
+- **Why does `ejecutar_agentes()` connect `ejecutar_agentes` to `TestAgents`, `main.py`, `agents.py`, `claude_code_cli.py`?**
   _High betweenness centrality (0.042) - this node is a cross-community bridge._
 - **Are the 21 inferred relationships involving `AgentStateMachineController` (e.g. with `CodeAgentBenchmarkSuite` and `.__init__()`) actually correct?**
   _`AgentStateMachineController` has 21 INFERRED edges - model-reasoned connections that need verification._

@@ -339,7 +339,10 @@ class AgentStateMachineController:
         )
 
         transitions_str = " ➔ ".join(s.value if isinstance(s, State) else str(s) for s in state_history)
-        status_label = "✅ VERIFIED" if (success and py_count > 0) else ("⚠️ NO_CODE_FOUND" if py_count == 0 else "❌ VERIFICATION_FAILED")
+        if success:
+            status_label = "⚠️ NO_CODE_FOUND" if py_count == 0 else "✅ VERIFIED"
+        else:
+            status_label = "❌ VERIFICATION_FAILED"
 
         tests_st = verification_res.get("tests_status", "NOT_REQUIRED")
         if tests_st == "PASS":
@@ -633,31 +636,59 @@ class AgentStateMachineController:
         # 4. Ejecución del programa principal (Task-Scoped)
         program_passed = True
         program_output = ""
-        # Solo ejecutar programa principal si fue explícitamente modificado o solicitado en la tarea
-        if "main.py" in task_modified_files or any(k in user_goal_lower for k in ("ejecuta", "corre", "run")):
-            main_script = "main.py" if "main.py" in task_modified_files else (active_py_files[0] if active_py_files else None)
-            if main_script:
-                script_path = os.path.join(self.workspace_dir, main_script)
-                if os.path.exists(script_path):
-                    try:
-                        res_prog = subprocess.run(
-                            [os.sys.executable, script_path],
-                            cwd=self.workspace_dir,
-                            capture_output=True,
-                            text=True,
-                            timeout=10,
-                            creationflags=CREATE_NO_WINDOW
-                        )
-                        program_passed = (res_prog.returncode == 0)
-                        program_output = res_prog.stdout.strip()
-                        if not program_passed:
-                            ast_errors.append(f"Fallo en ejecución de {main_script}: {res_prog.stderr}")
-                    except Exception as ex:
-                        program_passed = False
-                        program_output = f"Error: {ex}"
+        target_script = None
+        if "main.py" in task_modified_files:
+            target_script = "main.py"
+        elif task_py_files:
+            target_script = task_py_files[0]
+        elif any(k in user_goal_lower for k in ("ejecuta", "corre", "run")):
+            main_candidates = [f for f in task_modified_files if f.endswith(".py") and not f.startswith("test")]
+            if main_candidates:
+                target_script = main_candidates[0]
+
+        if target_script:
+            script_path = os.path.join(self.workspace_dir, target_script)
+            if os.path.exists(script_path):
+                try:
+                    res_prog = subprocess.run(
+                        [os.sys.executable, script_path],
+                        cwd=self.workspace_dir,
+                        capture_output=True,
+                        text=True,
+                        timeout=10,
+                        creationflags=CREATE_NO_WINDOW
+                    )
+                    program_passed = (res_prog.returncode == 0)
+                    program_output = res_prog.stdout.strip()
+                    if not program_passed:
+                        ast_errors.append(f"Fallo en ejecución de {target_script}: {res_prog.stderr}")
+                except Exception as ex:
+                    program_passed = False
+                    program_output = f"Error: {ex}"
 
         # Éxito de verificación: sintaxis, ruff, tests y ejecutable de la tarea
         success = ast_valid and ruff_passed and tests_passed and program_passed
+
+        blocking_checks = []
+        if not ast_valid:
+            blocking_checks.append(f"ast_errors: {ast_errors}")
+        if not ruff_passed:
+            blocking_checks.append("ruff_failed")
+        if not tests_passed:
+            blocking_checks.append("tests_failed")
+        if not program_passed:
+            blocking_checks.append(f"program_failed ({target_script}): {program_output}")
+
+        logging.warning(
+            f"[VERIFICATION_DECISION] goal='{user_goal}' success={success} "
+            f"ast={ast_status} tests={tests_status} ruff={ruff_status} "
+            f"program_passed={program_passed} blocking={blocking_checks}"
+        )
+        print(
+            f"[VERIFICATION_DECISION] goal='{user_goal}' success={success} "
+            f"ast={ast_status} tests={tests_status} ruff={ruff_status} "
+            f"program_passed={program_passed} blocking={blocking_checks}"
+        )
 
         return {
             "success": success,
@@ -671,7 +702,8 @@ class AgentStateMachineController:
             "tests_passed": tests_passed,
             "ruff_passed": ruff_passed,
             "program_passed": program_passed,
-            "program_output": program_output
+            "program_output": program_output,
+            "blocking_checks": blocking_checks
         }
 
     def _stage_critic(self, _user_goal: str, verification: dict[str, Any]) -> str:
