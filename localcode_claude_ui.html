@@ -642,10 +642,11 @@
   <aside class="chat-panel" aria-label="Antigravity Assistant Chat">
     <div class="chat-panel-header">
       <div class="chat-title">
-        <span>✨</span> <span id="panelTitle">Explicación De Archivo Adj</span>
+        <span>✨</span> <span id="panelTitle">Asistente CodeAgent</span>
       </div>
       <div class="chat-actions">
         <button id="newChatBtn" title="Nueva Conversación">+</button>
+        <button id="clearChatBtn" title="Limpiar Historial de Chat">🗑️</button>
         <button title="Historial">🕒</button>
         <button title="Colapsar">✕</button>
       </div>
@@ -653,16 +654,13 @@
 
     <div class="chat-body" id="chatBody">
       <!-- Reasoning step accordion -->
-      <div class="reasoning-accordion open" id="reasoningAccordion">
+      <div class="reasoning-accordion" id="reasoningAccordion" style="display:none;">
         <div class="reasoning-header" id="reasoningHeader" onclick="this.parentElement.classList.toggle('open')">
-          <span>Worked for 4s</span>
+          <span>Worked for 0s</span>
           <span>></span>
         </div>
-        <div class="reasoning-content">
+        <div class="reasoning-content" id="reasoningContent">
           <strong>Ejecución del Agente ReAct:</strong><br>
-          • Thought: Analizando estructura del archivo ADR-001.<br>
-          • Action: leer_archivo("docs/adr/ADR-001-smolagents-react-engine.md")<br>
-          • Observation: Archivo cargado sintácticamente con éxito.
         </div>
       </div>
 
@@ -927,7 +925,54 @@
     } catch(err){}
   }
 
-  // Carga inicial y temporizador de auto-refresh cada 4 segundos
+  function saveChatHistory() {
+    try {
+      localStorage.setItem('codeagent_chat_history', JSON.stringify(messages));
+    } catch(e) {}
+  }
+
+  function loadChatHistory() {
+    try {
+      const saved = localStorage.getItem('codeagent_chat_history');
+      if(saved) {
+        messages = JSON.parse(saved);
+        const container = $('messagesContainer');
+        container.innerHTML = '';
+        messages.forEach(m => {
+          const div = document.createElement('div');
+          div.className = m.role === 'user' ? 'msg-bubble-user' : 'msg-bubble-assistant';
+          if(m.role === 'user') {
+            div.textContent = m.content;
+          } else {
+            div.innerHTML = renderSafeMarkdown(m.content) +
+              `<div style="display:flex; justify-content:flex-end; margin-top:8px;">` +
+              `<button class="copy-btn" onclick="copyMsgText(this)" style="background:var(--bg-hover); border:1px solid var(--border); color:var(--text-bright); padding:4px 10px; border-radius:4px; font-size:11px; cursor:pointer; display:inline-flex; align-items:center; gap:4px; user-select:none;">📋 Copiar Respuesta</button>` +
+              `</div>`;
+          }
+          container.appendChild(div);
+        });
+        $('chatBody').scrollTop = $('chatBody').scrollHeight;
+      }
+    } catch(e) {}
+  }
+
+  function clearChatHistory() {
+    messages = [];
+    localStorage.removeItem('codeagent_chat_history');
+    $('messagesContainer').innerHTML = '';
+    const acc = $('reasoningAccordion');
+    if(acc) acc.style.display = 'none';
+  }
+
+  // BOTONES DE CHAT (+ / 🗑️)
+  $('newChatBtn').addEventListener('click', clearChatHistory);
+  const clearBtn = $('clearChatBtn');
+  if(clearBtn) clearBtn.addEventListener('click', clearChatHistory);
+
+  // Cargar historial persistente en inicio
+  loadChatHistory();
+
+  // Carga inicial de archivos y temporizador de auto-refresh cada 4 segundos
   reloadWorkspaceFiles();
   setInterval(reloadWorkspaceFiles, 4000);
 
@@ -935,6 +980,9 @@
   $('sendBtn').addEventListener('click', async () => {
     const text = $('chatInput').value.trim();
     if(!text) return;
+
+    messages.push({ role: 'user', content: text });
+    saveChatHistory();
 
     const userMsg = document.createElement('div');
     userMsg.className = 'msg-bubble-user';
@@ -1002,16 +1050,23 @@
       }
 
       const elapsed = Math.max(1, Math.round((Date.now() - startTime) / 1000));
-      $('reasoningAccordion').className = 'reasoning-accordion open';
+      const acc = $('reasoningAccordion');
+      if(acc) {
+        acc.style.display = 'block';
+        acc.className = 'reasoning-accordion open';
+      }
       $('reasoningHeader').innerHTML = `<span>Worked for ${elapsed}s (5 steps)</span><span>></span>`;
 
       if(!res.ok || (data.success === false)){
         throw new Error(data.error || `Error HTTP ${res.status}`);
       }
 
+      const rawContent = data.respuesta || data.response || "Tarea ejecutada correctamente.";
+      messages.push({ role: 'assistant', content: rawContent });
+      saveChatHistory();
+
       const botMsg = document.createElement('div');
       botMsg.className = 'msg-bubble-assistant';
-      const rawContent = data.respuesta || data.response || "Tarea ejecutada correctamente.";
       botMsg.innerHTML = renderSafeMarkdown(rawContent) +
         `<div style="display:flex; justify-content:flex-end; margin-top:8px;">` +
         `<button class="copy-btn" onclick="copyMsgText(this)" style="background:var(--bg-hover); border:1px solid var(--border); color:var(--text-bright); padding:4px 10px; border-radius:4px; font-size:11px; cursor:pointer; display:inline-flex; align-items:center; gap:4px; user-select:none;">📋 Copiar Respuesta</button>` +

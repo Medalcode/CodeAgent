@@ -4,6 +4,15 @@ Todos los cambios notables realizados en este proyecto serán documentados en es
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/), y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.4.0] - 2026-08-28
+
+### Added
+- **feat(ui):** Eliminado el bloque estático de texto simulado/falso (`Worked for 110s...`) al inicio del chat.
+- **feat(ui):** Persistencia automática del historial de chat mediante `localStorage` para evitar la pérdida de mensajes al refrescar la página (F5).
+- **feat(ui):** Botón dedicado **"🗑️ Limpiar Historial de Chat"** en la barra superior para borrar intencionalmente la conversación cuando el usuario lo desee.
+
+---
+
 ## [6.3.0] - 2026-08-28
 
 ### Added
