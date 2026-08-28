@@ -1,7 +1,7 @@
 {
   "0": "session_manager.py",
   "1": "LocalCodeProxyHandler",
-  "2": "tools.py",
+  "2": "leer_archivo_local",
   "3": "TestLocalCodeServer",
   "4": "main.py",
   "5": "Changelog",
@@ -20,17 +20,17 @@
   "18": "TestTools",
   "19": "mis_agentes_inteligentes/session_manager",
   "20": "mis_agentes_inteligentes.session_manager",
-  "21": "desktop_app.py",
+  "21": "DesktopIDEApi",
   "22": "BenchmarkMetricsCollector",
-  "23": "consultar_github",
+  "23": "_make_github_request",
   "24": "mis_agentes_inteligentes/agents",
   "25": "mis_agentes_inteligentes.agents",
-  "26": "PermissionLevel",
+  "26": "tools.py",
   "27": "TestSmokeSystem",
   "28": "ADR-001: Selección de smolagents como Motor ReAct",
   "29": "ADR-002: Proxy HTTP Multihilo Ligero Basado en http.server Nativo",
   "30": "ADR-003: Compatibilidad y Polyfill de Pydantic v2 con LiteLLM",
-  "31": "ejecutar_comando_terminal",
+  "31": "TestSessionManager",
   "32": "mis_agentes_inteligentes/main",
   "33": "mis_agentes_inteligentes/rag_tools",
   "34": "CodeAgentBenchmarkSuite",
@@ -46,5 +46,6 @@
   "44": "security-auditor.md",
   "45": "mis_agentes_inteligentes.rag_tools",
   "46": "🧪 Reporte Oficial de Benchmark Reales CodeAgent (v4.2 Enterprise)",
-  "47": "TestRegressionSuite"
+  "47": "TestRegressionSuite",
+  "48": "app.py"
 }

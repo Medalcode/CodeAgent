@@ -1,11 +1,11 @@
 {
   "0": "session_manager.py",
   "1": "LocalCodeProxyHandler",
-  "2": "TestAgents",
+  "2": "tools.py",
   "3": "TestLocalCodeServer",
   "4": "main.py",
   "5": "Changelog",
-  "6": "💻 CodeAgent (v4.2 Enterprise)",
+  "6": "💻 CodeAgent (v4.3 Enterprise)",
   "7": "tool",
   "8": "mis_agentes_inteligentes/tools",
   "9": "mis_agentes_inteligentes.tools",
@@ -22,10 +22,10 @@
   "20": "mis_agentes_inteligentes.session_manager",
   "21": "desktop_app.py",
   "22": "BenchmarkMetricsCollector",
-  "23": "_make_github_request",
+  "23": "consultar_github",
   "24": "mis_agentes_inteligentes/agents",
   "25": "mis_agentes_inteligentes.agents",
-  "26": "tools.py",
+  "26": "PermissionLevel",
   "27": "TestSmokeSystem",
   "28": "ADR-001: Selección de smolagents como Motor ReAct",
   "29": "ADR-002: Proxy HTTP Multihilo Ligero Basado en http.server Nativo",
@@ -45,5 +45,6 @@
   "43": "python-pro.md",
   "44": "security-auditor.md",
   "45": "mis_agentes_inteligentes.rag_tools",
-  "46": "🧪 Reporte Oficial de Benchmark Reales CodeAgent (v4.2 Enterprise)"
+  "46": "🧪 Reporte Oficial de Benchmark Reales CodeAgent (v4.2 Enterprise)",
+  "47": "TestRegressionSuite"
 }

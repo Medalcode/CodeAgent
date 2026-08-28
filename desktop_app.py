@@ -2,6 +2,7 @@
 CodeAgent Desktop Runner (v3.5)
 Lanza CodeAgent y Ollama automáticamente en una ventana nativa de escritorio independiente.
 """
+import contextlib
 import os
 import subprocess
 import sys
@@ -86,9 +87,111 @@ def launch_server_bg():
     return False
 
 
+class DesktopIDEApi:
+    """API nativa expuesta al frontend de Javascript a través de PyWebView."""
+
+    def __init__(self):
+        pass
+
+    def open_file_dialog(self) -> dict[str, str] | None:
+        """Abre el diálogo nativo del SO para seleccionar un archivo y devuelve su ruta y contenido."""
+        try:
+            import tkinter as tk
+            from tkinter import filedialog
+            root = tk.Tk()
+            root.withdraw()
+            root.attributes('-topmost', True)
+            filepath = filedialog.askopenfilename(title="Abrir Archivo — CodeAgent IDE")
+            root.destroy()
+
+            if filepath and os.path.exists(filepath):
+                with open(filepath, encoding="utf-8", errors="replace") as f:
+                    content = f.read(200000)
+                return {
+                    "path": filepath,
+                    "filename": os.path.basename(filepath),
+                    "content": content
+                }
+        except Exception as e:
+            print(f"Error en open_file_dialog: {e}")
+        return None
+
+    def open_folder_dialog(self) -> dict[str, str] | None:
+        """Abre el diálogo nativo del SO para seleccionar una carpeta y cambiar el workspace."""
+        try:
+            import tkinter as tk
+            from tkinter import filedialog
+            root = tk.Tk()
+            root.withdraw()
+            root.attributes('-topmost', True)
+            folderpath = filedialog.askdirectory(title="Abrir Carpeta de Proyecto — CodeAgent IDE")
+            root.destroy()
+
+            if folderpath and os.path.exists(folderpath):
+                from tools import set_active_workspace
+                set_active_workspace(folderpath)
+                return {
+                    "path": folderpath,
+                    "folder_name": os.path.basename(folderpath)
+                }
+        except Exception as e:
+            print(f"Error en open_folder_dialog: {e}")
+        return None
+
+    def save_file_dialog(self, content: str = "", default_filename: str = "Untitled.py") -> dict[str, str] | None:
+        """Abre el diálogo nativo de Guardar Como para escribir contenido en disco."""
+        try:
+            import tkinter as tk
+            from tkinter import filedialog
+            root = tk.Tk()
+            root.withdraw()
+            root.attributes('-topmost', True)
+            filepath = filedialog.asksaveasfilename(
+                title="Guardar Archivo Como — CodeAgent IDE",
+                initialfile=default_filename
+            )
+            root.destroy()
+
+            if filepath:
+                with open(filepath, "w", encoding="utf-8") as f:
+                    f.write(content)
+                return {
+                    "path": filepath,
+                    "filename": os.path.basename(filepath)
+                }
+        except Exception as e:
+            print(f"Error en save_file_dialog: {e}")
+        return None
+
+    def write_file(self, path: str, content: str) -> bool:
+        """Guarda directamente el contenido del buffer en una ruta existente."""
+        try:
+            with open(path, "w", encoding="utf-8") as f:
+                f.write(content)
+            return True
+        except Exception as e:
+            print(f"Error escribiendo archivo {path}: {e}")
+            return False
+
+    def new_window(self) -> bool:
+        """Inicia una nueva ventana de la aplicación de escritorio."""
+        try:
+            creationflags = getattr(subprocess, "CREATE_NO_WINDOW", 0)
+            subprocess.Popen([sys.executable, __file__], cwd=BASE_DIR, creationflags=creationflags)
+            return True
+        except Exception as e:
+            print(f"Error abriendo nueva ventana: {e}")
+            return False
+
+    def exit_app(self) -> None:
+        """Finaliza el proceso de la ventana y la aplicación."""
+        with contextlib.suppress(Exception):
+            sys.exit(0)
+
+
 def main():
     print("===================================================")
-    print("💻 Lanzando CodeAgent Desktop IDE All-In-One v3.5")
+    print("💻 Lanzando CodeAgent Desktop IDE All-In-One v5.0")
     print("===================================================\n")
 
     # 1. Auto-iniciar Ollama si no está activo
@@ -107,9 +210,11 @@ def main():
     try:
         import webview
         print("📱 Abriendo CodeAgent en Ventana Nativa de Escritorio...")
+        api_instance = DesktopIDEApi()
         webview.create_window(
-            title="CodeAgent Desktop IDE v3.5 - Autonomous Agentic Platform",
+            title="CodeAgent Desktop IDE v5.0 - Professional Agentic Workspace",
             url=SERVER_URL,
+            js_api=api_instance,
             width=1440,
             height=900,
             resizable=True

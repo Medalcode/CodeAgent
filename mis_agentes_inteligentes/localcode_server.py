@@ -182,11 +182,15 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
         self.wfile.write(html.encode("utf-8"))
 
     def do_POST(self):
-        if self.path.startswith("/api/workspace/open-folder"):
+        if self.path.startswith("/api/fs/open_file_dialog"):
+            self.handle_fs_open_file_dialog()
+        elif self.path.startswith("/api/fs/open_folder_dialog"):
+            self.handle_fs_open_folder_dialog()
+        elif self.path.startswith("/api/workspace/open-folder"):
             self.handle_open_folder()
         elif self.path.startswith("/api/github/import"):
             self.handle_github_import()
-        elif self.path.startswith("/api/workspace/save"):
+        elif self.path.startswith("/api/workspace/save") or self.path.startswith("/api/fs/save"):
             self.handle_save_file()
         elif self.path.startswith("/api/agent/chat"):
             self.handle_agent_chat()
@@ -285,7 +289,7 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
 
     def handle_save_file(self):
         data = self._get_post_body()
-        rel_or_abs = data.get("filePath", "").strip()
+        rel_or_abs = data.get("filePath", "").strip() or data.get("path", "").strip()
         content = data.get("content", "")
 
         if not rel_or_abs:
@@ -297,9 +301,60 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
             os.makedirs(os.path.dirname(target_file), exist_ok=True)
             with open(target_file, "w", encoding="utf-8") as f:
                 f.write(content)
-            self._send_json({"success": True, "path": target_file})
+            self._send_json({"success": True, "path": target_file, "filename": os.path.basename(target_file)})
         except Exception as e:
             self._send_json({"success": False, "error": str(e)}, 500)
+
+    def handle_fs_open_file_dialog(self):
+        try:
+            import tkinter as tk
+            from tkinter import filedialog
+            root = tk.Tk()
+            root.withdraw()
+            root.attributes('-topmost', True)
+            filepath = filedialog.askopenfilename(title="Abrir Archivo — CodeAgent IDE")
+            root.destroy()
+
+            if filepath and os.path.exists(filepath):
+                with open(filepath, encoding="utf-8", errors="replace") as f:
+                    content = f.read(200000)
+                self._send_json({
+                    "success": True,
+                    "path": filepath,
+                    "filename": os.path.basename(filepath),
+                    "content": content
+                })
+            else:
+                self._send_json({"success": False, "cancelled": True})
+        except Exception as e:
+            self._send_json({"success": False, "error": f"Error en open_file_dialog: {e}"}, 500)
+
+    def handle_fs_open_folder_dialog(self):
+        global ACTIVE_WORKSPACE_DIR
+        try:
+            import tkinter as tk
+            from tkinter import filedialog
+            root = tk.Tk()
+            root.withdraw()
+            root.attributes('-topmost', True)
+            folderpath = filedialog.askdirectory(title="Abrir Carpeta de Proyecto — CodeAgent IDE")
+            root.destroy()
+
+            if folderpath and os.path.exists(folderpath):
+                ACTIVE_WORKSPACE_DIR = folderpath
+                from tools import set_active_workspace
+                set_active_workspace(folderpath)
+                files_found = self._scan_folder(folderpath)
+                self._send_json({
+                    "success": True,
+                    "path": folderpath,
+                    "folder_name": os.path.basename(folderpath),
+                    "files": files_found
+                })
+            else:
+                self._send_json({"success": False, "cancelled": True})
+        except Exception as e:
+            self._send_json({"success": False, "error": f"Error en open_folder_dialog: {e}"}, 500)
 
     def handle_github_import(self):
         data = self._get_post_body()
