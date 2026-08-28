@@ -1,7 +1,7 @@
 # Graph Report - CodeAgent  (2026-08-28)
 
 ## Corpus Check
-- 71 files · ~49,684 words
+- 71 files · ~49,239 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `92e6f35a`
+- Built from commit: `d0a34031`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -67,7 +67,7 @@
 - [2.2.1] - 2026-07-26
 - database.py
 - [2.5.0] - 2026-08-26
-- TestTaskTimeoutSafeguardAndCancellation
+- TestVerifierEvidenceAndWorkspaceIsolation
 - mis_agentes_inteligentes.rag_tools
 - [3.5.0] - 2026-08-27
 - [4.0.0] - 2026-08-27
@@ -307,9 +307,9 @@ Nodes (6): get_model(), Instancia dinámicamente el modelo LiteLLMModel según e
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `AgentStateMachineController` connect `AgentStateMachineController` to `session_manager.py`, `EventBus`, `CodeAgentBenchmarkSuite`, `CodeAgentRuntime`, `TestRuntimeRecoveryAndPauseSemantics`, `BenchmarkMetricsCollector`?**
+- **Why does `AgentStateMachineController` connect `AgentStateMachineController` to `session_manager.py`, `EventBus`, `CodeAgentBenchmarkSuite`, `CodeAgentRuntime`, `TestRuntimeRecoveryAndPauseSemantics`, `BenchmarkMetricsCollector`, `TestVerifierEvidenceAndWorkspaceIsolation`?**
   _High betweenness centrality (0.087) - this node is a cross-community bridge._
-- **Why does `CodeAgentRuntime` connect `CodeAgentRuntime` to `EventBus`, `LocalCodeProxyHandler`, `AgentStateMachineController`, `TestRuntimeAndStorage`, `DatabaseManager`, `TestRuntimeRecoveryAndPauseSemantics`, `database.py`, `TestTaskTimeoutSafeguardAndCancellation`?**
+- **Why does `CodeAgentRuntime` connect `CodeAgentRuntime` to `EventBus`, `LocalCodeProxyHandler`, `AgentStateMachineController`, `TestRuntimeAndStorage`, `DatabaseManager`, `TestRuntimeRecoveryAndPauseSemantics`, `database.py`, `TestVerifierEvidenceAndWorkspaceIsolation`?**
   _High betweenness centrality (0.062) - this node is a cross-community bridge._
 - **Why does `ejecutar_agentes()` connect `ejecutar_agentes` to `TestAgents`, `main.py`, `agents.py`, `claude_code_cli.py`?**
   _High betweenness centrality (0.042) - this node is a cross-community bridge._

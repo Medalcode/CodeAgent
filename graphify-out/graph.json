@@ -623,7 +623,7 @@
       "label": "._stage_critic()",
       "file_type": "code",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L709",
+      "source_location": "L715",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_critic",
       "community": 10,
@@ -799,9 +799,9 @@
       "label": "Evaluaci\u00f3n cr\u00edtica objetiva del diff, requisitos e integridad del workspace.",
       "file_type": "rationale",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L710",
+      "source_location": "L716",
       "_origin": "ast",
-      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_710",
+      "id": "mis_agentes_inteligentes_agent_pipeline_rationale_716",
       "community": 10,
       "community_name": "AgentStateMachineController",
       "norm_label": "evaluacion critica objetiva del diff, requisitos e integridad del workspace."
@@ -6310,8 +6310,8 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "changelog_6_4_0_2026_08_28",
-      "community": 70,
-      "community_name": "[6.4.0] - 2026-08-28",
+      "community": 5,
+      "community_name": "Changelog",
       "norm_label": "[6.4.0] - 2026-08-28"
     },
     {
@@ -6321,8 +6321,8 @@
       "source_location": "L78",
       "_origin": "ast",
       "id": "changelog_added_78",
-      "community": 70,
-      "community_name": "[6.4.0] - 2026-08-28",
+      "community": 5,
+      "community_name": "Changelog",
       "norm_label": "added"
     },
     {
@@ -6332,8 +6332,8 @@
       "source_location": "L85",
       "_origin": "ast",
       "id": "changelog_6_3_0_2026_08_28",
-      "community": 5,
-      "community_name": "Changelog",
+      "community": 70,
+      "community_name": "[6.3.0] - 2026-08-28",
       "norm_label": "[6.3.0] - 2026-08-28"
     },
     {
@@ -6343,8 +6343,8 @@
       "source_location": "L87",
       "_origin": "ast",
       "id": "changelog_added_87",
-      "community": 5,
-      "community_name": "Changelog",
+      "community": 70,
+      "community_name": "[6.3.0] - 2026-08-28",
       "norm_label": "added"
     },
     {
@@ -9531,7 +9531,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L709",
+      "source_location": "L715",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_critic",
@@ -9735,7 +9735,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L709",
+      "source_location": "L715",
       "weight": 1.0,
       "_origin": "ast",
       "source": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller",
@@ -10368,10 +10368,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "mis_agentes_inteligentes/agent_pipeline.py",
-      "source_location": "L710",
+      "source_location": "L716",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_710",
+      "source": "mis_agentes_inteligentes_agent_pipeline_rationale_716",
       "target": "mis_agentes_inteligentes_agent_pipeline_agentstatemachinecontroller_stage_critic",
       "confidence_score": 1.0
     },
@@ -21397,5 +21397,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "d0a34031164f6531d9bd3218f5a586b9184518c9"
+  "built_at_commit": "cb96443477fbb655ca3230e339ba0a34f7714798"
 }

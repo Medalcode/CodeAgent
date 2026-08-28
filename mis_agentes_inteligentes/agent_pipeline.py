@@ -562,7 +562,13 @@ class AgentStateMachineController:
             pass
 
         task_py_files = [f for f in task_modified_files if f.endswith(".py")]
-        task_test_files = [f for f in task_modified_files if "test" in f.lower() and f.endswith(".py")]
+
+        def _is_test_file(fp: str) -> bool:
+            norm = fp.replace("\\", "/").lower()
+            base = os.path.basename(norm)
+            return norm.startswith("tests/") or norm.startswith("test/") or base.startswith("test_") or base.endswith("_test.py")
+
+        task_test_files = [f for f in task_modified_files if _is_test_file(f)]
 
         active_py_files = task_py_files if task_py_files else [os.path.relpath(p, self.workspace_dir) for p in all_py_files]
 
@@ -642,7 +648,7 @@ class AgentStateMachineController:
         elif task_py_files:
             target_script = task_py_files[0]
         elif any(k in user_goal_lower for k in ("ejecuta", "corre", "run")):
-            main_candidates = [f for f in task_modified_files if f.endswith(".py") and not f.startswith("test")]
+            main_candidates = [f for f in task_modified_files if f.endswith(".py") and not _is_test_file(f)]
             if main_candidates:
                 target_script = main_candidates[0]
 
@@ -666,18 +672,18 @@ class AgentStateMachineController:
                     program_passed = False
                     program_output = f"Error: {ex}"
 
-        # Éxito de verificación: sintaxis, ruff, tests y ejecutable de la tarea
-        success = ast_valid and ruff_passed and tests_passed and program_passed
-
+        # Éxito de verificación matemático: sin bloqueos de sintaxis, linter, pruebas ni ejecución
         blocking_checks = []
         if not ast_valid:
             blocking_checks.append(f"ast_errors: {ast_errors}")
         if not ruff_passed:
             blocking_checks.append("ruff_failed")
-        if not tests_passed:
+        if tests_status == "FAIL" or not tests_passed:
             blocking_checks.append("tests_failed")
         if not program_passed:
             blocking_checks.append(f"program_failed ({target_script}): {program_output}")
+
+        success = (len(blocking_checks) == 0)
 
         logging.warning(
             f"[VERIFICATION_DECISION] goal='{user_goal}' success={success} "
