@@ -1,23 +1,23 @@
 # Graph Report - CodeAgent  (2026-08-27)
 
 ## Corpus Check
-- 56 files · ~30,156 words
+- 58 files · ~36,017 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 567 nodes · 805 edges · 48 communities (40 shown, 8 thin omitted)
-- Extraction: 77% EXTRACTED · 23% INFERRED · 0% AMBIGUOUS · INFERRED: 182 edges (avg confidence: 0.88)
+- 600 nodes · 864 edges · 49 communities (41 shown, 8 thin omitted)
+- Extraction: 78% EXTRACTED · 22% INFERRED · 0% AMBIGUOUS · INFERRED: 192 edges (avg confidence: 0.87)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `e249c670`
+- Built from commit: `25cec08b`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - session_manager.py
 - LocalCodeProxyHandler
-- tools.py
+- leer_archivo_local
 - TestLocalCodeServer
 - main.py
 - Changelog
@@ -36,17 +36,17 @@
 - TestTools
 - mis_agentes_inteligentes/session_manager
 - mis_agentes_inteligentes.session_manager
-- desktop_app.py
+- DesktopIDEApi
 - BenchmarkMetricsCollector
-- consultar_github
+- _make_github_request
 - mis_agentes_inteligentes/agents
 - mis_agentes_inteligentes.agents
-- PermissionLevel
+- tools.py
 - TestSmokeSystem
 - ADR-001: Selección de smolagents como Motor ReAct
 - ADR-002: Proxy HTTP Multihilo Ligero Basado en http.server Nativo
 - ADR-003: Compatibilidad y Polyfill de Pydantic v2 con LiteLLM
-- ejecutar_comando_terminal
+- TestSessionManager
 - mis_agentes_inteligentes/main
 - mis_agentes_inteligentes/rag_tools
 - CodeAgentBenchmarkSuite
@@ -59,47 +59,48 @@
 - mis_agentes_inteligentes.rag_tools
 - 🧪 Reporte Oficial de Benchmark Reales CodeAgent (v4.2 Enterprise)
 - TestRegressionSuite
+- app.py
 
 ## God Nodes (most connected - your core abstractions)
-1. `AgentStateMachineController` - 21 edges
-2. `LocalCodeProxyHandler` - 20 edges
+1. `AgentStateMachineController` - 25 edges
+2. `LocalCodeProxyHandler` - 22 edges
 3. `tool()` - 19 edges
 4. `TestTools` - 18 edges
-5. `JSONSessionRepository` - 13 edges
-6. `TestLocalCodeServer` - 13 edges
-7. `BenchmarkMetricsCollector` - 12 edges
-8. `TestAgentStateMachineController` - 12 edges
-9. `escribir_archivo_local()` - 11 edges
-10. `ExecutionLevel` - 10 edges
+5. `JSONSessionRepository` - 15 edges
+6. `DesktopIDEApi` - 13 edges
+7. `TestLocalCodeServer` - 13 edges
+8. `BenchmarkMetricsCollector` - 12 edges
+9. `TestAgentStateMachineController` - 12 edges
+10. `ExecutionLevel` - 11 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `TestDiagnoseRootCauseAndVersion` --uses--> `ExecutionLevel`  [INFERRED]
+  tests/test_diagnose_root_cause.py → mis_agentes_inteligentes/agent_pipeline.py
 - `TestAgentStateMachineController` --uses--> `ExecutionLevel`  [INFERRED]
   tests/test_state_machine.py → mis_agentes_inteligentes/agent_pipeline.py
+- `TestDiagnoseRootCauseAndVersion` --uses--> `AgentStateMachineController`  [INFERRED]
+  tests/test_diagnose_root_cause.py → mis_agentes_inteligentes/agent_pipeline.py
 - `TestAgentStateMachineController` --uses--> `AgentStateMachineController`  [INFERRED]
   tests/test_state_machine.py → mis_agentes_inteligentes/agent_pipeline.py
 - `TestE2ESystemSuite` --uses--> `LocalCodeProxyHandler`  [INFERRED]
   tests/test_e2e_suite.py → mis_agentes_inteligentes/localcode_server.py
-- `TestLocalCodeServer` --uses--> `LocalCodeProxyHandler`  [INFERRED]
-  tests/test_localcode_server.py → mis_agentes_inteligentes/localcode_server.py
-- `TestStateCheckpointing` --uses--> `JSONSessionRepository`  [INFERRED]
-  tests/test_state_checkpointing.py → mis_agentes_inteligentes/session_manager.py
 
 ## Import Cycles
 - None detected.
 
-## Communities (48 total, 8 thin omitted)
+## Communities (49 total, 8 thin omitted)
 
 ### Community 0 - "session_manager.py"
-Cohesion: 0.06
-Nodes (16): ABC, _guardar_sesion_actual(), Guarda los datos de la sesión activa en disco., Comprime texto y asegura la validez de los bloques de código markdown., _truncar_markdown(), BaseSessionRepository, create_new_session(), export_session_to_markdown() (+8 more)
+Cohesion: 0.09
+Nodes (12): ABC, BaseSessionRepository, create_new_session(), export_session_to_markdown(), init_sessions_dir(), JSONSessionRepository, load_session(), Interfaz abstracta para la gestión de sesiones de chat (Patrón Repositorio). (+4 more)
 
 ### Community 1 - "LocalCodeProxyHandler"
 Cohesion: 0.17
 Nodes (5): _inc_metric(), LocalCodeProxyHandler, Establece el directorio del espacio de trabajo activo de forma thread-safe para…, set_active_workspace(), TestWorkspaceIsolation
 
-### Community 2 - "tools.py"
-Cohesion: 0.27
-Nodes (10): leer_archivo_github(), leer_repositorio_github(), _make_github_request(), Helper centralizado para llamadas HTTP autenticadas a la API de GitHub., Usa esta herramienta para analizar a fondo uno o VARIOS repositorios. Debes…, Rastrea e informa la ejecución de herramientas al colector de métricas., Lee el contenido de un archivo específico de un repositorio de GitHub. Pasa el…, _resolver_nombre_repo() (+2 more)
+### Community 2 - "leer_archivo_local"
+Cohesion: 0.25
+Nodes (6): leer_archivo_local(), listar_directorio_local(), Rastrea e informa la ejecución de herramientas al colector de métricas., Lista los archivos y carpetas de un directorio local y devuelve el contenido…, Lee el contenido de un archivo local en tu disco duro para poder analizar su…, track_tool_event()
 
 ### Community 3 - "TestLocalCodeServer"
 Cohesion: 0.14
@@ -131,11 +132,11 @@ Nodes (18): mis_agentes_inteligentes.tools, mis_agentes_inteligentes.tools.consu
 
 ### Community 10 - "AgentStateMachineController"
 Cohesion: 0.07
-Nodes (26): AgentStateMachineController, ComplexityRiskEvaluator, ExecutionLevel, _get_phase_cognitive_directive(), Any, Enum, CodeAgent v4.0 Deterministic State Machine Controller & Adaptive Pipeline…, Persiste el estado activo de la Máquina de Estados en la sesión JSON. (+18 more)
+Nodes (27): AgentStateMachineController, ComplexityRiskEvaluator, ExecutionLevel, _get_phase_cognitive_directive(), Any, Enum, CodeAgent v4.0 Deterministic State Machine Controller & Adaptive Pipeline…, Persiste el estado activo de la Máquina de Estados en la sesión JSON. (+19 more)
 
 ### Community 11 - "_detectar_raiz_proyecto"
-Cohesion: 0.14
-Nodes (10): _detectar_raiz_proyecto(), get_active_workspace(), leer_archivo_local(), listar_directorio_local(), obtener_contexto_workspace(), Devuelve el espacio de trabajo activo de forma thread-safe., Sube directorios hasta encontrar un marcador de raíz de repo (.git, AGENTS.md,…, Lista los archivos y carpetas de un directorio local y devuelve el contenido… (+2 more)
+Cohesion: 0.18
+Nodes (6): _detectar_raiz_proyecto(), ejecutar_comando_terminal(), obtener_contexto_workspace(), Sube directorios hasta encontrar un marcador de raíz de repo (.git, AGENTS.md,…, Ejecuta un comando en la terminal del sistema operativo (ej. pytest, ls, pip…, Función de utilidad para el comando @workspace. Genera un resumen del entorno.
 
 ### Community 12 - "mis_agentes_inteligentes.main"
 Cohesion: 0.50
@@ -173,17 +174,17 @@ Nodes (9): mis_agentes_inteligentes/session_manager, session_manager.init_sessio
 Cohesion: 0.22
 Nodes (9): mis_agentes_inteligentes.session_manager, mis_agentes_inteligentes.session_manager.init_sessions_dir, mis_agentes_inteligentes.session_manager.create_new_session, mis_agentes_inteligentes.session_manager.list_sessions, mis_agentes_inteligentes.session_manager.load_session, mis_agentes_inteligentes.session_manager.save_session, mis_agentes_inteligentes.session_manager.delete_session, mis_agentes_inteligentes.session_manager.rename_session (+1 more)
 
-### Community 21 - "desktop_app.py"
-Cohesion: 0.25
-Nodes (10): check_ollama_running(), check_server_running(), launch_ollama_bg(), launch_server_bg(), main(), CodeAgent Desktop Runner (v3.5) Lanza CodeAgent y Ollama automáticamente en una…, Verifica si el servicio Ollama está activo en el puerto 11434., Inicia el servicio Ollama ('ollama serve') en segundo plano si no está activo. (+2 more)
+### Community 21 - "DesktopIDEApi"
+Cohesion: 0.08
+Nodes (21): check_ollama_running(), check_server_running(), DesktopIDEApi, launch_ollama_bg(), launch_server_bg(), main(), CodeAgent Desktop Runner (v3.5) Lanza CodeAgent y Ollama automáticamente en una…, Abre el diálogo nativo del SO para seleccionar una carpeta y cambiar el… (+13 more)
 
 ### Community 22 - "BenchmarkMetricsCollector"
 Cohesion: 0.13
 Nodes (8): BenchmarkMetricsCollector, Any, Registra la ejecución real de una herramienta por el agente., Calcula los KPIs cuantitativos agregados con datos reales., Genera un reporte formateado en Markdown con los KPIs cuantitativos., Colector y repositorio persistente de métricas cuantitativas agénticas., Registra el resultado de un ciclo de ejecución de la Máquina de Estados., TestAgentStateMachineController
 
-### Community 23 - "consultar_github"
-Cohesion: 0.36
-Nodes (4): consultar_github(), Usa esta herramienta cuando el usuario te proporcione un token de Github para…, patch, TestGithubTools
+### Community 23 - "_make_github_request"
+Cohesion: 0.18
+Nodes (12): consultar_github(), leer_archivo_github(), leer_repositorio_github(), _make_github_request(), Helper centralizado para llamadas HTTP autenticadas a la API de GitHub., Usa esta herramienta cuando el usuario te proporcione un token de Github para…, Usa esta herramienta para analizar a fondo uno o VARIOS repositorios. Debes…, Lee el contenido de un archivo específico de un repositorio de GitHub. Pasa el… (+4 more)
 
 ### Community 24 - "mis_agentes_inteligentes/agents"
 Cohesion: 0.33
@@ -193,8 +194,8 @@ Nodes (6): mis_agentes_inteligentes/agents, agents.get_model, agents.load_subage
 Cohesion: 0.33
 Nodes (6): mis_agentes_inteligentes.agents, mis_agentes_inteligentes.agents.get_model, mis_agentes_inteligentes.agents.load_subagents_from_disk, mis_agentes_inteligentes.agents.get_available_agents, mis_agentes_inteligentes.agents.route_prompt, mis_agentes_inteligentes.agents.crear_agente
 
-### Community 26 - "PermissionLevel"
-Cohesion: 0.33
+### Community 26 - "tools.py"
+Cohesion: 0.38
 Nodes (5): check_tool_permission(), PermissionLevel, Enum, Niveles de autorización para la ejecución segura de herramientas agénticas., Valida si el permiso actual autoriza la ejecución de la herramienta.
 
 ### Community 28 - "ADR-001: Selección de smolagents como Motor ReAct"
@@ -218,8 +219,8 @@ Cohesion: 0.50
 Nodes (4): mis_agentes_inteligentes/rag_tools, rag_tools.init_chroma, rag_tools.indexar_directorio_local, rag_tools.preguntar_a_repositorio
 
 ### Community 34 - "CodeAgentBenchmarkSuite"
-Cohesion: 0.20
-Nodes (6): CodeAgentBenchmarkSuite, Any, Exporta el reporte de benchmark en formato Markdown en…, Ejecutor automatizado de la Suite de 5 Benchmarks Reales de Ingeniería., Ejecuta la suite completa de 5 tareas y compila el informe comparativo., TestCodeAgentBenchmarkSuite
+Cohesion: 0.17
+Nodes (7): CodeAgentBenchmarkSuite, Any, CodeAgent v4.2 Reproducible Benchmark Suite Suite estandarizada de 5 tareas…, Exporta el reporte de benchmark en formato Markdown en…, Ejecutor automatizado de la Suite de 5 Benchmarks Reales de Ingeniería., Ejecuta la suite completa de 5 tareas y compila el informe comparativo., TestCodeAgentBenchmarkSuite
 
 ### Community 45 - "mis_agentes_inteligentes.rag_tools"
 Cohesion: 0.50
@@ -233,6 +234,10 @@ Nodes (3): 📈 KPIs Globales Acumulados, 🧪 Reporte Oficial de Benchmark Real
 Cohesion: 0.20
 Nodes (5): git_diff(), git_status(), Muestra el estado del repositorio Git (archivos modificados, untracked, etc).…, Muestra los cambios no commiteados en el repositorio. Args: ruta_repo: Ruta del…, TestRegressionSuite
 
+### Community 48 - "app.py"
+Cohesion: 0.29
+Nodes (4): _guardar_sesion_actual(), Guarda los datos de la sesión activa en disco., Comprime texto y asegura la validez de los bloques de código markdown., _truncar_markdown()
+
 ## Knowledge Gaps
 - **55 isolated node(s):** `start_hub.sh script`, `graphify`, `What a good test is`, `Seams — where tests go`, `Anti-patterns` (+50 more)
   These have ≤1 connection - possible missing edges or undocumented components.
@@ -241,12 +246,12 @@ Nodes (5): git_diff(), git_status(), Muestra el estado del repositorio Git (arch
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `set_active_workspace()` connect `LocalCodeProxyHandler` to `tools.py`?**
-  _High betweenness centrality (0.051) - this node is a cross-community bridge._
-- **Why does `AgentStateMachineController` connect `AgentStateMachineController` to `CodeAgentBenchmarkSuite`, `BenchmarkMetricsCollector`?**
-  _High betweenness centrality (0.046) - this node is a cross-community bridge._
-- **Are the 8 inferred relationships involving `AgentStateMachineController` (e.g. with `CodeAgentBenchmarkSuite` and `.__init__()`) actually correct?**
-  _`AgentStateMachineController` has 8 INFERRED edges - model-reasoned connections that need verification._
+- **Why does `set_active_workspace()` connect `LocalCodeProxyHandler` to `tools.py`, `DesktopIDEApi`?**
+  _High betweenness centrality (0.062) - this node is a cross-community bridge._
+- **Why does `AgentStateMachineController` connect `AgentStateMachineController` to `session_manager.py`, `CodeAgentBenchmarkSuite`, `BenchmarkMetricsCollector`?**
+  _High betweenness centrality (0.056) - this node is a cross-community bridge._
+- **Are the 10 inferred relationships involving `AgentStateMachineController` (e.g. with `CodeAgentBenchmarkSuite` and `.__init__()`) actually correct?**
+  _`AgentStateMachineController` has 10 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 2 inferred relationships involving `LocalCodeProxyHandler` (e.g. with `TestE2ESystemSuite` and `TestLocalCodeServer`) actually correct?**
   _`LocalCodeProxyHandler` has 2 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 18 inferred relationships involving `mis_agentes_inteligentes/tools` (e.g. with `CodeAgent` and `tools.consultar_db`) actually correct?**
@@ -254,4 +259,4 @@ _Questions this graph is uniquely positioned to answer:_
 - **What connects `start_hub.sh script`, `graphify`, `What a good test is` to the rest of the system?**
   _55 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `session_manager.py` be split into smaller, more focused modules?**
-  _Cohesion score 0.06025369978858351 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.0855614973262032 - nodes in this community are weakly interconnected._

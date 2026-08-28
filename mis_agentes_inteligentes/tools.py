@@ -332,6 +332,25 @@ def _verificar_sintaxis_post_edicion(ruta_archivo: str) -> str:
             return ""
     return ""
 
+def _atomic_write_file(abs_path: str, contenido: str) -> None:
+    """Escribe un archivo de forma atómica con limpieza segura de temporales en caso de fallo."""
+    directorio = os.path.dirname(abs_path)
+    if directorio:
+        os.makedirs(directorio, exist_ok=True)
+
+    temp_name = None
+    try:
+        with tempfile.NamedTemporaryFile('w', dir=directorio, delete=False, encoding='utf-8') as tf:
+            tf.write(contenido)
+            temp_name = tf.name
+        os.replace(temp_name, abs_path)
+    except Exception:
+        if temp_name and os.path.exists(temp_name):
+            import contextlib
+            with contextlib.suppress(Exception):
+                os.remove(temp_name)
+        raise
+
 @tool
 def escribir_archivo_local(ruta_archivo: str, contenido: str) -> str:
     """Crea o sobreescribe un archivo local con el contenido proporcionado. Útil para programar, refactorizar o crear tests.
@@ -340,23 +359,19 @@ def escribir_archivo_local(ruta_archivo: str, contenido: str) -> str:
         ruta_archivo: Ruta del archivo a escribir.
         contenido: Contenido a escribir en el archivo.
     """
+    t0 = time.time()
     try:
         if not os.path.isabs(ruta_archivo):
             abs_path = os.path.abspath(os.path.join(_detectar_raiz_proyecto("."), ruta_archivo))
         else:
             abs_path = os.path.abspath(ruta_archivo)
-        directorio = os.path.dirname(abs_path)
-        if directorio:
-            os.makedirs(directorio, exist_ok=True)
 
-        with tempfile.NamedTemporaryFile('w', dir=directorio, delete=False, encoding='utf-8') as tf:
-            tf.write(contenido)
-            temp_name = tf.name
-
-        os.replace(temp_name, abs_path)
+        _atomic_write_file(abs_path, contenido)
         warn = _verificar_sintaxis_post_edicion(abs_path)
+        track_tool_event("escribir_archivo_local", True, time.time() - t0)
         return f"Éxito: Archivo {ruta_archivo} guardado correctamente.{warn}"
     except Exception as e:
+        track_tool_event("escribir_archivo_local", False, time.time() - t0, str(e))
         return f"Error al escribir {ruta_archivo}: {e}"
 
 @tool
@@ -485,6 +500,7 @@ def editar_archivo_search_replace(ruta_archivo: str, busqueda: str, reemplazo: s
         busqueda: Texto a buscar.
         reemplazo: Texto de reemplazo.
     """
+    t0 = time.time()
     try:
         with open(ruta_archivo, encoding='utf-8') as f:
             contenido = f.read()
@@ -496,17 +512,8 @@ def editar_archivo_search_replace(ruta_archivo: str, busqueda: str, reemplazo: s
             return f"Error: Se encontraron {ocurrencias} coincidencias del bloque 'busqueda' en el archivo. Proporciona más líneas de contexto alrededor del texto para hacerlo único."
 
         nuevo_contenido = contenido.replace(busqueda, reemplazo, 1)
-
         abs_path = os.path.abspath(ruta_archivo)
-        directorio = os.path.dirname(abs_path)
-        if directorio:
-            os.makedirs(directorio, exist_ok=True)
-
-        with tempfile.NamedTemporaryFile('w', dir=directorio, delete=False, encoding='utf-8') as tf:
-            tf.write(nuevo_contenido)
-            temp_name = tf.name
-
-        os.replace(temp_name, abs_path)
+        _atomic_write_file(abs_path, nuevo_contenido)
         warn = _verificar_sintaxis_post_edicion(abs_path)
 
         # Generar diff visual para confianza del usuario
@@ -519,9 +526,11 @@ def editar_archivo_search_replace(ruta_archivo: str, busqueda: str, reemplazo: s
         ))
 
         diff_str = "".join(diff)
+        track_tool_event("editar_archivo_search_replace", True, time.time() - t0)
 
         return f"Éxito: Archivo {ruta_archivo} editado correctamente.{warn}\n\nA continuación el diff de los cambios (asegúrate de mostrarlo al usuario):\n```diff\n{diff_str}\n```"
     except Exception as e:
+        track_tool_event("editar_archivo_search_replace", False, time.time() - t0, str(e))
         return f"Error al editar {ruta_archivo}: {e}"
 
 @tool
