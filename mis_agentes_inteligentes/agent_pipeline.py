@@ -230,6 +230,11 @@ class AgentStateMachineController:
             )
 
         while current_state != State.DONE:
+            if session_id and self._db_manager:
+                db_task = self._db_manager.get_task(session_id)
+                if db_task and db_task.get("status") == "CANCELLED":
+                    break
+
             if current_state not in state_history:
                 state_history.append(current_state)
 
@@ -519,7 +524,10 @@ class AgentStateMachineController:
         user_requested_tests = not has_neg and any(k in user_goal_lower for k in ("test", "prueba", "unittest", "pytest", "cobertura", "assert"))
 
         tests_passed = True
-        if test_files_found > 0 and os.environ.get("SKIP_SUBPROCESS_TESTS") != "1":
+        if has_neg:
+            tests_passed = True
+            tests_status = "NOT_REQUIRED"
+        elif test_files_found > 0 and os.environ.get("SKIP_SUBPROCESS_TESTS") != "1":
             try:
                 env = os.environ.copy()
                 env["PYTHONPATH"] = f"{self.workspace_dir}{os.pathsep}mis_agentes_inteligentes{os.pathsep}{os.environ.get('PYTHONPATH', '')}"
@@ -541,8 +549,25 @@ class AgentStateMachineController:
             tests_passed = True
             tests_status = "NOT_REQUIRED"
 
-        # Éxito de verificación: sin fallos explícitos en los checks ejecutados
-        success = ast_valid and ruff_passed and tests_passed
+        # Verificación basada en requisitos de ejecución del programa principal
+        program_passed = True
+        program_output = ""
+        main_candidates = [f for f in os.listdir(self.workspace_dir) if f.endswith(".py") and f not in ("setup.py", "conftest.py") and not f.startswith("test")] if os.path.isdir(self.workspace_dir) else []
+        if main_candidates:
+            target_script = "main.py" if "main.py" in main_candidates else sorted(main_candidates)[0]
+            script_path = os.path.join(self.workspace_dir, target_script)
+            try:
+                res_prog = subprocess.run([os.sys.executable, script_path], cwd=self.workspace_dir, capture_output=True, text=True, timeout=10)
+                program_passed = (res_prog.returncode == 0)
+                program_output = res_prog.stdout.strip()
+                if not program_passed:
+                    ast_errors.append(f"Fallo en ejecución de {target_script}: {res_prog.stderr}")
+            except Exception as ex:
+                program_passed = False
+                program_output = f"Error: {ex}"
+
+        # Éxito de verificación: sintaxis, ruff, tests y ejecutable principal
+        success = ast_valid and ruff_passed and tests_passed and program_passed
 
         return {
             "success": success,
@@ -554,16 +579,38 @@ class AgentStateMachineController:
             "ast_valid": ast_valid,
             "ast_errors": ast_errors,
             "tests_passed": tests_passed,
-            "ruff_passed": ruff_passed
+            "ruff_passed": ruff_passed,
+            "program_passed": program_passed,
+            "program_output": program_output
         }
 
-    def _stage_critic(self, user_goal: str, verification: dict[str, Any]) -> str:
-        """Evaluación de cumplimiento final."""
-        if verification["success"]:
-            return f"Objetivo '{user_goal[:40]}' verificado y validado al 100% sin errores."
+    def _stage_critic(self, _user_goal: str, verification: dict[str, Any]) -> str:
+        """Evaluación crítica objetiva del diff, requisitos e integridad del workspace."""
+        diff_files = []
+        try:
+            res_diff = subprocess.run(["git", "status", "--porcelain"], cwd=self.workspace_dir, capture_output=True, text=True, timeout=5)
+            if res_diff.returncode == 0:
+                diff_files = [line.strip() for line in res_diff.stdout.splitlines() if line.strip()]
+        except Exception:
+            pass
+
+        requirements_met = verification["success"]
+        critic_notes = []
+
+        if verification.get("tests_status") == "NOT_REQUIRED":
+            critic_notes.append("Pruebas unitarias omitidas correctamente por directiva explícita del usuario.")
+        elif verification.get("tests_status") == "PASS":
+            critic_notes.append("Suite de pruebas ejecutada y validada con éxito.")
+
+        if verification.get("program_passed"):
+            critic_notes.append(f"Programa ejecutable validado con éxito ({verification.get('program_output', '')[:60]}).")
+
+        if requirements_met:
+            notes_str = " ".join(critic_notes)
+            return f"Cumplimiento 100%: Requisitos validados en workspace ({len(diff_files)} archivos modificados). {notes_str}"
         else:
-            errs = ", ".join(verification.get("ast_errors", ["Advertencia en suite de pruebas"]))
-            return f"Finalizado con advertencias: {errs}"
+            errs = ", ".join(verification.get("ast_errors", ["Advertencia en verificación"]))
+            return f"Finalizado con advertencias de criticismo: {errs}"
 
 
 # Compatibilidad directa

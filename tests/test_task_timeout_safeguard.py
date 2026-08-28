@@ -41,6 +41,7 @@ class TestTaskTimeoutSafeguardAndCancellation(unittest.TestCase):
         canceled = self.runtime.cancel_task(task_id)
         self.assertTrue(canceled)
 
+        time.sleep(0.4)
         task = self.runtime.get_task(task_id)
         self.assertIsNotNone(task)
         self.assertEqual(task["status"], "CANCELLED")

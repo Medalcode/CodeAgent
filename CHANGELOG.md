@@ -4,6 +4,15 @@ Todos los cambios notables realizados en este proyecto serán documentados en es
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/), y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.11.0] - 2026-08-28
+
+### Added & Fixed
+- **fix(verifier):** Corregido bug crítico en `_stage_verifier()` donde la presencia de archivos de test antiguos en el workspace invalidaba la directiva explícita del usuario (`has_neg: "No crees tests"`). Ahora `has_neg` anula estrictamente la ejecución de `unittest` devolviendo `NOT_REQUIRED`.
+- **feat(verifier):** Incorporada **Verificación Basada en Requisitos de Ejecución del Programa Principal (`program_passed` y `program_output`)**, ejecutando de forma segura el script principal (ej. `main.py` o similar) para recopilar evidencia empírica de salida estándar.
+- **feat(critic):** Refactorizado `_stage_critic()` para realizar una evaluación objetiva real del diff de Git (`git status --porcelain`) y la salida empírica del ejecutable principal en lugar de devolver texto genérico estático.
+
+---
+
 ## [6.10.0] - 2026-08-28
 
 ### Added

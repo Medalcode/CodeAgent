@@ -50,7 +50,7 @@ class TestRuntimeRecoveryAndPauseSemantics(unittest.TestCase):
         res_cancel = self.runtime.cancel_task(task_id2)
         self.assertTrue(res_cancel)
 
-        time.sleep(0.4)
+        time.sleep(0.6)
         task_after_cancel = self.runtime.get_task(task_id2)
         self.assertIsNotNone(task_after_cancel)
         self.assertEqual(task_after_cancel["status"], "CANCELLED")

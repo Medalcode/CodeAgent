@@ -9,10 +9,15 @@ from session_manager import JSONSessionRepository
 class TestStateCheckpointing(unittest.TestCase):
 
     def setUp(self):
+        import tempfile
         os.environ["SKIP_SUBPROCESS_TESTS"] = "1"
-        self.controller = AgentStateMachineController()
+        self.temp_dir = tempfile.TemporaryDirectory()
+        self.controller = AgentStateMachineController(workspace_dir=self.temp_dir.name)
         self.repo = JSONSessionRepository()
         self.session_id = self.repo.create_session("Sesión de Prueba Checkpointing")
+
+    def tearDown(self):
+        self.temp_dir.cleanup()
 
     def test_save_checkpoint_and_resume_session(self):
         # 1. Simular guardado de checkpoint en estado REPLAN
