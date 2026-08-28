@@ -1,11 +1,28 @@
 {
-  "total_runs": 986,
+  "total_runs": 987,
   "successful_runs": 811,
   "total_replans": 339,
   "successful_recoveries": 88,
-  "total_tool_calls": 601,
-  "successful_tool_calls": 508,
+  "total_tool_calls": 606,
+  "successful_tool_calls": 513,
   "history": [
+    {
+      "timestamp": "2026-08-28 16:49:22",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Crea un archivo hola.py que imprima exactamente Hola Mundo. No crees tests, READ",
+      "success": false,
+      "elapsed_seconds": 123.13,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": false,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": false,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
     {
       "timestamp": "2026-08-28 16:45:01",
       "execution_level": "Nivel 3 (Feature Standard)",
@@ -2403,35 +2420,44 @@
         "program_output": "==================================================="
       },
       "tool_calls_count": 0
-    },
-    {
-      "timestamp": "2026-08-28 15:53:00",
-      "execution_level": "Nivel 4 (Ciclo Autónomo Completo)",
-      "user_goal": "Refactoriza módulo X",
-      "success": false,
-      "elapsed_seconds": 10.24,
-      "replans_count": 2,
-      "recovered_autonomously": false,
-      "verification": {
-        "success": false,
-        "ast_status": "PASS",
-        "ruff_status": "PASS",
-        "tests_status": "NOT_REQUIRED",
-        "py_files_count": 49,
-        "test_files_count": 28,
-        "ast_valid": true,
-        "ast_errors": [
-          "Fallo en ejecución de desktop_app.py: Traceback (most recent call last):\n  File \"C:\\Users\\Jonatthan\\Documents\\Github\\CodeAgent\\desktop_app.py\", line 251, in <module>\n    main()\n  File \"C:\\Users\\Jonatthan\\Documents\\Github\\CodeAgent\\desktop_app.py\", line 200, in main\n    print(\"\\U0001f4bb Lanzando CodeAgent Desktop IDE All-In-One v5.0\")\n  File \"C:\\Users\\Jonatthan\\AppData\\Roaming\\uv\\python\\cpython-3.11-windows-x86_64-none\\Lib\\encodings\\cp1252.py\", line 19, in encode\n    return codecs.charmap_encode(input,self.errors,encoding_table)[0]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nUnicodeEncodeError: 'charmap' codec can't encode character '\\U0001f4bb' in position 0: character maps to <undefined>\n"
-        ],
-        "tests_passed": true,
-        "ruff_passed": true,
-        "program_passed": false,
-        "program_output": "==================================================="
-      },
-      "tool_calls_count": 0
     }
   ],
   "tool_events": [
+    {
+      "tool_name": "listar_directorio_local",
+      "timestamp": "2026-08-28 17:14:35",
+      "success": true,
+      "duration_seconds": 0.0,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "listar_directorio_local",
+      "timestamp": "2026-08-28 16:50:09",
+      "success": true,
+      "duration_seconds": 0.0,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "leer_archivo_local",
+      "timestamp": "2026-08-28 16:48:35",
+      "success": true,
+      "duration_seconds": 0.001,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "escribir_archivo_local",
+      "timestamp": "2026-08-28 16:47:53",
+      "success": true,
+      "duration_seconds": 0.002,
+      "error_type": "None"
+    },
+    {
+      "tool_name": "listar_directorio_local",
+      "timestamp": "2026-08-28 16:47:41",
+      "success": true,
+      "duration_seconds": 0.0,
+      "error_type": "None"
+    },
     {
       "tool_name": "escribir_archivo_local",
       "timestamp": "2026-08-28 16:45:01",
@@ -3795,41 +3821,6 @@
       "timestamp": "2026-08-28 14:43:27",
       "success": true,
       "duration_seconds": 0.12,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-28 14:41:59",
-      "success": true,
-      "duration_seconds": 0.003,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "listar_directorio_local",
-      "timestamp": "2026-08-28 14:41:59",
-      "success": true,
-      "duration_seconds": 0.0,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "leer_archivo_local",
-      "timestamp": "2026-08-28 14:41:59",
-      "success": true,
-      "duration_seconds": 0.001,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-28 14:41:59",
-      "success": true,
-      "duration_seconds": 0.003,
-      "error_type": "None"
-    },
-    {
-      "tool_name": "escribir_archivo_local",
-      "timestamp": "2026-08-28 14:41:59",
-      "success": true,
-      "duration_seconds": 0.002,
       "error_type": "None"
     }
   ]

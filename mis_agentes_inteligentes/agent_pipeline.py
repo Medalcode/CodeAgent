@@ -549,7 +549,12 @@ class AgentStateMachineController:
             test_files_found = len([f for f in os.listdir(tests_dir) if f.endswith(".py")])
 
         user_goal_lower = user_goal.lower()
-        has_neg = any(neg in user_goal_lower for neg in ("no añadas tests", "no test", "no tests", "sin tests", "sin pruebas", "sin test", "sin prueba", "no crees tests", "no crear tests"))
+        has_neg = any(neg in user_goal_lower for neg in (
+            "no añadas tests", "no test", "no tests", "sin tests", "sin pruebas",
+            "sin test", "sin prueba", "no crees tests", "no crear tests",
+            "no ejecutes pytest", "no ejecutes unittest", "no ejecutes tests",
+            "no ejecutes pytest ni unittest"
+        ))
         user_requested_tests = not has_neg and any(k in user_goal_lower for k in ("test", "prueba", "unittest", "pytest", "cobertura", "assert"))
 
         tests_passed = True
