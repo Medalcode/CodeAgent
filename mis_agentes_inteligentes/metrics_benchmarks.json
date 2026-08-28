@@ -1,11 +1,45 @@
 {
-  "total_runs": 81,
-  "successful_runs": 81,
+  "total_runs": 83,
+  "successful_runs": 83,
   "total_replans": 15,
   "successful_recoveries": 9,
   "total_tool_calls": 6,
   "successful_tool_calls": 3,
   "history": [
+    {
+      "timestamp": "2026-08-27 20:11:52",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Crear script de prueba",
+      "success": true,
+      "elapsed_seconds": 33.43,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
+    {
+      "timestamp": "2026-08-27 20:11:15",
+      "execution_level": "Nivel 3 (Feature Standard)",
+      "user_goal": "Crear script de prueba",
+      "success": true,
+      "elapsed_seconds": 33.13,
+      "replans_count": 0,
+      "recovered_autonomously": false,
+      "verification": {
+        "success": true,
+        "ast_valid": true,
+        "ast_errors": [],
+        "tests_passed": true,
+        "ruff_passed": true
+      },
+      "tool_calls_count": 0
+    },
     {
       "timestamp": "2026-08-27 20:10:41",
       "execution_level": "Nivel 3 (Feature Standard)",
