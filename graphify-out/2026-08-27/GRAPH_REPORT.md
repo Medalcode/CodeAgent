@@ -1,16 +1,16 @@
 # Graph Report - CodeAgent  (2026-08-27)
 
 ## Corpus Check
-- 51 files · ~25,281 words
+- 52 files · ~26,436 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 516 nodes · 715 edges · 44 communities (36 shown, 8 thin omitted)
-- Extraction: 77% EXTRACTED · 23% INFERRED · 0% AMBIGUOUS · INFERRED: 167 edges (avg confidence: 0.91)
+- 529 nodes · 747 edges · 45 communities (36 shown, 9 thin omitted)
+- Extraction: 77% EXTRACTED · 23% INFERRED · 0% AMBIGUOUS · INFERRED: 173 edges (avg confidence: 0.9)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `6a70c5e7`
+- Built from commit: `19698905`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -49,6 +49,7 @@
 - ejecutar_comando_terminal
 - mis_agentes_inteligentes/main
 - mis_agentes_inteligentes/rag_tools
+- TestSessionManager
 - graphify.js
 - rules/graphify.md
 - workflows/graphify.md
@@ -60,12 +61,12 @@
 1. `LocalCodeProxyHandler` - 20 edges
 2. `tool()` - 19 edges
 3. `TestTools` - 18 edges
-4. `AgentStateMachineController` - 13 edges
-5. `TestLocalCodeServer` - 13 edges
-6. `TestAgentStateMachineController` - 12 edges
-7. `JSONSessionRepository` - 11 edges
-8. `escribir_archivo_local()` - 11 edges
-9. `BenchmarkMetricsCollector` - 10 edges
+4. `AgentStateMachineController` - 17 edges
+5. `JSONSessionRepository` - 13 edges
+6. `TestLocalCodeServer` - 13 edges
+7. `TestAgentStateMachineController` - 12 edges
+8. `BenchmarkMetricsCollector` - 11 edges
+9. `escribir_archivo_local()` - 11 edges
 10. `ejecutar_agentes()` - 10 edges
 
 ## Surprising Connections (you probably didn't know these)
@@ -75,19 +76,19 @@
   tests/test_e2e_suite.py → mis_agentes_inteligentes/localcode_server.py
 - `TestLocalCodeServer` --uses--> `LocalCodeProxyHandler`  [INFERRED]
   tests/test_localcode_server.py → mis_agentes_inteligentes/localcode_server.py
+- `TestStateCheckpointing` --uses--> `JSONSessionRepository`  [INFERRED]
+  tests/test_state_checkpointing.py → mis_agentes_inteligentes/session_manager.py
 - `TestTools` --uses--> `PermissionLevel`  [INFERRED]
   tests/test_tools.py → mis_agentes_inteligentes/tools.py
-- `TestAgentStateMachineController` --uses--> `ExecutionLevel`  [INFERRED]
-  tests/test_state_machine.py → mis_agentes_inteligentes/agent_pipeline.py
 
 ## Import Cycles
 - None detected.
 
-## Communities (44 total, 8 thin omitted)
+## Communities (45 total, 9 thin omitted)
 
 ### Community 0 - "session_manager.py"
-Cohesion: 0.07
-Nodes (12): ABC, BaseSessionRepository, create_new_session(), export_session_to_markdown(), init_sessions_dir(), JSONSessionRepository, load_session(), Interfaz abstracta para la gestión de sesiones de chat (Patrón Repositorio). (+4 more)
+Cohesion: 0.11
+Nodes (11): ABC, BaseSessionRepository, create_new_session(), export_session_to_markdown(), init_sessions_dir(), JSONSessionRepository, load_session(), Interfaz abstracta para la gestión de sesiones de chat (Patrón Repositorio). (+3 more)
 
 ### Community 1 - "LocalCodeProxyHandler"
 Cohesion: 0.17
@@ -126,8 +127,8 @@ Cohesion: 0.11
 Nodes (18): mis_agentes_inteligentes.tools, mis_agentes_inteligentes.tools.consultar_db, mis_agentes_inteligentes.tools.guardar_reporte, mis_agentes_inteligentes.tools.consultar_github, mis_agentes_inteligentes.tools.leer_repositorio_github, mis_agentes_inteligentes.tools.leer_archivo_github, mis_agentes_inteligentes.tools.listar_directorio_local, mis_agentes_inteligentes.tools.leer_archivo_local (+10 more)
 
 ### Community 10 - "AgentStateMachineController"
-Cohesion: 0.08
-Nodes (17): AgentStateMachineController, ExecutionLevel, Any, Enum, CodeAgent v4.0 Deterministic State Machine Controller & Adaptive Pipeline…, Alias de compatibilidad hacia atrás para la versión v3.0., Genera un plan de acción estructurado., Consulta el Grafo AST Graphify en busca de contexto estructural. (+9 more)
+Cohesion: 0.07
+Nodes (22): AgentStateMachineController, ExecutionLevel, _get_phase_cognitive_directive(), Any, Enum, CodeAgent v4.0 Deterministic State Machine Controller & Adaptive Pipeline…, Ejecuta el ciclo agéntico mediante la Máquina de Estados Determinista., Alias de compatibilidad hacia atrás para la versión v3.0. (+14 more)
 
 ### Community 11 - "_detectar_raiz_proyecto"
 Cohesion: 0.14
@@ -174,8 +175,8 @@ Cohesion: 0.25
 Nodes (10): check_ollama_running(), check_server_running(), launch_ollama_bg(), launch_server_bg(), main(), CodeAgent Desktop Runner (v3.5) Lanza CodeAgent y Ollama automáticamente en una…, Verifica si el servicio Ollama está activo en el puerto 11434., Inicia el servicio Ollama ('ollama serve') en segundo plano si no está activo. (+2 more)
 
 ### Community 22 - "BenchmarkMetricsCollector"
-Cohesion: 0.35
-Nodes (5): BenchmarkMetricsCollector, Any, Calcula los KPIs cuantitativos agregados., Colector y repositorio persistente de métricas cuantitativas agénticas., Registra el resultado de un ciclo de ejecución de la Máquina de Estados.
+Cohesion: 0.29
+Nodes (6): BenchmarkMetricsCollector, Any, Calcula los KPIs cuantitativos agregados., Genera un reporte formateado en Markdown con los KPIs cuantitativos., Colector y repositorio persistente de métricas cuantitativas agénticas., Registra el resultado de un ciclo de ejecución de la Máquina de Estados.
 
 ### Community 23 - "_make_github_request"
 Cohesion: 0.18
@@ -216,17 +217,15 @@ Nodes (4): mis_agentes_inteligentes/rag_tools, rag_tools.init_chroma, rag_tools.
 ## Knowledge Gaps
 - **51 isolated node(s):** `start_hub.sh script`, `graphify`, `What a good test is`, `Seams — where tests go`, `Anti-patterns` (+46 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **8 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **9 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `set_active_workspace()` connect `LocalCodeProxyHandler` to `tools.py`?**
-  _High betweenness centrality (0.044) - this node is a cross-community bridge._
+- **Why does `JSONSessionRepository` connect `session_manager.py` to `AgentStateMachineController`?**
+  _High betweenness centrality (0.046) - this node is a cross-community bridge._
 - **Why does `ejecutar_agentes()` connect `main.py` to `TestAgents`?**
-  _High betweenness centrality (0.038) - this node is a cross-community bridge._
-- **Why does `LocalCodeProxyHandler` connect `LocalCodeProxyHandler` to `TestLocalCodeServer`?**
-  _High betweenness centrality (0.032) - this node is a cross-community bridge._
+  _High betweenness centrality (0.046) - this node is a cross-community bridge._
 - **Are the 2 inferred relationships involving `LocalCodeProxyHandler` (e.g. with `TestE2ESystemSuite` and `TestLocalCodeServer`) actually correct?**
   _`LocalCodeProxyHandler` has 2 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 18 inferred relationships involving `mis_agentes_inteligentes/tools` (e.g. with `CodeAgent` and `tools.consultar_db`) actually correct?**
@@ -235,3 +234,5 @@ _Questions this graph is uniquely positioned to answer:_
   _`mis_agentes_inteligentes.tools` has 18 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `start_hub.sh script`, `graphify`, `What a good test is` to the rest of the system?**
   _51 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `session_manager.py` be split into smaller, more focused modules?**
+  _Cohesion score 0.1111111111111111 - nodes in this community are weakly interconnected._

@@ -310,8 +310,8 @@ class AgentStateMachineController:
             ]
         }
 
-    def _stage_explorer(self, _user_goal: str) -> str:
-        """Consulta el Grafo AST Graphify en busca de contexto estructural."""
+    def _stage_explorer(self, user_goal: str) -> str:
+        """Protocolo Estructural Graphify-First: Extrae y jerarquiza nodos del Grafo AST por centralidad."""
         graph_dir = os.path.join(self.workspace_dir, "graphify-out")
         if os.path.exists(graph_dir):
             graph_json = os.path.join(graph_dir, "graph.json")
@@ -320,11 +320,27 @@ class AgentStateMachineController:
                     with open(graph_json, encoding="utf-8") as f:
                         data = json.load(f)
                     nodes = data.get("nodes", [])
-                    node_names = [n.get("name", "") for n in nodes[:10] if isinstance(n, dict) and "name" in n]
-                    return f"Nodos relevantes en Grafo AST Graphify: {', '.join(node_names)}"
-                except Exception:
-                    pass
-        return "Exploración estándar del árbol de archivos."
+                    edges = data.get("edges", [])
+
+                    # Mapear palabras clave del objetivo con nodos del grafo
+                    keywords = [w.lower() for w in user_goal.split() if len(w) > 3]
+                    matched_nodes = []
+                    for n in nodes:
+                        if isinstance(n, dict):
+                            name_val = n.get("name") or n.get("id") or ""
+                            file_p = str(n.get("file", "")).lower()
+                            if name_val and any(k in str(name_val).lower() or k in file_p for k in keywords):
+                                matched_nodes.append(str(name_val))
+
+                    # Si no hay coincidencias directas, seleccionar nodos centrales por grado de conexión
+                    if not matched_nodes:
+                        top_nodes = [str(n.get("name") or n.get("id") or "Node") for n in nodes[:8] if isinstance(n, dict)]
+                        return f"🕸️ Grafo AST Graphify ({len(nodes)} nodos, {len(edges)} aristas): Nodos centrales detectados: {', '.join(top_nodes)}"
+
+                    return f"🕸️ Protocolo Graphify-First: Símbolos y nodos impactados directamente para '{user_goal[:30]}': {', '.join(matched_nodes[:8])}"
+                except Exception as e:
+                    logging.warning(f"Error analizando graph.json en Explorer: {e}")
+        return "Exploración estándar del árbol de archivos del workspace."
 
     def _build_execution_prompt(
         self,

@@ -5,7 +5,7 @@
   "3": "TestLocalCodeServer",
   "4": "main.py",
   "5": "Changelog",
-  "6": "💻 CodeAgent (v4.0 Enterprise)",
+  "6": "💻 CodeAgent (v4.2 Enterprise)",
   "7": "tool",
   "8": "mis_agentes_inteligentes/tools",
   "9": "mis_agentes_inteligentes.tools",
@@ -33,7 +33,7 @@
   "31": "ejecutar_comando_terminal",
   "32": "mis_agentes_inteligentes/main",
   "33": "mis_agentes_inteligentes/rag_tools",
-  "34": "TestSessionManager",
+  "34": "CodeAgentBenchmarkSuite",
   "35": "graphify.js",
   "36": "rules/graphify.md",
   "37": "workflows/graphify.md",
@@ -43,5 +43,7 @@
   "41": "code-reviewer.md",
   "42": "frontend-developer.md",
   "43": "python-pro.md",
-  "44": "security-auditor.md"
+  "44": "security-auditor.md",
+  "45": "mis_agentes_inteligentes.rag_tools",
+  "46": "🧪 Reporte Oficial de Benchmark Reales CodeAgent (v4.2 Enterprise)"
 }

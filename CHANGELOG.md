@@ -4,6 +4,16 @@ Todos los cambios notables realizados en este proyecto serán documentados en es
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/), y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.0] - 2026-08-27
+
+### Added
+- **feat(benchmark):** Suite reproducible de 5 Benchmarks Reales de Ingeniería (`benchmark_suite.py`) que evalúa y exporta estadísticas en `benchmark_report_v42.md`.
+- **feat(architecture):** Protocolo Estructural Estricto Graphify-First en `_stage_explorer`, clasificando símbolos impactados directamente desde `graph.json`.
+- **feat(observability):** Traza de observabilidad en tiempo real de transiciones del autómata agéntico (`🟢 Task Started` ➔ `🧠 PLANNING` ➔ `🔍 EXPLORING` ➔ `🔨 EXECUTING` ➔ `🧪 VERIFYING` ➔ `🔄 REPLANNING` ➔ `👨‍⚖️ CRITIC` ➔ `✅ DONE`).
+- **test(qa):** Suite de pruebas `tests/test_benchmark_suite.py` e integración alcanzando `75/75` pruebas pasadas (100% éxito).
+
+---
+
 ## [4.0.0] - 2026-08-27
 
 ### Added
