@@ -30,7 +30,7 @@ from enum import Enum
 from typing import Any
 
 import requests
-from benchmark_metrics import metrics_collector
+from .benchmark_metrics import metrics_collector
 from smolagents import tool
 
 CREATE_NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if os.name == "nt" else 0

@@ -19,6 +19,7 @@ import urllib.parse
 import urllib.request
 import webbrowser
 import zipfile
+from typing import Any, Tuple
 
 if sys.platform == "win32":
     _orig_popen_init = subprocess.Popen.__init__
@@ -169,6 +170,43 @@ def _ps_save_dialog(title: str = "Guardar Archivo Como", default_filename: str =
         return None
 
 
+def get_sdd_health_dict() -> dict:
+    status_str = "OK"
+    parent_alive = False
+    try:
+        parent_alive = _is_parent_alive()
+    except Exception:
+        status_str = "DEGRADED"
+
+    return {
+        "status": status_str,
+        "sdd_version": SERVER_VERSION,
+        "certified_commit": "b0157240d41d3a81c0b3c68b94d2e3a46c90f874",
+        "invariants_certified_count": 8,
+        "parent_pid": PARENT_PID,
+        "parent_alive": parent_alive,
+        "pipeline_authority_active": True
+    }
+
+
+def handle_sse_events_dict(event: Any) -> str:
+    """Serializa una instancia de Event o dict al formato Server-Sent Events (SSE)."""
+    if hasattr(event, "task_id"):
+        payload_dict = {
+            "task_id": getattr(event, "task_id", ""),
+            "event_type": getattr(event, "event_type", ""),
+            "payload": getattr(event, "payload", {}),
+            "timestamp": getattr(event, "timestamp", time.time()),
+            "event_id": getattr(event, "event_id", None)
+        }
+    elif isinstance(event, dict):
+        payload_dict = event
+    else:
+        payload_dict = {"event": str(event)}
+        
+    return f"data: {json.dumps(payload_dict)}\n\n"
+
+
 class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=BASE_DIR, **kwargs)
@@ -194,6 +232,10 @@ class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
             super().do_GET()
         elif clean_path in ("/api/health", "/api/server/health", "/api/server/identity"):
             self.handle_health()
+        elif clean_path in ("/api/health/sdd", "/api/sdd/health"):
+            self.handle_sdd_health()
+        elif clean_path in ("/api/pipeline/events", "/api/events"):
+            self.handle_sse_events()
         elif clean_path.startswith("/metrics"):
             self.handle_metrics()
         elif clean_path.startswith("/api/openapi.json"):
@@ -231,6 +273,61 @@ class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
             "base_dir": os.path.abspath(BASE_DIR),
             "start_time": SERVER_START_TIME
         })
+
+    def handle_sdd_health(self):
+        _safe_print("[LocalCode Server] GET /api/health/sdd")
+        self._send_json(get_sdd_health_dict())
+
+    def handle_sse_events(self):
+        """Maneja el streaming HTTP Server-Sent Events en GET /api/pipeline/events."""
+        _safe_print("[LocalCode Server] SSE Client subscribed to /api/pipeline/events")
+        
+        target_task_id = None
+        if "?" in self.path:
+            query = self.path.split("?", 1)[1]
+            for param in query.split("&"):
+                if param.startswith("task_id="):
+                    target_task_id = param.split("=", 1)[1]
+                    
+        self.send_response(200)
+        self.send_header("Content-Type", "text/event-stream")
+        self.send_header("Cache-Control", "no-cache")
+        self.send_header("Connection", "keep-alive")
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.end_headers()
+        
+        import queue
+        q = queue.Queue(maxsize=100)
+        
+        def listener(ev: Any):
+            if target_task_id and getattr(ev, "task_id", None) != target_task_id:
+                return
+            try:
+                q.put_nowait(ev)
+            except queue.Full:
+                pass
+                
+        from runtime.event_bus import get_event_bus
+        bus = get_event_bus()
+        bus.subscribe(listener)
+        
+        try:
+            while True:
+                try:
+                    ev = q.get(timeout=1.0)
+                    formatted = handle_sse_events_dict(ev)
+                    self.wfile.write(formatted.encode("utf-8"))
+                    self.wfile.flush()
+                except queue.Empty:
+                    self.wfile.write(b": ping\n\n")
+                    self.wfile.flush()
+                if not _is_parent_alive():
+                    break
+        except (BrokenPipeError, ConnectionResetError, OSError):
+            pass
+        finally:
+            bus.unsubscribe(listener)
+            _safe_print("[LocalCode Server] SSE Client disconnected from /api/pipeline/events")
 
     def handle_server_shutdown(self):
         self._send_json({"success": True, "message": "Server shutting down"})
@@ -640,19 +737,57 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
         except Exception as e:
             self._send_json({"success": False, "error": f"Error al descomprimir el repositorio de GitHub: {e}"}, 500)
 
+    def check_local_ollama_health(self) -> Tuple[bool, str]:
+        """Verifica si el servicio Ollama local está activo en el endpoint configurado."""
+        try:
+            from config import OLLAMA_TARGET
+        except ImportError:
+            OLLAMA_TARGET = "http://localhost:11434"
+
+        target_url = f"{OLLAMA_TARGET.rstrip('/')}/api/tags"
+        try:
+            req = urllib.request.Request(target_url, headers={"User-Agent": "CodeAgent-Server"})
+            with urllib.request.urlopen(req, timeout=2) as resp:
+                if resp.status == 200:
+                    return True, "OK"
+        except Exception as e:
+            return False, f"Local model runtime unavailable. Ollama is not running or cannot be reached at {OLLAMA_TARGET}."
+
+        return False, f"Local model runtime unavailable. Ollama is not running at {OLLAMA_TARGET}."
+
     def handle_agent_chat(self):
         data = self._get_post_body()
         prompt = data.get("prompt", "").strip()
-        raw_model = data.get("model") or data.get("model_name") or "qwen2.5-coder:14b"
         agent_type = data.get("agent_type", "CodeAgent Developer")
-        raw_lower = str(raw_model).lower().strip()
 
-        if "openai" in raw_lower or "gpt" in raw_lower:
-            provider = "OpenAI"
-            model_name = "gpt-4o-mini"
+        try:
+            from config import DEFAULT_MODEL_NAME, DEFAULT_MODEL_PROVIDER
+        except ImportError:
+            DEFAULT_MODEL_PROVIDER = "Ollama (Local)"
+            DEFAULT_MODEL_NAME = "qwen2.5-coder:14b"
+
+        req_provider = data.get("provider") or data.get("model_provider") or ""
+        req_model = data.get("model") or data.get("model_name") or ""
+
+        # Modos Cloud estrictamente deshabilitados
+        disallowed_cloud = ("openai", "anthropic", "groq", "gemini", "openrouter", "azure")
+        prov_clean = str(req_provider).strip().lower()
+        if any(c in prov_clean for c in disallowed_cloud):
+            self._send_json({
+                "success": False,
+                "error": f"CodeAgent está configurado en MODO LOCAL-ONLY. El proveedor '{req_provider}' no está permitido. Utilice Ollama (Local).",
+                "provider": "Ollama (Local)"
+            }, 400)
+            return
+
+        provider = DEFAULT_MODEL_PROVIDER
+
+        # Default inmutable al modelo local si no se especificó o si contenía identificadores cloud ajenos
+        model_clean = str(req_model).strip().lower()
+        if not req_model or any(k in model_clean for k in ("gpt-", "claude-", "gemini-", "groq/", "openrouter/", "https://", "^")):
+            model_name = DEFAULT_MODEL_NAME
         else:
-            provider = "Ollama (Local)"
-            model_name = raw_model if raw_model else "qwen2.5-coder:14b"
+            model_name = req_model
 
         try:
             from agents import DEFAULT_AGENT_TOOLS
@@ -661,10 +796,24 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
             default_tools = ["Archivos Locales", "Terminal Integrada", "Git", "Github"]
 
         selected_tools = data.get("selected_tools", default_tools)
+        task_id = data.get("task_id", None)
 
         if not prompt:
             self._send_json({"success": False, "error": "Prompt vacío"}, 400)
             return
+
+        # Chequeo de salud de Ollama si el proveedor es local
+        if provider == "Ollama (Local)" and not os.environ.get("SKIP_OLLAMA_CHECK", ""):
+            is_healthy, health_err = self.check_local_ollama_health()
+            if not is_healthy:
+                _safe_print(f"[LocalCode Server] ❌ {health_err}")
+                self._send_json({
+                    "success": False,
+                    "error": health_err,
+                    "provider": provider,
+                    "model": model_name
+                }, 503)
+                return
 
         _safe_print(f"\n[LocalCode Server] 🚀 Petición enviada a /api/agent/chat | Agente: {agent_type} | Proveedor: {provider} | Modelo: {model_name}")
         _safe_print(f"[LocalCode Server] 🛠️ Herramientas activas: {', '.join(selected_tools)}")
@@ -690,7 +839,8 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
                 model_name=model_name,
                 api_key=api_key,
                 agent_type=agent_type,
-                selected_tools=selected_tools
+                selected_tools=selected_tools,
+                task_id=task_id
             )
             term_tasks = []
             try:

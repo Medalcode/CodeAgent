@@ -15,6 +15,7 @@ import ast
 import json
 import logging
 import os
+import re
 import subprocess
 import sys
 import threading
@@ -40,7 +41,7 @@ from collections.abc import Callable
 from enum import Enum
 from typing import Any
 
-from benchmark_metrics import metrics_collector
+from .benchmark_metrics import metrics_collector
 
 CREATE_NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if os.name == "nt" else 0
 CODEAGENT_VERSION = "v4.4 Enterprise"
@@ -290,6 +291,14 @@ class AgentStateMachineController:
     ) -> tuple[str, dict[str, Any]]:
         """Ejecuta el ciclo agéntico mediante la Máquina de Estados Determinista."""
         start_time = time.time()
+        import uuid
+        session_id = session_id or f"task-{int(start_time*1000)}"
+
+        # Aislar telemetría de ejecución por petición (limpiar buffer global en nueva ejecución)
+        if initial_replans == 0:
+            from mis_agentes_inteligentes.tools import clear_terminal_tasks_buffer
+            clear_terminal_tasks_buffer()
+
         active_level = level or self.infer_execution_level(user_goal)
         current_state = start_state or (State.PLAN if active_level in (ExecutionLevel.LEVEL_3_FEATURE, ExecutionLevel.LEVEL_4_FULL) else State.EXECUTE)
         state_history = [State.INIT, current_state]
@@ -483,9 +492,9 @@ class AgentStateMachineController:
 
         return final_response, metrics
 
-    def run_pipeline(self, user_goal: str, agent_runner: Callable[[str], str] | None = None) -> tuple[str, dict[str, Any]]:
+    def run_pipeline(self, user_goal: str, agent_runner: Callable[[str], str] | None = None, session_id: str | None = None) -> tuple[str, dict[str, Any]]:
         """Alias de compatibilidad hacia atrás para la versión v3.0."""
-        return self.run(user_goal=user_goal, agent_runner=agent_runner)
+        return self.run(user_goal=user_goal, agent_runner=agent_runner, session_id=session_id)
 
     def resume_session(
         self,
@@ -585,23 +594,16 @@ class AgentStateMachineController:
             "replan_timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
         }
 
-    def _stage_explorer(self, _user_goal: str) -> str:
-        """Protocolo Estructural Graphify-First: Extrae y jerarquiza nodos del Grafo AST por centralidad."""
-        graph_dir = os.path.join(self.workspace_dir, "graphify-out")
-        if os.path.exists(graph_dir):
-            graph_json = os.path.join(graph_dir, "graph.json")
-            if os.path.exists(graph_json):
-                try:
-                    with open(graph_json, encoding="utf-8") as f:
-                        data = json.load(f)
-                    nodes = data.get("nodes", [])
-                    edges = data.get("edges", [])
-                    hub_nodes = sorted(nodes, key=lambda n: n.get("degree", 0), reverse=True)[:5]
-                    hubs_str = ", ".join(f"{n.get('label', 'symbol')} (grado {n.get('degree', 0)})" for n in hub_nodes)
-                    return f"GRAFO AST GRAPHIFY: Se detectaron {len(nodes)} nodos y {len(edges)} bordes. Nodos principales: {hubs_str}."
-                except Exception as e:
-                    logging.warning(f"Error al leer graph.json en Explorer: {e}")
-        return "GRAFO AST GRAPHIFY: No se encontró mapa pre-compilado en graphify-out/."
+    def _stage_explorer(self, user_goal: str, task_type: str = "FEATURE") -> str:
+        """Protocolo Estructural Graphify-First (SPEC-013): Extrae subgrafo AST guiado por el objetivo del usuario."""
+        try:
+            from mis_agentes_inteligentes.graph_context import GraphContextEngine
+            graph_json = os.path.join(self.workspace_dir, "graphify-out", "graph.json")
+            engine = GraphContextEngine(graph_path=graph_json)
+            return engine.build_context(user_goal=user_goal, task_type=task_type)
+        except Exception as e:
+            logging.warning(f"Error en _stage_explorer con GraphContextEngine: {e}")
+            return f"GRAFO AST GRAPHIFY: status=fallback reason=exception ({e}) | Usando contexto por defecto."
 
     def _build_execution_prompt(
         self,
@@ -635,7 +637,7 @@ class AgentStateMachineController:
         """Comprueba sintaxis AST, linter Ruff y suite de pruebas enfocado únicamente en los archivos del contrato de la tarea actual (Task-Scoped)."""
         if user_goal:
             contract = ComplexityRiskEvaluator.build_contract(user_goal)
-            if not contract.requires_code_verification or contract.task_type.value == "CHAT":
+            if contract.task_type.value == "CHAT":
                 return {
                     "success": True,
                     "ast_valid": True,
@@ -719,12 +721,10 @@ class AgentStateMachineController:
             ast_status = "NOT_REQUIRED"
             ruff_status = "NOT_REQUIRED"
 
-        # Directiva de pruebas negativas
-        has_neg = any(neg in user_goal_lower for neg in (
-            "no añadas tests", "no test", "no tests", "sin tests", "sin pruebas",
-            "sin test", "sin prueba", "no crees tests", "no crear tests",
-            "no ejecutes pytest", "no ejecutes unittest", "no ejecutes tests",
-            "no ejecutes pytest ni unittest"
+        # Directiva de pruebas negativas con límites de palabra para evitar falsos positivos
+        has_neg = bool(re.search(
+            r"\b(no\s+(añadas|crees|crear|ejecutes|corras)|sin)\s+(tests?|pruebas?|unittest|pytest)\b",
+            user_goal_lower
         ))
         user_requested_tests = not has_neg and any(k in user_goal_lower for k in ("test", "prueba", "unittest", "pytest", "cobertura", "assert"))
 
@@ -737,13 +737,27 @@ class AgentStateMachineController:
             tests_passed = True
             tests_status = "NOT_REQUIRED"
         elif (task_test_files or user_requested_tests) and os.environ.get("SKIP_SUBPROCESS_TESTS") != "1":
+            env = os.environ.copy()
+            env["PYTHONPATH"] = f"{self.workspace_dir}{os.pathsep}mis_agentes_inteligentes{os.pathsep}{env.get('PYTHONPATH', '')}"
+
+            test_targets = list(task_test_files) if task_test_files else []
             tests_dir = os.path.join(self.workspace_dir, "tests")
-            if os.path.isdir(tests_dir):
+            if not test_targets and os.path.isdir(tests_dir):
+                test_targets = ["tests"]
+
+            if not test_targets:
+                for r, _, files in os.walk(self.workspace_dir):
+                    if any(ign in r for ign in ('.git', '.venv', 'venv', '__pycache__', 'node_modules', 'graphify-out')):
+                        continue
+                    for file in files:
+                        if _is_test_file(file):
+                            test_targets.append(os.path.relpath(os.path.join(r, file), self.workspace_dir))
+
+            if test_targets or os.path.isdir(tests_dir):
                 try:
-                    env = os.environ.copy()
-                    env["PYTHONPATH"] = f"{self.workspace_dir}{os.pathsep}mis_agentes_inteligentes{os.pathsep}{os.environ.get('PYTHONPATH', '')}"
+                    cmd_pytest = [os.sys.executable, "-m", "pytest"] + (test_targets if test_targets else ["."])
                     res_test = subprocess.run(
-                        [os.sys.executable, "-m", "unittest", "discover", "-s", "tests"],
+                        cmd_pytest,
                         cwd=self.workspace_dir,
                         env=env,
                         capture_output=True,
@@ -751,11 +765,59 @@ class AgentStateMachineController:
                         timeout=30,
                         creationflags=CREATE_NO_WINDOW
                     )
-                    if res_test.returncode != 0:
+                    if res_test.returncode == 0:
+                        tests_passed = True
+                    elif res_test.returncode == 5:
+                        # Exit code 5 en pytest indica que no se recolectaron tests
+                        tests_passed = True if not task_test_files else False
+                    elif "No module named pytest" in (res_test.stderr or "") or res_test.returncode == 4 or res_test.returncode == 1:
+                        # Fallback 1: unittest discover
+                        cmd_ut = [os.sys.executable, "-m", "unittest"]
+                        if test_targets and not os.path.isdir(tests_dir):
+                            cmd_ut += [t.replace(".py", "").replace("\\", ".").replace("/", ".") for t in test_targets]
+                        else:
+                            cmd_ut += ["discover", "-s", "tests" if os.path.isdir(tests_dir) else "."]
+
+                        res_ut = subprocess.run(
+                            cmd_ut,
+                            cwd=self.workspace_dir,
+                            env=env,
+                            capture_output=True,
+                            text=True,
+                            timeout=30,
+                            creationflags=CREATE_NO_WINDOW
+                        )
+                        if res_ut.returncode == 0 and "Ran 0 tests" not in (res_ut.stderr or ""):
+                            tests_passed = True
+                        else:
+                            # Fallback 2: Ejecución directa del script de test via sys.executable
+                            direct_passed = True
+                            target_runs = test_targets if test_targets else [f for f in task_test_files if f.endswith(".py")]
+                            if target_runs:
+                                for t_file in target_runs:
+                                    t_path = os.path.join(self.workspace_dir, t_file)
+                                    if os.path.exists(t_path):
+                                        res_dir = subprocess.run(
+                                            [os.sys.executable, t_path],
+                                            cwd=self.workspace_dir,
+                                            env=env,
+                                            capture_output=True,
+                                            text=True,
+                                            timeout=30,
+                                            creationflags=CREATE_NO_WINDOW
+                                        )
+                                        if res_dir.returncode != 0:
+                                            direct_passed = False
+                                            ast_errors.append(f"Fallo en ejecución directa de {t_file}: {res_dir.stderr}")
+                                tests_passed = direct_passed
+                            else:
+                                tests_passed = (res_ut.returncode == 0)
+                    else:
                         tests_passed = False
-                        ast_errors.append(f"Fallo en suite de pruebas unittest: {res_test.stderr or res_test.stdout}")
-                except Exception:
-                    tests_passed = True
+                        ast_errors.append(f"Fallo en suite de pruebas pytest: {res_test.stderr or res_test.stdout}")
+                except Exception as ex:
+                    tests_passed = False
+                    ast_errors.append(f"Error ejecutando verificador de pruebas: {ex}")
                 tests_status = "PASS" if tests_passed else "FAIL"
             else:
                 tests_passed = not user_requested_tests

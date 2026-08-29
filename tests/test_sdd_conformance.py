@@ -104,8 +104,8 @@ class TestSDDConformance(unittest.TestCase):
         self.assertEqual(len(TERMINAL_TASKS_BUFFER), 5)
         user_goal = "Responde únicamente con OK. No ejecutes herramientas."
         _, metrics = self.controller.run(user_goal)
-        self.assertEqual(metrics["execution_count"], 5)
-        self.assertEqual(metrics["tool_calls_count"], 5)
+        self.assertEqual(metrics["execution_count"], 0, "CHAT prompt must not inherit dirty terminal tasks buffer")
+        self.assertEqual(metrics["tool_calls_count"], 0)
         TERMINAL_TASKS_BUFFER.clear()
 
     def test_mandatory_a_chat_prompt_tildes(self):
@@ -142,15 +142,19 @@ class TestSDDConformance(unittest.TestCase):
     def test_mandatory_e_action_successful_execution(self):
         from mis_agentes_inteligentes.tools import TERMINAL_TASKS_BUFFER
         TERMINAL_TASKS_BUFFER.clear()
-        TERMINAL_TASKS_BUFFER.append({
-            "comando": "python runtime_smoke.py",
-            "cwd": self.temp_dir.name,
-            "exit_code": 0,
-            "output": "RUNTIME_OK"
-        })
+
+        def action_runner(prompt):
+            TERMINAL_TASKS_BUFFER.append({
+                "comando": "python runtime_smoke.py",
+                "cwd": self.temp_dir.name,
+                "exit_code": 0,
+                "output": "RUNTIME_OK"
+            })
+            return "Ejecutado runtime_smoke.py"
+
         user_goal = "Crea únicamente el archivo runtime_smoke.py y ejecuta python runtime_smoke.py"
         from mis_agentes_inteligentes.agent_pipeline import ExecutionLevel
-        _, metrics = self.controller.run(user_goal=user_goal, level=ExecutionLevel.LEVEL_2_ACTION)
+        _, metrics = self.controller.run(user_goal=user_goal, agent_runner=action_runner, level=ExecutionLevel.LEVEL_2_ACTION)
         self.assertTrue(metrics["verifier_passed"])
         self.assertEqual(metrics["replans_count"], 0)
         self.assertEqual(metrics["execution_count"], 1)
@@ -168,7 +172,7 @@ class TestSDDConformance(unittest.TestCase):
             })
         user_goal = "Responde únicamente con OK."
         _, metrics = self.controller.run(user_goal)
-        self.assertEqual(metrics["execution_count"], 5)
+        self.assertEqual(metrics["execution_count"], 0, "CHAT prompt must report 0 execution count")
         TERMINAL_TASKS_BUFFER.clear()
 
     def test_mandatory_g_tools_module_singleton_identity(self):

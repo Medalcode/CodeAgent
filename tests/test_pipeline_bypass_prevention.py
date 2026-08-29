@@ -30,8 +30,8 @@ class TestPipelineBypassPrevention(unittest.TestCase):
 
         resultado, metricas = ejecutar_agentes(
             user_prompt=prompt,
-            provider="OpenAI",
-            model_name="gpt-4o-mini",
+            provider="Ollama (Local)",
+            model_name="qwen2.5-coder:14b",
             api_key="mock-key",
             agent_type="CodeAgent Developer",
             selected_tools=[]

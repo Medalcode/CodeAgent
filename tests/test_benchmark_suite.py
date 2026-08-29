@@ -2,7 +2,10 @@ import os
 import unittest
 from unittest.mock import MagicMock
 
-from benchmark_suite import CodeAgentBenchmarkSuite
+try:
+    from mis_agentes_inteligentes.benchmark_suite import CodeAgentBenchmarkSuite
+except ImportError:
+    from benchmark_suite import CodeAgentBenchmarkSuite
 
 
 class TestCodeAgentBenchmarkSuite(unittest.TestCase):

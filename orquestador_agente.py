@@ -12,17 +12,14 @@ import subprocess
 import sys
 import tempfile
 
-try:
-    from openai import OpenAI
-except ImportError:
-    OpenAI = None
+import urllib.request
+import urllib.parse
 
 CODEAGENT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "mis_agentes_inteligentes")
 REPO_DIR = os.path.dirname(os.path.abspath(__file__))
 MODELO_LOCAL = os.getenv("MODELO_LOCAL", "qwen2.5-coder:14b")
-API_KEY = os.getenv("OPENAI_API_KEY", "")
-API_BASE = os.getenv("API_BASE", "https://openrouter.ai/api/v1")
-SUPERVISOR_MODEL = os.getenv("SUPERVISOR_MODEL", "openai/gpt-4o-mini")
+API_BASE = os.getenv("API_BASE", "http://localhost:11434/v1")
+SUPERVISOR_MODEL = os.getenv("SUPERVISOR_MODEL", "qwen2.5-coder:14b")
 MAX_ITER = int(os.getenv("MAX_ITERACIONES", "6"))
 TEMP = 0.2
 HISTORIAL = []
@@ -179,19 +176,25 @@ BENCHMARKS = [
 
 
 def supervisor(prompt, system):
-    if not API_KEY or not OpenAI:
-        return None
-    client = OpenAI(api_key=API_KEY, base_url=API_BASE)
-    kwargs = {"model": SUPERVISOR_MODEL, "messages": [
-        {"role": "system", "content": system},
-        {"role": "user", "content": prompt}
-    ], "temperature": TEMP}
-    # response_format no siempre disponible en todos los modelos/providers
+    """Supervisor local que consulta el endpoint v1/chat/completions de Ollama en localhost."""
+    url = f"{API_BASE.rstrip('/')}/chat/completions"
+    payload = json.dumps({
+        "model": SUPERVISOR_MODEL,
+        "messages": [
+            {"role": "system", "content": system},
+            {"role": "user", "content": prompt}
+        ],
+        "temperature": TEMP
+    }).encode("utf-8")
+
     try:
-        resp = client.chat.completions.create(**kwargs, response_format={"type": "json_object"})
+        req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json", "User-Agent": "CodeAgent-Supervisor"})
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            content = data["choices"][0]["message"]["content"]
+            return json.loads(content)
     except Exception:
-        resp = client.chat.completions.create(**kwargs)
-    return json.loads(resp.choices[0].message.content)
+        return None
 
 def backup_archivos_trabajo():
     """Guarda backups de archivos que los benchmarks pueden modificar."""
@@ -381,11 +384,11 @@ def restaurar_agents(fp):
 
 
 def main():
-    tiene_api = bool(API_KEY)
     print(f"\n{'='*60}")
-    print("ORQUESTADOR SUPERVISOR-AGENTE")
-    print(f"Modelo: {MODELO_LOCAL}")
-    print(f"Supervisor: {SUPERVISOR_MODEL} {'(activo)' if tiene_api else '(solo prueba)'}")
+    print("ORQUESTADOR SUPERVISOR-AGENTE (MODO LOCAL-ONLY)")
+    print(f"Modelo Local: {MODELO_LOCAL}")
+    print(f"Supervisor Endpoint: {API_BASE}")
+    print(f"Supervisor: {SUPERVISOR_MODEL} (local)")
     print("\nNiveles de exigencia:")
     for n, d in NIVELES.items():
         print(f"  {n}: {d}")

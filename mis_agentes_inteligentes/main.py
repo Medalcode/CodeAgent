@@ -83,6 +83,7 @@ def ejecutar_agentes(
     agent_type: str,
     selected_tools: list,
     _step_callback=None,
+    task_id: str | None = None,
 ) -> tuple[str, dict]:
     """
     Pipeline principal usando smolagents.
@@ -157,7 +158,7 @@ def ejecutar_agentes(
         try:
             from mis_agentes_inteligentes.agent_pipeline import AgentPipeline
             pipeline = AgentPipeline()
-            resultado_str, p_metrics = pipeline.run_pipeline(user_prompt, agent_runner=_runner)
+            resultado_str, p_metrics = pipeline.run_pipeline(user_prompt, agent_runner=_runner, session_id=task_id)
             metricas.update(p_metrics)
         except Exception as e:
             err_trace = traceback.format_exc()

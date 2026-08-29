@@ -721,8 +721,9 @@
         <textarea class="chat-textarea" id="chatInput" placeholder="Ask anything, @ to mention, / for actions"></textarea>
         <div class="dock-toolbar">
           <select id="modelSelect" class="model-pill">
-            <option value="qwen2.5-coder:14b">Ollama (qwen2.5-coder:14b) ^</option>
-            <option value="gpt-4o-mini">OpenAI (gpt-4o-mini) ^</option>
+            <option value="qwen2.5-coder:14b" selected>Ollama (qwen2.5-coder:14b) ^</option>
+            <option value="qwen2.5-coder:7b">Ollama (qwen2.5-coder:7b) ^</option>
+            <option value="llama3.1:8b">Ollama (llama3.1:8b) ^</option>
           </select>
           <div class="dock-btns">
             <span>📎</span>
@@ -1117,6 +1118,58 @@
     saveChatHistory();
 
     const userMsg = document.createElement('div');
+let currentPipelineEventSource = null;
+
+function connectPipelineSSE(taskId) {
+  closePipelineSSE();
+  try {
+    const sseUrl = '/api/pipeline/events?task_id=' + encodeURIComponent(taskId);
+    currentPipelineEventSource = new EventSource(sseUrl);
+    console.log('[CodeAgent UI] Connected to SSE pipeline stream for task_id: ' + taskId);
+
+    currentPipelineEventSource.onmessage = function(e) {
+      if (!e || !e.data) return;
+      try {
+        const ev = JSON.parse(e.data);
+        if (ev.event_type === 'STATE_ENTERED' || ev.event_type === 'STATE_CHANGED') {
+          const stateName = ev.payload && ev.payload.state ? ev.payload.state : ev.state;
+          const stepEl = document.getElementById('workingStepText');
+          if (stepEl && stateName) {
+            stepEl.textContent = 'Fase: ' + stateName;
+          }
+        } else if (ev.event_type === 'TOOL_EXECUTED') {
+          const stepEl = document.getElementById('workingStepText');
+          if (stepEl) {
+            const toolName = ev.payload && ev.payload.tool ? ev.payload.tool : (ev.payload.prompt ? ev.payload.prompt.substring(0, 30) : 'Ejecutando herramienta');
+            stepEl.textContent = 'Herramienta: ' + toolName;
+          }
+        } else if (ev.event_type === 'TASK_COMPLETED' || ev.event_type === 'TASK_FAILED') {
+          closePipelineSSE();
+        }
+      } catch (err) {
+        console.warn('[CodeAgent UI] Error parsing SSE payload:', err);
+      }
+    };
+
+    currentPipelineEventSource.onerror = function(err) {
+      console.warn('[CodeAgent UI] SSE stream error or closed:', err);
+      closePipelineSSE();
+    };
+  } catch (err) {
+    console.warn('[CodeAgent UI] Failed to establish EventSource:', err);
+  }
+}
+
+function closePipelineSSE() {
+  if (currentPipelineEventSource) {
+    try {
+      currentPipelineEventSource.close();
+      console.log('[CodeAgent UI] Closed SSE pipeline stream');
+    } catch (e) {}
+    currentPipelineEventSource = null;
+  }
+}
+
     userMsg.className = 'msg-bubble-user';
     userMsg.textContent = text;
     $('messagesContainer').appendChild(userMsg);
@@ -1166,13 +1219,10 @@
         const warnEl = document.getElementById('workingWarning');
         if(warnEl) warnEl.style.display = 'block';
       }
-
-      if(secCount % 3 === 0 && phaseIdx < phases.length - 1){
-        phaseIdx++;
-        const stepEl = document.getElementById('workingStepText');
-        if(stepEl) stepEl.textContent = phases[phaseIdx];
-      }
     }, 1000);
+
+    const currentTaskId = 'task-ui-' + Date.now();
+    connectPipelineSSE(currentTaskId);
 
     currentFetchAbortController = new AbortController();
 
@@ -1183,6 +1233,7 @@
         signal: currentFetchAbortController.signal,
         body: JSON.stringify({
           prompt: text,
+          task_id: currentTaskId,
           agent_type: "CodeAgent Developer",
           model: $('modelSelect').value,
           model_name: $('modelSelect').value
@@ -1191,6 +1242,7 @@
       const data = await res.json();
       clearInterval(timerInterval);
       currentFetchAbortController = null;
+      closePipelineSSE();
 
       if(workingBubble && workingBubble.parentNode){
         workingBubble.parentNode.removeChild(workingBubble);
@@ -1226,6 +1278,7 @@
       await reloadWorkspaceFiles();
     } catch(e) {
       clearInterval(timerInterval);
+      closePipelineSSE();
       if(workingBubble && workingBubble.parentNode){
         workingBubble.parentNode.removeChild(workingBubble);
       }
@@ -1559,10 +1612,6 @@
             opt.textContent = `Ollama (${m.name}) ^`;
             select.appendChild(opt);
           });
-          const optOpenAI = document.createElement('option');
-          optOpenAI.value = 'gpt-4o-mini';
-          optOpenAI.textContent = 'OpenAI (gpt-4o-mini) ^';
-          select.appendChild(optOpenAI);
         }
       }
     } catch(e){}

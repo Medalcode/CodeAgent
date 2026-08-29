@@ -721,8 +721,9 @@
         <textarea class="chat-textarea" id="chatInput" placeholder="Ask anything, @ to mention, / for actions"></textarea>
         <div class="dock-toolbar">
           <select id="modelSelect" class="model-pill">
-            <option value="qwen2.5-coder:14b">Ollama (qwen2.5-coder:14b) ^</option>
-            <option value="gpt-4o-mini">OpenAI (gpt-4o-mini) ^</option>
+            <option value="qwen2.5-coder:14b" selected>Ollama (qwen2.5-coder:14b) ^</option>
+            <option value="qwen2.5-coder:7b">Ollama (qwen2.5-coder:7b) ^</option>
+            <option value="llama3.1:8b">Ollama (llama3.1:8b) ^</option>
           </select>
           <div class="dock-btns">
             <span>📎</span>
@@ -1563,10 +1564,6 @@
             opt.textContent = `Ollama (${m.name}) ^`;
             select.appendChild(opt);
           });
-          const optOpenAI = document.createElement('option');
-          optOpenAI.value = 'gpt-4o-mini';
-          optOpenAI.textContent = 'OpenAI (gpt-4o-mini) ^';
-          select.appendChild(optOpenAI);
         }
       }
     } catch(e){}

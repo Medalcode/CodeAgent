@@ -34,8 +34,8 @@ class TestE2ESystemSuite(unittest.TestCase):
         # 2. Simular petición HTTP a /api/agent/chat con mock del agente
         payload = json.dumps({
             "prompt": "Escribir un script de prueba E2E",
-            "provider": "OpenAI",
-            "model": "gpt-4o-mini",
+            "provider": "Ollama (Local)",
+            "model": "qwen2.5-coder:14b",
             "api_key": "sk-dummy-key-e2e",
             "agent_type": "CodeAgent Developer",
             "tools": ["Archivos Locales"]

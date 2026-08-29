@@ -13,7 +13,7 @@ import time
 from collections.abc import Callable
 from typing import Any
 
-from agent_pipeline import AgentStateMachineController, ExecutionLevel
+from .agent_pipeline import AgentStateMachineController, ExecutionLevel
 from benchmark_metrics import metrics_collector
 
 

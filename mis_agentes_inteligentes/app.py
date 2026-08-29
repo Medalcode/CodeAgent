@@ -52,52 +52,13 @@ if "active_file" not in st.session_state:
 with st.sidebar:
     st.header("⚙️ Configuración del Hub")
 
-    provider = st.selectbox(
-        "Proveedor de IA",
-        ["Ollama (Local)", "OpenAI", "Anthropic", "Groq", "Gemini (Google)"]
+    provider = "Ollama (Local)"
+    st.info("🔒 Modo MODO LOCAL-ONLY Activo (0$ Costo - Sin Cloud)")
+    model_name = st.selectbox(
+        "Modelo Local",
+        ["qwen2.5-coder:14b", "qwen2.5-coder:7b", "llama3.1:8b", "deepseek-coder:6.7b", "mistral", "gemma2"]
     )
-
-    if provider == "Ollama (Local)":
-        model_name = st.selectbox(
-            "Modelo",
-            ["qwen2.5-coder:14b", "qwen2.5-coder:7b", "llama3.1:8b", "mistral", "gemma2", "qwen2", "deepseek-coder:6.7b"]
-        )
-        api_key = ""
-    elif provider == "OpenAI":
-        model_name = st.selectbox("Modelo", ["gpt-4o", "gpt-4o-mini", "gpt-3.5-turbo"])
-        api_key = st.text_input(
-            "API Key",
-            type="password",
-            value=os.environ.get("OPENAI_API_KEY", ""),
-            help="Introduce tu API Key o guárdala en el archivo .env"
-        )
-    elif provider == "Anthropic":
-        model_name = st.selectbox("Modelo", ["claude-3-5-sonnet-20241022", "claude-3-5-haiku-20241022", "claude-3-opus-20240229"])
-        api_key = st.text_input(
-            "API Key",
-            type="password",
-            value=os.environ.get("ANTHROPIC_API_KEY", ""),
-            help="Introduce tu API Key o guárdala en el archivo .env"
-        )
-    elif provider == "Groq":
-        model_name = st.selectbox("Modelo", ["llama-3.1-8b-instant", "llama-3.3-70b-versatile", "mixtral-8x7b-32768"])
-        api_key = st.text_input(
-            "API Key",
-            type="password",
-            value=os.environ.get("GROQ_API_KEY", ""),
-            help="Introduce tu API Key o guárdala en el archivo .env"
-        )
-    elif provider == "Gemini (Google)":
-        model_name = st.selectbox("Modelo", ["gemini-2.0-flash", "gemini-1.5-pro", "gemini-1.5-flash"])
-        api_key = st.text_input(
-            "API Key",
-            type="password",
-            value=os.environ.get("GOOGLE_API_KEY", ""),
-            help="Introduce tu API Key o guárdala en el archivo .env"
-        )
-    else:
-        model_name = ""
-        api_key = ""
+    api_key = ""
 
     st.divider()
 

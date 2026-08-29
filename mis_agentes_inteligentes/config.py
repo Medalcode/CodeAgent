@@ -4,9 +4,11 @@ Define variables de entorno, puertos y parámetros del sistema con fallbacks seg
 """
 import os
 
-# Contexto de LLM y Ollama
+# Contexto de LLM y Ollama (Ollama-First / Local-Only Default)
+DEFAULT_MODEL_PROVIDER = os.environ.get("DEFAULT_MODEL_PROVIDER", "Ollama (Local)")
+DEFAULT_MODEL_NAME = os.environ.get("DEFAULT_MODEL_NAME", "qwen2.5-coder:14b")
 OLLAMA_NUM_CTX = int(os.environ.get("OLLAMA_NUM_CTX", "8192"))
-OLLAMA_TARGET = os.environ.get("OLLAMA_API_BASE", "http://localhost:11434")
+OLLAMA_TARGET = os.environ.get("OLLAMA_API_BASE", os.environ.get("OLLAMA_TARGET", "http://localhost:11434"))
 
 # Red y Servidor HTTP
 SERVER_PORT = int(os.environ.get("PORT", "8000"))

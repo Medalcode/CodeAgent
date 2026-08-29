@@ -30,6 +30,14 @@ jobs:
         run: |
           ruff check .
 
+      - name: Run Fast SDD Consistency Check
+        run: |
+          python scripts/sdd_check.py
+
+      - name: Run Fast SDD Adversarial Self-Check
+        run: |
+          python scripts/sdd_check.py --test-adversarial
+
       - name: Run Test Suite
         env:
           PYTHONPATH: mis_agentes_inteligentes

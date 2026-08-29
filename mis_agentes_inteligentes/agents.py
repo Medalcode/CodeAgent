@@ -106,43 +106,36 @@ DEFAULT_PROMPT = (
 )
 
 
-def get_model(provider: str, model_name: str, api_key: str = ""):
-    """Instancia dinámicamente el modelo LiteLLMModel según el proveedor elegido."""
-    # Normalizar de forma infalible cualquier etiqueta visual o genérica recibida
-    name_lower = (model_name or "").lower().strip()
-    if "openai" in name_lower or "gpt" in name_lower:
-        model_name = "gpt-4o-mini"
-    elif "ollama" in name_lower or "local" in name_lower or "qwen" in name_lower or "^" in name_lower or not model_name:
-        model_name = "qwen2.5-coder:14b"
+def get_model(provider: str = "", model_name: str = "", api_key: str = ""):
+    """Instancia dinámicamente el modelo LiteLLMModel asegurando MODO LOCAL-ONLY (Ollama) inmutable."""
+    try:
+        from config import DEFAULT_MODEL_NAME, DEFAULT_MODEL_PROVIDER, OLLAMA_NUM_CTX, OLLAMA_TARGET
+    except ImportError:
+        DEFAULT_MODEL_PROVIDER = "Ollama (Local)"
+        DEFAULT_MODEL_NAME = "qwen2.5-coder:14b"
+        OLLAMA_NUM_CTX = 8192
+        OLLAMA_TARGET = "http://localhost:11434"
 
-    if provider == "Ollama (Local)":
-        from config import OLLAMA_NUM_CTX, OLLAMA_TARGET
-        return LiteLLMModel(
-            model_id=f"ollama_chat/{model_name}",
-            api_base=OLLAMA_TARGET,
-            num_ctx=OLLAMA_NUM_CTX,
-            request_timeout=120,
-        )
+    # Permitir únicamente Ollama (Local) y variantes locales
+    prov_clean = (provider or "").strip().lower()
+    valid_local_providers = {"", "ollama (local)", "ollama", "local", "ollamalocal"}
+    if prov_clean not in valid_local_providers:
+        raise ValueError(f"CodeAgent está configurado en MODO LOCAL-ONLY. El proveedor '{provider}' no está permitido. Utilice Ollama (Local).")
 
-    provider_map = {
-        "OpenAI": ("OPENAI_API_KEY", model_name),
-        "Anthropic": ("ANTHROPIC_API_KEY", f"anthropic/{model_name}"),
-        "Groq": ("GROQ_API_KEY", f"groq/{model_name}"),
-        "Gemini (Google)": ("GOOGLE_API_KEY", f"gemini/{model_name}"),
-    }
+    # Proveedor local asignado por defecto
+    provider = DEFAULT_MODEL_PROVIDER
 
-    if provider not in provider_map:
-        raise ValueError(f"Proveedor desconocido: {provider}")
+    # Sanitizar el nombre del modelo para que nombres de modelos cloud ajenos no alteren la ejecución local
+    name_clean = (model_name or "").strip().lower()
+    if not model_name or any(k in name_clean for k in ("gpt-", "claude-", "gemini-", "groq/", "openrouter/", "https://", "http://")):
+        model_name = DEFAULT_MODEL_NAME
 
-    env_key, model_id = provider_map[provider]
-    if not api_key:
-        api_key = os.environ.get(env_key, "")
-
-    if not api_key:
-        raise ValueError(f"Se requiere API Key para {provider} (en .env o en el sidebar).")
-
-    timeout_val = 2 if "mock" in str(api_key).lower() else 60
-    return LiteLLMModel(model_id=model_id, api_key=api_key, request_timeout=timeout_val)
+    return LiteLLMModel(
+        model_id=f"ollama_chat/{model_name}",
+        api_base=OLLAMA_TARGET,
+        num_ctx=OLLAMA_NUM_CTX,
+        request_timeout=120,
+    )
 
 
 def load_subagents_from_disk():

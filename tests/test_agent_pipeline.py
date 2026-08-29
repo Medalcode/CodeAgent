@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock
 
-from agent_pipeline import AgentPipeline
+from mis_agentes_inteligentes.agent_pipeline import AgentPipeline
 
 
 class TestAgentPipeline(unittest.TestCase):

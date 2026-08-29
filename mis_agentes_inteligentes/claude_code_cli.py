@@ -47,7 +47,7 @@ def main():
 
     provider = os.getenv("DEFAULT_PROVIDER", "Ollama (Local)")
     model_name = os.getenv("DEFAULT_MODEL", "qwen2.5-coder:14b")
-    api_key = os.getenv("OPENAI_API_KEY", "")
+    api_key = ""
     agent_type = "CodeAgent Developer"
     selected_tools = ["Archivos Locales", "Terminal Integrada", "Git", "Github"]
 
