@@ -1,9 +1,9 @@
 """
 Core domain types for SDD Contract system.
 """
-from enum import Enum
 from dataclasses import dataclass
-from typing import Dict, Any
+from enum import Enum
+from typing import Any
 
 
 class TaskType(Enum):
@@ -40,4 +40,4 @@ class TaskClassification:
     task_type: TaskType
     confidence: float
     classification_reason: str
-    metadata: Dict[str, Any]
+    metadata: dict[str, Any]

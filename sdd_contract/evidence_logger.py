@@ -2,7 +2,6 @@
 Evidence Logger for recording verification failures and diagnoses.
 """
 from dataclasses import dataclass
-from typing import List, Optional
 from datetime import datetime
 from enum import Enum
 
@@ -27,8 +26,8 @@ class Evidence:
     expected: str
     actual: str
     difference: str
-    additional_context: Optional[str] = None
-    
+    additional_context: str | None = None
+
     def to_dict(self) -> dict:
         """Convert to dictionary for serialization."""
         return {
@@ -45,10 +44,10 @@ class Evidence:
 
 class EvidenceLogger:
     """Records concrete proof of verification results."""
-    
+
     def __init__(self):
-        self.evidence_log: List[Evidence] = []
-    
+        self.evidence_log: list[Evidence] = []
+
     def log_verification_fail(
         self,
         task_id: str,
@@ -59,14 +58,14 @@ class EvidenceLogger:
     ) -> Evidence:
         """
         Log a verification failure with evidence.
-        
+
         Args:
             task_id: ID of the task
             criterion_name: Name of the failed criterion
             expected: Expected outcome
             actual: Actual outcome
             difference: Analysis of difference
-            
+
         Returns:
             The logged Evidence object
         """
@@ -81,21 +80,21 @@ class EvidenceLogger:
         )
         self.evidence_log.append(evidence)
         return evidence
-    
+
     def log_verification_error(
         self,
         task_id: str,
         error_message: str,
-        stack_trace: Optional[str] = None
+        stack_trace: str | None = None
     ) -> Evidence:
         """
         Log a verification error.
-        
+
         Args:
             task_id: ID of the task
             error_message: Error message from verification
             stack_trace: Optional stack trace
-            
+
         Returns:
             The logged Evidence object
         """
@@ -111,7 +110,7 @@ class EvidenceLogger:
         )
         self.evidence_log.append(evidence)
         return evidence
-    
+
     def log_diagnosis(
         self,
         task_id: str,
@@ -121,13 +120,13 @@ class EvidenceLogger:
     ) -> Evidence:
         """
         Log a diagnosis with evidence.
-        
+
         Args:
             task_id: ID of the task
             problem: The problem identified
             root_cause: Root cause analysis
             evidence: Supporting evidence
-            
+
         Returns:
             The logged Evidence object
         """
@@ -142,7 +141,7 @@ class EvidenceLogger:
         )
         self.evidence_log.append(evidence_obj)
         return evidence_obj
-    
+
     def log_replan(
         self,
         task_id: str,
@@ -152,13 +151,13 @@ class EvidenceLogger:
     ) -> Evidence:
         """
         Log a replanning event with diagnosis.
-        
+
         Args:
             task_id: ID of the task
             previous_plan_id: ID of the previous plan
             new_plan_id: ID of the new plan
             diagnosis: Diagnosis that triggered replanning
-            
+
         Returns:
             The logged Evidence object
         """
@@ -173,7 +172,7 @@ class EvidenceLogger:
         )
         self.evidence_log.append(evidence)
         return evidence
-    
+
     def log_tool_policy_violation(
         self,
         task_id: str,
@@ -183,13 +182,13 @@ class EvidenceLogger:
     ) -> Evidence:
         """
         Log a tool policy violation.
-        
+
         Args:
             task_id: ID of the task
             task_type: Type of task attempting to use tool
             tool: Tool that was blocked
             reason: Reason for blocking
-            
+
         Returns:
             The logged Evidence object
         """
@@ -204,12 +203,12 @@ class EvidenceLogger:
         )
         self.evidence_log.append(evidence)
         return evidence
-    
-    def get_evidence_for_task(self, task_id: str) -> List[Evidence]:
+
+    def get_evidence_for_task(self, task_id: str) -> list[Evidence]:
         """Get all evidence for a specific task."""
         return [e for e in self.evidence_log if e.task_id == task_id]
-    
-    def get_recent_evidence(self, limit: int = 10) -> List[Evidence]:
+
+    def get_recent_evidence(self, limit: int = 10) -> list[Evidence]:
         """Get most recent evidence entries."""
         return sorted(
             self.evidence_log,

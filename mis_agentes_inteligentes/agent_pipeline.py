@@ -39,7 +39,6 @@ from enum import Enum
 from typing import Any
 
 from benchmark_metrics import metrics_collector
-from sdd_contract.task_router import TaskRouter
 
 CREATE_NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if os.name == "nt" else 0
 CODEAGENT_VERSION = "v4.4 Enterprise"
@@ -112,13 +111,13 @@ class ComplexityRiskEvaluator:
             return classification.task_type.value
         except Exception:
             return 'FEATURE'
-    
+
     @staticmethod
     def evaluate(user_goal: str) -> ExecutionLevel:
         goal_lower = user_goal.lower().strip()
-        
+
         task_type = ComplexityRiskEvaluator.classify_with_router(user_goal)
-        
+
         if task_type == 'CHAT':
             return ExecutionLevel.LEVEL_1_CHAT
 

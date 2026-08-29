@@ -6,21 +6,21 @@ import unittest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-from mis_agentes_inteligentes.agent_pipeline import AgentStateMachineController, ExecutionLevel
-from sdd_contract.task_router import TaskRouter
-from sdd_contract.task_contract import ChatTaskContract, ActionTaskContract
-from sdd_contract.verification_engine import VerificationEngine, VerificationCriterion
+from mis_agentes_inteligentes.agent_pipeline import AgentStateMachineController
 from sdd_contract.evidence_logger import EvidenceLogger
+from sdd_contract.task_contract import ActionTaskContract, ChatTaskContract
+from sdd_contract.task_router import TaskRouter
 from sdd_contract.ui_manager import UIManager
+from sdd_contract.verification_engine import VerificationCriterion, VerificationEngine
 
 
-class TestSDD_Conformance(unittest.TestCase):
+class TestSDDConformance(unittest.TestCase):
     def setUp(self):
         os.environ["SKIP_SUBPROCESS_TESTS"] = "1"
         self.temp_dir = tempfile.TemporaryDirectory()
         self.controller = AgentStateMachineController(workspace_dir=self.temp_dir.name)
         self.task_router = TaskRouter()
-        
+
     def tearDown(self):
         with contextlib.suppress(Exception):
             self.temp_dir.cleanup()
@@ -76,7 +76,7 @@ class TestSDD_Conformance(unittest.TestCase):
 
     def test_requirement_10_ui_manager_single_instance(self):
         ui_manager = UIManager()
-        instance1 = ui_manager.create_instance("session-123", "console")
+        ui_manager.create_instance("session-123", "console")
         with self.assertRaises(ValueError):
             ui_manager.create_instance("session-123", "window")
 

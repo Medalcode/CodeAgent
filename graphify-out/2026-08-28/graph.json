@@ -846,8 +846,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 47,
+      "community_name": "TestAgents",
       "norm_label": "agents.py"
     },
     {
@@ -857,8 +857,8 @@
       "source_location": "L109",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_get_model",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 47,
+      "community_name": "TestAgents",
       "norm_label": "get_model()"
     },
     {
@@ -868,8 +868,8 @@
       "source_location": "L147",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_load_subagents_from_disk",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 47,
+      "community_name": "TestAgents",
       "norm_label": "load_subagents_from_disk()"
     },
     {
@@ -879,8 +879,8 @@
       "source_location": "L195",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_get_available_agents",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 47,
+      "community_name": "TestAgents",
       "norm_label": "get_available_agents()"
     },
     {
@@ -890,8 +890,8 @@
       "source_location": "L209",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_route_prompt",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 47,
+      "community_name": "TestAgents",
       "norm_label": "route_prompt()"
     },
     {
@@ -901,8 +901,8 @@
       "source_location": "L317",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_detectar_modelo_local",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 47,
+      "community_name": "TestAgents",
       "norm_label": "_detectar_modelo_local()"
     },
     {
@@ -912,8 +912,8 @@
       "source_location": "L324",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_crear_agente",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 47,
+      "community_name": "TestAgents",
       "norm_label": "crear_agente()"
     },
     {
@@ -923,8 +923,8 @@
       "source_location": "L110",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_rationale_110",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 47,
+      "community_name": "TestAgents",
       "norm_label": "instancia dinamicamente el modelo litellmmodel segun el proveedor elegido."
     },
     {
@@ -934,8 +934,8 @@
       "source_location": "L148",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_rationale_148",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 47,
+      "community_name": "TestAgents",
       "norm_label": "lee todos los archivos .md en la carpeta subagents/ y parsea su yaml..."
     },
     {
@@ -945,8 +945,8 @@
       "source_location": "L196",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_rationale_196",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 47,
+      "community_name": "TestAgents",
       "norm_label": "devuelve la lista completa de agentes disponibles (fijos + dinamicos)."
     },
     {
@@ -956,8 +956,8 @@
       "source_location": "L210",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_rationale_210",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 47,
+      "community_name": "TestAgents",
       "norm_label": "enrutador automatico mejorado con scoring ponderado."
     },
     {
@@ -967,8 +967,8 @@
       "source_location": "L318",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_rationale_318",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 47,
+      "community_name": "TestAgents",
       "norm_label": "detecta si el modelo es local (ollama) basandose en el model_id."
     },
     {
@@ -978,8 +978,8 @@
       "source_location": "L325",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_agents_rationale_325",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 47,
+      "community_name": "TestAgents",
       "norm_label": "crea el codeagent de smolagents. fix: usa instructions para smolagents >=1.26...."
     },
     {
@@ -1880,8 +1880,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_rag_tools",
-      "community": 14,
-      "community_name": "rag_tools.py",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "rag_tools.py"
     },
     {
@@ -1892,7 +1892,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_rag_tools_tool",
       "community": 7,
-      "community_name": "tools.py",
+      "community_name": "tool",
       "norm_label": "tool()"
     },
     {
@@ -1902,8 +1902,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_rag_tools_init_chroma",
-      "community": 14,
-      "community_name": "rag_tools.py",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "init_chroma()"
     },
     {
@@ -1913,8 +1913,8 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_rag_tools_indexar_directorio_local",
-      "community": 14,
-      "community_name": "rag_tools.py",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "indexar_directorio_local()"
     },
     {
@@ -1924,8 +1924,8 @@
       "source_location": "L99",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_rag_tools_bm25_score",
-      "community": 14,
-      "community_name": "rag_tools.py",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "_bm25_score()"
     },
     {
@@ -1935,8 +1935,8 @@
       "source_location": "L115",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_rag_tools_preguntar_a_repositorio",
-      "community": 14,
-      "community_name": "rag_tools.py",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "preguntar_a_repositorio()"
     },
     {
@@ -1946,8 +1946,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_rag_tools_rationale_28",
-      "community": 14,
-      "community_name": "rag_tools.py",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "inicializa la base de datos chromadb y el modelo de embeddings."
     },
     {
@@ -1957,8 +1957,8 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_rag_tools_rationale_42",
-      "community": 14,
-      "community_name": "rag_tools.py",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "escanea todos los archivos de codigo en un directorio local y los indexa en..."
     },
     {
@@ -1968,8 +1968,8 @@
       "source_location": "L100",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_rag_tools_rationale_100",
-      "community": 14,
-      "community_name": "rag_tools.py",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "calcula una puntuacion bm25 lexica simplificada basada en frecuencia de..."
     },
     {
@@ -1979,8 +1979,8 @@
       "source_location": "L116",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_rag_tools_rationale_116",
-      "community": 14,
-      "community_name": "rag_tools.py",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "realiza una busqueda semantica sobre los archivos previamente indexados con..."
     },
     {
@@ -2078,8 +2078,8 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_runtime_event_bus_eventbus_publish",
-      "community": 32,
-      "community_name": "EventBus",
+      "community": 74,
+      "community_name": ".publish",
       "norm_label": ".publish()"
     },
     {
@@ -2089,8 +2089,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_runtime_event_bus_py_any",
-      "community": 32,
-      "community_name": "EventBus",
+      "community": 74,
+      "community_name": ".publish",
       "norm_label": "any"
     },
     {
@@ -2100,8 +2100,8 @@
       "source_location": "L63",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_runtime_event_bus_eventbus_get_events",
-      "community": 32,
-      "community_name": "EventBus",
+      "community": 74,
+      "community_name": ".publish",
       "norm_label": ".get_events()"
     },
     {
@@ -2155,8 +2155,8 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_runtime_event_bus_rationale_41",
-      "community": 32,
-      "community_name": "EventBus",
+      "community": 74,
+      "community_name": ".publish",
       "norm_label": "persiste el evento en sqlite y notifica a todos los suscriptores activos."
     },
     {
@@ -2166,8 +2166,8 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_runtime_event_bus_rationale_64",
-      "community": 32,
-      "community_name": "EventBus",
+      "community": 74,
+      "community_name": ".publish",
       "norm_label": "obtiene la corriente de eventos guardados para reconstruir el estado visual en..."
     },
     {
@@ -2977,7 +2977,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools",
-      "community": 7,
+      "community": 31,
       "community_name": "tools.py",
       "norm_label": "tools.py"
     },
@@ -2988,7 +2988,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_silent_popen_init",
-      "community": 7,
+      "community": 31,
       "community_name": "tools.py",
       "norm_label": "_silent_popen_init()"
     },
@@ -2999,8 +2999,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_track_tool_event",
-      "community": 18,
-      "community_name": "TestTools",
+      "community": 11,
+      "community_name": "_detectar_raiz_proyecto",
       "norm_label": "track_tool_event()"
     },
     {
@@ -3044,7 +3044,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_consultar_db",
       "community": 7,
-      "community_name": "tools.py",
+      "community_name": "tool",
       "norm_label": "consultar_db()"
     },
     {
@@ -3055,7 +3055,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_guardar_reporte",
       "community": 7,
-      "community_name": "tools.py",
+      "community_name": "tool",
       "norm_label": "guardar_reporte()"
     },
     {
@@ -3219,8 +3219,8 @@
       "source_location": "L396",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_ejecutar_comando_terminal",
-      "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community": 18,
+      "community_name": "TestTools",
       "norm_label": "ejecutar_comando_terminal()"
     },
     {
@@ -3230,8 +3230,8 @@
       "source_location": "L498",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_get_terminal_tasks_buffer",
-      "community": 7,
-      "community_name": "tools.py",
+      "community": 1,
+      "community_name": "LocalCodeProxyHandler",
       "norm_label": "get_terminal_tasks_buffer()"
     },
     {
@@ -3241,8 +3241,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_py_any",
-      "community": 7,
-      "community_name": "tools.py",
+      "community": 1,
+      "community_name": "LocalCodeProxyHandler",
       "norm_label": "any"
     },
     {
@@ -3252,7 +3252,7 @@
       "source_location": "L501",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_clear_terminal_tasks_buffer",
-      "community": 7,
+      "community": 31,
       "community_name": "tools.py",
       "norm_label": "clear_terminal_tasks_buffer()"
     },
@@ -3264,7 +3264,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_buscar_en_internet",
       "community": 7,
-      "community_name": "tools.py",
+      "community_name": "tool",
       "norm_label": "buscar_en_internet()"
     },
     {
@@ -3286,7 +3286,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_git_status",
       "community": 7,
-      "community_name": "tools.py",
+      "community_name": "tool",
       "norm_label": "git_status()"
     },
     {
@@ -3297,7 +3297,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_git_diff",
       "community": 7,
-      "community_name": "tools.py",
+      "community_name": "tool",
       "norm_label": "git_diff()"
     },
     {
@@ -3308,7 +3308,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_git_add",
       "community": 7,
-      "community_name": "tools.py",
+      "community_name": "tool",
       "norm_label": "git_add()"
     },
     {
@@ -3319,7 +3319,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_git_commit",
       "community": 7,
-      "community_name": "tools.py",
+      "community_name": "tool",
       "norm_label": "git_commit()"
     },
     {
@@ -3330,7 +3330,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_git_push",
       "community": 7,
-      "community_name": "tools.py",
+      "community_name": "tool",
       "norm_label": "git_push()"
     },
     {
@@ -3352,7 +3352,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_is_sensitive_command",
       "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community_name": "tools.py",
       "norm_label": "is_sensitive_command()"
     },
     {
@@ -3363,7 +3363,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_pre_approve_command",
       "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community_name": "tools.py",
       "norm_label": "pre_approve_command()"
     },
     {
@@ -3374,7 +3374,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_is_command_approved",
       "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community_name": "tools.py",
       "norm_label": "is_command_approved()"
     },
     {
@@ -3384,8 +3384,8 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_38",
-      "community": 18,
-      "community_name": "TestTools",
+      "community": 11,
+      "community_name": "_detectar_raiz_proyecto",
       "norm_label": "rastrea e informa la ejecucion de herramientas al colector de metricas."
     },
     {
@@ -3418,7 +3418,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_78",
       "community": 7,
-      "community_name": "tools.py",
+      "community_name": "tool",
       "norm_label": "extrae eventos desde miseventos.db. la base de datos tiene una tabla 'eventos'..."
     },
     {
@@ -3429,7 +3429,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_103",
       "community": 7,
-      "community_name": "tools.py",
+      "community_name": "tool",
       "norm_label": "archiva el analisis para memoria a largo plazo. args: analisis: el texto del..."
     },
     {
@@ -3571,8 +3571,8 @@
       "source_location": "L397",
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_397",
-      "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community": 18,
+      "community_name": "TestTools",
       "norm_label": "ejecuta un comando en la terminal del sistema operativo (ej. pytest, ls, pip..."
     },
     {
@@ -3583,7 +3583,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_511",
       "community": 7,
-      "community_name": "tools.py",
+      "community_name": "tool",
       "norm_label": "realiza una busqueda en internet usando google para obtener informacion..."
     },
     {
@@ -3605,7 +3605,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_582",
       "community": 7,
-      "community_name": "tools.py",
+      "community_name": "tool",
       "norm_label": "muestra el estado del repositorio git (archivos modificados, untracked, etc)...."
     },
     {
@@ -3616,7 +3616,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_595",
       "community": 7,
-      "community_name": "tools.py",
+      "community_name": "tool",
       "norm_label": "muestra los cambios no commiteados en el repositorio. args: ruta_repo: ruta del..."
     },
     {
@@ -3627,7 +3627,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_608",
       "community": 7,
-      "community_name": "tools.py",
+      "community_name": "tool",
       "norm_label": "anade archivos al staging area de git. pasa los archivos separados por..."
     },
     {
@@ -3638,7 +3638,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_623",
       "community": 7,
-      "community_name": "tools.py",
+      "community_name": "tool",
       "norm_label": "crea un commit con los archivos en el staging area. args: mensaje: mensaje del..."
     },
     {
@@ -3649,7 +3649,7 @@
       "_origin": "ast",
       "id": "mis_agentes_inteligentes_tools_rationale_637",
       "community": 7,
-      "community_name": "tools.py",
+      "community_name": "tool",
       "norm_label": "sube los commits locales al repositorio remoto (github). opcionalmente..."
     },
     {
@@ -3879,8 +3879,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "tests_test_agents_testagents",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 47,
+      "community_name": "TestAgents",
       "norm_label": "testagents"
     },
     {
@@ -3890,8 +3890,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_route_prompt_github",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 47,
+      "community_name": "TestAgents",
       "norm_label": ".test_route_prompt_github()"
     },
     {
@@ -3901,8 +3901,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_route_prompt_editor",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 47,
+      "community_name": "TestAgents",
       "norm_label": ".test_route_prompt_editor()"
     },
     {
@@ -3912,8 +3912,8 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_route_prompt_productivity",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 47,
+      "community_name": "TestAgents",
       "norm_label": ".test_route_prompt_productivity()"
     },
     {
@@ -3923,8 +3923,8 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_route_prompt_general",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 47,
+      "community_name": "TestAgents",
       "norm_label": ".test_route_prompt_general()"
     },
     {
@@ -3934,8 +3934,8 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_get_available_agents",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 47,
+      "community_name": "TestAgents",
       "norm_label": ".test_get_available_agents()"
     },
     {
@@ -3945,8 +3945,8 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_load_subagents_from_disk",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 47,
+      "community_name": "TestAgents",
       "norm_label": ".test_load_subagents_from_disk()"
     },
     {
@@ -3956,8 +3956,8 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_get_model_invalid_provider",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 47,
+      "community_name": "TestAgents",
       "norm_label": ".test_get_model_invalid_provider()"
     },
     {
@@ -3967,8 +3967,8 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_route_prompt_subagents",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 47,
+      "community_name": "TestAgents",
       "norm_label": ".test_route_prompt_subagents()"
     },
     {
@@ -3978,8 +3978,8 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "tests_test_agents_testagents_test_crear_agente_planning_interval",
-      "community": 4,
-      "community_name": "main.py",
+      "community": 47,
+      "community_name": "TestAgents",
       "norm_label": ".test_crear_agente_planning_interval()"
     },
     {
@@ -4737,8 +4737,8 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "tests_test_qa_edge_cases_testqaedgecasesandnegativescenarios_test_atomic_write_empty_content",
-      "community": 26,
-      "community_name": "_atomic_write_file",
+      "community": 0,
+      "community_name": "session_manager.py",
       "norm_label": ".test_atomic_write_empty_content()"
     },
     {
@@ -4759,8 +4759,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_rag_tools",
-      "community": 14,
-      "community_name": "rag_tools.py",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "test_rag_tools.py"
     },
     {
@@ -4770,8 +4770,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "tests_test_rag_tools_testragtools",
-      "community": 14,
-      "community_name": "rag_tools.py",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "testragtools"
     },
     {
@@ -4781,8 +4781,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "tests_test_rag_tools_testragtools_test_indexar_directorio_invalido",
-      "community": 14,
-      "community_name": "rag_tools.py",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": ".test_indexar_directorio_invalido()"
     },
     {
@@ -4792,8 +4792,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "tests_test_rag_tools_testragtools_test_preguntar_a_repositorio_fallback",
-      "community": 14,
-      "community_name": "rag_tools.py",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": ".test_preguntar_a_repositorio_fallback()"
     },
     {
@@ -4803,8 +4803,8 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "tests_test_rag_tools_testragtools_test_preguntar_a_repositorio_cache",
-      "community": 14,
-      "community_name": "rag_tools.py",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": ".test_preguntar_a_repositorio_cache()"
     },
     {
@@ -4858,8 +4858,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "tests_test_refactored_quality_testtechnicalqualityrefactor_test_escribir_y_editar_archivo_refactored",
-      "community": 18,
-      "community_name": "TestTools",
+      "community": 26,
+      "community_name": "_atomic_write_file",
       "norm_label": ".test_escribir_y_editar_archivo_refactored()"
     },
     {
@@ -4891,8 +4891,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "tests_test_regression_testregressionsuite",
-      "community": 49,
-      "community_name": "TestRegressionSuite",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": "testregressionsuite"
     },
     {
@@ -4902,8 +4902,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "tests_test_regression_testregressionsuite_test_truncar_markdown_corto",
-      "community": 49,
-      "community_name": "TestRegressionSuite",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": ".test_truncar_markdown_corto()"
     },
     {
@@ -4913,8 +4913,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "tests_test_regression_testregressionsuite_test_truncar_markdown_largo_con_codigo_abierto",
-      "community": 49,
-      "community_name": "TestRegressionSuite",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": ".test_truncar_markdown_largo_con_codigo_abierto()"
     },
     {
@@ -4924,8 +4924,8 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "tests_test_regression_testregressionsuite_test_session_manager_invalid_inputs",
-      "community": 49,
-      "community_name": "TestRegressionSuite",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": ".test_session_manager_invalid_inputs()"
     },
     {
@@ -4935,8 +4935,8 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "tests_test_regression_testregressionsuite_test_editar_archivo_search_replace_exact_match",
-      "community": 49,
-      "community_name": "TestRegressionSuite",
+      "community": 4,
+      "community_name": "main.py",
       "norm_label": ".test_editar_archivo_search_replace_exact_match()"
     },
     {
@@ -4947,7 +4947,7 @@
       "_origin": "ast",
       "id": "tests_test_regression_testregressionsuite_test_git_tools_en_directorio_temporal",
       "community": 7,
-      "community_name": "tools.py",
+      "community_name": "tool",
       "norm_label": ".test_git_tools_en_directorio_temporal()"
     },
     {
@@ -5056,8 +5056,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "tests_test_runtime_storage_testruntimeandstorage",
-      "community": 47,
-      "community_name": "TestRuntimeAndStorage",
+      "community": 32,
+      "community_name": "EventBus",
       "norm_label": "testruntimeandstorage"
     },
     {
@@ -5067,8 +5067,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "tests_test_runtime_storage_testruntimeandstorage_setup",
-      "community": 47,
-      "community_name": "TestRuntimeAndStorage",
+      "community": 32,
+      "community_name": "EventBus",
       "norm_label": ".setup()"
     },
     {
@@ -5078,8 +5078,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "tests_test_runtime_storage_testruntimeandstorage_teardown",
-      "community": 47,
-      "community_name": "TestRuntimeAndStorage",
+      "community": 32,
+      "community_name": "EventBus",
       "norm_label": ".teardown()"
     },
     {
@@ -5089,8 +5089,8 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "tests_test_runtime_storage_testruntimeandstorage_test_database_task_crud",
-      "community": 47,
-      "community_name": "TestRuntimeAndStorage",
+      "community": 32,
+      "community_name": "EventBus",
       "norm_label": ".test_database_task_crud()"
     },
     {
@@ -5100,8 +5100,8 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "tests_test_runtime_storage_testruntimeandstorage_test_event_bus_publishing_and_sourcing",
-      "community": 47,
-      "community_name": "TestRuntimeAndStorage",
+      "community": 32,
+      "community_name": "EventBus",
       "norm_label": ".test_event_bus_publishing_and_sourcing()"
     },
     {
@@ -5111,8 +5111,8 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "tests_test_runtime_storage_testruntimeandstorage_test_runtime_start_and_get_task",
-      "community": 47,
-      "community_name": "TestRuntimeAndStorage",
+      "community": 32,
+      "community_name": "EventBus",
       "norm_label": ".test_runtime_start_and_get_task()"
     },
     {
@@ -5463,8 +5463,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "tests_test_task_timeout_safeguard_testtasktimeoutsafeguardandcancellation",
-      "community": 56,
-      "community_name": "TestTaskTimeoutSafeguardAndCancellation",
+      "community": 3,
+      "community_name": "CodeAgentRuntime",
       "norm_label": "testtasktimeoutsafeguardandcancellation"
     },
     {
@@ -5474,8 +5474,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "tests_test_task_timeout_safeguard_testtasktimeoutsafeguardandcancellation_setup",
-      "community": 56,
-      "community_name": "TestTaskTimeoutSafeguardAndCancellation",
+      "community": 3,
+      "community_name": "CodeAgentRuntime",
       "norm_label": ".setup()"
     },
     {
@@ -5485,8 +5485,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "tests_test_task_timeout_safeguard_testtasktimeoutsafeguardandcancellation_teardown",
-      "community": 56,
-      "community_name": "TestTaskTimeoutSafeguardAndCancellation",
+      "community": 3,
+      "community_name": "CodeAgentRuntime",
       "norm_label": ".teardown()"
     },
     {
@@ -5496,8 +5496,8 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "tests_test_task_timeout_safeguard_testtasktimeoutsafeguardandcancellation_test_subprocess_stdin_devnull",
-      "community": 56,
-      "community_name": "TestTaskTimeoutSafeguardAndCancellation",
+      "community": 18,
+      "community_name": "TestTools",
       "norm_label": ".test_subprocess_stdin_devnull()"
     },
     {
@@ -5507,8 +5507,8 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "tests_test_task_timeout_safeguard_testtasktimeoutsafeguardandcancellation_test_runtime_cancel_task_safeguard",
-      "community": 56,
-      "community_name": "TestTaskTimeoutSafeguardAndCancellation",
+      "community": 3,
+      "community_name": "CodeAgentRuntime",
       "norm_label": ".test_runtime_cancel_task_safeguard()"
     },
     {
@@ -5585,7 +5585,7 @@
       "_origin": "ast",
       "id": "tests_test_terminal_hitl_approval",
       "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community_name": "tools.py",
       "norm_label": "test_terminal_hitl_approval.py"
     },
     {
@@ -5596,7 +5596,7 @@
       "_origin": "ast",
       "id": "tests_test_terminal_hitl_approval_testterminalhitlapproval",
       "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community_name": "tools.py",
       "norm_label": "testterminalhitlapproval"
     },
     {
@@ -5607,7 +5607,7 @@
       "_origin": "ast",
       "id": "tests_test_terminal_hitl_approval_testterminalhitlapproval_test_safe_command_classification",
       "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community_name": "tools.py",
       "norm_label": ".test_safe_command_classification()"
     },
     {
@@ -5618,7 +5618,7 @@
       "_origin": "ast",
       "id": "tests_test_terminal_hitl_approval_testterminalhitlapproval_test_sensitive_command_classification",
       "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community_name": "tools.py",
       "norm_label": ".test_sensitive_command_classification()"
     },
     {
@@ -5629,7 +5629,7 @@
       "_origin": "ast",
       "id": "tests_test_terminal_hitl_approval_testterminalhitlapproval_test_sensitive_command_requires_approval_flow",
       "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community_name": "tools.py",
       "norm_label": ".test_sensitive_command_requires_approval_flow()"
     },
     {
@@ -5639,8 +5639,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_tools",
-      "community": 7,
-      "community_name": "tools.py",
+      "community": 18,
+      "community_name": "TestTools",
       "norm_label": "test_tools.py"
     },
     {
@@ -5728,7 +5728,7 @@
       "_origin": "ast",
       "id": "tests_test_tools_testtools_test_consultar_db_select_bloqueado",
       "community": 7,
-      "community_name": "tools.py",
+      "community_name": "tool",
       "norm_label": ".test_consultar_db_select_bloqueado()"
     },
     {
@@ -5739,7 +5739,7 @@
       "_origin": "ast",
       "id": "tests_test_tools_testtools_test_guardar_reporte",
       "community": 7,
-      "community_name": "tools.py",
+      "community_name": "tool",
       "norm_label": ".test_guardar_reporte()"
     },
     {
@@ -5749,8 +5749,8 @@
       "source_location": "L85",
       "_origin": "ast",
       "id": "tests_test_tools_testtools_test_ejecutar_comando_terminal_seguro",
-      "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community": 18,
+      "community_name": "TestTools",
       "norm_label": ".test_ejecutar_comando_terminal_seguro()"
     },
     {
@@ -5760,8 +5760,8 @@
       "source_location": "L90",
       "_origin": "ast",
       "id": "tests_test_tools_testtools_test_ejecutar_comando_terminal_blacklist",
-      "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community": 18,
+      "community_name": "TestTools",
       "norm_label": ".test_ejecutar_comando_terminal_blacklist()"
     },
     {
@@ -5793,8 +5793,8 @@
       "source_location": "L110",
       "_origin": "ast",
       "id": "tests_test_tools_testtools_test_ejecutar_comando_terminal_sandbox_strict",
-      "community": 31,
-      "community_name": "ejecutar_comando_terminal",
+      "community": 18,
+      "community_name": "TestTools",
       "norm_label": ".test_ejecutar_comando_terminal_sandbox_strict()"
     },
     {
@@ -5848,8 +5848,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "tests_test_verifier_evidence_testverifierevidenceandworkspaceisolation",
-      "community": 3,
-      "community_name": "CodeAgentRuntime",
+      "community": 75,
+      "community_name": "TestVerifierEvidenceAndWorkspaceIsolation",
       "norm_label": "testverifierevidenceandworkspaceisolation"
     },
     {
@@ -5859,8 +5859,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "tests_test_verifier_evidence_testverifierevidenceandworkspaceisolation_setup",
-      "community": 3,
-      "community_name": "CodeAgentRuntime",
+      "community": 75,
+      "community_name": "TestVerifierEvidenceAndWorkspaceIsolation",
       "norm_label": ".setup()"
     },
     {
@@ -5870,8 +5870,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "tests_test_verifier_evidence_testverifierevidenceandworkspaceisolation_teardown",
-      "community": 3,
-      "community_name": "CodeAgentRuntime",
+      "community": 75,
+      "community_name": "TestVerifierEvidenceAndWorkspaceIsolation",
       "norm_label": ".teardown()"
     },
     {
@@ -5881,8 +5881,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "tests_test_verifier_evidence_testverifierevidenceandworkspaceisolation_test_verifier_returns_not_run_for_empty_workspace",
-      "community": 3,
-      "community_name": "CodeAgentRuntime",
+      "community": 75,
+      "community_name": "TestVerifierEvidenceAndWorkspaceIsolation",
       "norm_label": ".test_verifier_returns_not_run_for_empty_workspace()"
     },
     {
@@ -5892,8 +5892,8 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "tests_test_verifier_evidence_testverifierevidenceandworkspaceisolation_test_workspace_isolation_across_tasks",
-      "community": 3,
-      "community_name": "CodeAgentRuntime",
+      "community": 75,
+      "community_name": "TestVerifierEvidenceAndWorkspaceIsolation",
       "norm_label": ".test_workspace_isolation_across_tasks()"
     },
     {
@@ -6139,6 +6139,1117 @@
       "norm_label": "workflow: graphify"
     },
     {
+      "label": "design.md",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design",
+      "community": 56,
+      "community_name": "Design Document: CodeAgent SDD Contract",
+      "norm_label": "design.md"
+    },
+    {
+      "label": "Design Document: CodeAgent SDD Contract",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_design_document_codeagent_sdd_contract",
+      "community": 56,
+      "community_name": "Design Document: CodeAgent SDD Contract",
+      "norm_label": "design document: codeagent sdd contract"
+    },
+    {
+      "label": "Overview",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_overview",
+      "community": 56,
+      "community_name": "Design Document: CodeAgent SDD Contract",
+      "norm_label": "overview"
+    },
+    {
+      "label": "Architecture",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_architecture",
+      "community": 56,
+      "community_name": "Design Document: CodeAgent SDD Contract",
+      "norm_label": "architecture"
+    },
+    {
+      "label": "Component Responsibilities",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L42",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_component_responsibilities",
+      "community": 56,
+      "community_name": "Design Document: CodeAgent SDD Contract",
+      "norm_label": "component responsibilities"
+    },
+    {
+      "label": "High-Level Design",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L57",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_high_level_design",
+      "community": 63,
+      "community_name": "Workflow State Machines",
+      "norm_label": "high-level design"
+    },
+    {
+      "label": "Task Classification System",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L59",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_task_classification_system",
+      "community": 63,
+      "community_name": "Workflow State Machines",
+      "norm_label": "task classification system"
+    },
+    {
+      "label": "Workflow State Machines",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L85",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_workflow_state_machines",
+      "community": 63,
+      "community_name": "Workflow State Machines",
+      "norm_label": "workflow state machines"
+    },
+    {
+      "label": "CHAT Task State Machine",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L87",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_chat_task_state_machine",
+      "community": 63,
+      "community_name": "Workflow State Machines",
+      "norm_label": "chat task state machine"
+    },
+    {
+      "label": "ACTION Task State Machine",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L115",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_action_task_state_machine",
+      "community": 63,
+      "community_name": "Workflow State Machines",
+      "norm_label": "action task state machine"
+    },
+    {
+      "label": "FEATURE Task State Machine",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L151",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_feature_task_state_machine",
+      "community": 63,
+      "community_name": "Workflow State Machines",
+      "norm_label": "feature task state machine"
+    },
+    {
+      "label": "RECOVERY Task State Machine",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L192",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_recovery_task_state_machine",
+      "community": 63,
+      "community_name": "Workflow State Machines",
+      "norm_label": "recovery task state machine"
+    },
+    {
+      "label": "Components and Interfaces",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L221",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_components_and_interfaces",
+      "community": 57,
+      "community_name": "Components and Interfaces",
+      "norm_label": "components and interfaces"
+    },
+    {
+      "label": "Task Router Interface",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L223",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_task_router_interface",
+      "community": 57,
+      "community_name": "Components and Interfaces",
+      "norm_label": "task router interface"
+    },
+    {
+      "label": "Task Contract Interface",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L284",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_task_contract_interface",
+      "community": 57,
+      "community_name": "Components and Interfaces",
+      "norm_label": "task contract interface"
+    },
+    {
+      "label": "Verification Engine Interface",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L408",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_verification_engine_interface",
+      "community": 57,
+      "community_name": "Components and Interfaces",
+      "norm_label": "verification engine interface"
+    },
+    {
+      "label": "Replanner Interface",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L489",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_replanner_interface",
+      "community": 57,
+      "community_name": "Components and Interfaces",
+      "norm_label": "replanner interface"
+    },
+    {
+      "label": "UI Manager Interface",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L578",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_ui_manager_interface",
+      "community": 57,
+      "community_name": "Components and Interfaces",
+      "norm_label": "ui manager interface"
+    },
+    {
+      "label": "Tool Policy Enforcer Interface",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L671",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_tool_policy_enforcer_interface",
+      "community": 57,
+      "community_name": "Components and Interfaces",
+      "norm_label": "tool policy enforcer interface"
+    },
+    {
+      "label": "Evidence Logger Interface",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L788",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_evidence_logger_interface",
+      "community": 57,
+      "community_name": "Components and Interfaces",
+      "norm_label": "evidence logger interface"
+    },
+    {
+      "label": "Data Models",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L929",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_data_models",
+      "community": 72,
+      "community_name": "Data Models",
+      "norm_label": "data models"
+    },
+    {
+      "label": "Task Data Model",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L931",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_task_data_model",
+      "community": 72,
+      "community_name": "Data Models",
+      "norm_label": "task data model"
+    },
+    {
+      "label": "Verification Criterion Data Model",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L985",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_verification_criterion_data_model",
+      "community": 72,
+      "community_name": "Data Models",
+      "norm_label": "verification criterion data model"
+    },
+    {
+      "label": "Diagnosis Data Model",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1027",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_diagnosis_data_model",
+      "community": 72,
+      "community_name": "Data Models",
+      "norm_label": "diagnosis data model"
+    },
+    {
+      "label": "Plan Data Model",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1070",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_plan_data_model",
+      "community": 72,
+      "community_name": "Data Models",
+      "norm_label": "plan data model"
+    },
+    {
+      "label": "Algorithmic Pseudocode",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1120",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_algorithmic_pseudocode",
+      "community": 69,
+      "community_name": "Algorithmic Pseudocode",
+      "norm_label": "algorithmic pseudocode"
+    },
+    {
+      "label": "Main Task Execution Algorithm",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1122",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_main_task_execution_algorithm",
+      "community": 69,
+      "community_name": "Algorithmic Pseudocode",
+      "norm_label": "main task execution algorithm"
+    },
+    {
+      "label": "Task Classification Algorithm",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1288",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_task_classification_algorithm",
+      "community": 69,
+      "community_name": "Algorithmic Pseudocode",
+      "norm_label": "task classification algorithm"
+    },
+    {
+      "label": "Verification Algorithm",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1390",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_verification_algorithm",
+      "community": 69,
+      "community_name": "Algorithmic Pseudocode",
+      "norm_label": "verification algorithm"
+    },
+    {
+      "label": "UI Manager Algorithm",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1487",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_ui_manager_algorithm",
+      "community": 69,
+      "community_name": "Algorithmic Pseudocode",
+      "norm_label": "ui manager algorithm"
+    },
+    {
+      "label": "Tool Policy Enforcement Algorithm",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1537",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_tool_policy_enforcement_algorithm",
+      "community": 69,
+      "community_name": "Algorithmic Pseudocode",
+      "norm_label": "tool policy enforcement algorithm"
+    },
+    {
+      "label": "Example Usage",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1568",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_example_usage",
+      "community": 73,
+      "community_name": "Example Usage",
+      "norm_label": "example usage"
+    },
+    {
+      "label": "Task Classification Example",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1570",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_task_classification_example",
+      "community": 73,
+      "community_name": "Example Usage",
+      "norm_label": "task classification example"
+    },
+    {
+      "label": "Feature Task Execution Example",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1596",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_feature_task_execution_example",
+      "community": 73,
+      "community_name": "Example Usage",
+      "norm_label": "feature task execution example"
+    },
+    {
+      "label": "UI Management Example",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1669",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_ui_management_example",
+      "community": 73,
+      "community_name": "Example Usage",
+      "norm_label": "ui management example"
+    },
+    {
+      "label": "Tool Policy Enforcement Example",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1710",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_tool_policy_enforcement_example",
+      "community": 73,
+      "community_name": "Example Usage",
+      "norm_label": "tool policy enforcement example"
+    },
+    {
+      "label": "Correctness Properties",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1743",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_correctness_properties",
+      "community": 49,
+      "community_name": "Correctness Properties",
+      "norm_label": "correctness properties"
+    },
+    {
+      "label": "Property 1: Task Classification Uniqueness",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1745",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_property_1_task_classification_uniqueness",
+      "community": 49,
+      "community_name": "Correctness Properties",
+      "norm_label": "property 1: task classification uniqueness"
+    },
+    {
+      "label": "Property 2: CHAT Task Isolation",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1754",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_property_2_chat_task_isolation",
+      "community": 49,
+      "community_name": "Correctness Properties",
+      "norm_label": "property 2: chat task isolation"
+    },
+    {
+      "label": "Property 3: ACTION Task Bounded Execution",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1763",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_property_3_action_task_bounded_execution",
+      "community": 49,
+      "community_name": "Correctness Properties",
+      "norm_label": "property 3: action task bounded execution"
+    },
+    {
+      "label": "Property 4: FEATURE Task Workflow Compliance",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1772",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_property_4_feature_task_workflow_compliance",
+      "community": 49,
+      "community_name": "Correctness Properties",
+      "norm_label": "property 4: feature task workflow compliance"
+    },
+    {
+      "label": "Property 5: UI Instance Uniqueness",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1781",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_property_5_ui_instance_uniqueness",
+      "community": 49,
+      "community_name": "Correctness Properties",
+      "norm_label": "property 5: ui instance uniqueness"
+    },
+    {
+      "label": "Property 6: Evidence-Based Diagnosis",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1790",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_property_6_evidence_based_diagnosis",
+      "community": 49,
+      "community_name": "Correctness Properties",
+      "norm_label": "property 6: evidence-based diagnosis"
+    },
+    {
+      "label": "Property 7: Verification State Exhaustiveness",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1799",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_property_7_verification_state_exhaustiveness",
+      "community": 49,
+      "community_name": "Correctness Properties",
+      "norm_label": "property 7: verification state exhaustiveness"
+    },
+    {
+      "label": "Property 8: Tool Policy Enforcement",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1808",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_property_8_tool_policy_enforcement",
+      "community": 49,
+      "community_name": "Correctness Properties",
+      "norm_label": "property 8: tool policy enforcement"
+    },
+    {
+      "label": "Error Handling",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1817",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_error_handling",
+      "community": 70,
+      "community_name": "Error Handling",
+      "norm_label": "error handling"
+    },
+    {
+      "label": "Error Scenario 1: Classification Ambiguity",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1819",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_error_scenario_1_classification_ambiguity",
+      "community": 70,
+      "community_name": "Error Handling",
+      "norm_label": "error scenario 1: classification ambiguity"
+    },
+    {
+      "label": "Error Scenario 2: UI Instance Limit Exceeded",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1835",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_error_scenario_2_ui_instance_limit_exceeded",
+      "community": 70,
+      "community_name": "Error Handling",
+      "norm_label": "error scenario 2: ui instance limit exceeded"
+    },
+    {
+      "label": "Error Scenario 3: Evidence Not Available for Diagnosis",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1851",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_error_scenario_3_evidence_not_available_for_diagnosis",
+      "community": 70,
+      "community_name": "Error Handling",
+      "norm_label": "error scenario 3: evidence not available for diagnosis"
+    },
+    {
+      "label": "Error Scenario 4: Maximum Iterations Exceeded",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1867",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_error_scenario_4_maximum_iterations_exceeded",
+      "community": 70,
+      "community_name": "Error Handling",
+      "norm_label": "error scenario 4: maximum iterations exceeded"
+    },
+    {
+      "label": "Error Scenario 5: Tool Policy Violation",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1883",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_error_scenario_5_tool_policy_violation",
+      "community": 70,
+      "community_name": "Error Handling",
+      "norm_label": "error scenario 5: tool policy violation"
+    },
+    {
+      "label": "Testing Strategy",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1899",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_testing_strategy",
+      "community": 80,
+      "community_name": "Testing Strategy",
+      "norm_label": "testing strategy"
+    },
+    {
+      "label": "Unit Testing Approach",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1901",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_unit_testing_approach",
+      "community": 80,
+      "community_name": "Testing Strategy",
+      "norm_label": "unit testing approach"
+    },
+    {
+      "label": "Property-Based Testing Approach",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1945",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_property_based_testing_approach",
+      "community": 80,
+      "community_name": "Testing Strategy",
+      "norm_label": "property-based testing approach"
+    },
+    {
+      "label": "Integration Testing Approach",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L2001",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_integration_testing_approach",
+      "community": 80,
+      "community_name": "Testing Strategy",
+      "norm_label": "integration testing approach"
+    },
+    {
+      "label": "Performance Considerations",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L2040",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_performance_considerations",
+      "community": 56,
+      "community_name": "Design Document: CodeAgent SDD Contract",
+      "norm_label": "performance considerations"
+    },
+    {
+      "label": "Performance Requirements",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L2042",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_performance_requirements",
+      "community": 56,
+      "community_name": "Design Document: CodeAgent SDD Contract",
+      "norm_label": "performance requirements"
+    },
+    {
+      "label": "Optimization Strategies",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L2050",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_optimization_strategies",
+      "community": 56,
+      "community_name": "Design Document: CodeAgent SDD Contract",
+      "norm_label": "optimization strategies"
+    },
+    {
+      "label": "Security Considerations",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L2074",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_security_considerations",
+      "community": 81,
+      "community_name": "Security Considerations",
+      "norm_label": "security considerations"
+    },
+    {
+      "label": "Security Requirements",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L2076",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_security_requirements",
+      "community": 81,
+      "community_name": "Security Considerations",
+      "norm_label": "security requirements"
+    },
+    {
+      "label": "Threat Model",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L2084",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_threat_model",
+      "community": 81,
+      "community_name": "Security Considerations",
+      "norm_label": "threat model"
+    },
+    {
+      "label": "Security Controls",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L2094",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_security_controls",
+      "community": 81,
+      "community_name": "Security Considerations",
+      "norm_label": "security controls"
+    },
+    {
+      "label": "Dependencies",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L2118",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_dependencies",
+      "community": 77,
+      "community_name": "Dependencies",
+      "norm_label": "dependencies"
+    },
+    {
+      "label": "External Dependencies",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L2120",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_external_dependencies",
+      "community": 77,
+      "community_name": "Dependencies",
+      "norm_label": "external dependencies"
+    },
+    {
+      "label": "Internal Dependencies",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L2150",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_internal_dependencies",
+      "community": 77,
+      "community_name": "Dependencies",
+      "norm_label": "internal dependencies"
+    },
+    {
+      "label": "Version Compatibility",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L2158",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_design_version_compatibility",
+      "community": 77,
+      "community_name": "Dependencies",
+      "norm_label": "version compatibility"
+    },
+    {
+      "label": "requirements.md",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "requirements.md"
+    },
+    {
+      "label": "Requirements Document",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_requirements_document",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "requirements document"
+    },
+    {
+      "label": "Introduction",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_introduction",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "introduction"
+    },
+    {
+      "label": "Glossary",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_glossary",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "glossary"
+    },
+    {
+      "label": "Requirements",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L26",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_requirements",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "requirements"
+    },
+    {
+      "label": "Requirement 1: Task Classification",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L28",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_requirement_1_task_classification",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "requirement 1: task classification"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L32",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_acceptance_criteria",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Requirement 2: CHAT Task Contract",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L38",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_requirement_2_chat_task_contract",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "requirement 2: chat task contract"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L42",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_acceptance_criteria_42",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Requirement 3: ACTION Task Contract",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L50",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_requirement_3_action_task_contract",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "requirement 3: action task contract"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L54",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_acceptance_criteria_54",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Requirement 4: FEATURE Task Contract",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L62",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_requirement_4_feature_task_contract",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "requirement 4: feature task contract"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L66",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_acceptance_criteria_66",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Requirement 5: RECOVERY Task Contract",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L75",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_requirement_5_recovery_task_contract",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "requirement 5: recovery task contract"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L79",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_acceptance_criteria_79",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Requirement 6: Verification States",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L86",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_requirement_6_verification_states",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "requirement 6: verification states"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L90",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_acceptance_criteria_90",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Requirement 7: Verification Evidence",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L98",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_requirement_7_verification_evidence",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "requirement 7: verification evidence"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L102",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_acceptance_criteria_102",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Requirement 8: Tool Policy by Task Type",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L109",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_requirement_8_tool_policy_by_task_type",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "requirement 8: tool policy by task type"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L113",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_acceptance_criteria_113",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Requirement 9: Replanning Constraints",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L121",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_requirement_9_replanning_constraints",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "requirement 9: replanning constraints"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L125",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_acceptance_criteria_125",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Requirement 10: UI Lifecycle Policy",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L133",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_requirement_10_ui_lifecycle_policy",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "requirement 10: ui lifecycle policy"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L137",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_acceptance_criteria_137",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Requirement 11: Evidence Requirement for Diagnosis",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L145",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_requirement_11_evidence_requirement_for_diagnosis",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "requirement 11: evidence requirement for diagnosis"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L149",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_acceptance_criteria_149",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Requirement 12: Bounded Execution",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L157",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_requirement_12_bounded_execution",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "requirement 12: bounded execution"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L161",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_requirements_acceptance_criteria_161",
+      "community": 14,
+      "community_name": "Requirements",
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "tasks.md",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/tasks.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_tasks",
+      "community": 71,
+      "community_name": "Implementation Plan: CodeAgent SDD Contract",
+      "norm_label": "tasks.md"
+    },
+    {
+      "label": "Implementation Plan: CodeAgent SDD Contract",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/tasks.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_tasks_implementation_plan_codeagent_sdd_contract",
+      "community": 71,
+      "community_name": "Implementation Plan: CodeAgent SDD Contract",
+      "norm_label": "implementation plan: codeagent sdd contract"
+    },
+    {
+      "label": "Overview",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/tasks.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_tasks_overview",
+      "community": 71,
+      "community_name": "Implementation Plan: CodeAgent SDD Contract",
+      "norm_label": "overview"
+    },
+    {
+      "label": "Tasks",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/tasks.md",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_tasks_tasks",
+      "community": 71,
+      "community_name": "Implementation Plan: CodeAgent SDD Contract",
+      "norm_label": "tasks"
+    },
+    {
+      "label": "Notes",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/tasks.md",
+      "source_location": "L360",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_tasks_notes",
+      "community": 71,
+      "community_name": "Implementation Plan: CodeAgent SDD Contract",
+      "norm_label": "notes"
+    },
+    {
+      "label": "Task Dependency Graph",
+      "file_type": "document",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/tasks.md",
+      "source_location": "L369",
+      "_origin": "ast",
+      "id": "kiro_specs_codeagent_sdd_contract_tasks_task_dependency_graph",
+      "community": 71,
+      "community_name": "Implementation Plan: CodeAgent SDD Contract",
+      "norm_label": "task dependency graph"
+    },
+    {
       "label": "AGENTS.md",
       "file_type": "document",
       "source_file": "AGENTS.md",
@@ -6343,8 +7454,8 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "changelog_6_4_0_2026_08_28",
-      "community": 63,
-      "community_name": "[6.4.0] - 2026-08-28",
+      "community": 5,
+      "community_name": "Changelog",
       "norm_label": "[6.4.0] - 2026-08-28"
     },
     {
@@ -6354,8 +7465,8 @@
       "source_location": "L78",
       "_origin": "ast",
       "id": "changelog_added_78",
-      "community": 63,
-      "community_name": "[6.4.0] - 2026-08-28",
+      "community": 5,
+      "community_name": "Changelog",
       "norm_label": "added"
     },
     {
@@ -6365,8 +7476,8 @@
       "source_location": "L85",
       "_origin": "ast",
       "id": "changelog_6_3_0_2026_08_28",
-      "community": 5,
-      "community_name": "Changelog",
+      "community": 82,
+      "community_name": "[6.3.0] - 2026-08-28",
       "norm_label": "[6.3.0] - 2026-08-28"
     },
     {
@@ -6376,8 +7487,8 @@
       "source_location": "L87",
       "_origin": "ast",
       "id": "changelog_added_87",
-      "community": 5,
-      "community_name": "Changelog",
+      "community": 82,
+      "community_name": "[6.3.0] - 2026-08-28",
       "norm_label": "added"
     },
     {
@@ -7331,8 +8442,8 @@
       "_origin": "semantic",
       "label": "mis_agentes_inteligentes/main",
       "file_type": "concept",
-      "community": 15,
-      "community_name": "CodeAgent",
+      "community": 76,
+      "community_name": "mis_agentes_inteligentes/main",
       "norm_label": "mis_agentes_inteligentes/main",
       "id": "10"
     },
@@ -7343,8 +8454,8 @@
       "_origin": "semantic",
       "label": "main.get_herramientas",
       "file_type": "concept",
-      "community": 15,
-      "community_name": "CodeAgent",
+      "community": 76,
+      "community_name": "mis_agentes_inteligentes/main",
       "norm_label": "main.get_herramientas",
       "id": "11"
     },
@@ -7355,8 +8466,8 @@
       "_origin": "semantic",
       "label": "main._construir_contexto_workspace",
       "file_type": "concept",
-      "community": 15,
-      "community_name": "CodeAgent",
+      "community": 76,
+      "community_name": "mis_agentes_inteligentes/main",
       "norm_label": "main._construir_contexto_workspace",
       "id": "12"
     },
@@ -7367,8 +8478,8 @@
       "_origin": "semantic",
       "label": "main.ejecutar_agentes",
       "file_type": "concept",
-      "community": 15,
-      "community_name": "CodeAgent",
+      "community": 76,
+      "community_name": "mis_agentes_inteligentes/main",
       "norm_label": "main.ejecutar_agentes",
       "id": "13"
     },
@@ -7919,8 +9030,8 @@
       "_origin": "semantic",
       "label": "mis_agentes_inteligentes.rag_tools",
       "file_type": "concept",
-      "community": 57,
-      "community_name": "mis_agentes_inteligentes.rag_tools",
+      "community": 15,
+      "community_name": "CodeAgent",
       "norm_label": "mis_agentes_inteligentes.rag_tools",
       "id": "59"
     },
@@ -7931,8 +9042,8 @@
       "_origin": "semantic",
       "label": "mis_agentes_inteligentes.rag_tools.init_chroma",
       "file_type": "concept",
-      "community": 57,
-      "community_name": "mis_agentes_inteligentes.rag_tools",
+      "community": 15,
+      "community_name": "CodeAgent",
       "norm_label": "mis_agentes_inteligentes.rag_tools.init_chroma",
       "id": "60"
     },
@@ -7943,8 +9054,8 @@
       "_origin": "semantic",
       "label": "mis_agentes_inteligentes.rag_tools.indexar_directorio_local",
       "file_type": "concept",
-      "community": 57,
-      "community_name": "mis_agentes_inteligentes.rag_tools",
+      "community": 15,
+      "community_name": "CodeAgent",
       "norm_label": "mis_agentes_inteligentes.rag_tools.indexar_directorio_local",
       "id": "61"
     },
@@ -7955,8 +9066,8 @@
       "_origin": "semantic",
       "label": "mis_agentes_inteligentes.rag_tools.preguntar_a_repositorio",
       "file_type": "concept",
-      "community": 57,
-      "community_name": "mis_agentes_inteligentes.rag_tools",
+      "community": 15,
+      "community_name": "CodeAgent",
       "norm_label": "mis_agentes_inteligentes.rag_tools.preguntar_a_repositorio",
       "id": "62"
     },
@@ -19624,6 +20735,1084 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design",
+      "target": "kiro_specs_codeagent_sdd_contract_design_design_document_codeagent_sdd_contract",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1120",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_design_document_codeagent_sdd_contract",
+      "target": "kiro_specs_codeagent_sdd_contract_design_algorithmic_pseudocode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_design_document_codeagent_sdd_contract",
+      "target": "kiro_specs_codeagent_sdd_contract_design_architecture",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L221",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_design_document_codeagent_sdd_contract",
+      "target": "kiro_specs_codeagent_sdd_contract_design_components_and_interfaces",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1743",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_design_document_codeagent_sdd_contract",
+      "target": "kiro_specs_codeagent_sdd_contract_design_correctness_properties",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L929",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_design_document_codeagent_sdd_contract",
+      "target": "kiro_specs_codeagent_sdd_contract_design_data_models",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L2118",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_design_document_codeagent_sdd_contract",
+      "target": "kiro_specs_codeagent_sdd_contract_design_dependencies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1817",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_design_document_codeagent_sdd_contract",
+      "target": "kiro_specs_codeagent_sdd_contract_design_error_handling",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1568",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_design_document_codeagent_sdd_contract",
+      "target": "kiro_specs_codeagent_sdd_contract_design_example_usage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L57",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_design_document_codeagent_sdd_contract",
+      "target": "kiro_specs_codeagent_sdd_contract_design_high_level_design",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_design_document_codeagent_sdd_contract",
+      "target": "kiro_specs_codeagent_sdd_contract_design_overview",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L2040",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_design_document_codeagent_sdd_contract",
+      "target": "kiro_specs_codeagent_sdd_contract_design_performance_considerations",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L2074",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_design_document_codeagent_sdd_contract",
+      "target": "kiro_specs_codeagent_sdd_contract_design_security_considerations",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1899",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_design_document_codeagent_sdd_contract",
+      "target": "kiro_specs_codeagent_sdd_contract_design_testing_strategy",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L42",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_architecture",
+      "target": "kiro_specs_codeagent_sdd_contract_design_component_responsibilities",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L59",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_high_level_design",
+      "target": "kiro_specs_codeagent_sdd_contract_design_task_classification_system",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L85",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_high_level_design",
+      "target": "kiro_specs_codeagent_sdd_contract_design_workflow_state_machines",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L115",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_workflow_state_machines",
+      "target": "kiro_specs_codeagent_sdd_contract_design_action_task_state_machine",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L87",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_workflow_state_machines",
+      "target": "kiro_specs_codeagent_sdd_contract_design_chat_task_state_machine",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L151",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_workflow_state_machines",
+      "target": "kiro_specs_codeagent_sdd_contract_design_feature_task_state_machine",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L192",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_workflow_state_machines",
+      "target": "kiro_specs_codeagent_sdd_contract_design_recovery_task_state_machine",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L788",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_components_and_interfaces",
+      "target": "kiro_specs_codeagent_sdd_contract_design_evidence_logger_interface",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L489",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_components_and_interfaces",
+      "target": "kiro_specs_codeagent_sdd_contract_design_replanner_interface",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L284",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_components_and_interfaces",
+      "target": "kiro_specs_codeagent_sdd_contract_design_task_contract_interface",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L223",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_components_and_interfaces",
+      "target": "kiro_specs_codeagent_sdd_contract_design_task_router_interface",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L671",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_components_and_interfaces",
+      "target": "kiro_specs_codeagent_sdd_contract_design_tool_policy_enforcer_interface",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L578",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_components_and_interfaces",
+      "target": "kiro_specs_codeagent_sdd_contract_design_ui_manager_interface",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L408",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_components_and_interfaces",
+      "target": "kiro_specs_codeagent_sdd_contract_design_verification_engine_interface",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1027",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_data_models",
+      "target": "kiro_specs_codeagent_sdd_contract_design_diagnosis_data_model",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1070",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_data_models",
+      "target": "kiro_specs_codeagent_sdd_contract_design_plan_data_model",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L931",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_data_models",
+      "target": "kiro_specs_codeagent_sdd_contract_design_task_data_model",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L985",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_data_models",
+      "target": "kiro_specs_codeagent_sdd_contract_design_verification_criterion_data_model",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1122",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_algorithmic_pseudocode",
+      "target": "kiro_specs_codeagent_sdd_contract_design_main_task_execution_algorithm",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1288",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_algorithmic_pseudocode",
+      "target": "kiro_specs_codeagent_sdd_contract_design_task_classification_algorithm",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1537",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_algorithmic_pseudocode",
+      "target": "kiro_specs_codeagent_sdd_contract_design_tool_policy_enforcement_algorithm",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1487",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_algorithmic_pseudocode",
+      "target": "kiro_specs_codeagent_sdd_contract_design_ui_manager_algorithm",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1390",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_algorithmic_pseudocode",
+      "target": "kiro_specs_codeagent_sdd_contract_design_verification_algorithm",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1596",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_example_usage",
+      "target": "kiro_specs_codeagent_sdd_contract_design_feature_task_execution_example",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1570",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_example_usage",
+      "target": "kiro_specs_codeagent_sdd_contract_design_task_classification_example",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1710",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_example_usage",
+      "target": "kiro_specs_codeagent_sdd_contract_design_tool_policy_enforcement_example",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1669",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_example_usage",
+      "target": "kiro_specs_codeagent_sdd_contract_design_ui_management_example",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1745",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_correctness_properties",
+      "target": "kiro_specs_codeagent_sdd_contract_design_property_1_task_classification_uniqueness",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1754",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_correctness_properties",
+      "target": "kiro_specs_codeagent_sdd_contract_design_property_2_chat_task_isolation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1763",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_correctness_properties",
+      "target": "kiro_specs_codeagent_sdd_contract_design_property_3_action_task_bounded_execution",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1772",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_correctness_properties",
+      "target": "kiro_specs_codeagent_sdd_contract_design_property_4_feature_task_workflow_compliance",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1781",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_correctness_properties",
+      "target": "kiro_specs_codeagent_sdd_contract_design_property_5_ui_instance_uniqueness",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1790",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_correctness_properties",
+      "target": "kiro_specs_codeagent_sdd_contract_design_property_6_evidence_based_diagnosis",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1799",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_correctness_properties",
+      "target": "kiro_specs_codeagent_sdd_contract_design_property_7_verification_state_exhaustiveness",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1808",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_correctness_properties",
+      "target": "kiro_specs_codeagent_sdd_contract_design_property_8_tool_policy_enforcement",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1819",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_error_handling",
+      "target": "kiro_specs_codeagent_sdd_contract_design_error_scenario_1_classification_ambiguity",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1835",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_error_handling",
+      "target": "kiro_specs_codeagent_sdd_contract_design_error_scenario_2_ui_instance_limit_exceeded",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1851",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_error_handling",
+      "target": "kiro_specs_codeagent_sdd_contract_design_error_scenario_3_evidence_not_available_for_diagnosis",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1867",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_error_handling",
+      "target": "kiro_specs_codeagent_sdd_contract_design_error_scenario_4_maximum_iterations_exceeded",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1883",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_error_handling",
+      "target": "kiro_specs_codeagent_sdd_contract_design_error_scenario_5_tool_policy_violation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L2001",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_testing_strategy",
+      "target": "kiro_specs_codeagent_sdd_contract_design_integration_testing_approach",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1945",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_testing_strategy",
+      "target": "kiro_specs_codeagent_sdd_contract_design_property_based_testing_approach",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L1901",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_testing_strategy",
+      "target": "kiro_specs_codeagent_sdd_contract_design_unit_testing_approach",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L2050",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_performance_considerations",
+      "target": "kiro_specs_codeagent_sdd_contract_design_optimization_strategies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L2042",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_performance_considerations",
+      "target": "kiro_specs_codeagent_sdd_contract_design_performance_requirements",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L2094",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_security_considerations",
+      "target": "kiro_specs_codeagent_sdd_contract_design_security_controls",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L2076",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_security_considerations",
+      "target": "kiro_specs_codeagent_sdd_contract_design_security_requirements",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L2084",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_security_considerations",
+      "target": "kiro_specs_codeagent_sdd_contract_design_threat_model",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L2120",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_dependencies",
+      "target": "kiro_specs_codeagent_sdd_contract_design_external_dependencies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L2150",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_dependencies",
+      "target": "kiro_specs_codeagent_sdd_contract_design_internal_dependencies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/design.md",
+      "source_location": "L2158",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_design_dependencies",
+      "target": "kiro_specs_codeagent_sdd_contract_design_version_compatibility",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_requirements_document",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L15",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirements_document",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_glossary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirements_document",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_introduction",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L26",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirements_document",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_requirements",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L133",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirements",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_requirement_10_ui_lifecycle_policy",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L145",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirements",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_requirement_11_evidence_requirement_for_diagnosis",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L157",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirements",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_requirement_12_bounded_execution",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L28",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirements",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_requirement_1_task_classification",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L38",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirements",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_requirement_2_chat_task_contract",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L50",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirements",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_requirement_3_action_task_contract",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L62",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirements",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_requirement_4_feature_task_contract",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L75",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirements",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_requirement_5_recovery_task_contract",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L86",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirements",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_requirement_6_verification_states",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L98",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirements",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_requirement_7_verification_evidence",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L109",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirements",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_requirement_8_tool_policy_by_task_type",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L121",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirements",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_requirement_9_replanning_constraints",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L32",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirement_1_task_classification",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_acceptance_criteria",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L42",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirement_2_chat_task_contract",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_acceptance_criteria_42",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L54",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirement_3_action_task_contract",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_acceptance_criteria_54",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L66",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirement_4_feature_task_contract",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_acceptance_criteria_66",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L79",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirement_5_recovery_task_contract",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_acceptance_criteria_79",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L90",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirement_6_verification_states",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_acceptance_criteria_90",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L102",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirement_7_verification_evidence",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_acceptance_criteria_102",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L113",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirement_8_tool_policy_by_task_type",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_acceptance_criteria_113",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L125",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirement_9_replanning_constraints",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_acceptance_criteria_125",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L137",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirement_10_ui_lifecycle_policy",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_acceptance_criteria_137",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L149",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirement_11_evidence_requirement_for_diagnosis",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_acceptance_criteria_149",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/requirements.md",
+      "source_location": "L161",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_requirements_requirement_12_bounded_execution",
+      "target": "kiro_specs_codeagent_sdd_contract_requirements_acceptance_criteria_161",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/tasks.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_tasks",
+      "target": "kiro_specs_codeagent_sdd_contract_tasks_implementation_plan_codeagent_sdd_contract",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/tasks.md",
+      "source_location": "L360",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_tasks_implementation_plan_codeagent_sdd_contract",
+      "target": "kiro_specs_codeagent_sdd_contract_tasks_notes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/tasks.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_tasks_implementation_plan_codeagent_sdd_contract",
+      "target": "kiro_specs_codeagent_sdd_contract_tasks_overview",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/tasks.md",
+      "source_location": "L369",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_tasks_implementation_plan_codeagent_sdd_contract",
+      "target": "kiro_specs_codeagent_sdd_contract_tasks_task_dependency_graph",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/codeagent-sdd-contract/tasks.md",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "kiro_specs_codeagent_sdd_contract_tasks_implementation_plan_codeagent_sdd_contract",
+      "target": "kiro_specs_codeagent_sdd_contract_tasks_tasks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
       "source_location": "L1",
       "weight": 1.0,
@@ -21498,5 +23687,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "13a8f81971bb4904987d249cce7473e80985253f"
+  "built_at_commit": "9a12ae369b2d819f8ed55470b39ed347629d8cd9"
 }

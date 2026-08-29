@@ -115,8 +115,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/agent_pipeline.py": {
-    "mtime": 1787960968.7159557,
-    "ast_hash": "e8866c4e2a23cc91796b71ed647fc02c",
+    "mtime": 1787969445.47342,
+    "ast_hash": "1a1039c2d45c4be7157d6486627f344e",
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/claude_code_cli.py": {
@@ -285,8 +285,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/metrics_benchmarks.json": {
-    "mtime": 1787961017.4345589,
-    "ast_hash": "85003949b5f8293ce7beb35da0441a8f",
+    "mtime": 1787969740.1846433,
+    "ast_hash": "a9afdcd8e628868400a3a1a48470c82d",
     "semantic_hash": ""
   },
   "tests/test_state_machine.py": {
@@ -310,8 +310,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/benchmark_report_v42.md": {
-    "mtime": 1787961006.0745428,
-    "ast_hash": "c7d3c0deab043e10ef0db4854022bae5",
+    "mtime": 1787969728.4348955,
+    "ast_hash": "c878b9b5c0fa3f3c46b26c1142422524",
     "semantic_hash": ""
   },
   "tests/test_feedback_loop.py": {
@@ -412,6 +412,76 @@
   ".kiro/specs/codeagent-sdd-contract/tasks.md": {
     "mtime": 1787961736.288824,
     "ast_hash": "29b37445ddd43f7564c163c85a5af191",
+    "semantic_hash": ""
+  },
+  "sdd_contract/__init__.py": {
+    "mtime": 1787962347.8033211,
+    "ast_hash": "81051bcc2cf1bedf378224b0a93e2877",
+    "semantic_hash": ""
+  },
+  "sdd_contract/evidence_logger.py": {
+    "mtime": 1787969452.0793297,
+    "ast_hash": "032bc063192b0aebf449a41d31fa51f3",
+    "semantic_hash": ""
+  },
+  "sdd_contract/integrator.py": {
+    "mtime": 1787969614.401232,
+    "ast_hash": "fa4b9ee922660e066effe45e9a3bfb46",
+    "semantic_hash": ""
+  },
+  "sdd_contract/replanner.py": {
+    "mtime": 1787969452.0793297,
+    "ast_hash": "de2772313ae2c059f5971bde09db441a",
+    "semantic_hash": ""
+  },
+  "sdd_contract/task_contract.py": {
+    "mtime": 1787969445.462983,
+    "ast_hash": "debb5111411c913d872f5755a5152326",
+    "semantic_hash": ""
+  },
+  "sdd_contract/task_model.py": {
+    "mtime": 1787969445.461983,
+    "ast_hash": "582c4df0c675526fae308dc7ab25cdeb",
+    "semantic_hash": ""
+  },
+  "sdd_contract/task_router.py": {
+    "mtime": 1787969693.7424107,
+    "ast_hash": "cdac8cc131913c63aa3eb50cb6698d78",
+    "semantic_hash": ""
+  },
+  "sdd_contract/task_types.py": {
+    "mtime": 1787969445.4609828,
+    "ast_hash": "4ed6534f0f4070ec9a503fa01d1f9a7b",
+    "semantic_hash": ""
+  },
+  "sdd_contract/tool_policy.py": {
+    "mtime": 1787969452.0793297,
+    "ast_hash": "08844bcb5d2b9fc0778734fbd3e6e164",
+    "semantic_hash": ""
+  },
+  "sdd_contract/ui_manager.py": {
+    "mtime": 1787969452.0793297,
+    "ast_hash": "bdd8c276df2883e4cafe96a44878c308",
+    "semantic_hash": ""
+  },
+  "sdd_contract/verification_engine.py": {
+    "mtime": 1787969683.7380922,
+    "ast_hash": "face75737d6266c154cb34635b99a3dd",
+    "semantic_hash": ""
+  },
+  "tests/test_sdd_conformance.py": {
+    "mtime": 1787969599.3150027,
+    "ast_hash": "d59821a1af75a7d0baba72dc068367f3",
+    "semantic_hash": ""
+  },
+  "sdd_contract/CONFORMANCE_AUDIT.md": {
+    "mtime": 1787963059.5050724,
+    "ast_hash": "517375c0fde79e1728e82c7e274c3a80",
+    "semantic_hash": ""
+  },
+  "sdd_contract/VIOLATION_ANALYSIS.md": {
+    "mtime": 1787964735.368692,
+    "ast_hash": "a502c9d9dcb2ae6c4fba027f913decea",
     "semantic_hash": ""
   }
 }

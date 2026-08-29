@@ -1,9 +1,8 @@
 """
 Verification Engine for validating task results against criteria.
 """
-from dataclasses import dataclass, field
-from typing import List, Dict, Any, Optional
-from enum import Enum
+from dataclasses import dataclass
+from typing import Any
 
 from .task_types import VerificationState
 
@@ -16,12 +15,12 @@ class VerificationCriterion:
     description: str
     required: bool
     expected: str
-    actual: Optional[str] = None
+    actual: str | None = None
     state: VerificationState = VerificationState.NOT_REQUIRED
-    evidence_id: Optional[str] = None
-    details: Optional[str] = None
-    
-    def to_dict(self) -> Dict[str, Any]:
+    evidence_id: str | None = None
+    details: str | None = None
+
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for serialization."""
         return {
             "id": self.id,
@@ -40,11 +39,11 @@ class VerificationCriterion:
 class VerificationResult:
     """Result of verification process."""
     state: VerificationState
-    criteria: List[VerificationCriterion]
+    criteria: list[VerificationCriterion]
     success: bool
     evidence: str
-    
-    def to_dict(self) -> Dict[str, Any]:
+
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for serialization."""
         return {
             "state": self.state.value,
@@ -56,84 +55,84 @@ class VerificationResult:
 
 class VerificationEngine:
     """Validates task results against acceptance criteria."""
-    
+
     def verify(
         self,
-        criteria: List[VerificationCriterion],
-        results: Dict[str, Any],
+        criteria: list[VerificationCriterion],
+        results: dict[str, Any],
         evidence_logger = None
     ) -> VerificationResult:
         """
         Verify results against criteria.
-        
+
         Args:
             criteria: List of verification criteria
             results: Actual results from task execution
             evidence_logger: Optional evidence logger for recording failures
-            
+
         Returns:
             VerificationResult with overall state and evidence
         """
-        verification_results: List[VerificationCriterion] = []
+        verification_results: list[VerificationCriterion] = []
         pass_count = 0
         fail_count = 0
         error_count = 0
-        
+
         for criterion in criteria:
             result = self._evaluate_criterion(criterion, results, evidence_logger)
             verification_results.append(result)
-            
+
             if result.state == VerificationState.PASS:
                 pass_count += 1
             elif result.state == VerificationState.FAIL:
                 fail_count += 1
             elif result.state == VerificationState.ERROR:
                 error_count += 1
-        
+
         # Compute success: all required criteria must be PASS
-        required_criteria = [c for c in criteria if c.required]
+        [c for c in criteria if c.required]
         success = (fail_count == 0 and error_count == 0)
-        
+
         # Gather evidence if any failures
         if fail_count > 0 or error_count > 0:
             evidence = self._gather_verification_evidence(verification_results)
         else:
             evidence = "All verification criteria passed"
-        
+
         state = VerificationState.PASS if success else VerificationState.FAIL
-        
+
         return VerificationResult(
             state=state,
             criteria=verification_results,
             success=success,
             evidence=evidence
         )
-    
+
     def _evaluate_criterion(
         self,
         criterion: VerificationCriterion,
-        results: Dict[str, Any],
+        results: dict[str, Any],
         evidence_logger = None
     ) -> VerificationCriterion:
         """
         Evaluate a single criterion against results.
-        
+
         Args:
             criterion: The criterion to evaluate
             results: Actual results from task execution
             evidence_logger: Optional evidence logger
-            
+
         Returns:
             Criterion with updated state and results
         """
         # If not required, mark as NOT_REQUIRED
         if not criterion.required:
             return criterion
-        
+
         # Get expected and actual values
         expected = criterion.expected
-        actual = self._get_actual_value(results, criterion.name)
-        
+        actual = results.get(criterion.id) if criterion.id in results else results.get(criterion.name)
+
         # If actual not found, mark as ERROR
         if actual is None:
             if evidence_logger:
@@ -143,7 +142,7 @@ class VerificationEngine:
                 ).task_id
             else:
                 evidence_id = None
-            
+
             return VerificationCriterion(
                 id=criterion.id,
                 name=criterion.name,
@@ -155,7 +154,7 @@ class VerificationEngine:
                 evidence_id=evidence_id,
                 details="Actual value not found"
             )
-        
+
         # Compare expected vs actual
         if actual == expected:
             return VerificationCriterion(
@@ -179,7 +178,7 @@ class VerificationEngine:
                 ).task_id
             else:
                 evidence_id = None
-            
+
             return VerificationCriterion(
                 id=criterion.id,
                 name=criterion.name,
@@ -191,54 +190,54 @@ class VerificationEngine:
                 evidence_id=evidence_id,
                 details=difference
             )
-    
-    def _get_actual_value(self, results: Dict[str, Any], criterion_name: str) -> Optional[Any]:
+
+    def _get_actual_value(self, results: dict[str, Any], criterion_name: str) -> Any | None:
         """Get actual value from results for a criterion name."""
         return results.get(criterion_name)
-    
+
     def _analyze_difference(self, expected: str, actual: str) -> str:
         """Analyze the difference between expected and actual."""
         if len(expected) < 100 and len(actual) < 100:
             return f"Expected: '{expected}', Actual: '{actual}'"
         else:
-            return f"Value mismatch: expected and actual differ"
-    
-    def _gather_verification_evidence(self, criteria: List[VerificationCriterion]) -> str:
+            return "Value mismatch: expected and actual differ"
+
+    def _gather_verification_evidence(self, criteria: list[VerificationCriterion]) -> str:
         """
         Gather evidence from all verification results.
-        
+
         Args:
             criteria: List of verification criteria with results
-            
+
         Returns:
             Evidence string summarizing failures
         """
         failures = [
-            c for c in criteria 
+            c for c in criteria
             if c.state in (VerificationState.FAIL, VerificationState.ERROR)
         ]
-        
+
         if not failures:
             return "All criteria passed"
-        
+
         failure_details = "\n".join([
             f"- {c.name}: {c.details}" for c in failures
         ])
-        
+
         return f"Verification failed for {len(failures)} criteria:\n{failure_details}"
-    
-    def compute_success(self, criteria: List[VerificationCriterion]) -> bool:
+
+    def compute_success(self, criteria: list[VerificationCriterion]) -> bool:
         """
         Compute overall success based on criteria states.
-        
+
         Args:
             criteria: List of verification criteria
-            
+
         Returns:
             True if all required criteria are PASS
         """
         required_criteria = [c for c in criteria if c.required]
         if not required_criteria:
             return True
-        
+
         return all(c.state == VerificationState.PASS for c in required_criteria)
