@@ -176,6 +176,37 @@ class TestSDDConformance(unittest.TestCase):
         import tools as t2
         self.assertIs(t1.TERMINAL_TASKS_BUFFER, t2.TERMINAL_TASKS_BUFFER)
 
+    def test_pipeline_module_singleton_identity(self):
+        """Garantiza que agent_pipeline y mis_agentes_inteligentes.agent_pipeline son el mismo objeto en sys.modules."""
+        import agent_pipeline as ap1
+        import mis_agentes_inteligentes.agent_pipeline as ap2
+        self.assertIs(ap1, ap2)
+        self.assertIs(
+            sys.modules["agent_pipeline"],
+            sys.modules["mis_agentes_inteligentes.agent_pipeline"]
+        )
+
+    def test_real_runtime_entrypoint_chat_fast_path(self):
+        """Comprueba el flujo real con 'Responde únicamente con OK.' y verifica las métricas exactas del contrato."""
+        user_prompt = "Responde únicamente con OK."
+        from mis_agentes_inteligentes.agent_pipeline import ComplexityRiskEvaluator
+        contract = ComplexityRiskEvaluator.build_contract(user_prompt)
+
+        self.assertEqual(contract.task_type.value, "CHAT")
+        self.assertEqual(contract.execution_level.value, "Nivel 1 (Chat Directo)")
+
+        response_text, metrics = self.controller.run(user_prompt)
+
+        self.assertEqual(metrics["task_type"], "CHAT")
+        self.assertEqual(metrics["execution_level"], "Nivel 1 (Chat Directo)")
+        self.assertEqual(metrics["tool_calls_count"], 0)
+        self.assertEqual(metrics["replans_count"], 0)
+
+        verifier = metrics.get("verification_results", {})
+        self.assertEqual(verifier.get("ast_status"), "NOT_REQUIRED")
+        self.assertEqual(verifier.get("tests_status"), "NOT_REQUIRED")
+        self.assertEqual(verifier.get("ruff_status"), "NOT_REQUIRED")
+
 
 if __name__ == "__main__":
     unittest.main()

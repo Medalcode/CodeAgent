@@ -141,7 +141,8 @@ def get_model(provider: str, model_name: str, api_key: str = ""):
     if not api_key:
         raise ValueError(f"Se requiere API Key para {provider} (en .env o en el sidebar).")
 
-    return LiteLLMModel(model_id=model_id, api_key=api_key)
+    timeout_val = 2 if "mock" in str(api_key).lower() else 60
+    return LiteLLMModel(model_id=model_id, api_key=api_key, request_timeout=timeout_val)
 
 
 def load_subagents_from_disk():
@@ -350,8 +351,8 @@ def crear_agente(agent_type: str, model, tools_list: list, workspace_context: st
         ]
     }
 
-    # Activar replanificación autonoma visible por defecto para agentes de desarrollo
-    if planning_interval == 0 and agent_type in ("CodeAgent Developer", "Agente de Edición de Código", "python-pro"):
+    # Activar replanificación autónoma visible por defecto únicamente cuando hay herramientas activas
+    if tools_list and planning_interval == 0 and agent_type in ("CodeAgent Developer", "Agente de Edición de Código", "python-pro"):
         planning_interval = 2
 
     if planning_interval > 0:

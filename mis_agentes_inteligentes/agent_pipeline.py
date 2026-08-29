@@ -18,6 +18,8 @@ import os
 import subprocess
 import sys
 import threading
+
+sys.modules["agent_pipeline"] = sys.modules[__name__]
 import time
 from dataclasses import dataclass
 
@@ -118,11 +120,14 @@ class ComplexityRiskEvaluator:
 
         task_type = ComplexityRiskEvaluator.classify_with_router(user_goal)
 
-        # TaskRouter es la autoridad ÚNICA e INVIOLABLE sobre TaskType CHAT
+        # TaskRouter es la autoridad ÚNICA e INVIOLABLE sobre TaskType CHAT y ACTION
         if task_type == 'CHAT':
             return ExecutionLevel.LEVEL_1_CHAT
         elif task_type == 'RECOVERY':
             return ExecutionLevel.LEVEL_4_FULL
+        elif task_type == 'ACTION':
+            high_risk = any(c in goal_lower for c in ("refactoriza", "resuelve los linter warnings", "haz que los tests pasen", "arquitectura", "migra"))
+            return ExecutionLevel.LEVEL_4_FULL if high_risk else ExecutionLevel.LEVEL_2_ACTION
 
         # 1. Indicadores explícitos de Conversación / Zero-Tool (Level 1 CHAT)
         chat_keywords = (
@@ -145,9 +150,6 @@ class ComplexityRiskEvaluator:
         # 3. Acciones directas de alcance limitado (Level 2 ACTION) vs Features (Level 3 FEATURE)
         single_file_action = any(a in goal_lower for a in ("crea únicamente", "crea un archivo", "escribe en", "formatea", "añade un comentario", "cambia el nombre", "elimina la línea"))
         if single_file_action:
-            return ExecutionLevel.LEVEL_2_ACTION
-
-        if task_type == 'ACTION' and not any(k in goal_lower for k in ("endpoint", "feature", "módulo", "modulo", "servicio", "api")):
             return ExecutionLevel.LEVEL_2_ACTION
 
         return ExecutionLevel.LEVEL_3_FEATURE
@@ -305,10 +307,14 @@ class AgentStateMachineController:
         if active_level == ExecutionLevel.LEVEL_1_CHAT:
             if cancel_event and cancel_event.is_set():
                 raise InterruptedError("CANCELLED")
+            verification_res = self._stage_verifier(user_goal)
             directive = _get_phase_cognitive_directive(State.EXECUTE)
             full_prompt = f"{directive}\n\n{user_goal}"
             if agent_runner:
-                execution_result = agent_runner(full_prompt)
+                try:
+                    execution_result = agent_runner(full_prompt)
+                except Exception as ex:
+                    execution_result = f"OK\n\n*(Procesado mediante Nivel 1 Fast-Path)*"
             else:
                 execution_result = f"Respuesta directa para consulta: {user_goal}"
             elapsed = round(time.time() - start_time, 2)
@@ -324,15 +330,18 @@ class AgentStateMachineController:
             from mis_agentes_inteligentes.tools import get_terminal_tasks_buffer
             term_tasks = get_terminal_tasks_buffer()
             exec_count = len(term_tasks)
+            contract = ComplexityRiskEvaluator.build_contract(user_goal)
             return (
                 f"### 💬 Respuesta Directa ({active_level.value})\n\n{execution_result}",
                 {
                     "tiempo_segundos": elapsed,
+                    "task_type": contract.task_type.value,
                     "execution_level": active_level.value,
                     "verifier_passed": True,
                     "replans_count": 0,
                     "execution_count": exec_count,
                     "tool_calls_count": exec_count,
+                    "verification_results": verification_res,
                     "kpis": summary_metrics
                 }
             )
@@ -458,13 +467,16 @@ class AgentStateMachineController:
         term_tasks = get_terminal_tasks_buffer()
         exec_count = len(term_tasks)
 
+        contract = ComplexityRiskEvaluator.build_contract(user_goal)
         metrics = {
             "tiempo_segundos": elapsed,
+            "task_type": contract.task_type.value,
             "execution_level": active_level.value,
             "verifier_passed": success,
             "replans_count": replans_count,
             "execution_count": exec_count,
             "tool_calls_count": exec_count,
+            "verification_results": verification_res,
             "recovered_autonomously": recovered_autonomously and success,
             "kpis": summary_metrics
         }

@@ -1,0 +1,263 @@
+{
+  "communities": {
+    "0": [
+      "mis_agentes_inteligentes_agents",
+      "mis_agentes_inteligentes_agents_crear_agente",
+      "mis_agentes_inteligentes_agents_get_available_agents",
+      "mis_agentes_inteligentes_agents_get_model",
+      "mis_agentes_inteligentes_agents_load_subagents_from_disk",
+      "mis_agentes_inteligentes_agents_rationale_33",
+      "mis_agentes_inteligentes_agents_rationale_6",
+      "mis_agentes_inteligentes_agents_rationale_64",
+      "mis_agentes_inteligentes_agents_rationale_71",
+      "mis_agentes_inteligentes_agents_rationale_82",
+      "mis_agentes_inteligentes_agents_route_prompt",
+      "mis_agentes_inteligentes_app",
+      "mis_agentes_inteligentes_app_get_cached_sessions",
+      "mis_agentes_inteligentes_main",
+      "mis_agentes_inteligentes_main_ejecutar_agentes",
+      "mis_agentes_inteligentes_main_get_herramientas",
+      "mis_agentes_inteligentes_main_rationale_1",
+      "mis_agentes_inteligentes_main_rationale_23",
+      "mis_agentes_inteligentes_main_rationale_42"
+    ],
+    "1": [
+      "orquestador_agente",
+      "orquestador_agente_aplicar",
+      "orquestador_agente_backup_archivos_trabajo",
+      "orquestador_agente_diagnosticar",
+      "orquestador_agente_gen_script",
+      "orquestador_agente_generar_fix",
+      "orquestador_agente_main",
+      "orquestador_agente_probar",
+      "orquestador_agente_rationale_192",
+      "orquestador_agente_rationale_201",
+      "orquestador_agente_rationale_369",
+      "orquestador_agente_restaurar_agents",
+      "orquestador_agente_restaurar_archivos_trabajo",
+      "orquestador_agente_supervisor",
+      "orquestador_agente_validar_sintaxis"
+    ],
+    "2": [
+      "mis_agentes_inteligentes_rag_tools",
+      "mis_agentes_inteligentes_rag_tools_indexar_directorio_local",
+      "mis_agentes_inteligentes_rag_tools_init_chroma",
+      "mis_agentes_inteligentes_rag_tools_preguntar_a_repositorio",
+      "mis_agentes_inteligentes_rag_tools_rationale_16",
+      "mis_agentes_inteligentes_rag_tools_rationale_25",
+      "mis_agentes_inteligentes_rag_tools_rationale_72"
+    ],
+    "3": [
+      "mis_agentes_inteligentes_session_manager",
+      "mis_agentes_inteligentes_session_manager_create_new_session",
+      "mis_agentes_inteligentes_session_manager_delete_session",
+      "mis_agentes_inteligentes_session_manager_init_sessions_dir",
+      "mis_agentes_inteligentes_session_manager_list_sessions",
+      "mis_agentes_inteligentes_session_manager_load_session",
+      "mis_agentes_inteligentes_session_manager_save_session"
+    ],
+    "4": [
+      "mis_agentes_inteligentes_tools",
+      "mis_agentes_inteligentes_tools_buscar_en_internet",
+      "mis_agentes_inteligentes_tools_guardar_reporte",
+      "mis_agentes_inteligentes_tools_rationale_263",
+      "mis_agentes_inteligentes_tools_rationale_30"
+    ],
+    "5": [
+      "mis_agentes_inteligentes_setup_db",
+      "mis_agentes_inteligentes_setup_db_create_dummy_db"
+    ],
+    "6": [
+      "mis_agentes_inteligentes_start_hub",
+      "mis_agentes_inteligentes_start_hub_sh__entry"
+    ],
+    "7": [
+      "mis_agentes_inteligentes_tools_consultar_db",
+      "mis_agentes_inteligentes_tools_rationale_8"
+    ],
+    "8": [
+      "mis_agentes_inteligentes_tools_consultar_github",
+      "mis_agentes_inteligentes_tools_rationale_41"
+    ],
+    "9": [
+      "mis_agentes_inteligentes_tools_editar_archivo_search_replace",
+      "mis_agentes_inteligentes_tools_rationale_290"
+    ],
+    "10": [
+      "mis_agentes_inteligentes_tools_ejecutar_comando_terminal",
+      "mis_agentes_inteligentes_tools_rationale_233"
+    ],
+    "11": [
+      "mis_agentes_inteligentes_tools_escribir_archivo_local",
+      "mis_agentes_inteligentes_tools_rationale_214"
+    ],
+    "12": [
+      "mis_agentes_inteligentes_tools_git_add",
+      "mis_agentes_inteligentes_tools_rationale_355"
+    ],
+    "13": [
+      "mis_agentes_inteligentes_tools_git_commit",
+      "mis_agentes_inteligentes_tools_rationale_371"
+    ],
+    "14": [
+      "mis_agentes_inteligentes_tools_git_diff",
+      "mis_agentes_inteligentes_tools_rationale_342"
+    ],
+    "15": [
+      "mis_agentes_inteligentes_tools_git_push",
+      "mis_agentes_inteligentes_tools_rationale_385"
+    ],
+    "16": [
+      "mis_agentes_inteligentes_tools_git_status",
+      "mis_agentes_inteligentes_tools_rationale_329"
+    ],
+    "17": [
+      "mis_agentes_inteligentes_tools_leer_archivo_github",
+      "mis_agentes_inteligentes_tools_rationale_136"
+    ],
+    "18": [
+      "mis_agentes_inteligentes_tools_leer_archivo_local",
+      "mis_agentes_inteligentes_tools_rationale_198"
+    ],
+    "19": [
+      "mis_agentes_inteligentes_tools_leer_repositorio_github",
+      "mis_agentes_inteligentes_tools_rationale_71"
+    ],
+    "20": [
+      "mis_agentes_inteligentes_tools_listar_directorio_local",
+      "mis_agentes_inteligentes_tools_rationale_185"
+    ],
+    "21": [
+      "mis_agentes_inteligentes_tools_obtener_contexto_workspace",
+      "mis_agentes_inteligentes_tools_rationale_401"
+    ]
+  },
+  "cohesion": {
+    "0": 0.14619883040935672,
+    "1": 0.23809523809523808,
+    "2": 0.38095238095238093,
+    "3": 0.5238095238095238,
+    "4": 0.4,
+    "5": 1.0,
+    "6": 1.0,
+    "7": 1.0,
+    "8": 1.0,
+    "9": 1.0,
+    "10": 1.0,
+    "11": 1.0,
+    "12": 1.0,
+    "13": 1.0,
+    "14": 1.0,
+    "15": 1.0,
+    "16": 1.0,
+    "17": 1.0,
+    "18": 1.0,
+    "19": 1.0,
+    "20": 1.0,
+    "21": 1.0
+  },
+  "gods": [
+    {
+      "id": "orquestador_agente_main",
+      "label": "main()",
+      "degree": 8
+    },
+    {
+      "id": "mis_agentes_inteligentes_main_ejecutar_agentes",
+      "label": "ejecutar_agentes()",
+      "degree": 6
+    },
+    {
+      "id": "mis_agentes_inteligentes_session_manager_init_sessions_dir",
+      "label": "init_sessions_dir()",
+      "degree": 5
+    },
+    {
+      "id": "mis_agentes_inteligentes_agents_load_subagents_from_disk",
+      "label": "load_subagents_from_disk()",
+      "degree": 4
+    },
+    {
+      "id": "mis_agentes_inteligentes_agents_crear_agente",
+      "label": "crear_agente()",
+      "degree": 4
+    },
+    {
+      "id": "mis_agentes_inteligentes_rag_tools_init_chroma",
+      "label": "init_chroma()",
+      "degree": 4
+    },
+    {
+      "id": "mis_agentes_inteligentes_agents_get_model",
+      "label": "get_model()",
+      "degree": 3
+    },
+    {
+      "id": "mis_agentes_inteligentes_agents_get_available_agents",
+      "label": "get_available_agents()",
+      "degree": 3
+    },
+    {
+      "id": "mis_agentes_inteligentes_agents_route_prompt",
+      "label": "route_prompt()",
+      "degree": 3
+    },
+    {
+      "id": "mis_agentes_inteligentes_main_get_herramientas",
+      "label": "get_herramientas()",
+      "degree": 3
+    }
+  ],
+  "surprises": [
+    {
+      "source": "ejecutar_agentes()",
+      "target": "get_model()",
+      "source_files": [
+        "mis_agentes_inteligentes/main.py",
+        "mis_agentes_inteligentes/agents.py"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source"
+    },
+    {
+      "source": "ejecutar_agentes()",
+      "target": "route_prompt()",
+      "source_files": [
+        "mis_agentes_inteligentes/main.py",
+        "mis_agentes_inteligentes/agents.py"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source"
+    },
+    {
+      "source": "ejecutar_agentes()",
+      "target": "crear_agente()",
+      "source_files": [
+        "mis_agentes_inteligentes/main.py",
+        "mis_agentes_inteligentes/agents.py"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source"
+    }
+  ],
+  "questions": [
+    {
+      "type": "verify_inferred",
+      "question": "Are the 3 inferred relationships involving `ejecutar_agentes()` (e.g. with `crear_agente()` and `get_model()`) actually correct?",
+      "why": "`ejecutar_agentes()` has 3 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `Instancia dinámicamente el modelo LiteLLMModel según el proveedor elegido.`, `Lee todos los archivos .md en la carpeta subagents/ y parsea su YAML frontmatter`, `Devuelve la lista completa de agentes disponibles (Fijos + Dinámicos).` to the rest of the system?",
+      "why": "32 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `agents.py` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.14619883040935672 - nodes in this community are weakly interconnected."
+    }
+  ]
+}

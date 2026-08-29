@@ -33,12 +33,20 @@ if sys.platform == "win32":
         _orig_popen_init(self, *args, **kwargs)
     subprocess.Popen.__init__ = _silent_popen_init
 
-PORT = 8000
+import uuid
+from mis_agentes_inteligentes.version import CODEAGENT_VERSION
+
+PORT = int(os.environ.get("CODEAGENT_PORT", "8000"))
 OLLAMA_TARGET = "http://localhost:11434"
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ACTIVE_WORKSPACE_DIR = BASE_DIR
 RECENT_WORKSPACES = [BASE_DIR]
 SERVER_START_TIME = time.time()
+SERVER_VERSION = CODEAGENT_VERSION
+SERVER_INSTANCE_ID = os.environ.get("CODEAGENT_INSTANCE_ID") or str(uuid.uuid4())
+PARENT_PID = int(os.environ.get("CODEAGENT_PARENT_PID", "0"))
+PARENT_CREATION_TIME = float(os.environ.get("CODEAGENT_PARENT_CREATION_TIME", "0.0"))
+
 METRICS_COUNTERS = {
     "total_requests": 0,
     "successful_requests": 0,
@@ -47,6 +55,72 @@ METRICS_COUNTERS = {
 
 
 _SERVER_LOCK = threading.Lock()
+
+
+def _get_process_creation_time(pid: int) -> float:
+    if pid <= 0:
+        return 0.0
+    if sys.platform == "win32":
+        try:
+            import ctypes
+            kernel32 = ctypes.windll.kernel32
+            PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
+            handle = kernel32.OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, False, pid)
+            if not handle:
+                return 0.0
+            c, e, k, u = ctypes.c_ulonglong(), ctypes.c_ulonglong(), ctypes.c_ulonglong(), ctypes.c_ulonglong()
+            res = kernel32.GetProcessTimes(handle, ctypes.byref(c), ctypes.byref(e), ctypes.byref(k), ctypes.byref(u))
+            kernel32.CloseHandle(handle)
+            if res:
+                return round((c.value / 10000000.0) - 11644473600.0, 3)
+        except Exception:
+            return 0.0
+    return 0.0
+
+
+def _is_parent_alive() -> bool:
+    if PARENT_PID <= 0:
+        return True
+    if sys.platform == "win32":
+        try:
+            import ctypes
+            kernel32 = ctypes.windll.kernel32
+            SYNCHRONIZE = 0x0010
+            PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
+            handle = kernel32.OpenProcess(SYNCHRONIZE | PROCESS_QUERY_LIMITED_INFORMATION, False, PARENT_PID)
+            if not handle:
+                return False
+            exit_code = ctypes.c_ulong()
+            kernel32.GetExitCodeProcess(handle, ctypes.byref(exit_code))
+            kernel32.CloseHandle(handle)
+            if exit_code.value != 259:
+                return False
+            if PARENT_CREATION_TIME > 0:
+                curr_ctime = _get_process_creation_time(PARENT_PID)
+                if curr_ctime > 0 and abs(curr_ctime - PARENT_CREATION_TIME) > 1.5:
+                    return False
+            return True
+        except Exception:
+            return False
+    else:
+        try:
+            os.kill(PARENT_PID, 0)
+            return True
+        except OSError:
+            return False
+
+
+def _start_parent_monitor():
+    if PARENT_PID <= 0:
+        return
+    def _monitor():
+        while True:
+            time.sleep(2)
+            if not _is_parent_alive():
+                _safe_print(f"[LocalCode Server] ⚠️ Proceso padre PID {PARENT_PID} finalizado o reciclado. Cerrando backend...")
+                os._exit(0)
+    t = threading.Thread(target=_monitor, daemon=True)
+    t.start()
 
 
 def _inc_metric(key: str):
@@ -118,6 +192,8 @@ class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
         if clean_path in ("/", "", "/ui", "/app", "/index.html", "/chat", "/editor"):
             self.path = "/localcode_claude_ui.html"
             super().do_GET()
+        elif clean_path in ("/api/health", "/api/server/health", "/api/server/identity"):
+            self.handle_health()
         elif clean_path.startswith("/metrics"):
             self.handle_metrics()
         elif clean_path.startswith("/api/openapi.json"):
@@ -139,8 +215,29 @@ class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
                 self._send_json({
                     "error": "Ruta no encontrada (404)",
                     "path_solicitada": self.path,
-                    "rutas_disponibles": ["/", "/localcode_claude_ui.html", "/docs", "/metrics", "/api/agent/chat", "/api/workspace/tree", "/api/tasks"]
+                    "rutas_disponibles": ["/", "/localcode_claude_ui.html", "/docs", "/metrics", "/api/health", "/api/agent/chat", "/api/workspace/tree", "/api/tasks"]
                 }, 404)
+
+    def handle_health(self):
+        self._send_json({
+            "status": "ok",
+            "service": "codeagent-backend",
+            "version": SERVER_VERSION,
+            "instance_id": SERVER_INSTANCE_ID,
+            "process_id": os.getpid(),
+            "parent_pid": PARENT_PID,
+            "parent_creation_time": PARENT_CREATION_TIME,
+            "port": PORT,
+            "base_dir": os.path.abspath(BASE_DIR),
+            "start_time": SERVER_START_TIME
+        })
+
+    def handle_server_shutdown(self):
+        self._send_json({"success": True, "message": "Server shutting down"})
+        def _async_exit():
+            time.sleep(0.2)
+            os._exit(0)
+        threading.Thread(target=_async_exit, daemon=True).start()
 
     def handle_metrics(self):
         uptime = time.time() - SERVER_START_TIME
@@ -248,6 +345,8 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
             self.handle_tasks_post(self.path.split('?')[0])
         elif self.path.startswith("/api/agent/chat"):
             self.handle_agent_chat()
+        elif self.path.startswith("/api/server/shutdown"):
+            self.handle_server_shutdown()
         elif self.path.startswith("/api/chat") or self.path.startswith("/api/tags"):
             self.proxy_to_ollama("POST")
 
@@ -553,10 +652,7 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
             model_name = "gpt-4o-mini"
         else:
             provider = "Ollama (Local)"
-            if any(k in raw_lower for k in ("ollama", "local", "qwen", "^")) or not raw_model:
-                model_name = "qwen2.5-coder:14b"
-            else:
-                model_name = raw_model
+            model_name = raw_model if raw_model else "qwen2.5-coder:14b"
 
         try:
             from agents import DEFAULT_AGENT_TOOLS
@@ -660,25 +756,26 @@ class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
 
 
 def main():
-    candidate_ports = [PORT, 8080, 8001, 8002]
-    httpd = None
-    selected_port = PORT
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--port", type=int, default=0)
+    args, _ = parser.parse_known_args()
 
-    for p in candidate_ports:
-        try:
-            httpd = ThreadedTCPServer(("", p), LocalCodeProxyHandler)
-            selected_port = p
-            break
-        except OSError:
-            continue
+    global PORT
+    if args.port > 0:
+        PORT = args.port
 
-    if not httpd:
-        _safe_print(f"❌ Error: No se pudo abrir el servidor en ninguno de los puertos {candidate_ports}.")
+    _start_parent_monitor()
+
+    try:
+        httpd = ThreadedTCPServer(("", PORT), LocalCodeProxyHandler)
+    except OSError as e:
+        _safe_print(f"❌ Error: No se pudo abrir el servidor en el puerto asignado {PORT}: {e}")
         sys.exit(1)
 
-    url = f"http://localhost:{selected_port}/localcode_claude_ui.html"
+    url = f"http://localhost:{PORT}/localcode_claude_ui.html"
     _safe_print("=" * 65)
-    _safe_print(f"🚀 Servidor LocalCode Multihilo iniciado en: {url}")
+    _safe_print(f"🚀 Servidor LocalCode Multihilo iniciado en: {url} (PID {os.getpid()})")
     _safe_print(f"🔗 Proxy conector activado hacia Ollama: {OLLAMA_TARGET}")
     _safe_print("💡 Cierra esta ventana o presiona Ctrl+C para detener.")
     _safe_print("=" * 65 + "\n")

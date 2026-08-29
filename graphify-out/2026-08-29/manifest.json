@@ -10,8 +10,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/main.py": {
-    "mtime": 1787861455.4087703,
-    "ast_hash": "2e7dbf8260f5b7a7d38df30d4b089fd4",
+    "mtime": 1787972506.3195615,
+    "ast_hash": "98e37cc2bcb803982faf5575ddf45ef1",
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/rag_tools.py": {
@@ -35,8 +35,8 @@
     "semantic_hash": "a1355e8f77d7a9bdc1619866b5517ca6"
   },
   "mis_agentes_inteligentes/tools.py": {
-    "mtime": 1787953677.2397585,
-    "ast_hash": "9ed9d9ec529222e2ba91907017663185",
+    "mtime": 1787972532.2741387,
+    "ast_hash": "db3b6b0a54a5252e42995c794f0f9de6",
     "semantic_hash": ""
   },
   "orquestador_agente.py": {
@@ -105,8 +105,8 @@
     "semantic_hash": ""
   },
   "desktop_app.py": {
-    "mtime": 1787954628.9219418,
-    "ast_hash": "52545798031737f36bb7414877616f01",
+    "mtime": 1787972498.1089256,
+    "ast_hash": "7c967ad6094abf851eb2f6678a8cf987",
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/__init__.py": {
@@ -115,8 +115,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/agent_pipeline.py": {
-    "mtime": 1787969445.47342,
-    "ast_hash": "1a1039c2d45c4be7157d6486627f344e",
+    "mtime": 1787972612.2356353,
+    "ast_hash": "14da240cbee0836931792ee32127ac61",
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/claude_code_cli.py": {
@@ -130,8 +130,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/localcode_server.py": {
-    "mtime": 1787954637.5293539,
-    "ast_hash": "6f3f39fdcea70d9deb2026c919914128",
+    "mtime": 1787972489.5088935,
+    "ast_hash": "303a08d6899500a94f552e24b5cc0083",
     "semantic_hash": ""
   },
   "pyproject.toml": {
@@ -160,8 +160,8 @@
     "semantic_hash": ""
   },
   "tests/test_github_tools.py": {
-    "mtime": 1785891161.895754,
-    "ast_hash": "089d0533a639abc00259fc365bd29c13",
+    "mtime": 1787972698.1935697,
+    "ast_hash": "324c5b21ddafb96480f5429f8b0519ba",
     "semantic_hash": ""
   },
   "tests/test_integration_pipeline.py": {
@@ -285,8 +285,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/metrics_benchmarks.json": {
-    "mtime": 1787969950.3139637,
-    "ast_hash": "cdeb97cb6c2b5faaef7f0dded9d7a874",
+    "mtime": 1787972751.9779267,
+    "ast_hash": "3106638fa79a5afe9f2e02efbb5e5177",
     "semantic_hash": ""
   },
   "tests/test_state_machine.py": {
@@ -310,8 +310,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/benchmark_report_v42.md": {
-    "mtime": 1787969938.6242,
-    "ast_hash": "d5b0545b8d943e06830c84eef4522212",
+    "mtime": 1787972728.335026,
+    "ast_hash": "8eb9d93de099e1426954d400b83afd04",
     "semantic_hash": ""
   },
   "tests/test_feedback_loop.py": {
@@ -445,8 +445,8 @@
     "semantic_hash": ""
   },
   "sdd_contract/task_router.py": {
-    "mtime": 1787969693.7424107,
-    "ast_hash": "cdac8cc131913c63aa3eb50cb6698d78",
+    "mtime": 1787972634.2385564,
+    "ast_hash": "30b48fb1eb37d8d5e468fa072c2b194d",
     "semantic_hash": ""
   },
   "sdd_contract/task_types.py": {
@@ -470,8 +470,8 @@
     "semantic_hash": ""
   },
   "tests/test_sdd_conformance.py": {
-    "mtime": 1787969599.3150027,
-    "ast_hash": "d59821a1af75a7d0baba72dc068367f3",
+    "mtime": 1787972516.4872441,
+    "ast_hash": "8d9e384c82ad3a8c93fd6004b8a1387a",
     "semantic_hash": ""
   },
   "sdd_contract/CONFORMANCE_AUDIT.md": {

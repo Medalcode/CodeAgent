@@ -22,8 +22,7 @@ class TaskRouter:
             "explica", "explicame", "describe", "dime", "cual es", "que es",
             "como funciona", "cual es la", "que significa", "puede explicar",
             "me puedes ayudar", "por favor", "gracias", "buen dia", "buenas tardes",
-            "responde", "responde unicamente", "unicamente con", "no ejecutes",
-            "solo responde", "contesta", "responder", "decirme"
+            "responde unicamente", "solo responde", "contesta", "responder", "decirme"
         }
     }
 
@@ -35,7 +34,7 @@ class TaskRouter:
             "corre", "correr", "compila", "compilar", "build", "buildea",
             "instala", "instalar", "actualiza", "actualizar", "fix", "arregla",
             "añade", "añadir", "agrega", "agregar", "inserta", "insertar",
-            "comentario", "cambia", "cambiar"
+            "comentario", "cambia", "cambiar", "ejecutalo", "ejecutala"
         }
     }
 
@@ -104,34 +103,48 @@ class TaskRouter:
         """
         prompt_normalized = strip_accents(prompt.lower())
 
-        negative_action_phrases = (
-            "sin modificar", "sin ejecutar", "sin tocar", "sin crear",
-            "no modifiques", "no ejecutes", "no crees", "no abras",
-            "sin herramientas", "no cambies", "no hagas"
+        # Prohibiciones primarias sobre creación/modificación/ejecución general
+        primary_negative_phrases = (
+            "sin modificar", "sin tocar", "sin crear", "no modifiques",
+            "no crees nada", "no crees archivos", "no crees ningun archivo",
+            "no abras terminal", "sin herramientas", "no ejecutes ninguna herramienta",
+            "no ejecutes herramientas", "no ejecutes ningun comando", "no ejecutes comandos",
+            "no crees, modifiques", "no hagas nada"
         )
-        has_negative_actions = any(neg in prompt_normalized for neg in negative_action_phrases)
 
-        has_conversation = any(
-            kw in prompt_normalized for kw in self.CHAT_KEYWORDS
-        ) or has_negative_actions
+        # Prohibiciones secundarias acotadas exclusivamente a verificadores (pytest, unittest, ruff, ast)
+        secondary_verifier_phrases = (
+            "no ejecutes pytest", "no ejecutes unittest", "no ejecutes ruff",
+            "no ejecutes ast", "no ejecutes analisis ast", "no ejecutes tests",
+            "no ejecutes pruebas", "no hagas replanificacion", "sin pytest",
+            "sin unittest", "sin ruff", "sin ast", "sin tests", "sin pruebas"
+        )
 
-        has_action = any(
-            kw in prompt_normalized for kw in self.ACTION_KEYWORDS
-        ) and not has_negative_actions
+        has_primary_negatives = any(neg in prompt_normalized for neg in primary_negative_phrases)
+
+        # Buscar si el prompt solicita explícitamente acciones primarias positivas (p. ej. "crea action_final.py", "ejecuta python")
+        has_positive_action_keywords = any(kw in prompt_normalized for kw in self.ACTION_KEYWORDS)
+        has_positive_feature_keywords = any(kw in prompt_normalized for kw in self.FEATURE_KEYWORDS)
+        has_positive_recovery_keywords = any(kw in prompt_normalized for kw in self.RECOVERY_KEYWORDS)
+
+        # Una acción primaria es válida si hay palabras clave de acción y no hay prohibición primaria global
+        has_action = (has_positive_action_keywords and not has_primary_negatives) or (
+            has_positive_action_keywords and any(k in prompt_normalized for k in ("ejecuta python", "crea unicamente", "crea el archivo", "ejecutalo"))
+        )
+
+        has_conversation = (
+            any(kw in prompt_normalized for kw in self.CHAT_KEYWORDS) or has_primary_negatives
+        ) and not (has_action or has_positive_feature_keywords)
 
         indicators = {
             "has_conversation_words": has_conversation,
             "has_action_keywords": has_action,
-            "has_feature_keywords": any(
-                kw in prompt_normalized for kw in self.FEATURE_KEYWORDS
-            ),
-            "has_recovery_keywords": any(
-                kw in prompt_normalized for kw in self.RECOVERY_KEYWORDS
-            ),
+            "has_feature_keywords": has_positive_feature_keywords,
+            "has_recovery_keywords": has_positive_recovery_keywords,
             "has_ui_keywords": any(
                 kw in prompt_normalized for kw in {"ui", "interface", "ventana", "window", "pantalla"}
             ),
-            "has_negative_actions": has_negative_actions,
+            "has_negative_actions": has_primary_negatives,
             "prompt_length": len(prompt),
             "word_count": len(prompt.split())
         }

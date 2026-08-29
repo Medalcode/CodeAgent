@@ -5,6 +5,7 @@ Compatible de forma nativa y robusta con modelos locales de 7B (como Qwen-Coder)
 """
 import time
 import traceback
+import logging
 
 import rag_tools
 import mis_agentes_inteligentes.tools as mis_herramientas
@@ -96,7 +97,7 @@ def ejecutar_agentes(
 
     # ── Consultar TaskContract antes de inyectar o asignar herramientas ───────
     try:
-        from agent_pipeline import ComplexityRiskEvaluator
+        from mis_agentes_inteligentes.agent_pipeline import ComplexityRiskEvaluator
         contract = ComplexityRiskEvaluator.build_contract(user_prompt)
         if contract.task_type.value == "CHAT" or not contract.tools_allowed:
             selected_tools = []
@@ -138,13 +139,6 @@ def ejecutar_agentes(
     # ── Contexto de workspace dinámico ───────────────────────────────────────
     workspace_context = _construir_contexto_workspace()
 
-    # ── Modo Conversación: sin herramientas ──────────────────────────────────
-    if not herramientas or agent_type == "Asistente General":
-        agente = crear_agente(agent_type, model, [], workspace_context)
-        resultado = agente.run(user_prompt)
-        metricas["tiempo_segundos"] = round(time.time() - start_time, 2)
-        return str(resultado), metricas
-
     # ── Ejecutar CodeAgent v3.0 con AgentPipeline ─────────────────────────────
     try:
         agente = crear_agente(agent_type, model, herramientas, workspace_context)
@@ -161,12 +155,20 @@ def ejecutar_agentes(
                 return str(agente.run(prompt_enriquecido))
 
         try:
-            from agent_pipeline import AgentPipeline
+            from mis_agentes_inteligentes.agent_pipeline import AgentPipeline
             pipeline = AgentPipeline()
             resultado_str, p_metrics = pipeline.run_pipeline(user_prompt, agent_runner=_runner)
             metricas.update(p_metrics)
-        except Exception:
-            resultado_str = _runner(user_prompt)
+        except Exception as e:
+            err_trace = traceback.format_exc()
+            logging.error(f"❌ Excepción en AgentPipeline.run_pipeline: {e}\n{err_trace}")
+            resultado_str = (
+                f"❌ Error crítico en el pipeline agéntico (AgentPipeline):\n```\n{e}\n```\n\n"
+                f"**Detalles del fallo del Pipeline:**\n```\n{err_trace[-1000:]}\n```"
+            )
+            metricas["verifier_passed"] = False
+            metricas["error"] = str(e)
+            metricas["pipeline_failed"] = True
 
     except Exception as e:
         resultado_str = (
