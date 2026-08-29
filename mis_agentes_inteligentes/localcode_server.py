@@ -262,7 +262,7 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
 
         if approved:
             try:
-                from tools import pre_approve_command
+                from mis_agentes_inteligentes.tools import pre_approve_command
                 pre_approve_command(comando)
                 self._send_json({"success": True, "message": f"Comando '{comando}' pre-aprobado para ejecución."})
             except Exception as e:
@@ -384,7 +384,7 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
             RECENT_WORKSPACES.insert(0, folder_path)
 
         try:
-            from tools import set_active_workspace
+            from mis_agentes_inteligentes.tools import set_active_workspace
             set_active_workspace(folder_path)
         except Exception:
             pass
@@ -462,7 +462,7 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
             folderpath = _ps_folder_dialog("Abrir Carpeta de Proyecto — CodeAgent IDE")
             if folderpath and os.path.exists(folderpath):
                 ACTIVE_WORKSPACE_DIR = folderpath
-                from tools import set_active_workspace
+                from mis_agentes_inteligentes.tools import set_active_workspace
                 set_active_workspace(folderpath)
                 files_found = self._scan_folder(folderpath)
                 self._send_json({
@@ -576,7 +576,7 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
         api_key = data.get("api_key", "")
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
         try:
-            from tools import (
+            from mis_agentes_inteligentes.tools import (
                 clear_terminal_tasks_buffer,
                 get_terminal_tasks_buffer,
                 set_active_workspace,
@@ -598,7 +598,7 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
             )
             term_tasks = []
             try:
-                from tools import get_terminal_tasks_buffer
+                from mis_agentes_inteligentes.tools import get_terminal_tasks_buffer
                 term_tasks = get_terminal_tasks_buffer()
             except Exception:
                 pass

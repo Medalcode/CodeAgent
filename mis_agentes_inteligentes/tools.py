@@ -9,6 +9,8 @@ import subprocess
 import sys
 import tempfile
 
+sys.modules["tools"] = sys.modules[__name__]
+
 if sys.platform == "win32":
     _orig_popen_init = subprocess.Popen.__init__
     def _silent_popen_init(self, *args, **kwargs):

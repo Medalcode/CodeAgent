@@ -163,7 +163,7 @@ class DesktopIDEApi:
         folderpath = _ps_folder_dialog("Abrir Carpeta de Proyecto — CodeAgent IDE")
         if folderpath and os.path.exists(folderpath):
             try:
-                from tools import set_active_workspace
+                from mis_agentes_inteligentes.tools import set_active_workspace
                 set_active_workspace(folderpath)
                 return {
                     "path": folderpath,

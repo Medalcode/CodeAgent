@@ -7,7 +7,7 @@ import time
 import traceback
 
 import rag_tools
-import tools as mis_herramientas
+import mis_agentes_inteligentes.tools as mis_herramientas
 from agents import crear_agente, get_model, route_prompt
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -94,8 +94,19 @@ def ejecutar_agentes(
     if agent_type == "Auto (Enrutador Automático) 🌟":
         agent_type = route_prompt(user_prompt)
 
-    # ── Forzar herramientas según el agente si no se seleccionaron ───────────
-    if not selected_tools:
+    # ── Consultar TaskContract antes de inyectar o asignar herramientas ───────
+    try:
+        from agent_pipeline import ComplexityRiskEvaluator
+        contract = ComplexityRiskEvaluator.build_contract(user_prompt)
+        if contract.task_type.value == "CHAT" or not contract.tools_allowed:
+            selected_tools = []
+    except Exception:
+        contract = None
+
+    if selected_tools and contract and not contract.tools_allowed:
+        selected_tools = []
+
+    if not selected_tools and (not contract or contract.tools_allowed):
         if agent_type in (
             "CodeAgent Developer",
             "Agente de Edición de Código",
@@ -114,7 +125,7 @@ def ejecutar_agentes(
 
     # ── Configurar modelo y herramientas ─────────────────────────────────────
     model = get_model(provider, model_name, api_key)
-    herramientas = get_herramientas(selected_tools)
+    herramientas = get_herramientas(selected_tools) if (not contract or contract.tools_allowed) else []
 
     metricas = {
         "tiempo_segundos": 0,

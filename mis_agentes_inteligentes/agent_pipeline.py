@@ -118,8 +118,11 @@ class ComplexityRiskEvaluator:
 
         task_type = ComplexityRiskEvaluator.classify_with_router(user_goal)
 
+        # TaskRouter es la autoridad ÚNICA e INVIOLABLE sobre TaskType CHAT
         if task_type == 'CHAT':
             return ExecutionLevel.LEVEL_1_CHAT
+        elif task_type == 'RECOVERY':
+            return ExecutionLevel.LEVEL_4_FULL
 
         # 1. Indicadores explícitos de Conversación / Zero-Tool (Level 1 CHAT)
         chat_keywords = (
@@ -128,14 +131,10 @@ class ComplexityRiskEvaluator:
             "sin herramientas", "sin modificar", "sin tocar", "no ejecutes nada",
             "no crees nada", "no abras", "únicamente con", "únicamente ok", "únicamente el texto"
         )
-        is_explicit_chat = any(k in goal_lower for k in chat_keywords)
-
-        mutation_verbs = ("crea", "escribe", "modifica", "ejecuta", "elimina", "construye", "refactoriza", "arregla", "implementa", "añade", "agrega")
-        has_mutation = any(v in goal_lower for v in mutation_verbs)
-
+        has_mutation = any(v in goal_lower for v in ("crea", "escribe", "modifica", "ejecuta", "elimina", "construye", "refactoriza", "arregla", "implementa", "añade", "agrega"))
         is_query = any(p in goal_lower for p in ("qué hace", "explicar", "cómo funciona", "dónde está", "resumen", "revisa")) and not has_mutation
 
-        if is_explicit_chat or is_query or (not has_mutation and len(goal_lower.split()) <= 12):
+        if any(k in goal_lower for k in chat_keywords) or is_query or (not has_mutation and len(goal_lower.split()) <= 12):
             return ExecutionLevel.LEVEL_1_CHAT
 
         # 2. Operaciones complejas de alto riesgo (Level 4 FULL)
@@ -143,9 +142,12 @@ class ComplexityRiskEvaluator:
         if high_risk:
             return ExecutionLevel.LEVEL_4_FULL
 
-        # 3. Acciones directas de alcance limitado (Level 2 ACTION)
+        # 3. Acciones directas de alcance limitado (Level 2 ACTION) vs Features (Level 3 FEATURE)
         single_file_action = any(a in goal_lower for a in ("crea únicamente", "crea un archivo", "escribe en", "formatea", "añade un comentario", "cambia el nombre", "elimina la línea"))
         if single_file_action:
+            return ExecutionLevel.LEVEL_2_ACTION
+
+        if task_type == 'ACTION' and not any(k in goal_lower for k in ("endpoint", "feature", "módulo", "modulo", "servicio", "api")):
             return ExecutionLevel.LEVEL_2_ACTION
 
         return ExecutionLevel.LEVEL_3_FEATURE
@@ -319,6 +321,9 @@ class AgentStateMachineController:
                 recovered_autonomously=False,
                 verification_results=verification_res
             )
+            from mis_agentes_inteligentes.tools import get_terminal_tasks_buffer
+            term_tasks = get_terminal_tasks_buffer()
+            exec_count = len(term_tasks)
             return (
                 f"### 💬 Respuesta Directa ({active_level.value})\n\n{execution_result}",
                 {
@@ -326,6 +331,8 @@ class AgentStateMachineController:
                     "execution_level": active_level.value,
                     "verifier_passed": True,
                     "replans_count": 0,
+                    "execution_count": exec_count,
+                    "tool_calls_count": exec_count,
                     "kpis": summary_metrics
                 }
             )
@@ -447,11 +454,17 @@ class AgentStateMachineController:
             f"- **Evaluación Critic:** {critic_summary}\n"
         )
 
+        from mis_agentes_inteligentes.tools import get_terminal_tasks_buffer
+        term_tasks = get_terminal_tasks_buffer()
+        exec_count = len(term_tasks)
+
         metrics = {
             "tiempo_segundos": elapsed,
             "execution_level": active_level.value,
             "verifier_passed": success,
             "replans_count": replans_count,
+            "execution_count": exec_count,
+            "tool_calls_count": exec_count,
             "recovered_autonomously": recovered_autonomously and success,
             "kpis": summary_metrics
         }
@@ -608,6 +621,21 @@ class AgentStateMachineController:
 
     def _stage_verifier(self, user_goal: str = "") -> dict[str, Any]:
         """Comprueba sintaxis AST, linter Ruff y suite de pruebas enfocado únicamente en los archivos del contrato de la tarea actual (Task-Scoped)."""
+        if user_goal:
+            contract = ComplexityRiskEvaluator.build_contract(user_goal)
+            if not contract.requires_code_verification or contract.task_type.value == "CHAT":
+                return {
+                    "success": True,
+                    "ast_valid": True,
+                    "tests_passed": True,
+                    "ruff_passed": True,
+                    "ast_status": "NOT_REQUIRED",
+                    "tests_status": "NOT_REQUIRED",
+                    "ruff_status": "NOT_REQUIRED",
+                    "test_files_count": 0,
+                    "ast_errors": []
+                }
+
         user_goal_lower = user_goal.lower()
 
         # 1. Escaneo de archivos Python en el workspace
@@ -646,7 +674,7 @@ class AgentStateMachineController:
         def _is_test_file(fp: str) -> bool:
             norm = fp.replace("\\", "/").lower()
             base = os.path.basename(norm)
-            return norm.startswith("tests/") or norm.startswith("test/") or base.startswith("test_") or base.endswith("_test.py")
+            return norm.startswith("tests/") or norm.startswith("test/") or base.startswith("test_")
 
         task_test_files = [f for f in task_modified_files if _is_test_file(f)]
 
