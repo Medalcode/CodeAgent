@@ -398,5 +398,20 @@
     "mtime": 1787946072.1606412,
     "ast_hash": "f51a396c654edcdd9c725b137c37a162",
     "semantic_hash": ""
+  },
+  ".kiro/specs/codeagent-sdd-contract/design.md": {
+    "mtime": 1787961634.9666715,
+    "ast_hash": "f99f1eeb7113bf051c7dcff459701d7b",
+    "semantic_hash": ""
+  },
+  ".kiro/specs/codeagent-sdd-contract/requirements.md": {
+    "mtime": 1787961477.580853,
+    "ast_hash": "cfadf345cc8499a278981429b09cf6d8",
+    "semantic_hash": ""
+  },
+  ".kiro/specs/codeagent-sdd-contract/tasks.md": {
+    "mtime": 1787961736.288824,
+    "ast_hash": "29b37445ddd43f7564c163c85a5af191",
+    "semantic_hash": ""
   }
 }
