@@ -1,4 +1,4 @@
-"""
+ï»¿"""
 Task Router for classifying user prompts into task types.
 """
 import re
@@ -32,7 +32,7 @@ class TaskRouter:
     
     FEATURE_KEYWORDS = {
         "implementa", "implementar", "construye", "construir", "agrega",
-        "agregar", "añade", "añadir", "desarrolla", "desarrollar",
+        "agregar", "aÃ±ade", "aÃ±adir", "desarrolla", "desarrollar",
         "crea un sistema", "crear un sistema", "haz un", "crear un",
         "desarrollar un sistema", "agregar funcionalidad",
         "soporte para", "capacidad para"
