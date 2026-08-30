@@ -5,3 +5,11 @@ sesiones/
 MisEventos.db
 historial_analisis.txt
 .env
+tmp*
+mis_agentes_inteligentes/tmp*
+nested-venv.txt
+root-venv.txt
+*.db-shm
+*.db-wal
+
+
