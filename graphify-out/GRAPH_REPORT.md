@@ -1,16 +1,16 @@
 # Graph Report - CodeAgent  (2026-08-30)
 
 ## Corpus Check
-- 142 files · ~91,331 words
+- 142 files · ~77,759 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1802 nodes · 2561 edges · 156 communities (128 shown, 28 thin omitted)
+- 1817 nodes · 2575 edges · 159 communities (130 shown, 29 thin omitted)
 - Extraction: 88% EXTRACTED · 12% INFERRED · 0% AMBIGUOUS · INFERRED: 320 edges (avg confidence: 0.75)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `815c26e0`
+- Built from commit: `ddf16a71`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -21,8 +21,8 @@
 - CodeAgentRuntime
 - main.py
 - Changelog
-- 💻 CodeAgent (v5.1.0 SDD Certified & Local-Only Architecture)
-- _atomic_write_file
+- 💻 CodeAgent (v6.1 SDD Certified & Canonical Architecture)
+- tools.py
 - mis_agentes_inteligentes/tools
 - mis_agentes_inteligentes.tools
 - AgentStateMachineController
@@ -33,7 +33,7 @@
 - CodeAgent
 - Test-Driven Development
 - orquestador_agente
-- TestTools
+- escribir_archivo_local
 - mis_agentes_inteligentes/session_manager
 - mis_agentes_inteligentes.session_manager
 - desktop_app.py
@@ -46,7 +46,7 @@
 - ADR-001: Selección de smolagents como Motor ReAct
 - ADR-002: Proxy HTTP Multihilo Ligero Basado en http.server Nativo
 - ADR-003: Compatibilidad y Polyfill de Pydantic v2 con LiteLLM
-- tools.py
+- TestTools
 - get_model
 - mis_agentes_inteligentes/rag_tools
 - TestSDDConformance
@@ -58,7 +58,7 @@
 - start_hub.sh
 - [2.2.0] - 2026-07-25
 - 🧪 Reporte Oficial de Benchmark Reales CodeAgent (v4.2 Enterprise)
-- ToolType
+- TaskContract
 - DatabaseManager
 - Correctness Properties
 - [2.3.0] - 2026-08-04
@@ -86,7 +86,7 @@
 - Data Models
 - Example Usage
 - EvidenceLogger
-- .build_contract
+- ComplexityRiskEvaluator
 - EventBus
 - Dependencies
 - [6.11.0] - 2026-08-28
@@ -98,11 +98,11 @@
 - Audit Results by Requirement
 - ui_manager.py
 - SDDIntegrator
-- TestTaskTimeoutSafeguardAndCancellation
+- ActionTaskContract
 - integrator.py
-- .classify
-- ToolPolicyEnforcer
 - TaskRouter
+- ToolType
+- ExecutionLevel
 - agent_pipeline.py
 - test_e2e_real_desktop_lifecycle.py
 - tool
@@ -110,16 +110,16 @@
 - INV-003 — Cross-Task Isolation
 - check_ollama_running
 - INV-004 — Intent Preservation
-- Event
-- TestVerifierEvidenceAndWorkspaceIsolation
-- handle_sse_events_dict
+- TestDesktopPipelineVisualization
+- Repository Hygiene Report — Phase C1 (Safe Repository Hygiene)
+- .do_GET
 - CodeAgentBenchmarkSuite
 - Change Impact Analysis — SDD Governance Telemetry Endpoint
-- .publish
+- Event
 - INV-005 — Failure Containment
 - TestRegressionSuite
 - SPEC-009 — SDD Governance Telemetry Endpoint
-- set_active_workspace
+- agents.py
 - SPEC-010 — Dynamic Feature Governance Automation
 - Change Impact Analysis — Feature Governance Automation
 - version.py
@@ -145,7 +145,7 @@
 - session_manager.py
 - SPEC-009/README.md
 - sdd_check.py
-- task_types.py
+- ejecutar_agentes
 - Feature Runtime Evidence — SPEC-011
 - rag_tools.py
 - GraphContextEngine
@@ -157,15 +157,18 @@
 - Change Impact Analysis — Desktop Real-Time Pipeline EventSource Visualization (SPEC-012)
 - mis_agentes_inteligentes.rag_tools
 - Feature Runtime Evidence — SPEC-012
-- TestStateCheckpointing
+- app.py
 - localcode_server.py
 - SPEC-013 — AST Subgraph Context Retrieval & Impact Engine (Graphify Subgraph RAG)
 - Feature Runtime Evidence — SPEC-013
-- [6.3.0] - 2026-08-28
-- get_db_manager
+- TestAgents
+- TestTDDRecoveryLoop
 - SPEC-012/README.md
+- TestRuntimeAndStorage
 - .open_folder_dialog
 - SPEC-013/README.md
+- claude_code_cli.py
+- [6.4.0] - 2026-08-28
 
 ## God Nodes (most connected - your core abstractions)
 1. `AgentStateMachineController` - 43 edges
@@ -180,6 +183,8 @@
 10. `EventBus` - 21 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `ExecutionLevel` --uses--> `TaskRouter`  [INFERRED]
+  mis_agentes_inteligentes/agent_pipeline.py → sdd_contract/task_router.py
 - `TestCrossTaskTelemetryIsolation` --uses--> `ExecutionLevel`  [INFERRED]
   tests/test_cross_task_telemetry_isolation.py → mis_agentes_inteligentes/agent_pipeline.py
 - `TestDiagnoseRootCauseAndVersion` --uses--> `ExecutionLevel`  [INFERRED]
@@ -188,13 +193,11 @@
   tests/test_feedback_loop.py → mis_agentes_inteligentes/agent_pipeline.py
 - `TestRuntimeRecoveryAndPauseSemantics` --uses--> `ExecutionLevel`  [INFERRED]
   tests/test_runtime_recovery.py → mis_agentes_inteligentes/agent_pipeline.py
-- `TestSDDConformance` --uses--> `ExecutionLevel`  [INFERRED]
-  tests/test_sdd_conformance.py → mis_agentes_inteligentes/agent_pipeline.py
 
 ## Import Cycles
 - None detected.
 
-## Communities (156 total, 28 thin omitted)
+## Communities (159 total, 29 thin omitted)
 
 ### Community 0 - "Canonical Architecture Analysis — CodeAgent v6.1"
 Cohesion: 0.06
@@ -202,31 +205,31 @@ Nodes (30): Análisis Comparativo, Análisis de Mecanismos Actuales, Análisis d
 
 ### Community 1 - "LocalCodeProxyHandler"
 Cohesion: 0.21
-Nodes (3): LocalCodeProxyHandler, Maneja el streaming HTTP Server-Sent Events en GET /api/pipeline/events., get_runtime()
+Nodes (5): LocalCodeProxyHandler, Verifica si el servicio Ollama local está activo en el endpoint configurado., get_runtime(), Establece el directorio del espacio de trabajo activo de forma thread-safe para…, set_active_workspace()
 
 ### Community 2 - "An�lisis de Violaciones del SDD Contract System"
 Cohesion: 0.05
 Nodes (36): 1.1 Clasificaci�n Incorrecta (Requirement 1), 1.2 Fallback a LEVEL_3_FEATURE (Requirement 1), 1.3?? CHAT Fast Path (Requirement 2), 1.4 Verificaci�n ejecutada para CHAT (Requirement 2), 1.5 Replanning ejecutado para CHAT (Requirement 2), 2.1 Verificaci�n ejecutada para ACTION sin solicitud expl�cita (Requirement 3), 2.2 Ejecuci�n repetida del programa (Requirement 3), 2.3 Ruff FAIL hace fallar ACTION aunque no sea parte del contrato (Requirement 3) (+28 more)
 
 ### Community 3 - "CodeAgentRuntime"
-Cohesion: 0.12
-Nodes (10): CodeAgentRuntime, Any, Motor de ejecución autónomo desacoplado para CodeAgent v6.1. Gestión semántica…, Obtiene la información de la tarea, su estado actual y el último checkpoint., Lista las tareas recientes guardadas en SQLite., Pausa una tarea activa sin marcarla como cancelada., Reanuda una tarea pausada desde su último checkpoint en SQLite., Cancela definitivamente una tarea. (+2 more)
+Cohesion: 0.10
+Nodes (11): CodeAgentRuntime, Any, Motor de ejecución autónomo desacoplado para CodeAgent v6.1. Gestión semántica…, Obtiene la información de la tarea, su estado actual y el último checkpoint., Lista las tareas recientes guardadas en SQLite., Pausa una tarea activa sin marcarla como cancelada., Reanuda una tarea pausada desde su último checkpoint en SQLite., Cancela definitivamente una tarea. (+3 more)
 
 ### Community 4 - "main.py"
-Cohesion: 0.05
-Nodes (32): graphify, crear_agente(), _detectar_modelo_local(), get_available_agents(), load_subagents_from_disk(), Lee todos los archivos .md en la carpeta subagents/ y parsea su YAML…, Devuelve la lista completa de agentes disponibles (Fijos + Dinámicos)., Enrutador automático mejorado con scoring ponderado. (+24 more)
+Cohesion: 0.21
+Nodes (6): _construir_contexto_workspace(), get_herramientas(), Pipeline de agentes con smolagents de HuggingFace. El LLM usa CodeAgent para…, Convierte los nombres del UI en la lista de funciones @tool., Genera un bloque de contexto del workspace actual para inyectar en el…, TestMainPipeline
 
 ### Community 5 - "Changelog"
 Cohesion: 0.20
-Nodes (9): [4.2.0] - 2026-08-27, [6.0.0] - 2026-08-28, [6.10.0] - 2026-08-28, [6.4.0] - 2026-08-28, Added, Added, Added, Added (+1 more)
+Nodes (9): [4.2.0] - 2026-08-27, [6.0.0] - 2026-08-28, [6.10.0] - 2026-08-28, [6.3.0] - 2026-08-28, Added, Added, Added, Added (+1 more)
 
-### Community 6 - "💻 CodeAgent (v5.1.0 SDD Certified & Local-Only Architecture)"
+### Community 6 - "💻 CodeAgent (v6.1 SDD Certified & Canonical Architecture)"
 Cohesion: 0.12
-Nodes (15): 🏗️ Arquitectura del Sistema (5 Capas Principales & Gobernanza SDD), ✨ Características Principales, CLI de Verificación SDD (`scripts/sdd_check.py`), 💻 CodeAgent (v5.1.0 SDD Certified & Local-Only Architecture), 🚀 Instalación y Ejecución, 🌐 Knowledge Graph (`graphify-out/`), 🧠 Local-Only & Ollama-First (SPEC-013), 🔄 Multi-Proveedor Dinámico & smolagents (+7 more)
+Nodes (16): 🏗️ Arquitectura del Sistema (5 Capas Principales & Gobernanza SDD), 📐 Auditorías y Arquitectura Canónica (Phase A, B & C1), ✨ Características Principales, CLI de Verificación SDD (`scripts/sdd_check.py`), 💻 CodeAgent (v6.1 SDD Certified & Canonical Architecture), 🚀 Instalación y Ejecución, 🌐 Knowledge Graph (`graphify-out/`), 🧠 Local-Only & Ollama-First (SPEC-013) (+8 more)
 
-### Community 7 - "_atomic_write_file"
-Cohesion: 0.20
-Nodes (5): _atomic_write_file(), check_tool_permission(), Escribe un archivo de forma atómica con limpieza segura de temporales en caso…, Valida si el permiso actual autoriza la ejecución de la herramienta., TestTechnicalQualityRefactor
+### Community 7 - "tools.py"
+Cohesion: 0.28
+Nodes (5): check_tool_permission(), PermissionLevel, Enum, Niveles de autorización para la ejecución segura de herramientas agénticas., Valida si el permiso actual autoriza la ejecución de la herramienta.
 
 ### Community 8 - "mis_agentes_inteligentes/tools"
 Cohesion: 0.11
@@ -237,12 +240,12 @@ Cohesion: 0.11
 Nodes (18): mis_agentes_inteligentes.tools, mis_agentes_inteligentes.tools.consultar_db, mis_agentes_inteligentes.tools.guardar_reporte, mis_agentes_inteligentes.tools.consultar_github, mis_agentes_inteligentes.tools.leer_repositorio_github, mis_agentes_inteligentes.tools.leer_archivo_github, mis_agentes_inteligentes.tools.listar_directorio_local, mis_agentes_inteligentes.tools.leer_archivo_local (+10 more)
 
 ### Community 10 - "AgentStateMachineController"
-Cohesion: 0.11
-Nodes (16): AgentStateMachineController, Any, Controlador determinista de estados, enrutador adaptativo y gestor de…, Persiste el estado activo de la Máquina de Estados en la sesión JSON., Ejecuta el ciclo agéntico mediante la Máquina de Estados Determinista., Alias de compatibilidad hacia atrás para la versión v3.0., Reanuda la ejecución desde una sesión JSON o checkpoint de SQLite., Genera un plan de acción estructurado. (+8 more)
+Cohesion: 0.09
+Nodes (17): AgentStateMachineController, Any, Controlador determinista de estados, enrutador adaptativo y gestor de…, Determina el Nivel de Ejecución óptimo usando la evaluación de complejidad y…, Persiste el estado activo de la Máquina de Estados en la sesión JSON., Ejecuta el ciclo agéntico mediante la Máquina de Estados Determinista., Alias de compatibilidad hacia atrás para la versión v3.0., Reanuda la ejecución desde una sesión JSON o checkpoint de SQLite. (+9 more)
 
 ### Community 11 - "_detectar_raiz_proyecto"
-Cohesion: 0.12
-Nodes (12): _detectar_raiz_proyecto(), get_active_workspace(), leer_archivo_local(), listar_directorio_local(), obtener_contexto_workspace(), Devuelve el espacio de trabajo activo de forma thread-safe., Sube directorios hasta encontrar un marcador de raíz de repo (.git, AGENTS.md,…, Lista los archivos y carpetas de un directorio local y devuelve el contenido… (+4 more)
+Cohesion: 0.10
+Nodes (11): _detectar_raiz_proyecto(), get_active_workspace(), leer_archivo_local(), listar_directorio_local(), obtener_contexto_workspace(), Devuelve el espacio de trabajo activo de forma thread-safe., Sube directorios hasta encontrar un marcador de raíz de repo (.git, AGENTS.md,…, Lista los archivos y carpetas de un directorio local y devuelve el contenido… (+3 more)
 
 ### Community 12 - "Deep Architecture & Complexity Weight Audit — CodeAgent v6.1 (SDD Certified)"
 Cohesion: 0.10
@@ -268,9 +271,9 @@ Nodes (10): Designing for Mockability, When to Mock, Anti-patterns, Rules of the
 Cohesion: 0.17
 Nodes (12): orquestador_agente.validar_sintaxis, orquestador_agente.aplicar, orquestador_agente.restaurar_agents, orquestador_agente.main, orquestador_agente, orquestador_agente.supervisor, orquestador_agente.backup_archivos_trabajo, orquestador_agente.restaurar_archivos_trabajo (+4 more)
 
-### Community 18 - "TestTools"
-Cohesion: 0.16
-Nodes (9): editar_archivo_search_replace(), ejecutar_comando_terminal(), escribir_archivo_local(), Verifica automáticamente la sintaxis del archivo modificado (ej. ast.parse para…, Crea o sobreescribe un archivo local con el contenido proporcionado. Útil para…, Ejecuta un comando en la terminal del sistema operativo (ej. pytest, ls, pip…, IMPORTANTE: Úsala para modificar partes de un archivo SIN reescribirlo todo.…, _verificar_sintaxis_post_edicion() (+1 more)
+### Community 18 - "escribir_archivo_local"
+Cohesion: 0.13
+Nodes (11): _atomic_write_file(), editar_archivo_search_replace(), escribir_archivo_local(), Verifica automáticamente la sintaxis del archivo modificado (ej. ast.parse para…, Escribe un archivo de forma atómica con limpieza segura de temporales en caso…, Crea o sobreescribe un archivo local con el contenido proporcionado. Útil para…, Rastrea e informa la ejecución de herramientas al colector de métricas., IMPORTANTE: Úsala para modificar partes de un archivo SIN reescribirlo todo.… (+3 more)
 
 ### Community 19 - "mis_agentes_inteligentes/session_manager"
 Cohesion: 0.22
@@ -316,9 +319,9 @@ Nodes (4): ADR-002: Proxy HTTP Multihilo Ligero Basado en http.server Nativo, Co
 Cohesion: 0.40
 Nodes (4): ADR-003: Compatibilidad y Polyfill de Pydantic v2 con LiteLLM, Consecuencias, Contexto, Decisión
 
-### Community 31 - "tools.py"
-Cohesion: 0.22
-Nodes (7): is_command_approved(), is_sensitive_command(), PermissionLevel, pre_approve_command(), Enum, Niveles de autorización para la ejecución segura de herramientas agénticas., TestTerminalHITLApproval
+### Community 31 - "TestTools"
+Cohesion: 0.18
+Nodes (7): ejecutar_comando_terminal(), is_command_approved(), is_sensitive_command(), pre_approve_command(), Ejecuta un comando en la terminal del sistema operativo (ej. pytest, ls, pip…, TestTerminalHITLApproval, TestTools
 
 ### Community 32 - "get_model"
 Cohesion: 0.08
@@ -329,8 +332,8 @@ Cohesion: 0.50
 Nodes (4): mis_agentes_inteligentes/rag_tools, rag_tools.init_chroma, rag_tools.indexar_directorio_local, rag_tools.preguntar_a_repositorio
 
 ### Community 34 - "TestSDDConformance"
-Cohesion: 0.11
-Nodes (3): Garantiza que agent_pipeline y mis_agentes_inteligentes.agent_pipeline son el…, Comprueba el flujo real con 'Responde únicamente con OK.' y verifica las…, TestSDDConformance
+Cohesion: 0.09
+Nodes (5): ChatTaskContract, Contract for CHAT tasks - conversational only., Garantiza que agent_pipeline y mis_agentes_inteligentes.agent_pipeline son el…, Comprueba el flujo real con 'Responde únicamente con OK.' y verifica las…, TestSDDConformance
 
 ### Community 45 - "[2.2.0] - 2026-07-25"
 Cohesion: 0.50
@@ -340,9 +343,9 @@ Nodes (4): [2.2.0] - 2026-07-25, Added, Fixed, Refactored
 Cohesion: 0.50
 Nodes (3): 📈 KPIs Globales Acumulados, 🧪 Reporte Oficial de Benchmark Reales CodeAgent (v4.2 Enterprise), 📊 Resultados por Tarea de Ingeniería
 
-### Community 47 - "ToolType"
-Cohesion: 0.07
-Nodes (20): Get the appropriate contract for a task type., ActionTaskContract, ChatTaskContract, FeatureTaskContract, ABC, Task Contract implementations for SDD. Enforces behavioral boundaries per task…, Base interface for all task contracts., Return set of tools allowed for this task type. (+12 more)
+### Community 47 - "TaskContract"
+Cohesion: 0.12
+Nodes (9): FeatureTaskContract, ABC, Base interface for all task contracts., Return set of tools allowed for this task type., Return True if verification is allowed for this task., Return True if replanning is allowed for this task., Return maximum iterations for this task type., Contract for FEATURE tasks - full workflow. (+1 more)
 
 ### Community 48 - "DatabaseManager"
 Cohesion: 0.29
@@ -385,8 +388,8 @@ Cohesion: 0.67
 Nodes (3): [3.5.0] - 2026-08-27, Added, Fixed
 
 ### Community 62 - "VerificationEngine"
-Cohesion: 0.13
-Nodes (13): Any, Evaluate a single criterion against results. Args: criterion: The criterion to…, A single verification criterion., Get actual value from results for a criterion name., Analyze the difference between expected and actual., Gather evidence from all verification results. Args: criteria: List of…, Compute overall success based on criteria states. Args: criteria: List of…, Convert to dictionary for serialization. (+5 more)
+Cohesion: 0.12
+Nodes (15): Any, Evaluate a single criterion against results. Args: criterion: The criterion to…, A single verification criterion., Get actual value from results for a criterion name., Analyze the difference between expected and actual., Gather evidence from all verification results. Args: criteria: List of…, Compute overall success based on criteria states. Args: criteria: List of…, Convert to dictionary for serialization. (+7 more)
 
 ### Community 63 - "Workflow State Machines"
 Cohesion: 0.29
@@ -416,13 +419,13 @@ Nodes (5): Example Usage, Feature Task Execution Example, Task Classification Ex
 Cohesion: 0.10
 Nodes (16): Evidence, EvidenceLogger, EvidenceType, Enum, Evidence Logger for recording verification failures and diagnoses., Types of evidence that can be logged., Log a diagnosis with evidence. Args: task_id: ID of the task problem: The…, Log a replanning event with diagnosis. Args: task_id: ID of the task… (+8 more)
 
-### Community 75 - ".build_contract"
-Cohesion: 0.14
-Nodes (9): TaskContract, Test G: Garantiza que el contrato del prompt CHAT permanece intacto con…, Caso A — CHAT: Directiva de conversación con prohibiciones primarias., Caso B — ACTION: Acción primaria con prohibiciones secundarias de verificadores., Caso C — ACTION: Mayúsculas y acentos con prohibición de linter/AST., Caso D — CHAT: Verbos mutacionales negados., Caso E — CHAT: Prohibición explícita de acción primaria., Prueba del prompt ACTION exacto del requerimiento 4. (+1 more)
+### Community 75 - "ComplexityRiskEvaluator"
+Cohesion: 0.13
+Nodes (11): ComplexityRiskEvaluator, Evaluador determinista de complejidad, alcance e impacto en workspace., TaskContract, Tests de regresión de negaciones para TaskRouter y ComplexityRiskEvaluator.…, Caso A — CHAT: Directiva de conversación con prohibiciones primarias., Caso B — ACTION: Acción primaria con prohibiciones secundarias de verificadores., Caso C — ACTION: Mayúsculas y acentos con prohibición de linter/AST., Caso D — CHAT: Verbos mutacionales negados. (+3 more)
 
 ### Community 76 - "EventBus"
-Cohesion: 0.09
-Nodes (14): EventBus, get_event_bus(), Bus de eventos persistente con patrón Observador (Event Sourcing)., Registra un callback de escucha de eventos en tiempo real., Elimina un callback de escucha., TEST-004: Verifica la correlación end-to-end entre task_id en UI request,…, Unit, Integration, Concurrency, and Lifecycle Tests for Real-Time SSE Endpoint…, TEST-007 (INV-008): Verifica que la ruta SSE esté registrada en… (+6 more)
+Cohesion: 0.10
+Nodes (13): EventBus, get_event_bus(), Bus de eventos persistente con patrón Observador (Event Sourcing)., get_db_manager(), TEST-004: Verifica la correlación end-to-end entre task_id en UI request,…, Unit, Integration, Concurrency, and Lifecycle Tests for Real-Time SSE Endpoint…, TEST-007 (INV-008): Verifica que la ruta SSE esté registrada en…, TEST-001: Verifica suscripción, publicación y des-suscripción en EventBus. (+5 more)
 
 ### Community 77 - "Dependencies"
 Cohesion: 0.50
@@ -456,25 +459,29 @@ Nodes (15): Enum, UI Manager for enforcing single-instance policy., Represents a
 Cohesion: 0.12
 Nodes (12): Any, Ensure only one UI instance exists., Update existing UI instance., Get all evidence for a task., Integrates SDD contract enforcement into existing pipeline., Classify a prompt using the task router., Enforce tool policy for a task type., Create a new task with the appropriate contract. (+4 more)
 
+### Community 87 - "ActionTaskContract"
+Cohesion: 0.12
+Nodes (6): Get the appropriate contract for a task type., ActionTaskContract, Contract for ACTION tasks - minimal tools, single operation., Contract for RECOVERY tasks - state restoration., RecoveryTaskContract, TaskContract
+
 ### Community 88 - "integrator.py"
 Cohesion: 0.10
 Nodes (18): Integrator for SDD contract enforcement into existing agent_pipeline.py., Any, Enum, Task data model for execution tracking., Convert to dictionary for serialization., Status of task execution., Workflow phases for tasks., Represents a task being executed. (+10 more)
 
-### Community 89 - ".classify"
-Cohesion: 0.21
-Nodes (9): Any, Normalize diacritics / accents from text while preserving original text., Apply decision rules to determine task type. Returns: The determined TaskType, Calculate confidence score for classification. Returns: Confidence score…, Generate human-readable reason for classification. Returns: Reason string…, Classify a user prompt into a task type. Args: prompt: The user's input prompt…, Extract classification indicators from prompt with accent normalization and…, strip_accents() (+1 more)
+### Community 89 - "TaskRouter"
+Cohesion: 0.16
+Nodes (14): Any, Task Router for classifying user prompts into task types., Normalize diacritics / accents from text while preserving original text., Apply decision rules to determine task type. Returns: The determined TaskType, Classifies incoming prompts into task types., Calculate confidence score for classification. Returns: Confidence score…, Generate human-readable reason for classification. Returns: Reason string…, Classify a user prompt into a task type. Args: prompt: The user's input prompt… (+6 more)
 
-### Community 90 - "ToolPolicyEnforcer"
-Cohesion: 0.13
-Nodes (10): Tool Policy Enforcer for controlling tool access by task type., Get all blocked tools for a task type., Policy defining allowed tools for a task type., Enforce tool policy by filtering requested tools. Args: task_type: The task…, Controls tool access by task type., Initialize tool policies for each task type., Check if a tool is allowed for a task type. Args: task_type: The task type…, Get all allowed tools for a task type. (+2 more)
+### Community 90 - "ToolType"
+Cohesion: 0.10
+Nodes (20): Task Contract implementations for SDD. Enforces behavioral boundaries per task…, Enum, Core domain types for SDD Contract system., Task classification types., Verification result states., Tool categorization for policy enforcement., TaskType, ToolType (+12 more)
 
-### Community 91 - "TaskRouter"
-Cohesion: 0.11
-Nodes (13): ComplexityRiskEvaluator, ExecutionLevel, Evaluador determinista de complejidad, alcance e impacto en workspace., Determina el Nivel de Ejecución óptimo usando la evaluación de complejidad y…, Classifies incoming prompts into task types., TaskRouter, Test F: Desktop y backend obtienen la versión exactamente desde la misma fuente…, Test D: El puerto seleccionado por Desktop se asigna de forma explícita al… (+5 more)
+### Community 91 - "ExecutionLevel"
+Cohesion: 0.14
+Nodes (8): ExecutionLevel, Test G: Garantiza que el contrato del prompt CHAT permanece intacto con…, Test F: Desktop y backend obtienen la versión exactamente desde la misma fuente…, Test D: El puerto seleccionado por Desktop se asigna de forma explícita al…, Test B: Un backend con mismo workspace y versión pero distinto parent PID o…, Test C: Llamar a stop_server() múltiples veces es completamente seguro e…, Test A: Dos instancias Desktop tienen instance_ids y puertos dedicados…, TestServerLifecycle
 
 ### Community 92 - "agent_pipeline.py"
-Cohesion: 0.10
-Nodes (15): _get_phase_cognitive_directive(), Enum, CodeAgent v4.0 Deterministic State Machine Controller & Adaptive Pipeline…, Devuelve la directiva cognitiva acotada a la fase activa., State, TaskType, CodeAgent Benchmark & Quality Metrics Engine Registra, calcula y persiste…, CodeAgent v4.2 Reproducible Benchmark Suite Suite estandarizada de 5 tareas… (+7 more)
+Cohesion: 0.12
+Nodes (11): Enum, CodeAgent v4.0 Deterministic State Machine Controller & Adaptive Pipeline…, TaskType, CodeAgent Benchmark & Quality Metrics Engine Registra, calcula y persiste…, CodeAgent v4.2 Reproducible Benchmark Suite Suite estandarizada de 5 tareas…, get_terminal_tasks_buffer(), Any, TestAgentPipeline (+3 more)
 
 ### Community 93 - "test_e2e_real_desktop_lifecycle.py"
 Cohesion: 0.22
@@ -500,13 +507,17 @@ Nodes (6): check_ollama_running(), check_server_running(), Comprueba si un servi
 Cohesion: 0.15
 Nodes (12): Audit, Certification, Evidence, Forbidden Behavior, INV-004 — Intent Preservation, Preconditions, Related Modules, Related Tests (+4 more)
 
-### Community 99 - "Event"
-Cohesion: 0.12
-Nodes (9): Event, Inicia una nueva tarea agéntica de forma asíncrona y la registra en SQLite., TEST-001: Verifica que localcode_claude_ui.html contenga las funciones de…, TEST-002: Verifica que la UI maneje eventos reales de STATE_ENTERED y…, TEST-003 (INV-008): Verifica que closePipelineSSE se invoque en el bloque…, TEST-005: Verifica que el temporizador estático falso secCount % 3 === 0 haya…, TEST-006: Verifica que la UI maneje errores de EventSource sin interrumpir el…, TEST-007: Verifica que handle_sse_events_dict formatee correctamente eventos de… (+1 more)
+### Community 99 - "TestDesktopPipelineVisualization"
+Cohesion: 0.11
+Nodes (11): _get_phase_cognitive_directive(), Devuelve la directiva cognitiva acotada a la fase activa., State, Unit & Integration Tests for Desktop Real-Time Pipeline EventSource…, TEST-001: Verifica que localcode_claude_ui.html contenga las funciones de…, TEST-002: Verifica que la UI maneje eventos reales de STATE_ENTERED y…, TEST-003 (INV-008): Verifica que closePipelineSSE se invoque en el bloque…, TEST-005: Verifica que el temporizador estático falso secCount % 3 === 0 haya… (+3 more)
 
-### Community 102 - "handle_sse_events_dict"
-Cohesion: 0.40
-Nodes (4): handle_sse_events_dict(), Any, Serializa una instancia de Event o dict al formato Server-Sent Events (SSE)., TEST-003: Verifica que handle_sse_events_dict formatee correctamente un evento…
+### Community 101 - "Repository Hygiene Report — Phase C1 (Safe Repository Hygiene)"
+Cohesion: 0.14
+Nodes (13): 1. Pruebas Unitarias e Integración (Pytest), 2. Verificación de Gobernanza SDD (`sdd_check.py`), 3. Smoke Test de Importaciones, Overview, Removed Duplicate Files, Removed Runtime Artifacts, Repository Hygiene Report — Phase C1 (Safe Repository Hygiene), Repository Size After (+5 more)
+
+### Community 102 - ".do_GET"
+Cohesion: 0.24
+Nodes (4): handle_sse_events_dict(), Any, Serializa una instancia de Event o dict al formato Server-Sent Events (SSE)., Maneja el streaming HTTP Server-Sent Events en GET /api/pipeline/events.
 
 ### Community 103 - "CodeAgentBenchmarkSuite"
 Cohesion: 0.21
@@ -516,9 +527,9 @@ Nodes (6): CodeAgentBenchmarkSuite, Any, Exporta el reporte de benchmark en form
 Cohesion: 0.20
 Nodes (9): Certification Impact, Change Impact Analysis — SDD Governance Telemetry Endpoint, Description, Feature Title, Invariants NOT Affected, Modified Components, Potentially Affected Invariants, Required Regression Tests (+1 more)
 
-### Community 105 - ".publish"
-Cohesion: 0.40
-Nodes (3): Any, Persiste el evento en SQLite y notifica a todos los suscriptores activos., Obtiene la corriente de eventos guardados para reconstruir el estado visual en…
+### Community 105 - "Event"
+Cohesion: 0.14
+Nodes (8): Event, Any, Registra un callback de escucha de eventos en tiempo real., Elimina un callback de escucha., Persiste el evento en SQLite y notifica a todos los suscriptores activos., Obtiene la corriente de eventos guardados para reconstruir el estado visual en…, Inicia una nueva tarea agéntica de forma asíncrona y la registra en SQLite., TEST-003: Verifica que handle_sse_events_dict formatee correctamente un evento…
 
 ### Community 106 - "INV-005 — Failure Containment"
 Cohesion: 0.15
@@ -532,9 +543,9 @@ Nodes (5): git_diff(), git_status(), Muestra el estado del repositorio Git (arch
 Cohesion: 0.20
 Nodes (9): Failure Behavior, Intent, Invariants, Observability, Postconditions, Preconditions, SPEC-009 — SDD Governance Telemetry Endpoint, Testability (+1 more)
 
-### Community 109 - "set_active_workspace"
-Cohesion: 0.22
-Nodes (4): _ps_folder_dialog(), Establece el directorio del espacio de trabajo activo de forma thread-safe para…, set_active_workspace(), TestWorkspaceIsolation
+### Community 109 - "agents.py"
+Cohesion: 0.21
+Nodes (8): crear_agente(), _detectar_modelo_local(), get_available_agents(), load_subagents_from_disk(), Lee todos los archivos .md en la carpeta subagents/ y parsea su YAML…, Devuelve la lista completa de agentes disponibles (Fijos + Dinámicos)., Detecta si el modelo es local (Ollama) basándose en el model_id., Crea el CodeAgent de smolagents. FIX: usa instructions para smolagents >=1.26.…
 
 ### Community 110 - "SPEC-010 — Dynamic Feature Governance Automation"
 Cohesion: 0.20
@@ -596,10 +607,6 @@ Nodes (5): 1. Fast-Path CHAT Execution Telemetry (`INV-001`, `INV-002`, `INV-006
 Cohesion: 0.40
 Nodes (4): Certification Environment Metadata — Release v5.0.0, Key Dependencies, System Information, Verified Artifacts & Hash Context
 
-### Community 126 - "TestLocalCodeServer"
-Cohesion: 0.16
-Nodes (4): Servidor TCP/HTTP multihilo no bloqueante para peticiones concurrentes., ThreadedTCPServer, TestE2ESystemSuite, TestLocalCodeServer
-
 ### Community 127 - "SDD Audits & Certifications Registry"
 Cohesion: 0.50
 Nodes (3): Certification Status History, Directory Structure, SDD Audits & Certifications Registry
@@ -621,16 +628,16 @@ Cohesion: 0.29
 Nodes (3): Tests de resolución del verificador de pruebas con sys.executable -m pytest.…, Verifica que _stage_verifier use sys.executable -m pytest para descubrir y…, TestPytestVerifierResolution
 
 ### Community 132 - "session_manager.py"
-Cohesion: 0.06
-Nodes (14): BaseSessionRepository, create_new_session(), export_session_to_markdown(), init_sessions_dir(), JSONSessionRepository, load_session(), ABC, Interfaz abstracta para la gestión de sesiones de chat (Patrón Repositorio). (+6 more)
+Cohesion: 0.05
+Nodes (15): BaseSessionRepository, create_new_session(), export_session_to_markdown(), init_sessions_dir(), JSONSessionRepository, load_session(), ABC, Interfaz abstracta para la gestión de sesiones de chat (Patrón Repositorio). (+7 more)
 
 ### Community 134 - "sdd_check.py"
 Cohesion: 0.11
 Nodes (23): discover_features(), discover_invariants(), normalize_repo_path(), parse_traceability_table(), Descubre dinámicamente todos los archivos specs/invariants/INV-*.md. Retorna…, Descubre dinámicamente todos los archivos specs/features/SPEC-*.md. Retorna…, Valida la existencia real de un archivo y su rango de líneas si está…, Valida que los archivos de prueba y símbolos referenciados existan en disco. (+15 more)
 
-### Community 135 - "task_types.py"
-Cohesion: 0.19
-Nodes (12): Task Router for classifying user prompts into task types., Enum, Core domain types for SDD Contract system., Task classification types., Verification result states., Result of task classification., TaskClassification, TaskType (+4 more)
+### Community 135 - "ejecutar_agentes"
+Cohesion: 0.21
+Nodes (8): ejecutar_agentes(), Pipeline principal usando smolagents. FIX: el historial ya no se manda como…, patch, TestIntegrationPipeline, patch, Test de prevención de bypass para AgentPipeline en main.py. Verifica que si…, Garantiza que una excepción dentro de AgentPipeline.run_pipeline capture el…, TestPipelineBypassPrevention
 
 ### Community 136 - "Feature Runtime Evidence — SPEC-011"
 Cohesion: 0.33
@@ -672,9 +679,13 @@ Nodes (4): mis_agentes_inteligentes.rag_tools, mis_agentes_inteligentes.rag_tool
 Cohesion: 0.33
 Nodes (5): 1. Desktop UI JavaScript SSE Contract, 2. End-to-End Task-ID Correlation, 3. Automated Test Suite Execution, Feature Runtime Evidence — SPEC-012, Summary
 
+### Community 147 - "app.py"
+Cohesion: 0.20
+Nodes (5): graphify, _guardar_sesion_actual(), Guarda los datos de la sesión activa en disco., Comprime texto y asegura la validez de los bloques de código markdown., _truncar_markdown()
+
 ### Community 148 - "localcode_server.py"
-Cohesion: 0.21
-Nodes (7): _inc_metric(), main(), _ps_file_dialog(), Imprime texto de forma segura sin crash por UnicodeEncodeError en Windows…, Verifica si el servicio Ollama local está activo en el endpoint configurado., _safe_print(), _start_parent_monitor()
+Cohesion: 0.13
+Nodes (10): _inc_metric(), main(), _ps_file_dialog(), _ps_folder_dialog(), Imprime texto de forma segura sin crash por UnicodeEncodeError en Windows…, Servidor TCP/HTTP multihilo no bloqueante para peticiones concurrentes., _safe_print(), _start_parent_monitor() (+2 more)
 
 ### Community 149 - "SPEC-013 — AST Subgraph Context Retrieval & Impact Engine (Graphify Subgraph RAG)"
 Cohesion: 0.20
@@ -684,24 +695,24 @@ Nodes (9): Failure Behavior, Intent, Invariants, Observability, Postconditions, 
 Cohesion: 0.22
 Nodes (8): 1. Pre-Implementation TDD RED Baseline Evidence, 2. Controlled TDD GREEN Implementation Evidence, 3. Full Regression Test Suite Evidence, 4. Performance Benchmarks, 5. SDD Governance Verification, 6. Invariant Preservation Summary, Feature Runtime Evidence — SPEC-013, Summary
 
-### Community 152 - "get_db_manager"
-Cohesion: 0.29
-Nodes (3): get_db_manager(), Verifica la capacidad de autorecuperación TDD (FAIL -> DIAGNOSE -> REPLAN ->…, TestTDDRecoveryLoop
+### Community 151 - "TestAgents"
+Cohesion: 0.33
+Nodes (3): Enrutador automático mejorado con scoring ponderado., route_prompt(), TestAgents
 
 ## Knowledge Gaps
-- **444 isolated node(s):** `start_hub.sh script`, `graphify`, `What a good test is`, `Seams — where tests go`, `Anti-patterns` (+439 more)
+- **456 isolated node(s):** `start_hub.sh script`, `graphify`, `What a good test is`, `Seams — where tests go`, `Anti-patterns` (+451 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **28 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **29 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `TaskRouter` connect `TaskRouter` to `TestSDDConformance`, `task_types.py`, `AgentStateMachineController`, `.build_contract`, `SDDIntegrator`, `integrator.py`, `.classify`, `agent_pipeline.py`?**
-  _High betweenness centrality (0.063) - this node is a cross-community bridge._
-- **Why does `AgentStateMachineController` connect `AgentStateMachineController` to `TestSDDConformance`, `CodeAgentRuntime`, `Event`, `session_manager.py`, `TestVerifierEvidenceAndWorkspaceIsolation`, `CodeAgentBenchmarkSuite`, `GraphContextEngine`, `TestRuntimeRecoveryAndPauseSemantics`, `TestStateCheckpointing`, `BenchmarkMetricsCollector`, `get_db_manager`, `TaskRouter`, `agent_pipeline.py`?**
+- **Why does `TaskRouter` connect `TaskRouter` to `TestSDDConformance`, `TestDesktopPipelineVisualization`, `AgentStateMachineController`, `ComplexityRiskEvaluator`, `SDDIntegrator`, `integrator.py`, `ToolType`, `ExecutionLevel`, `agent_pipeline.py`?**
+  _High betweenness centrality (0.062) - this node is a cross-community bridge._
+- **Why does `AgentStateMachineController` connect `AgentStateMachineController` to `TestSDDConformance`, `CodeAgentRuntime`, `session_manager.py`, `CodeAgentBenchmarkSuite`, `Event`, `GraphContextEngine`, `BenchmarkMetricsCollector`, `TestTDDRecoveryLoop`, `TaskRouter`, `TestRuntimeRecoveryAndPauseSemantics`, `agent_pipeline.py`?**
   _High betweenness centrality (0.041) - this node is a cross-community bridge._
-- **Why does `ExecutionLevel` connect `TaskRouter` to `TestSDDConformance`, `session_manager.py`, `CodeAgentBenchmarkSuite`, `AgentStateMachineController`, `GraphContextEngine`, `.build_contract`, `TestStateCheckpointing`, `BenchmarkMetricsCollector`, `TestRuntimeRecoveryAndPauseSemantics`, `agent_pipeline.py`?**
-  _High betweenness centrality (0.040) - this node is a cross-community bridge._
+- **Why does `ExecutionLevel` connect `ExecutionLevel` to `TestSDDConformance`, `session_manager.py`, `CodeAgentBenchmarkSuite`, `AgentStateMachineController`, `ComplexityRiskEvaluator`, `GraphContextEngine`, `BenchmarkMetricsCollector`, `TaskRouter`, `TestRuntimeRecoveryAndPauseSemantics`, `agent_pipeline.py`?**
+  _High betweenness centrality (0.039) - this node is a cross-community bridge._
 - **Are the 23 inferred relationships involving `AgentStateMachineController` (e.g. with `GraphContextEngine` and `TaskRouter`) actually correct?**
   _`AgentStateMachineController` has 23 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 6 inferred relationships involving `LocalCodeProxyHandler` (e.g. with `TestDesktopPipelineVisualization` and `TestE2ESystemSuite`) actually correct?**

@@ -70,8 +70,8 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1788112576.9395256,
-    "ast_hash": "f45db28e7aed600088a1509e8cd729b1",
+    "mtime": 1788114716.1809082,
+    "ast_hash": "13404bbf7ca6efd2ad87646d09bf1ffe",
     "semantic_hash": ""
   },
   "docker-compose.yml": {
@@ -269,11 +269,6 @@
     "ast_hash": "8b6498e1e442eec24ea1a4f0380243e9",
     "semantic_hash": ""
   },
-  "localcode_claude_ui.html": {
-    "mtime": 1788037576.320146,
-    "ast_hash": "25459f66d2d7850da81169f7ae079548",
-    "semantic_hash": ""
-  },
   "tests/test_desktop_app.py": {
     "mtime": 1787976894.5750637,
     "ast_hash": "4ef320202e5a86d2e8c90a176096c200",
@@ -282,11 +277,6 @@
   "mis_agentes_inteligentes/benchmark_metrics.py": {
     "mtime": 1787939915.4421637,
     "ast_hash": "535448f6dc0e6c562c92ea56146151de",
-    "semantic_hash": ""
-  },
-  "mis_agentes_inteligentes/metrics_benchmarks.json": {
-    "mtime": 1788112614.6715481,
-    "ast_hash": "e4e14d8c25217611254c6054a9284d96",
     "semantic_hash": ""
   },
   "tests/test_state_machine.py": {
@@ -310,8 +300,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/benchmark_report_v42.md": {
-    "mtime": 1788112512.6554236,
-    "ast_hash": "8b995e15bc518ffec76b813a5732d5d8",
+    "mtime": 1788114375.3369517,
+    "ast_hash": "3279d9a77e7593b30d177b88896cdc8c",
     "semantic_hash": ""
   },
   "tests/test_feedback_loop.py": {
@@ -615,8 +605,8 @@
     "semantic_hash": ""
   },
   "specs/traceability.md": {
-    "mtime": 1788033765.6184382,
-    "ast_hash": "7a3c42624ddd26a35fb5ac3460eb5376",
+    "mtime": 1788114597.4839919,
+    "ast_hash": "a9960d8edfa8cf07ec84328c9bb19d3f",
     "semantic_hash": ""
   },
   "tests/test_sdd_health_endpoint.py": {
@@ -690,8 +680,8 @@
     "semantic_hash": ""
   },
   "tests/test_desktop_pipeline_visualization.py": {
-    "mtime": 1788031464.874561,
-    "ast_hash": "c5fdbfe23b5b25d9c904757f3c868b8b",
+    "mtime": 1788114588.6603224,
+    "ast_hash": "700308f5dadcdc77b97bf7d66379473c",
     "semantic_hash": ""
   },
   "audits/features/SPEC-012/README.md": {
@@ -710,8 +700,8 @@
     "semantic_hash": ""
   },
   "specs/features/SPEC-012-desktop-pipeline-visualization.md": {
-    "mtime": 1788031457.5360672,
-    "ast_hash": "9b30225dbbffd1afd542ecade9012a5c",
+    "mtime": 1788114592.913054,
+    "ast_hash": "e167da130c39a9204fcfac3efa411771",
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/graph_context.py": {
@@ -757,6 +747,11 @@
   "CANONICAL_ARCHITECTURE_ANALYSIS.md": {
     "mtime": 1788114198.1080544,
     "ast_hash": "ed82ce1d2a29148723f5b67818388e13",
+    "semantic_hash": ""
+  },
+  "REPOSITORY_HYGIENE_REPORT.md": {
+    "mtime": 1788114620.2023814,
+    "ast_hash": "1c1b946dbfd009a59ec648413e08e1cd",
     "semantic_hash": ""
   }
 }

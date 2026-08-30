@@ -14,7 +14,7 @@ from mis_agentes_inteligentes.runtime.event_bus import Event, EventBus
 
 class TestDesktopPipelineVisualization(unittest.TestCase):
     def setUp(self):
-        self.ui_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "localcode_claude_ui.html")
+        self.ui_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "mis_agentes_inteligentes", "localcode_claude_ui.html")
         with open(self.ui_path, "r", encoding="utf-8") as f:
             self.ui_content = f.read()
 

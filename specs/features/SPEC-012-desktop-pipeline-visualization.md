@@ -28,7 +28,7 @@ Conectar la interfaz de usuario Desktop (`localcode_claude_ui.html`) al flujo de
 - Demostrable mediante la suite `tests/test_desktop_pipeline_visualization.py` que verifica la presencia del contrato de conexión SSE en la UI, el parseo de eventos reales, la correlación de `task_id`, el cleanup de recursos y la eliminación del progreso falso.
 
 ## Traceability
-- Source File: `localcode_claude_ui.html`, `mis_agentes_inteligentes/localcode_server.py`, `mis_agentes_inteligentes/agent_pipeline.py`
+- Source File: `mis_agentes_inteligentes/localcode_claude_ui.html`, `mis_agentes_inteligentes/localcode_server.py`, `mis_agentes_inteligentes/agent_pipeline.py`
 - Test File: `tests/test_desktop_pipeline_visualization.py`
 - Change Impact: `change/change-feature-desktop-pipeline-visualization.md`
 - Evidence File: `audits/features/SPEC-012/runtime-evidence.md`

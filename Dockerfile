@@ -25,7 +25,7 @@ COPY mis_agentes_inteligentes/requirements.txt .
 RUN pip3 install --no-cache-dir -r requirements.txt
 
 # Copiar el código del proyecto
-COPY localcode_claude_ui.html desktop_app.py Lanzar_CodeAgent_Desktop.bat ./
+COPY desktop_app.py Lanzar_CodeAgent_Desktop.bat ./
 COPY mis_agentes_inteligentes/ ./mis_agentes_inteligentes/
 COPY tests/ ./tests/
 

@@ -1,15 +1,43 @@
-venv/
+# Python
 __pycache__/
-*.pyc
-sesiones/
-MisEventos.db
-historial_analisis.txt
-.env
-tmp*
-mis_agentes_inteligentes/tmp*
-nested-venv.txt
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.venv/
+mis_agentes_inteligentes/venv/
 root-venv.txt
-*.db-shm
+nested-venv.txt
+
+# Runtime databases
+*.db
 *.db-wal
+*.db-shm
+MisEventos.db
+codeagent_desktop.db
+mis_agentes_inteligentes/*.db*
 
+# Runtime sessions & metrics
+sesiones/*.json
+mis_agentes_inteligentes/sesiones/*.json
+metrics_benchmarks.json
+mis_agentes_inteligentes/metrics_benchmarks.json
+historial_analisis.txt
+mis_agentes_inteligentes/historial_analisis.txt
 
+# Temporary files
+tmp*
+*.tmp
+mis_agentes_inteligentes/tmp*
+
+# Logs
+*.log
+
+# Python tooling & IDEs
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.env
+.idea/
+.vscode/

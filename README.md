@@ -1,6 +1,6 @@
-# 💻 CodeAgent (v5.1.0 SDD Certified & Local-Only Architecture)
+# 💻 CodeAgent (v6.1 SDD Certified & Canonical Architecture)
 
-> **Un entorno local, robusto y extensible para construir, supervisar y gobernar agentes de código autónomos bajo certificación de invariantes SDD.**
+> **Un entorno local, robusto y extensible para construir, supervisar y gobernar agentes de código autónomos bajo certificación de invariantes SDD y arquitectura canónica unificada.**
 
 CodeAgent es una plataforma de ingeniería de software asistida por IA local inspirada en **Google Antigravity** y **GitHub Copilot Workspace**. Está diseñada para ejecutar agentes autónomos sobre repositorios de código locales y remotos con soporte primario para modelos locales (**Ollama `qwen2.5-coder:14b`**, `llama3`, `deepseek`) y proveedores Cloud (OpenAI, Gemini, Anthropic, Groq).
 
@@ -11,7 +11,7 @@ CodeAgent es una plataforma de ingeniería de software asistida por IA local ins
 ```
               ┌────────────────────────────────────────────────────────┐
               │                LOCALCODE DESKTOP & UI                  │
-              │         Interfaz 3-Paneles + SSE Real-Time Visualizer   │
+              │         Interfaz PyWebView + SSE Real-Time Visualizer  │
               └───────────────────────────┬────────────────────────────┘
                                           │
                                           ▼
@@ -34,7 +34,7 @@ CodeAgent es una plataforma de ingeniería de software asistida por IA local ins
 ├─────────────────────────────────────────────────────────────────────────────────────────────┤
 │ 🎯 CORE: Engine autónomo smolagents con Re-planificación dinámica (planning_interval=2)    │
 │ 🛡️ SDD GOVERNANCE: Invariantes Certificados (INV-001 a INV-008) y TaskContract Authority    │
-│ 🧠 INTELLIGENCE: RAG sobre Subgrafos AST Graphify + Memoria de 3 Capas                       │
+│ 🧠 INTELLIGENCE: RAG sobre Subgrafos AST Graphify (SPEC-013) + Memoria de 3 Capas            │
 │ ⚙️ EXECUTION: Sandboxing PermissionLevel + Terminal HITL + Git / GitHub REST                │
 │ 🧩 EXTENSIBILITY: Subagentes dinámicos .md + Multi-Proveedor LiteLLM (Ollama/Cloud)        │
 └─────────────────────────────────────────────────────────────────────────────────────────────┘
@@ -42,7 +42,17 @@ CodeAgent es una plataforma de ingeniería de software asistida por IA local ins
 
 ---
 
-## 🛡️ Sistema de Gobernanza SDD y Certificación de Invariantes (v5.0.0 / v5.1.0)
+## 📐 Auditorías y Arquitectura Canónica (Phase A, B & C1)
+
+CodeAgent cuenta con una suite completa de informes de auditoría arquitectónica y canonización formal:
+
+* **[ARCHITECTURE_WEIGHT_AUDIT.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/ARCHITECTURE_WEIGHT_AUDIT.md)**: Auditoría profunda de complejidad esencial vs. accidental, hotspots de dependencias y evaluación de módulos God Object.
+* **[CANONICAL_ARCHITECTURE_ANALYSIS.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/CANONICAL_ARCHITECTURE_ANALYSIS.md)**: Matriz de canonización de responsabilidades (*ONE RESPONSIBILITY → ONE CANONICAL IMPLEMENTATION*), delimitación de componentes canónicos vs. legacy y roadmap de migración.
+* **[REPOSITORY_HYGIENE_REPORT.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/REPOSITORY_HYGIENE_REPORT.md)**: Informe de desintoxicación y reducción de peso físico (**reducción del 98.7% de peso en disco**, pasando de 1.49 GB a 18.5 MB sin modificar comportamiento).
+
+---
+
+## 🛡️ Sistema de Gobernanza SDD y Certificación de Invariantes
 
 CodeAgent opera bajo un framework estricto de **Software-Driven Development (SDD)** respaldado por el script de verificación automatizada `python scripts/sdd_check.py` y una matriz formal de **8 Invariantes Certificados**:
 
@@ -88,11 +98,11 @@ Garantiza trazabilidad 100% entre especificaciones (`specs/features/` y `specs/i
 ## 🚀 Instalación y Ejecución
 
 ### Opción 1: Lanzador Directo en Windows (Recomendado)
-Haz doble clic en **`Iniciar_OpenCode.bat`** o **`Lanzar_CodeAgent_Desktop.bat`**.
+Haz doble clic en **`Lanzar_CodeAgent_Desktop.bat`** o **`Iniciar_OpenCode.bat`**.
 El script se encargará automáticamente de:
 1. Validar/crear el entorno virtual `.venv`.
 2. Instalar dependencias requeridas.
-3. Iniciar el servidor local y abrir la interfaz.
+3. Iniciar el servidor local y abrir la interfaz Desktop.
 
 ### Opción 2: Ejecución Manual
 
@@ -132,11 +142,11 @@ python scripts/sdd_check.py
 - **[smolagents](https://huggingface.co/docs/smolagents/):** Engine de agentes basados en código Python de HuggingFace.
 - **[LiteLLM](https://litellm.vercel.app/):** Puente multi-proveedor para Ollama, OpenAI, Anthropic y Gemini.
 - **[Graphify](https://github.com/):** Motor de análisis AST y generación de grafos de conocimiento.
-- **FastAPI / Starlette:** Servidor REST con soporte de streaming SSE para telemetría en tiempo real.
-- **SQLite / ChromaDB:** Persistencia local de sesiones, bases de datos y memoria RAG.
+- **PyWebView & HTTP Server:** Interfaz Desktop nativa y servidor REST multihilo con streaming SSE.
+- **SQLite / DatabaseManager:** Persistencia local de sesiones, checkpoints y event sourcing.
 
 ---
 
 ## 🌐 Knowledge Graph (`graphify-out/`)
 
-El directorio `graphify-out/graph.json` contiene el grafo del AST del repositorio con más de 100 nodos y relaciones entre componentes, permitiendo a los agentes explorar la arquitectura sin realizar lecturas masivas e ineficientes de archivos.
+El directorio `graphify-out/graph.json` contiene el grafo del AST del repositorio con más de 1,700 nodos y 2,500 relaciones entre componentes, permitiendo a los agentes explorar la arquitectura sin realizar lecturas masivas e ineficientes de archivos.
