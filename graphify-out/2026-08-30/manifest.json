@@ -70,8 +70,8 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1787947378.1449194,
-    "ast_hash": "57cb9c765e9ae4bb521151f26720bbe9",
+    "mtime": 1788112576.9395256,
+    "ast_hash": "f45db28e7aed600088a1509e8cd729b1",
     "semantic_hash": ""
   },
   "docker-compose.yml": {
@@ -285,8 +285,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/metrics_benchmarks.json": {
-    "mtime": 1788038321.9453168,
-    "ast_hash": "00334f7a0fcd9f0e4c9506da69a9c2f3",
+    "mtime": 1788112585.2789419,
+    "ast_hash": "9d724983c6a2619541b24201db67ec03",
     "semantic_hash": ""
   },
   "tests/test_state_machine.py": {
@@ -310,8 +310,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/benchmark_report_v42.md": {
-    "mtime": 1788037724.581245,
-    "ast_hash": "354b7f3b5172f2af504128d36ffaa187",
+    "mtime": 1788112512.6554236,
+    "ast_hash": "8b995e15bc518ffec76b813a5732d5d8",
     "semantic_hash": ""
   },
   "tests/test_feedback_loop.py": {
