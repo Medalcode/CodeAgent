@@ -70,8 +70,8 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1788114716.1809082,
-    "ast_hash": "13404bbf7ca6efd2ad87646d09bf1ffe",
+    "mtime": 1788115095.7177737,
+    "ast_hash": "cf6b6e52d2d2c1376c1ccfe0812aa391",
     "semantic_hash": ""
   },
   "docker-compose.yml": {
@@ -782,6 +782,11 @@
   "TASK_CONTRACT_COMPATIBILITY_MATRIX.md": {
     "mtime": 1788114932.9302077,
     "ast_hash": "718ff3825798fe77d50153d718c96145",
+    "semantic_hash": ""
+  },
+  "CANONICAL_ENFORCEMENT_AUDIT.md": {
+    "mtime": 1788115310.9469104,
+    "ast_hash": "a1194cf5caa3ab9e30ad90f9be34e7c6",
     "semantic_hash": ""
   }
 }

@@ -50,12 +50,13 @@ CodeAgent cuenta con una suite completa de informes de auditoría, gobernanza y 
 * **[CANONICAL_ARCHITECTURE_ANALYSIS.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/CANONICAL_ARCHITECTURE_ANALYSIS.md)**: Matriz de canonización de responsabilidades (*ONE RESPONSIBILITY → ONE CANONICAL IMPLEMENTATION*), delimitación de componentes canónicos vs. legacy y roadmap de migración.
 * **[REPOSITORY_HYGIENE_REPORT.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/REPOSITORY_HYGIENE_REPORT.md)**: Informe de desintoxicación y reducción de peso físico (**reducción del 98.7% de peso en disco**, pasando de 1.49 GB a 18.5 MB sin modificar comportamiento).
 
-### 🚀 Informes de Migración Canónica (Phase C2)
+### 🚀 Informes de Migración Canónica y Auditoría de Cumplimiento (Phases C2 & C2.5)
 1. **[MIGRATION_RAG.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/MIGRATION_RAG.md)**: Migración de `rag_tools.py` (ChromaDB) a `graph_context.py` (AST Subgraph RAG - SPEC-013).
 2. **[MIGRATION_UI.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/MIGRATION_UI.md)**: Deprecación de `app.py` (Streamlit) en favor de `desktop_app.py` (PyWebView Desktop IDE).
 3. **[MIGRATION_ORCHESTRATOR.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/MIGRATION_ORCHESTRATOR.md)**: Deprecación de `orquestador_agente.py` v1.0 en favor de `AgentStateMachineController` y `benchmark_suite.py`.
 4. **[MIGRATION_SESSION.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/MIGRATION_SESSION.md)**: Transición de persistencia JSON suelta (`session_manager.py`) a `DatabaseManager` (SQLite WAL).
 5. **[TASK_CONTRACT_COMPATIBILITY_MATRIX.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/TASK_CONTRACT_COMPATIBILITY_MATRIX.md)** & **[MIGRATION_CONTRACTS.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/MIGRATION_CONTRACTS.md)**: Unificación de `TaskContract` y `TaskType` bajo `sdd_contract/`.
+6. **[CANONICAL_ENFORCEMENT_AUDIT.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/CANONICAL_ENFORCEMENT_AUDIT.md)**: Auditoría de cumplimiento en runtime (detección de *Canonicalization Drift* y matriz de disponibilidad para remoción).
 
 ---
 
