@@ -1,5 +1,12 @@
 import logging
 import os
+import warnings
+
+warnings.warn(
+    "rag_tools.py (ChromaDB + BM25) is deprecated. Use graph_context.py (SPEC-013 AST Subgraph RAG).",
+    DeprecationWarning,
+    stacklevel=2,
+)
 
 try:
     from smolagents import tool

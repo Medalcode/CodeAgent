@@ -8,6 +8,13 @@ import contextlib
 import json
 import os
 import shutil
+import warnings
+
+warnings.warn(
+    "orquestador_agente.py is deprecated. Use AgentStateMachineController in agent_pipeline.py and benchmark_suite.py.",
+    DeprecationWarning,
+    stacklevel=2,
+)
 import subprocess
 import sys
 import tempfile

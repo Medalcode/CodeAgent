@@ -1,4 +1,4 @@
-# 💻 CodeAgent (v6.1 SDD Certified & Canonical Architecture)
+# 💻 CodeAgent (v6.2 SDD Certified & Canonical Architecture Migrated)
 
 > **Un entorno local, robusto y extensible para construir, supervisar y gobernar agentes de código autónomos bajo certificación de invariantes SDD y arquitectura canónica unificada.**
 
@@ -42,13 +42,20 @@ CodeAgent es una plataforma de ingeniería de software asistida por IA local ins
 
 ---
 
-## 📐 Auditorías y Arquitectura Canónica (Phase A, B & C1)
+## 📐 Auditorías y Migraciones Arquitectónicas (Phases A, B, C1 & C2)
 
-CodeAgent cuenta con una suite completa de informes de auditoría arquitectónica y canonización formal:
+CodeAgent cuenta con una suite completa de informes de auditoría, gobernanza y migraciones canónicas:
 
 * **[ARCHITECTURE_WEIGHT_AUDIT.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/ARCHITECTURE_WEIGHT_AUDIT.md)**: Auditoría profunda de complejidad esencial vs. accidental, hotspots de dependencias y evaluación de módulos God Object.
 * **[CANONICAL_ARCHITECTURE_ANALYSIS.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/CANONICAL_ARCHITECTURE_ANALYSIS.md)**: Matriz de canonización de responsabilidades (*ONE RESPONSIBILITY → ONE CANONICAL IMPLEMENTATION*), delimitación de componentes canónicos vs. legacy y roadmap de migración.
 * **[REPOSITORY_HYGIENE_REPORT.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/REPOSITORY_HYGIENE_REPORT.md)**: Informe de desintoxicación y reducción de peso físico (**reducción del 98.7% de peso en disco**, pasando de 1.49 GB a 18.5 MB sin modificar comportamiento).
+
+### 🚀 Informes de Migración Canónica (Phase C2)
+1. **[MIGRATION_RAG.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/MIGRATION_RAG.md)**: Migración de `rag_tools.py` (ChromaDB) a `graph_context.py` (AST Subgraph RAG - SPEC-013).
+2. **[MIGRATION_UI.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/MIGRATION_UI.md)**: Deprecación de `app.py` (Streamlit) en favor de `desktop_app.py` (PyWebView Desktop IDE).
+3. **[MIGRATION_ORCHESTRATOR.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/MIGRATION_ORCHESTRATOR.md)**: Deprecación de `orquestador_agente.py` v1.0 en favor de `AgentStateMachineController` y `benchmark_suite.py`.
+4. **[MIGRATION_SESSION.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/MIGRATION_SESSION.md)**: Transición de persistencia JSON suelta (`session_manager.py`) a `DatabaseManager` (SQLite WAL).
+5. **[TASK_CONTRACT_COMPATIBILITY_MATRIX.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/TASK_CONTRACT_COMPATIBILITY_MATRIX.md)** & **[MIGRATION_CONTRACTS.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/MIGRATION_CONTRACTS.md)**: Unificación de `TaskContract` y `TaskType` bajo `sdd_contract/`.
 
 ---
 
@@ -59,7 +66,7 @@ CodeAgent opera bajo un framework estricto de **Software-Driven Development (SDD
 | Invariante | Nombre | Garantía Principal |
 | :--- | :--- | :--- |
 | **INV-001** | **Pipeline Authority** | Toda ejecución de agente en producción pasa obligatoriamente por la máquina de estados `AgentPipeline`. |
-| **INV-002** | **TaskContract Authority** | Los límites de gobernanza del `TaskContract` son inmutables y estrictamente aplicados en runtime. |
+| **INV-002** | **TaskContract Authority** | Los límites de gobernanza del `TaskContract` son inmutables y strictly aplicados en runtime. |
 | **INV-003** | **Cross-Task Isolation** | Peticiones consecutivas reinician buffers de telemetría y llamadas a herramientas para evitar contaminación. |
 | **INV-004** | **Intent Preservation** | Las restricciones negativas en el `TaskRouter` restringen únicamente herramientas prohibidas sin anular la intención general. |
 | **INV-005** | **Failure Containment** | Las excepciones internas del pipeline devuelven respuestas de error seguras sin by-passear el contrato. |
@@ -149,4 +156,4 @@ python scripts/sdd_check.py
 
 ## 🌐 Knowledge Graph (`graphify-out/`)
 
-El directorio `graphify-out/graph.json` contiene el grafo del AST del repositorio con más de 1,700 nodos y 2,500 relaciones entre componentes, permitiendo a los agentes explorar la arquitectura sin realizar lecturas masivas e ineficientes de archivos.
+El directorio `graphify-out/graph.json` contiene el grafo del AST del repositorio con más de 1,800 nodos y 2,600 relaciones entre componentes, permitiendo a los agentes explorar la arquitectura sin realizar lecturas masivas e ineficientes de archivos.

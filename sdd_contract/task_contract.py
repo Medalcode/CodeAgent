@@ -30,6 +30,31 @@ class TaskContract(ABC):
         """Return maximum iterations for this task type."""
         raise NotImplementedError
 
+    @property
+    def requires_code_verification(self) -> bool:
+        """Compatibility property for pipeline verification check."""
+        return self.can_verify()
+
+    @property
+    def requires_tests(self) -> bool:
+        """Compatibility property for pipeline test requirement check."""
+        return self.can_verify() and ToolType.TEST_RUNNER in self.get_allowed_tools()
+
+    @property
+    def requires_execution(self) -> bool:
+        """Compatibility property for execution phase requirement."""
+        return self.get_max_iterations() > 1
+
+    @property
+    def tools_allowed(self) -> bool:
+        """Compatibility property for tool usage allowance."""
+        return len(self.get_allowed_tools()) > 1
+
+    @property
+    def files_allowed(self) -> bool:
+        """Compatibility property for filesystem modification allowance."""
+        return ToolType.FILESYSTEM in self.get_allowed_tools()
+
 
 class ChatTaskContract(TaskContract):
     """Contract for CHAT tasks - conversational only."""

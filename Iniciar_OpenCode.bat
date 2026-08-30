@@ -51,16 +51,17 @@ pip install --prefer-binary -r requirements.txt
 :LAUNCH
 echo.
 echo Seleccione el modo de operacion:
-echo 1) Lanzar Interfaz Web Streamlit (3 Paneles IDE)
+echo 1) Lanzar CodeAgent Desktop IDE All-In-One (Canonica - PyWebView + Ollama + Backend)
 echo 2) Lanzar CLI en Terminal (Claude Code Local CLI)
-echo 3) Lanzar Interfaz LocalCode HTML (Theme JetBrains Mono / IBM Plex)
+echo 3) Lanzar Interfaz Web Streamlit (3 Paneles IDE - Legacy)
 echo.
 set /p M=Ingrese su opcion (1, 2 o 3, por defecto 1): 
 if "%M%"=="2" goto LAUNCH_CLI
-if "%M%"=="3" goto LAUNCH_HTML
+if "%M%"=="3" goto LAUNCH_STREAMLIT
 
-echo Lanzando Interfaz Web Streamlit...
-python -m streamlit run app.py --server.headless=true --browser.gatherUsageStats=false
+echo Lanzando CodeAgent Desktop IDE All-In-One (Ollama + Backend + UI)...
+cd /d "%~dp0.."
+python desktop_app.py
 goto END
 
 :LAUNCH_CLI
@@ -68,10 +69,9 @@ echo Lanzando Claude Code Local CLI en Terminal...
 python claude_code_cli.py
 goto END
 
-:LAUNCH_HTML
-echo Lanzando CodeAgent Desktop IDE All-In-One (Ollama + Backend + UI)...
-cd /d "%~dp0"
-python desktop_app.py
+:LAUNCH_STREAMLIT
+echo Lanzando Interfaz Web Streamlit (Legacy)...
+python -m streamlit run app.py --server.headless=true --browser.gatherUsageStats=false
 goto END
 
 :END

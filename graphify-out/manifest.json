@@ -10,18 +10,18 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/main.py": {
-    "mtime": 1788031541.26597,
-    "ast_hash": "8296c3f60c2e8a674bd668c760fb5da7",
+    "mtime": 1788114821.214503,
+    "ast_hash": "e2d2f8b266442735618c9ff3dbe59a38",
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/rag_tools.py": {
-    "mtime": 1787771016.3096137,
-    "ast_hash": "788cce1a4f381fc2544eaaf9d7d96126",
+    "mtime": 1788114830.7343383,
+    "ast_hash": "a3aa178298159801ae54579952015bc4",
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/session_manager.py": {
-    "mtime": 1787880210.649508,
-    "ast_hash": "ede33e58dfb1e69907b77ee99bd51b26",
+    "mtime": 1788114911.9708493,
+    "ast_hash": "06f68157f86b55274837868bd65e59b5",
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/setup_db.py": {
@@ -40,8 +40,8 @@
     "semantic_hash": ""
   },
   "orquestador_agente.py": {
-    "mtime": 1788037569.9350593,
-    "ast_hash": "62629ac7b71eb9699c7a39816554799c",
+    "mtime": 1788114887.4128053,
+    "ast_hash": "66537e9adb5523bdda5dfd8447db3c9f",
     "semantic_hash": ""
   },
   ".opencode/opencode.json": {
@@ -70,8 +70,8 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1788114716.1809082,
-    "ast_hash": "13404bbf7ca6efd2ad87646d09bf1ffe",
+    "mtime": 1788115095.7177737,
+    "ast_hash": "cf6b6e52d2d2c1376c1ccfe0812aa391",
     "semantic_hash": ""
   },
   "docker-compose.yml": {
@@ -115,8 +115,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/agent_pipeline.py": {
-    "mtime": 1788035367.2283254,
-    "ast_hash": "b23a70957c8ed7a00330ea60d85af99d",
+    "mtime": 1788114971.935925,
+    "ast_hash": "74ae8aa3e7267f0f229373d25c5815cd",
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/claude_code_cli.py": {
@@ -175,8 +175,8 @@
     "semantic_hash": ""
   },
   "tests/test_main.py": {
-    "mtime": 1787774556.5922265,
-    "ast_hash": "73640db738c4decf521ab63a671ac99b",
+    "mtime": 1788114840.272915,
+    "ast_hash": "d7f9ad2a1b11ab00ab6ffcd2f7e97008",
     "semantic_hash": ""
   },
   "tests/test_rag_tools.py": {
@@ -425,8 +425,8 @@
     "semantic_hash": ""
   },
   "sdd_contract/task_contract.py": {
-    "mtime": 1787969445.462983,
-    "ast_hash": "debb5111411c913d872f5755a5152326",
+    "mtime": 1788114957.7191029,
+    "ast_hash": "e515cedd9fa75e95c22095eee85bb97b",
     "semantic_hash": ""
   },
   "sdd_contract/task_model.py": {
@@ -752,6 +752,36 @@
   "REPOSITORY_HYGIENE_REPORT.md": {
     "mtime": 1788114620.2023814,
     "ast_hash": "1c1b946dbfd009a59ec648413e08e1cd",
+    "semantic_hash": ""
+  },
+  "MIGRATION_CONTRACTS.md": {
+    "mtime": 1788114988.424257,
+    "ast_hash": "514b54d91d839f0c825ddd99cfc5c473",
+    "semantic_hash": ""
+  },
+  "MIGRATION_ORCHESTRATOR.md": {
+    "mtime": 1788114893.0740385,
+    "ast_hash": "8b5890ac0922d7519407d7732f2f08aa",
+    "semantic_hash": ""
+  },
+  "MIGRATION_RAG.md": {
+    "mtime": 1788114850.273679,
+    "ast_hash": "59beaec7882a74a447580e96e98088a4",
+    "semantic_hash": ""
+  },
+  "MIGRATION_SESSION.md": {
+    "mtime": 1788114917.1686113,
+    "ast_hash": "8c45628f9c585a4b67549d7e962eef20",
+    "semantic_hash": ""
+  },
+  "MIGRATION_UI.md": {
+    "mtime": 1788114873.3480096,
+    "ast_hash": "27363fd60a381fba4ab6cf23a9e52ba1",
+    "semantic_hash": ""
+  },
+  "TASK_CONTRACT_COMPATIBILITY_MATRIX.md": {
+    "mtime": 1788114932.9302077,
+    "ast_hash": "718ff3825798fe77d50153d718c96145",
     "semantic_hash": ""
   }
 }

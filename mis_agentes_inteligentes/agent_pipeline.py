@@ -85,10 +85,7 @@ def _get_phase_cognitive_directive(state: State, failed_verification: dict[str, 
     return ""
 
 
-class TaskType(Enum):
-    CHAT = "CHAT"
-    ACTION = "ACTION"
-    FEATURE = "FEATURE"
+from sdd_contract.task_types import TaskType
 
 
 @dataclass

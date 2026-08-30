@@ -3,8 +3,15 @@ import logging
 import os
 import tempfile
 import uuid
+import warnings
 from abc import ABC, abstractmethod
 from datetime import datetime
+
+warnings.warn(
+    "session_manager.py JSON persistence is deprecated. Use DatabaseManager (storage/database.py) for canonical session/checkpoint storage.",
+    DeprecationWarning,
+    stacklevel=2,
+)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SESSIONS_DIR = os.path.join(BASE_DIR, "sesiones")

@@ -7,7 +7,6 @@ import time
 import traceback
 import logging
 
-import rag_tools
 import mis_agentes_inteligentes.tools as mis_herramientas
 from agents import crear_agente, get_model, route_prompt
 
@@ -35,10 +34,6 @@ TOOLS_MAP = {
         mis_herramientas.git_add,
         mis_herramientas.git_commit,
         mis_herramientas.git_push,
-    ],
-    "Memoria RAG": [
-        rag_tools.indexar_directorio_local,
-        rag_tools.preguntar_a_repositorio,
     ],
 }
 
