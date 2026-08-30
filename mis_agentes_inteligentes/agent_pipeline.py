@@ -1,15 +1,15 @@
 """
 CodeAgent v4.0 Deterministic State Machine Controller & Adaptive Pipeline
-Provee control determinista del ciclo de vida agéntico mediante una máquina de estados finitos:
-  [PLAN] ──► [EXPLORE] ──► [EXECUTE] ──► [VERIFY] ──► [CRITIC] ──► [DONE]
-                               ▲            │ (Error / Fallo)
-                               └─ [REPLAN] ◄┘ (Bucle de recuperación autónoma)
+Provee control determinista del ciclo de vida agÃ©ntico mediante una mÃ¡quina de estados finitos:
+  [PLAN] â”€â”€â–º [EXPLORE] â”€â”€â–º [EXECUTE] â”€â”€â–º [VERIFY] â”€â”€â–º [CRITIC] â”€â”€â–º [DONE]
+                               â–²            â”‚ (Error / Fallo)
+                               â””â”€ [REPLAN] â—„â”˜ (Bucle de recuperaciÃ³n autÃ³noma)
 
-Soporta 4 Niveles de Ejecución Adaptativos (Execution Levels):
-- Level 1 (Chat Directo): Consultas de información sin análisis AST pesado ni verificaciones.
-- Level 2 (Acción Rápida): Executor ➔ Verifier (Parches rápidos y directos).
-- Level 3 (Feature Standard): Planner ➔ Explorer ➔ Executor ➔ Verifier (Desarrollo estructurado).
-- Level 4 (Ciclo Autónomo Completo): Planner ➔ Explorer ➔ Executor ➔ Verifier ➔ Critic ➔ Replan Loop.
+Soporta 4 Niveles de EjecuciÃ³n Adaptativos (Execution Levels):
+- Level 1 (Chat Directo): Consultas de informaciÃ³n sin anÃ¡lisis AST pesado ni verificaciones.
+- Level 2 (AcciÃ³n RÃ¡pida): Executor âž” Verifier (Parches rÃ¡pidos y directos).
+- Level 3 (Feature Standard): Planner âž” Explorer âž” Executor âž” Verifier (Desarrollo estructurado).
+- Level 4 (Ciclo AutÃ³nomo Completo): Planner âž” Explorer âž” Executor âž” Verifier âž” Critic âž” Replan Loop.
 """
 import ast
 import json
@@ -43,15 +43,56 @@ from typing import Any
 
 from .benchmark_metrics import metrics_collector
 
+from sdd_contract.task_contract import ChatTaskContract, ActionTaskContract, FeatureTaskContract
+
 CREATE_NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if os.name == "nt" else 0
 CODEAGENT_VERSION = "v4.4 Enterprise"
 
 
+class _ContractWrapper:
+    """Wrapper to provide canonical TaskContract instances with expected interface.
+
+    The canonical sdd_contract.TaskContract subclasses (ChatTaskContract,
+    ActionTaskContract, FeatureTaskContract) provide the behavioral interface
+    (requires_*, tools_allowed, files_allowed properties). This wrapper adds
+    the task_type and execution_level attributes that code in the pipeline
+    expects on contract instances.
+    """
+    def __init__(self, canonical_contract: object, task_type: TaskType, execution_level: ExecutionLevel):
+        self._canonical = canonical_contract
+        self.task_type = task_type
+        self.execution_level = execution_level
+
+    @property
+    def requires_code_verification(self) -> bool:
+        return self._canonical.requires_code_verification
+
+    @property
+    def requires_tests(self) -> bool:
+        return self._canonical.requires_tests
+
+    @property
+    def requires_execution(self) -> bool:
+        return self._canonical.requires_execution
+
+    @property
+    def tools_allowed(self) -> bool:
+        return self._canonical.tools_allowed
+
+    @property
+    def files_allowed(self) -> bool:
+        return self._canonical.files_allowed
+
+    def __getattr__(self, name):
+        """Delegate attribute access to the canonical contract for any other properties."""
+        return getattr(self._canonical, name)
+
+
 class ExecutionLevel(Enum):
     LEVEL_1_CHAT = "Nivel 1 (Chat Directo)"
-    LEVEL_2_ACTION = "Nivel 2 (Acción Rápida)"
+    LEVEL_2_ACTION = "Nivel 2 (AcciÃ³n RÃ¡pida)"
     LEVEL_3_FEATURE = "Nivel 3 (Feature Standard)"
-    LEVEL_4_FULL = "Nivel 4 (Ciclo Autónomo Completo)"
+    LEVEL_4_FULL = "Nivel 4 (Ciclo AutÃ³nomo Completo)"
 
 
 class State(Enum):
@@ -69,19 +110,19 @@ class State(Enum):
 def _get_phase_cognitive_directive(state: State, failed_verification: dict[str, Any] | None = None) -> str:
     """Devuelve la directiva cognitiva acotada a la fase activa."""
     if state == State.PLAN:
-        return "DIRECTIVA DE FASE (PLAN): Estás en la fase PLAN. Especialízate únicamente en analizar el objetivo y construir un desglose estructurado de pasos sin aplicar modificaciones de código."
+        return "DIRECTIVA DE FASE (PLAN): EstÃ¡s en la fase PLAN. EspecialÃ­zate Ãºnicamente en analizar el objetivo y construir un desglose estructurado de pasos sin aplicar modificaciones de cÃ³digo."
     elif state == State.EXPLORE:
-        return "DIRECTIVA DE FASE (EXPLORE): Estás en la fase EXPLORE. Especialízate únicamente en consultar el Grafo AST Graphify y leer dependencias para construir el contexto estructural."
+        return "DIRECTIVA DE FASE (EXPLORE): EstÃ¡s en la fase EXPLORE. EspecialÃ­zate Ãºnicamente en consultar el Grafo AST Graphify y leer dependencias para construir el contexto estructural."
     elif state == State.EXECUTE:
-        return "DIRECTIVA DE FASE (EXECUTE): Estás en la fase EXECUTE. Especialízate en aplicar los parches sintácticos y modificaciones de código exactas usando las herramientas de archivos."
+        return "DIRECTIVA DE FASE (EXECUTE): EstÃ¡s en la fase EXECUTE. EspecialÃ­zate en aplicar los parches sintÃ¡cticos y modificaciones de cÃ³digo exactas usando las herramientas de archivos."
     elif state == State.VERIFY:
-        return "DIRECTIVA DE FASE (VERIFY): Estás en la fase VERIFY. Especialízate en ejecutar ruff y la suite de pruebas unitarias para confirmar la validez sintáctica."
+        return "DIRECTIVA DE FASE (VERIFY): EstÃ¡s en la fase VERIFY. EspecialÃ­zate en ejecutar ruff y la suite de pruebas unitarias para confirmar la validez sintÃ¡ctica."
     elif state == State.DIAGNOSE:
         err_msg = ", ".join(failed_verification.get("ast_errors", [])) if failed_verification else "Fallo no especificado"
-        return f"DIRECTIVA DE FASE (DIAGNOSE): Analiza la causa raíz del siguiente fallo: {err_msg}. Determina si se trata de un error sintáctico, una falla en pruebas o una dependencia faltante."
+        return f"DIRECTIVA DE FASE (DIAGNOSE): Analiza la causa raÃ­z del siguiente fallo: {err_msg}. Determina si se trata de un error sintÃ¡ctico, una falla en pruebas o una dependencia faltante."
     elif state == State.REPLAN:
         err_msg = ", ".join(failed_verification.get("ast_errors", ["Fallo en pruebas unitarias o linter ruff"])) if failed_verification else "Errores no especificados"
-        return f"DIRECTIVA DE FASE (REPLAN): La verificación anterior falló con los siguientes errores exactos: {err_msg}. Tu único objetivo cognitivo ahora es corregir y reparar estas fallas."
+        return f"DIRECTIVA DE FASE (REPLAN): La verificaciÃ³n anterior fallÃ³ con los siguientes errores exactos: {err_msg}. Tu Ãºnico objetivo cognitivo ahora es corregir y reparar estas fallas."
     return ""
 
 
@@ -118,7 +159,7 @@ class ComplexityRiskEvaluator:
 
         task_type = ComplexityRiskEvaluator.classify_with_router(user_goal)
 
-        # TaskRouter es la autoridad ÚNICA e INVIOLABLE sobre TaskType CHAT y ACTION
+        # TaskRouter es la autoridad ÃšNICA e INVIOLABLE sobre TaskType CHAT y ACTION
         if task_type == 'CHAT':
             return ExecutionLevel.LEVEL_1_CHAT
         elif task_type == 'RECOVERY':
@@ -127,15 +168,15 @@ class ComplexityRiskEvaluator:
             high_risk = any(c in goal_lower for c in ("refactoriza", "resuelve los linter warnings", "haz que los tests pasen", "arquitectura", "migra"))
             return ExecutionLevel.LEVEL_4_FULL if high_risk else ExecutionLevel.LEVEL_2_ACTION
 
-        # 1. Indicadores explícitos de Conversación / Zero-Tool (Level 1 CHAT)
+        # 1. Indicadores explÃ­citos de ConversaciÃ³n / Zero-Tool (Level 1 CHAT)
         chat_keywords = (
-            "responde únicamente", "responde ok", "responde con", "hola", "saluda",
-            "dime", "explícame", "explica", "gracias", "quién eres", "qué puedes hacer",
+            "responde Ãºnicamente", "responde ok", "responde con", "hola", "saluda",
+            "dime", "explÃ­came", "explica", "gracias", "quiÃ©n eres", "quÃ© puedes hacer",
             "sin herramientas", "sin modificar", "sin tocar", "no ejecutes nada",
-            "no crees nada", "no abras", "únicamente con", "únicamente ok", "únicamente el texto"
+            "no crees nada", "no abras", "Ãºnicamente con", "Ãºnicamente ok", "Ãºnicamente el texto"
         )
-        has_mutation = any(v in goal_lower for v in ("crea", "escribe", "modifica", "ejecuta", "elimina", "construye", "refactoriza", "arregla", "implementa", "añade", "agrega"))
-        is_query = any(p in goal_lower for p in ("qué hace", "explicar", "cómo funciona", "dónde está", "resumen", "revisa")) and not has_mutation
+        has_mutation = any(v in goal_lower for v in ("crea", "escribe", "modifica", "ejecuta", "elimina", "construye", "refactoriza", "arregla", "implementa", "aÃ±ade", "agrega"))
+        is_query = any(p in goal_lower for p in ("quÃ© hace", "explicar", "cÃ³mo funciona", "dÃ³nde estÃ¡", "resumen", "revisa")) and not has_mutation
 
         if any(k in goal_lower for k in chat_keywords) or is_query or (not has_mutation and len(goal_lower.split()) <= 12):
             return ExecutionLevel.LEVEL_1_CHAT
@@ -146,7 +187,7 @@ class ComplexityRiskEvaluator:
             return ExecutionLevel.LEVEL_4_FULL
 
         # 3. Acciones directas de alcance limitado (Level 2 ACTION) vs Features (Level 3 FEATURE)
-        single_file_action = any(a in goal_lower for a in ("crea únicamente", "crea un archivo", "escribe en", "formatea", "añade un comentario", "cambia el nombre", "elimina la línea"))
+        single_file_action = any(a in goal_lower for a in ("crea Ãºnicamente", "crea un archivo", "escribe en", "formatea", "aÃ±ade un comentario", "cambia el nombre", "elimina la lÃ­nea"))
         if single_file_action:
             return ExecutionLevel.LEVEL_2_ACTION
 
@@ -154,37 +195,25 @@ class ComplexityRiskEvaluator:
 
     @staticmethod
     def build_contract(user_goal: str) -> TaskContract:
+        """Build a task contract using the canonical sdd_contract implementations."""
         level = ComplexityRiskEvaluator.evaluate(user_goal)
-        if level == ExecutionLevel.LEVEL_1_CHAT:
-            return TaskContract(
-                task_type=TaskType.CHAT,
-                execution_level=level,
-                requires_code_verification=False,
-                requires_tests=False,
-                requires_execution=False,
-                tools_allowed=False,
-                files_allowed=False
-            )
-        elif level == ExecutionLevel.LEVEL_2_ACTION:
-            return TaskContract(
-                task_type=TaskType.ACTION,
-                execution_level=level,
-                requires_code_verification=True,
-                requires_tests=False,
-                requires_execution=True,
-                tools_allowed=True,
-                files_allowed=True
-            )
-        else:
-            return TaskContract(
-                task_type=TaskType.FEATURE,
-                execution_level=level,
-                requires_code_verification=True,
-                requires_tests=True,
-                requires_execution=True,
-                tools_allowed=True,
-                files_allowed=True
-            )
+        # Ensure task_type and execution_level are set as attributes
+        # for compatibility with code that expects them on the contract instance
+        contract_map = {
+            ExecutionLevel.LEVEL_1_CHAT: lambda: _ContractWrapper(
+                ChatTaskContract(), TaskType.CHAT, level
+            ),
+            ExecutionLevel.LEVEL_2_ACTION: lambda: _ContractWrapper(
+                ActionTaskContract(), TaskType.ACTION, level
+            ),
+            ExecutionLevel.LEVEL_3_FEATURE: lambda: _ContractWrapper(
+                FeatureTaskContract(), TaskType.FEATURE, level
+            ),
+        }
+        base_contract = contract_map.get(level, lambda: _ContractWrapper(
+            FeatureTaskContract(), TaskType.FEATURE, level
+        ))()
+        return base_contract
 
 
 class AgentStateMachineController:
@@ -207,7 +236,7 @@ class AgentStateMachineController:
         return self._event_bus
 
     def infer_execution_level(self, user_goal: str) -> ExecutionLevel:
-        """Determina el Nivel de Ejecución óptimo usando la evaluación de complejidad y riesgo."""
+        """Determina el Nivel de EjecuciÃ³n Ã³ptimo usando la evaluaciÃ³n de complejidad y riesgo."""
         return ComplexityRiskEvaluator.evaluate(user_goal)
 
     def _save_checkpoint(
@@ -221,16 +250,16 @@ class AgentStateMachineController:
         diagnostic_report: dict[str, Any] | None = None,
         plan_data: dict[str, Any] | None = None
     ):
-        """Persiste el estado activo de la Máquina de Estados.
+        """Persiste el estado activo de la MÃ¡quina de Estados.
         
-        Orden de autoridad canónica (C3.1):
-        1. DatabaseManager / SQLite = SOURCE OF TRUTH (primario, confirmar éxito)
+        Orden de autoridad canÃ³nica (C3.1):
+        1. DatabaseManager / SQLite = SOURCE OF TRUTH (primario, confirmar Ã©xito)
         2. session_manager / JSON = LEGACY EXPORT / COMPATIBILITY (secundario, no bloqueante)
         """
         if not session_id:
             return
 
-        # ─── PRIMARIO: SQLite / DatabaseManager (Source of Truth) ───
+        # â”€â”€â”€ PRIMARIO: SQLite / DatabaseManager (Source of Truth) â”€â”€â”€
         sqlite_success = False
         try:
             from .runtime.event_bus import get_event_bus
@@ -256,14 +285,14 @@ class AgentStateMachineController:
                 "diagnostic_report": diagnostic_report
             })
             sqlite_success = True
-            logging.debug(f"✅ [StateMachine] Checkpoint guardado en SQLite (Source of Truth): {session_id[:8]} state={current_state.value}")
+            logging.debug(f"âœ… [StateMachine] Checkpoint guardado en SQLite (Source of Truth): {session_id[:8]} state={current_state.value}")
         except Exception as ex:
-            logging.error(f"❌ [StateMachine] FALLO CRÍTICO guardando checkpoint en SQLite: {ex}")
+            logging.error(f"?? [StateMachine] FALLO CR?TICO guardando checkpoint en SQLite: {ex}")
             # SQLite es Source of Truth - propagar error para que el caller decida
             raise
 
-        # ─── SECUNDARIO: JSON Legacy Export (Compatibility) ───
-        # Solo se ejecuta si SQLite tuvo éxito. Clasificado explícitamente como LEGACY EXPORT.
+        # â”€â”€â”€ SECUNDARIO: JSON Legacy Export (Compatibility) â”€â”€â”€
+        # Solo se ejecuta si SQLite tuvo Ã©xito. Clasificado explÃ­citamente como LEGACY EXPORT.
         if sqlite_success:
             try:
                 from .session_manager import load_session, save_session
@@ -283,13 +312,13 @@ class AgentStateMachineController:
                         "diagnostic_report": diagnostic_report or {},
                         "plan_data": plan_data or {},
                         "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
-                        "_legacy_export": True,  # Marca explícita: esto es LEGACY EXPORT, no Source of Truth
-                        "_source_of_truth": "sqlite"  # Documentación de la autoridad canónica
+                        "_legacy_export": True,  # Marca explÃ­cita: esto es LEGACY EXPORT, no Source of Truth
+                        "_source_of_truth": "sqlite"  # DocumentaciÃ³n de la autoridad canÃ³nica
                     }
                     save_session(session_id, data)
-                    logging.debug(f"📝 [StateMachine] LEGACY EXPORT JSON escrito (compatibilidad): {session_id[:8]}")
+                    logging.debug(f"ðŸ“ [StateMachine] LEGACY EXPORT JSON escrito (compatibilidad): {session_id[:8]}")
             except Exception as e:
-                logging.warning(f"⚠️ [StateMachine] No se pudo escribir LEGACY EXPORT JSON (no bloqueante): {e}")
+                logging.warning(f"âš ï¸ [StateMachine] No se pudo escribir LEGACY EXPORT JSON (no bloqueante): {e}")
 
     def run(
         self,
@@ -303,12 +332,12 @@ class AgentStateMachineController:
         cancel_event: threading.Event | None = None,
         pause_event: threading.Event | None = None
     ) -> tuple[str, dict[str, Any]]:
-        """Ejecuta el ciclo agéntico mediante la Máquina de Estados Determinista."""
+        """Ejecuta el ciclo agÃ©ntico mediante la MÃ¡quina de Estados Determinista."""
         start_time = time.time()
         import uuid
         session_id = session_id or f"task-{int(start_time*1000)}"
 
-        # Aislar telemetría de ejecución por petición (limpiar buffer global en nueva ejecución)
+        # Aislar telemetrÃ­a de ejecuciÃ³n por peticiÃ³n (limpiar buffer global en nueva ejecuciÃ³n)
         if initial_replans == 0:
             from mis_agentes_inteligentes.tools import clear_terminal_tasks_buffer
             clear_terminal_tasks_buffer()
@@ -326,7 +355,7 @@ class AgentStateMachineController:
         critic_summary = "N/A"
         execution_result = ""
 
-        # Nivel 1: Atajo ultra-rápido para consultas puras de chat
+        # Nivel 1: Atajo ultra-rÃ¡pido para consultas puras de chat
         if active_level == ExecutionLevel.LEVEL_1_CHAT:
             if cancel_event and cancel_event.is_set():
                 raise InterruptedError("CANCELLED")
@@ -355,7 +384,7 @@ class AgentStateMachineController:
             exec_count = len(term_tasks)
             contract = ComplexityRiskEvaluator.build_contract(user_goal)
             return (
-                f"### 💬 Respuesta Directa ({active_level.value})\n\n{execution_result}",
+                f"### ðŸ’¬ Respuesta Directa ({active_level.value})\n\n{execution_result}",
                 {
                     "tiempo_segundos": elapsed,
                     "task_type": contract.task_type.value,
@@ -407,7 +436,7 @@ class AgentStateMachineController:
                 if agent_runner:
                     execution_result = agent_runner(full_prompt)
                 else:
-                    execution_result = f"Ejecución simulada para: {user_goal}"
+                    execution_result = f"EjecuciÃ³n simulada para: {user_goal}"
                 current_state = State.VERIFY
 
             elif current_state == State.VERIFY:
@@ -422,14 +451,14 @@ class AgentStateMachineController:
 
             elif current_state == State.DIAGNOSE:
                 diagnostic_report = self._stage_diagnose(verification_res, user_goal)
-                logging.info(f"🔍 [StateMachine] RootCauseReport generado: {diagnostic_report['root_cause']}")
+                logging.info(f"ðŸ” [StateMachine] RootCauseReport generado: {diagnostic_report['root_cause']}")
                 current_state = State.REPLAN
 
             elif current_state == State.REPLAN:
                 replans_count += 1
                 recovered_autonomously = True
                 plan_data = self._stage_replan(plan_data, diagnostic_report)
-                logging.info(f"🔄 [StateMachine] UpdatedPlan generado (Re-planificación {replans_count}/{self.max_replans}).")
+                logging.info(f"ðŸ”„ [StateMachine] UpdatedPlan generado (Re-planificaciÃ³n {replans_count}/{self.max_replans}).")
                 current_state = State.EXPLORE if diagnostic_report.get("requires_reexploration") else State.EXECUTE
 
             elif current_state == State.CRITIC:
@@ -457,33 +486,33 @@ class AgentStateMachineController:
             verification_results=verification_res
         )
 
-        transitions_str = " ➔ ".join(s.value if isinstance(s, State) else str(s) for s in state_history)
+        transitions_str = " âž” ".join(s.value if isinstance(s, State) else str(s) for s in state_history)
         if success:
-            status_label = "⚠️ NO_CODE_FOUND" if py_count == 0 else "✅ VERIFIED"
+            status_label = "âš ï¸ NO_CODE_FOUND" if py_count == 0 else "âœ… VERIFIED"
         else:
-            status_label = "❌ VERIFICATION_FAILED"
+            status_label = "âŒ VERIFICATION_FAILED"
 
         tests_st = verification_res.get("tests_status", "NOT_REQUIRED")
         if tests_st == "PASS":
-            tests_fmt = "✅ PASS (Pruebas unitarias pasadas al 100%)"
+            tests_fmt = "âœ… PASS (Pruebas unitarias pasadas al 100%)"
         elif tests_st == "FAIL":
-            tests_fmt = "❌ FAIL (Fallo en suite de pruebas)"
+            tests_fmt = "âŒ FAIL (Fallo en suite de pruebas)"
         elif tests_st == "NOT_RUN":
-            tests_fmt = "⚪ NOT_RUN (Sin suite de pruebas)"
+            tests_fmt = "âšª NOT_RUN (Sin suite de pruebas)"
         else:
-            tests_fmt = "⚪ NOT_REQUIRED (Sin directiva de pruebas requerida)"
+            tests_fmt = "âšª NOT_REQUIRED (Sin directiva de pruebas requerida)"
 
         final_response = (
-            f"### 📋 CodeAgent — Task Result: {status_label}\n\n"
+            f"### ðŸ“‹ CodeAgent â€” Task Result: {status_label}\n\n"
             f"{execution_result}\n\n"
             f"---\n"
-            f"#### 🧪 Evidencia de Verificación Tri-Estado:\n"
-            f"- **Flujo de Transición:** `{transitions_str}`\n"
+            f"#### ðŸ§ª Evidencia de VerificaciÃ³n Tri-Estado:\n"
+            f"- **Flujo de TransiciÃ³n:** `{transitions_str}`\n"
             f"- **Re-planificaciones:** {replans_count} / {self.max_replans}\n"
             f"- **Sintaxis AST:** `{verification_res.get('ast_status', 'PASS')}` ({py_count} archivos .py)\n"
             f"- **Suite de Pruebas:** {tests_fmt} ({verification_res.get('test_files_count', 0)} archivos de test)\n"
             f"- **Linter (Ruff):** `{verification_res.get('ruff_status', 'PASS')}`\n"
-            f"- **Evaluación Critic:** {critic_summary}\n"
+            f"- **EvaluaciÃ³n Critic:** {critic_summary}\n"
         )
 
         from mis_agentes_inteligentes.tools import get_terminal_tasks_buffer
@@ -507,7 +536,7 @@ class AgentStateMachineController:
         return final_response, metrics
 
     def run_pipeline(self, user_goal: str, agent_runner: Callable[[str], str] | None = None, session_id: str | None = None) -> tuple[str, dict[str, Any]]:
-        """Alias de compatibilidad hacia atrás para la versión v3.0."""
+        """Alias de compatibilidad hacia atrÃ¡s para la versiÃ³n v3.0."""
         return self.run(user_goal=user_goal, agent_runner=agent_runner, session_id=session_id)
 
     def resume_session(
@@ -517,13 +546,13 @@ class AgentStateMachineController:
         cancel_event: threading.Event | None = None,
         pause_event: threading.Event | None = None
     ) -> tuple[str, dict[str, Any]]:
-        """Reanuda la ejecución priorizando DatabaseManager/SQLite como Source of Truth.
+        """Reanuda la ejecuciÃ³n priorizando DatabaseManager/SQLite como Source of Truth.
         
-        Orden de autoridad canónica (C3.1):
+        Orden de autoridad canÃ³nica (C3.1):
         1. DatabaseManager / SQLite (Source of Truth primario)
-        2. session_manager / JSON (Legacy fallback + migración explícita)
+        2. session_manager / JSON (Legacy fallback + migraciÃ³n explÃ­cita)
         """
-# ─── CASO A: SQLite disponible + sesión existe ───
+# â”€â”€â”€ CASO A: SQLite disponible + sesiÃ³n existe â”€â”€â”€
         db = self._db_manager
         if db is None:
             try:
@@ -546,9 +575,9 @@ class AgentStateMachineController:
                     "failed_verification": chk_db.get("failed_verification"),
                     "execution_level": task_db.get("execution_level", "LEVEL_4_FULL")
                 }
-                logging.info(f"✅ [StateMachine] Resume: checkpoint cargado desde SQLite (Source of Truth) para {session_id[:8]}")
+                logging.info(f"âœ… [StateMachine] Resume: checkpoint cargado desde SQLite (Source of Truth) para {session_id[:8]}")
         
-# ─── CASO B: SQLite no tiene la sesión + JSON legacy existe ───
+# â”€â”€â”€ CASO B: SQLite no tiene la sesiÃ³n + JSON legacy existe â”€â”€â”€
         if not checkpoint:
             try:
                 from .session_manager import load_session
@@ -556,18 +585,18 @@ class AgentStateMachineController:
                 if data and "memory" in data and isinstance(data["memory"], dict):
                     legacy_checkpoint = data.get("memory", {}).get("working", {}).get("state_checkpoint")
                     if legacy_checkpoint:
-                        # Validar estructura mínima del checkpoint legacy
+                        # Validar estructura mÃ­nima del checkpoint legacy
                         required_keys = {"user_goal", "current_state", "replans_count"}
                         if all(k in legacy_checkpoint for k in required_keys):
                             checkpoint = legacy_checkpoint
                             migration_occurred = True
-                            logging.warning(f"⚠️ [StateMachine] Resume: MIGRACIÓN LEGACY JSON→SQLite para sesión {session_id[:8]}")
+                            logging.warning(f"âš ï¸ [StateMachine] Resume: MIGRACIÃ“N LEGACY JSONâ†’SQLite para sesiÃ³n {session_id[:8]}")
                         else:
-                            logging.warning(f"⚠️ [StateMachine] Checkpoint JSON legacy inválido (faltan claves) para {session_id[:8]}")
+                            logging.warning(f"âš ï¸ [StateMachine] Checkpoint JSON legacy invÃ¡lido (faltan claves) para {session_id[:8]}")
             except Exception as e:
                 logging.debug(f"[StateMachine] No se pudo leer JSON legacy: {e}")
         
-        # ─── MIGRAR JSON LEGACY A SQLITE SI OCURRIÓ ───
+        # â”€â”€â”€ MIGRAR JSON LEGACY A SQLITE SI OCURRIÃ“ â”€â”€â”€
         if migration_occurred and db and checkpoint:
             try:
                 # Crear task en SQLite si no existe
@@ -588,14 +617,14 @@ class AgentStateMachineController:
                     replans_count=checkpoint.get("replans_count", 0)
                 )
                 db.update_task_status(session_id, "RUNNING", current_state=checkpoint.get("current_state", "EXECUTE"))
-                logging.info(f"✅ [StateMachine] Migración completada: sesión {session_id[:8]} ahora en SQLite")
+                logging.info(f"âœ… [StateMachine] MigraciÃ³n completada: sesiÃ³n {session_id[:8]} ahora en SQLite")
             except Exception as e:
-                logging.error(f"❌ [StateMachine] Error migrando legacy JSON a SQLite: {e}")
+                logging.error(f"âŒ [StateMachine] Error migrando legacy JSON a SQLite: {e}")
                 # No fallar - continuar con checkpoint en memoria
 
-        # ─── CASO C/D/E: No hay checkpoint válido ───
+        # â”€â”€â”€ CASO C/D/E: No hay checkpoint vÃ¡lido â”€â”€â”€
         if not checkpoint:
-            return "Error: No se encontró checkpoint válido ni en SQLite (Source of Truth) ni en JSON legacy para esta sesión.", {}
+            return "Error: No se encontrÃ³ checkpoint vÃ¡lido ni en SQLite (Source of Truth) ni en JSON legacy para esta sesiÃ³n.", {}
 
         user_goal = checkpoint.get("user_goal", "")
         state_str = checkpoint.get("current_state")
@@ -615,7 +644,7 @@ class AgentStateMachineController:
                 resumed_level = lvl
                 break
 
-        logging.info(f"⏯️ [StateMachine] Reanudando sesión {session_id[:8]} desde estado {resumed_state.value} (migrated={migration_occurred})")
+        logging.info(f"â¯ï¸ [StateMachine] Reanudando sesiÃ³n {session_id[:8]} desde estado {resumed_state.value} (migrated={migration_occurred})")
         return self.run(
             user_goal=user_goal,
             agent_runner=agent_runner,
@@ -629,7 +658,7 @@ class AgentStateMachineController:
         )
 
     def _stage_planner(self, user_goal: str) -> dict[str, Any]:
-        """Genera un plan de acción estructurado."""
+        """Genera un plan de acciÃ³n estructurado."""
         return {
             "objetivo": user_goal,
             "pasos": [
@@ -640,24 +669,24 @@ class AgentStateMachineController:
         }
 
     def _stage_diagnose(self, verification_res: dict[str, Any], _user_goal: str) -> dict[str, Any]:
-        """Genera un RootCauseReport estructurado aislando la causa raíz del fallo."""
+        """Genera un RootCauseReport estructurado aislando la causa raÃ­z del fallo."""
         ast_errors = verification_res.get("ast_errors", [])
         err_str = ", ".join(str(e) for e in ast_errors) if ast_errors else "Fallo en suite de pruebas o linter"
 
         requires_reexploration = any(k in err_str.lower() for k in ("import", "module", "not found", "nameerror", "attributeerror"))
         return {
             "root_cause": err_str,
-            "failed_assumption": "El código recién modificado cumplía la sintaxis y los contratos de los módulos.",
-            "strategy_change": "Re-explorar el Grafo AST con Graphify para identificar símbolos o importaciones faltantes." if requires_reexploration else "Corregir aserciones y adaptar la lógica interna del parche.",
+            "failed_assumption": "El cÃ³digo reciÃ©n modificado cumplÃ­a la sintaxis y los contratos de los mÃ³dulos.",
+            "strategy_change": "Re-explorar el Grafo AST con Graphify para identificar sÃ­mbolos o importaciones faltantes." if requires_reexploration else "Corregir aserciones y adaptar la lÃ³gica interna del parche.",
             "requires_reexploration": requires_reexploration,
             "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
         }
 
     def _stage_replan(self, plan_data: dict[str, Any], diagnostic_report: dict[str, Any]) -> dict[str, Any]:
-        """Genera un UpdatedPlan estructurado incorporando el ajuste estratégico del diagnóstico."""
+        """Genera un UpdatedPlan estructurado incorporando el ajuste estratÃ©gico del diagnÃ³stico."""
         pasos_previos = list(plan_data.get("pasos", [])) if plan_data else []
-        strategy = diagnostic_report.get("strategy_change", "Re-evaluar la implementación del parche.")
-        pasos_previos.append(f"AJUSTE ESTRATÉGICO POR DIAGNÓSTICO: {strategy}")
+        strategy = diagnostic_report.get("strategy_change", "Re-evaluar la implementaciÃ³n del parche.")
+        pasos_previos.append(f"AJUSTE ESTRATÃ‰GICO POR DIAGNÃ“STICO: {strategy}")
 
         return {
             "objetivo": plan_data.get("objetivo", ""),
@@ -687,26 +716,26 @@ class AgentStateMachineController:
         """Construye el prompt contextual para la fase EXECUTE."""
         prompt_parts = [
             f"OBJETIVO DEL USUARIO: {user_goal}",
-            f"CONTEXTO ARQUITECTÓNICO: {graph_context}"
+            f"CONTEXTO ARQUITECTÃ“NICO: {graph_context}"
         ]
         if plan_data and "pasos" in plan_data:
             steps_str = "\n".join(plan_data["pasos"])
-            prompt_parts.append(f"PLAN DE ACCIÓN:\n{steps_str}")
+            prompt_parts.append(f"PLAN DE ACCIÃ“N:\n{steps_str}")
 
         if failed_verification:
             err_msg = ", ".join(failed_verification.get("ast_errors", ["Fallo en pruebas unitarias o linter ruff"]))
             prompt_parts.append(
-                f"\n⚠️ BUCLE DE RE-PLANIFICACIÓN AUTÓNOMA ACTIVO:\n"
-                f"La verificación anterior arrojó errores que debes corregir inmediatamente:\n"
+                f"\nâš ï¸ BUCLE DE RE-PLANIFICACIÃ“N AUTÃ“NOMA ACTIVO:\n"
+                f"La verificaciÃ³n anterior arrojÃ³ errores que debes corregir inmediatamente:\n"
                 f"ERRORES DETECTADOS: {err_msg}\n"
-                f"Por favor aplica las correcciones necesarias para reparar el código."
+                f"Por favor aplica las correcciones necesarias para reparar el cÃ³digo."
             )
 
         prompt_parts.append("\nModifica los archivos necesarios usando las herramientas del sistema de archivos.")
         return "\n\n".join(prompt_parts)
 
     def _stage_verifier(self, user_goal: str = "") -> dict[str, Any]:
-        """Comprueba sintaxis AST, linter Ruff y suite de pruebas enfocado únicamente en los archivos del contrato de la tarea actual (Task-Scoped)."""
+        """Comprueba sintaxis AST, linter Ruff y suite de pruebas enfocado Ãºnicamente en los archivos del contrato de la tarea actual (Task-Scoped)."""
         if user_goal:
             contract = ComplexityRiskEvaluator.build_contract(user_goal)
             if contract.task_type.value == "CHAT":
@@ -766,12 +795,12 @@ class AgentStateMachineController:
 
         active_py_files = task_py_files if task_py_files else [os.path.relpath(p, self.workspace_dir) for p in all_py_files]
 
-        # Directivas de ejecución negativas
+        # Directivas de ejecuciÃ³n negativas
         has_exec_neg = any(neg in user_goal_lower for neg in (
             "no ejecutes", "no correr", "sin ejecutar", "sin corre", "no run", "don't run"
         ))
 
-        # 2. Verificación de sintaxis AST (Task-Scoped con fallback a workspace)
+        # 2. VerificaciÃ³n de sintaxis AST (Task-Scoped con fallback a workspace)
         if not all_py_files:
             ast_status = "NOT_RUN"
             ruff_status = "NOT_RUN"
@@ -784,7 +813,7 @@ class AgentStateMachineController:
                             ast.parse(f.read(), filename=rel_path)
                     except SyntaxError as se:
                         ast_valid = False
-                        ast_errors.append(f"{rel_path}: línea {se.lineno} - {se.msg}")
+                        ast_errors.append(f"{rel_path}: lÃ­nea {se.lineno} - {se.msg}")
                     except Exception:
                         pass
             ast_status = "PASS" if ast_valid else "FAIL"
@@ -793,9 +822,9 @@ class AgentStateMachineController:
             ast_status = "NOT_REQUIRED"
             ruff_status = "NOT_REQUIRED"
 
-        # Directiva de pruebas negativas con límites de palabra para evitar falsos positivos
+        # Directiva de pruebas negativas con lÃ­mites de palabra para evitar falsos positivos
         has_neg = bool(re.search(
-            r"\b(no\s+(añadas|crees|crear|ejecutes|corras)|sin)\s+(tests?|pruebas?|unittest|pytest)\b",
+            r"\b(no\s+(aÃ±adas|crees|crear|ejecutes|corras)|sin)\s+(tests?|pruebas?|unittest|pytest)\b",
             user_goal_lower
         ))
         user_requested_tests = not has_neg and any(k in user_goal_lower for k in ("test", "prueba", "unittest", "pytest", "cobertura", "assert"))
@@ -862,7 +891,7 @@ class AgentStateMachineController:
                         if res_ut.returncode == 0 and "Ran 0 tests" not in (res_ut.stderr or ""):
                             tests_passed = True
                         else:
-                            # Fallback 2: Ejecución directa del script de test via sys.executable
+                            # Fallback 2: EjecuciÃ³n directa del script de test via sys.executable
                             direct_passed = True
                             target_runs = test_targets if test_targets else [f for f in task_test_files if f.endswith(".py")]
                             if target_runs:
@@ -880,7 +909,7 @@ class AgentStateMachineController:
                                         )
                                         if res_dir.returncode != 0:
                                             direct_passed = False
-                                            ast_errors.append(f"Fallo en ejecución directa de {t_file}: {res_dir.stderr}")
+                                            ast_errors.append(f"Fallo en ejecuciÃ³n directa de {t_file}: {res_dir.stderr}")
                                 tests_passed = direct_passed
                             else:
                                 tests_passed = (res_ut.returncode == 0)
@@ -898,7 +927,7 @@ class AgentStateMachineController:
             tests_passed = True
             tests_status = "NOT_REQUIRED"
 
-        # 4. Ejecución del programa principal (Task-Scoped)
+        # 4. EjecuciÃ³n del programa principal (Task-Scoped)
         program_passed = True
         program_output = ""
         target_script = None
@@ -927,12 +956,12 @@ class AgentStateMachineController:
                     program_passed = (res_prog.returncode == 0)
                     program_output = res_prog.stdout.strip()
                     if not program_passed:
-                        ast_errors.append(f"Fallo en ejecución de {target_script}: {res_prog.stderr}")
+                        ast_errors.append(f"Fallo en ejecuciÃ³n de {target_script}: {res_prog.stderr}")
                 except Exception as ex:
                     program_passed = False
                     program_output = f"Error: {ex}"
 
-        # Éxito de verificación matemático: sin bloqueos de sintaxis, linter, pruebas ni ejecución
+        # Ã‰xito de verificaciÃ³n matemÃ¡tico: sin bloqueos de sintaxis, linter, pruebas ni ejecuciÃ³n
         blocking_checks = []
         if not ast_valid:
             blocking_checks.append(f"ast_errors: {ast_errors}")
@@ -973,7 +1002,7 @@ class AgentStateMachineController:
         }
 
     def _stage_critic(self, _user_goal: str, verification: dict[str, Any]) -> str:
-        """Evaluación crítica objetiva del diff, requisitos e integridad del workspace."""
+        """EvaluaciÃ³n crÃ­tica objetiva del diff, requisitos e integridad del workspace."""
         diff_files = []
         try:
             res_diff = subprocess.run(["git", "status", "--porcelain"], cwd=self.workspace_dir, capture_output=True, text=True, timeout=5, creationflags=CREATE_NO_WINDOW)
@@ -986,18 +1015,18 @@ class AgentStateMachineController:
         critic_notes = []
 
         if verification.get("tests_status") == "NOT_REQUIRED":
-            critic_notes.append("Pruebas unitarias omitidas correctamente por directiva explícita del usuario.")
+            critic_notes.append("Pruebas unitarias omitidas correctamente por directiva explÃ­cita del usuario.")
         elif verification.get("tests_status") == "PASS":
-            critic_notes.append("Suite de pruebas ejecutada y validada con éxito.")
+            critic_notes.append("Suite de pruebas ejecutada y validada con Ã©xito.")
 
         if verification.get("program_passed"):
-            critic_notes.append(f"Programa ejecutable validado con éxito ({verification.get('program_output', '')[:60]}).")
+            critic_notes.append(f"Programa ejecutable validado con Ã©xito ({verification.get('program_output', '')[:60]}).")
 
         if requirements_met:
             notes_str = " ".join(critic_notes)
             return f"Cumplimiento 100%: Requisitos validados en workspace ({len(diff_files)} archivos modificados). {notes_str}"
         else:
-            errs = ", ".join(verification.get("ast_errors", ["Advertencia en verificación"]))
+            errs = ", ".join(verification.get("ast_errors", ["Advertencia en verificaciÃ³n"]))
             return f"Finalizado con advertencias de criticismo: {errs}"
 
 
