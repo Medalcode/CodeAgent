@@ -200,7 +200,7 @@ class AgentStateMachineController:
     def event_bus(self) -> Any:
         if self._event_bus is None:
             try:
-                from runtime.event_bus import get_event_bus
+                from .runtime.event_bus import get_event_bus
                 self._event_bus = get_event_bus()
             except Exception:
                 pass
@@ -221,36 +221,20 @@ class AgentStateMachineController:
         diagnostic_report: dict[str, Any] | None = None,
         plan_data: dict[str, Any] | None = None
     ):
-        """Persiste el estado activo de la Máquina de Estados en la sesión JSON."""
+        """Persiste el estado activo de la Máquina de Estados.
+        
+        Orden de autoridad canónica (C3.1):
+        1. DatabaseManager / SQLite = SOURCE OF TRUTH (primario, confirmar éxito)
+        2. session_manager / JSON = LEGACY EXPORT / COMPATIBILITY (secundario, no bloqueante)
+        """
         if not session_id:
             return
-        try:
-            from session_manager import load_session, save_session
-            data = load_session(session_id)
-            if data:
-                if "memory" not in data or not isinstance(data["memory"], dict):
-                    data["memory"] = {}
-                if "working" not in data["memory"] or not isinstance(data["memory"]["working"], dict):
-                    data["memory"]["working"] = {}
 
-                data["memory"]["working"]["state_checkpoint"] = {
-                    "current_state": current_state.value,
-                    "execution_level": execution_level.value,
-                    "user_goal": user_goal,
-                    "replans_count": replans_count,
-                    "failed_verification": failed_verification or {},
-                    "diagnostic_report": diagnostic_report or {},
-                    "plan_data": plan_data or {},
-                    "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
-                }
-                save_session(session_id, data)
-        except Exception as e:
-            logging.warning(f"No se pudo guardar checkpoint JSON: {e}")
-
-        # Integración con Almacenamiento Persistente SQLite y EventBus (v6.0)
+        # ─── PRIMARIO: SQLite / DatabaseManager (Source of Truth) ───
+        sqlite_success = False
         try:
-            from runtime.event_bus import get_event_bus
-            from storage.database import get_db_manager
+            from .runtime.event_bus import get_event_bus
+            from .storage.database import get_db_manager
             db = self._db_manager or get_db_manager()
             bus = self._event_bus or get_event_bus()
 
@@ -271,8 +255,41 @@ class AgentStateMachineController:
                 "failed_verification": failed_verification,
                 "diagnostic_report": diagnostic_report
             })
+            sqlite_success = True
+            logging.debug(f"✅ [StateMachine] Checkpoint guardado en SQLite (Source of Truth): {session_id[:8]} state={current_state.value}")
         except Exception as ex:
-            logging.debug(f"Aviso en registro SQLite checkpoint: {ex}")
+            logging.error(f"❌ [StateMachine] FALLO CRÍTICO guardando checkpoint en SQLite: {ex}")
+            # SQLite es Source of Truth - propagar error para que el caller decida
+            raise
+
+        # ─── SECUNDARIO: JSON Legacy Export (Compatibility) ───
+        # Solo se ejecuta si SQLite tuvo éxito. Clasificado explícitamente como LEGACY EXPORT.
+        if sqlite_success:
+            try:
+                from .session_manager import load_session, save_session
+                data = load_session(session_id)
+                if data:
+                    if "memory" not in data or not isinstance(data["memory"], dict):
+                        data["memory"] = {}
+                    if "working" not in data["memory"] or not isinstance(data["memory"]["working"], dict):
+                        data["memory"]["working"] = {}
+
+                    data["memory"]["working"]["state_checkpoint"] = {
+                        "current_state": current_state.value,
+                        "execution_level": execution_level.value,
+                        "user_goal": user_goal,
+                        "replans_count": replans_count,
+                        "failed_verification": failed_verification or {},
+                        "diagnostic_report": diagnostic_report or {},
+                        "plan_data": plan_data or {},
+                        "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+                        "_legacy_export": True,  # Marca explícita: esto es LEGACY EXPORT, no Source of Truth
+                        "_source_of_truth": "sqlite"  # Documentación de la autoridad canónica
+                    }
+                    save_session(session_id, data)
+                    logging.debug(f"📝 [StateMachine] LEGACY EXPORT JSON escrito (compatibilidad): {session_id[:8]}")
+            except Exception as e:
+                logging.warning(f"⚠️ [StateMachine] No se pudo escribir LEGACY EXPORT JSON (no bloqueante): {e}")
 
     def run(
         self,
@@ -500,27 +517,85 @@ class AgentStateMachineController:
         cancel_event: threading.Event | None = None,
         pause_event: threading.Event | None = None
     ) -> tuple[str, dict[str, Any]]:
-        """Reanuda la ejecución desde una sesión JSON o checkpoint de SQLite."""
-        from session_manager import load_session
+        """Reanuda la ejecución priorizando DatabaseManager/SQLite como Source of Truth.
+        
+        Orden de autoridad canónica (C3.1):
+        1. DatabaseManager / SQLite (Source of Truth primario)
+        2. session_manager / JSON (Legacy fallback + migración explícita)
+        """
+# ─── CASO A: SQLite disponible + sesión existe ───
+        db = self._db_manager
+        if db is None:
+            try:
+                from .storage.database import get_db_manager
+                db = get_db_manager()
+            except Exception:
+                db = None
+        
         checkpoint = None
-        data = load_session(session_id)
-        if data and "memory" in data and isinstance(data["memory"], dict):
-            checkpoint = data.get("memory", {}).get("working", {}).get("state_checkpoint")
-
-        if not checkpoint and self._db_manager:
-            chk_db = self._db_manager.get_latest_checkpoint(session_id)
-            task_db = self._db_manager.get_task(session_id)
-            if chk_db:
+        migration_occurred = False
+        
+        if db:
+            task_db = db.get_task(session_id)
+            chk_db = db.get_latest_checkpoint(session_id) if task_db else None
+            if task_db and chk_db:
                 checkpoint = {
-                    "user_goal": task_db.get("goal", "") if task_db else "",
+                    "user_goal": task_db.get("goal", ""),
                     "current_state": chk_db.get("state", "EXECUTE"),
                     "replans_count": chk_db.get("replans_count", 0),
                     "failed_verification": chk_db.get("failed_verification"),
-                    "execution_level": task_db.get("execution_level", "LEVEL_4_FULL") if task_db else "LEVEL_4_FULL"
+                    "execution_level": task_db.get("execution_level", "LEVEL_4_FULL")
                 }
-
+                logging.info(f"✅ [StateMachine] Resume: checkpoint cargado desde SQLite (Source of Truth) para {session_id[:8]}")
+        
+# ─── CASO B: SQLite no tiene la sesión + JSON legacy existe ───
         if not checkpoint:
-            return "Error: No se encontró checkpoint ni en memoria ni en SQLite para esta sesión.", {}
+            try:
+                from .session_manager import load_session
+                data = load_session(session_id)
+                if data and "memory" in data and isinstance(data["memory"], dict):
+                    legacy_checkpoint = data.get("memory", {}).get("working", {}).get("state_checkpoint")
+                    if legacy_checkpoint:
+                        # Validar estructura mínima del checkpoint legacy
+                        required_keys = {"user_goal", "current_state", "replans_count"}
+                        if all(k in legacy_checkpoint for k in required_keys):
+                            checkpoint = legacy_checkpoint
+                            migration_occurred = True
+                            logging.warning(f"⚠️ [StateMachine] Resume: MIGRACIÓN LEGACY JSON→SQLite para sesión {session_id[:8]}")
+                        else:
+                            logging.warning(f"⚠️ [StateMachine] Checkpoint JSON legacy inválido (faltan claves) para {session_id[:8]}")
+            except Exception as e:
+                logging.debug(f"[StateMachine] No se pudo leer JSON legacy: {e}")
+        
+        # ─── MIGRAR JSON LEGACY A SQLITE SI OCURRIÓ ───
+        if migration_occurred and db and checkpoint:
+            try:
+                # Crear task en SQLite si no existe
+                existing_task = db.get_task(session_id)
+                if not existing_task:
+                    db.create_task(
+                        task_id=session_id,
+                        project_path=self.workspace_dir,
+                        goal=checkpoint.get("user_goal", ""),
+                        execution_level=checkpoint.get("execution_level", "LEVEL_4_FULL")
+                    )
+                # Guardar checkpoint en SQLite
+                db.save_checkpoint(
+                    task_id=session_id,
+                    state=checkpoint.get("current_state", "EXECUTE"),
+                    plan=str(checkpoint.get("plan_data", "")),
+                    failed_verification=checkpoint.get("failed_verification"),
+                    replans_count=checkpoint.get("replans_count", 0)
+                )
+                db.update_task_status(session_id, "RUNNING", current_state=checkpoint.get("current_state", "EXECUTE"))
+                logging.info(f"✅ [StateMachine] Migración completada: sesión {session_id[:8]} ahora en SQLite")
+            except Exception as e:
+                logging.error(f"❌ [StateMachine] Error migrando legacy JSON a SQLite: {e}")
+                # No fallar - continuar con checkpoint en memoria
+
+        # ─── CASO C/D/E: No hay checkpoint válido ───
+        if not checkpoint:
+            return "Error: No se encontró checkpoint válido ni en SQLite (Source of Truth) ni en JSON legacy para esta sesión.", {}
 
         user_goal = checkpoint.get("user_goal", "")
         state_str = checkpoint.get("current_state")
@@ -540,7 +615,7 @@ class AgentStateMachineController:
                 resumed_level = lvl
                 break
 
-        logging.info(f"⏯️ [StateMachine] Reanudando sesión {session_id[:8]} desde estado {resumed_state.value}")
+        logging.info(f"⏯️ [StateMachine] Reanudando sesión {session_id[:8]} desde estado {resumed_state.value} (migrated={migration_occurred})")
         return self.run(
             user_goal=user_goal,
             agent_runner=agent_runner,

@@ -6,8 +6,8 @@ import uuid
 from collections.abc import Callable
 from typing import Any
 
-from runtime.event_bus import EventBus, get_event_bus
-from storage.database import DatabaseManager, get_db_manager
+from .event_bus import EventBus, get_event_bus
+from ..storage.database import DatabaseManager, get_db_manager
 
 
 class CodeAgentRuntime:

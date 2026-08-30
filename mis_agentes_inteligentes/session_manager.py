@@ -13,6 +13,31 @@ warnings.warn(
     stacklevel=2,
 )
 
+# ─────────────────────────────────────────────────────────────────────────────
+# C3.1 PERSISTENCE CANONICALIZATION — LEGACY SESSION COMPATIBILITY NOTICE
+# ─────────────────────────────────────────────────────────────────────────────
+# Este módulo (session_manager.py) está clasificado como LEGACY SESSION COMPATIBILITY.
+# NO es el Source of Truth primario para sesiones/checkpoints.
+#
+# Autoridad canónica (DRIFT-01 fix):
+#   DatabaseManager / SQLite = SOURCE OF TRUTH
+#   session_manager / JSON   = LEGACY FALLBACK / MIGRATION / COMPATIBILITY ONLY
+#
+# APIs deprecadas para uso como autoridad primaria:
+#   - create_new_session()     → Use DatabaseManager.create_task()
+#   - load_session()           → Use DatabaseManager.get_task() + get_latest_checkpoint()
+#   - save_session()           → Use DatabaseManager.save_checkpoint() + update_task_status()
+#   - list_sessions()          → Use DatabaseManager.list_tasks()
+#   - delete_session()         → Use DatabaseManager (soft delete via status)
+#   - rename_session()         → Use DatabaseManager.update_task() (no implementado)
+#   - export_session_to_markdown() → Legacy export only
+#
+# Estas funciones se mantienen SOLO para:
+#   1. Compatibilidad con localcode_server.py endpoints (fase C3.2+)
+#   2. Migración explícita JSON → SQLite (resume_session)
+#   3. LEGACY EXPORT desde _save_checkpoint (marcado con _legacy_export=True)
+# ─────────────────────────────────────────────────────────────────────────────
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SESSIONS_DIR = os.path.join(BASE_DIR, "sesiones")
 
@@ -124,30 +149,69 @@ _default_repo = JSONSessionRepository()
 
 
 def init_sessions_dir():
+    """LEGACY: Inicializa directorio de sesiones JSON. Use DatabaseManager para almacenamiento canónico."""
     _default_repo._init_dir()
 
 
 def create_new_session(name="Nueva Sesión"):
+    """LEGACY SESSION COMPATIBILITY: Crea sesión JSON.
+    
+    DEPRECATED como autoridad primaria. Use DatabaseManager.create_task() para 
+    creación canónica de tareas en SQLite (Source of Truth).
+    """
     return _default_repo.create_session(name)
 
 
 def list_sessions():
+    """LEGACY SESSION COMPATIBILITY: Lista sesiones JSON.
+    
+    DEPRECATED como autoridad primaria. Use DatabaseManager.list_tasks() para 
+    listado canónico desde SQLite (Source of Truth).
+    """
     return _default_repo.list_sessions()
 
 
 def load_session(session_id):
+    """LEGACY SESSION COMPATIBILITY: Carga sesión JSON.
+    
+    DEPRECATED como autoridad primaria. Use DatabaseManager.get_task() + 
+    get_latest_checkpoint() para carga canónica desde SQLite (Source of Truth).
+    
+    Esta función se mantiene SOLO para:
+      1. Migración explícita JSON → SQLite en resume_session()
+      2. Compatibilidad temporal con localcode_server.py endpoints
+    """
     return _default_repo.load_session(session_id)
 
 
 def save_session(session_id, data):
+    """LEGACY SESSION COMPATIBILITY: Guarda sesión JSON.
+    
+    DEPRECATED como autoridad primaria. Use DatabaseManager.save_checkpoint() + 
+    update_task_status() para persistencia canónica en SQLite (Source of Truth).
+    
+    Esta función se mantiene SOLO para:
+      1. LEGACY EXPORT desde _save_checkpoint() (marcado _legacy_export=True)
+      2. Compatibilidad temporal con localcode_server.py endpoints
+    """
     _default_repo.save_session(session_id, data)
 
 
 def delete_session(session_id):
+    """LEGACY SESSION COMPATIBILITY: Elimina sesión JSON.
+    
+    DEPRECATED como autoridad primaria. Use DatabaseManager con soft-delete 
+    via status (CANCELLED/PAUSED) para gestión canónica en SQLite.
+    """
     _default_repo.delete_session(session_id)
 
 
 def rename_session(session_id, new_name: str):
+    """LEGACY SESSION COMPATIBILITY: Renombra sesión JSON.
+    
+    DEPRECATED como autoridad primaria. No hay equivalente directo en 
+    DatabaseManager; use update_task_status() con metadata si necesario.
+    """
     data = load_session(session_id)
     if data:
         data["name"] = new_name
@@ -155,6 +219,10 @@ def rename_session(session_id, new_name: str):
 
 
 def export_session_to_markdown(session_id) -> str:
+    """LEGACY SESSION COMPATIBILITY: Exporta sesión JSON a Markdown.
+    
+    Función de utilidad legacy. No tiene equivalente en DatabaseManager.
+    """
     data = load_session(session_id)
     if not data:
         return ""

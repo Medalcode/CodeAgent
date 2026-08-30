@@ -5,7 +5,7 @@ from collections.abc import Callable
 from dataclasses import dataclass, field
 from typing import Any
 
-from storage.database import DatabaseManager, get_db_manager
+from ..storage.database import DatabaseManager, get_db_manager
 
 
 @dataclass
