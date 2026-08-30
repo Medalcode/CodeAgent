@@ -285,8 +285,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/metrics_benchmarks.json": {
-    "mtime": 1788112585.2789419,
-    "ast_hash": "9d724983c6a2619541b24201db67ec03",
+    "mtime": 1788112614.6715481,
+    "ast_hash": "e4e14d8c25217611254c6054a9284d96",
     "semantic_hash": ""
   },
   "tests/test_state_machine.py": {
@@ -747,6 +747,11 @@
   "specs/features/SPEC-013-ast-subgraph-retrieval.md": {
     "mtime": 1788032258.5790117,
     "ast_hash": "2d21e18f525d667df32dfdd75dac8587",
+    "semantic_hash": ""
+  },
+  "ARCHITECTURE_WEIGHT_AUDIT.md": {
+    "mtime": 1788113288.359902,
+    "ast_hash": "204854297b049f9f8e3d5d1cf3bfbf74",
     "semantic_hash": ""
   }
 }

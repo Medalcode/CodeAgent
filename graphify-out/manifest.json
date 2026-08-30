@@ -753,5 +753,10 @@
     "mtime": 1788113288.359902,
     "ast_hash": "204854297b049f9f8e3d5d1cf3bfbf74",
     "semantic_hash": ""
+  },
+  "CANONICAL_ARCHITECTURE_ANALYSIS.md": {
+    "mtime": 1788114198.1080544,
+    "ast_hash": "ed82ce1d2a29148723f5b67818388e13",
+    "semantic_hash": ""
   }
 }
