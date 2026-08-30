@@ -29,7 +29,7 @@ import threading
 from mis_agentes_inteligentes.version import CODEAGENT_VERSION
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-SERVER_URL = "http://localhost:8000/localcode_claude_ui.html"
+SERVER_URL = "http://localhost:8000/"
 HEALTH_URL = "http://localhost:8000/api/health"
 SHUTDOWN_URL = "http://localhost:8000/api/server/shutdown"
 OLLAMA_API_URL = "http://localhost:11434/api/tags"
@@ -108,9 +108,9 @@ def launch_ollama_bg():
             if check_ollama_running():
                 _safe_print("✅ Servicio Ollama listo en http://localhost:11434")
                 return True
-            _safe_print(f"⏳ Esperando arranque de Ollama ({i+1}/12s)...")
+            _safe_print(f"� Esperando arranque de Ollama ({i+1}/12s)...")
     except Exception as e:
-        _safe_print(f"⚠️ Advertencia: No se pudo auto-iniciar Ollama automáticamente: {e}")
+        _safe_print(f"⚠� Advertencia: No se pudo auto-iniciar Ollama automáticamente: {e}")
     return False
 
 
@@ -263,9 +263,9 @@ def launch_server_bg(target_port: int = 0) -> bool:
             _safe_print(f"✅ Backend dedicado de CodeAgent listo en http://localhost:{port} (PID {ident.get('process_id')})")
             return True
         if i % 4 == 0:
-            _safe_print(f"⏳ Esperando arranque del backend en puerto {port}...")
+            _safe_print(f"� Esperando arranque del backend en puerto {port}...")
 
-    _safe_print(f"⚠️ Advertencia: El servidor backend en puerto {port} tardó más de lo esperado.")
+    _safe_print(f"⚠� Advertencia: El servidor backend en puerto {port} tardó más de lo esperado.")
     return False
 
 
@@ -372,7 +372,7 @@ class DesktopIDEApi:
             return False
 
     def new_window(self) -> bool:
-        """Inicia una nueva ventana de la aplicación de escritorio (DESACTIVADA POR POLÍTICA DE INSTANCIA ÚNICA)."""
+        """Inicia una nueva ventana de la aplicación de escritorio (DESACTIVADA POR POL�TICA DE INSTANCIA ÚNICA)."""
         now_str = time.strftime("%Y-%m-%d %H:%M:%S")
         print(f"[{now_str}] [NATIVE_UI] new_window CALLED (BLOCKED by single-instance policy)")
         return False
@@ -398,7 +398,7 @@ def main():
 
     # 2. Auto-iniciar Backend de CodeAgent dedicado
     if not launch_server_bg():
-        _safe_print("❌ Error: No se pudo iniciar el backend dedicado de CodeAgent.")
+        _safe_print("� Error: No se pudo iniciar el backend dedicado de CodeAgent.")
         sys.exit(1)
 
     port = _CURRENT_BACKEND_PORT
@@ -435,7 +435,7 @@ def main():
         pass
 
     # Fallback: Modo App de Chrome/Edge
-    _safe_print("🌐 Lanzando CodeAgent en Modo App de Escritorio...")
+    _safe_print("� Lanzando CodeAgent en Modo App de Escritorio...")
     chrome_paths = [
         r"C:\Program Files\Google\Chrome\Application\chrome.exe",
         r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",

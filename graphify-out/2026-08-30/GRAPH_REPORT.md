@@ -1,7 +1,7 @@
 # Graph Report - CodeAgent  (2026-08-30)
 
 ## Corpus Check
-- 149 files · ~80,383 words
+- 149 files · ~80,406 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -225,7 +225,7 @@ Nodes (9): [4.2.0] - 2026-08-27, [6.0.0] - 2026-08-28, [6.10.0] - 2026-08-28, [6
 
 ### Community 6 - "💻 CodeAgent (v6.2 SDD Certified & Canonical Architecture Migrated)"
 Cohesion: 0.11
-Nodes (17): 🏗️ Arquitectura del Sistema (5 Capas Principales & Gobernanza SDD), 📐 Auditorías y Migraciones Arquitectónicas (Phases A, B, C1 & C2), ✨ Características Principales, CLI de Verificación SDD (`scripts/sdd_check.py`), 💻 CodeAgent (v6.2 SDD Certified & Canonical Architecture Migrated), 🚀 Informes de Migración Canónica (Phase C2), 🚀 Instalación y Ejecución, 🌐 Knowledge Graph (`graphify-out/`) (+9 more)
+Nodes (17): 🏗️ Arquitectura del Sistema (5 Capas Principales & Gobernanza SDD), 📐 Auditorías y Migraciones Arquitectónicas (Phases A, B, C1 & C2), ✨ Características Principales, CLI de Verificación SDD (`scripts/sdd_check.py`), 💻 CodeAgent (v6.2 SDD Certified & Canonical Architecture Migrated), 🚀 Informes de Migración Canónica y Auditoría de Cumplimiento (Phases C2 & C2.5), 🚀 Instalación y Ejecución, 🌐 Knowledge Graph (`graphify-out/`) (+9 more)
 
 ### Community 7 - "tools.py"
 Cohesion: 0.17

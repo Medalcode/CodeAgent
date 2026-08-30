@@ -3,14 +3,14 @@
 ## Summary
 - **Feature ID**: `SPEC-012`
 - **Title**: Desktop Real-Time Pipeline EventSource Visualization
-- **Source Modules**: `localcode_claude_ui.html`, `mis_agentes_inteligentes/localcode_server.py`, `mis_agentes_inteligentes/agent_pipeline.py`
+- **Source Modules**: `desktop_app.py`, `mis_agentes_inteligentes/localcode_server.py`, `mis_agentes_inteligentes/agent_pipeline.py`
 - **Test Suite**: `tests/test_desktop_pipeline_visualization.py`
 - **Status**: **VERIFIED**
 
 ---
 
 ## 1. Desktop UI JavaScript SSE Contract
-File: [`localcode_claude_ui.html`](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/localcode_claude_ui.html)
+File: [`desktop_app.py`](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/desktop_app.py)
 
 Functions Implemented:
 ```javascript
@@ -32,7 +32,7 @@ Fake Timer Removal Verification:
 
 ## 2. End-to-End Task-ID Correlation
 Chain:
-`localcode_claude_ui.html (task-ui-XYZ)` $\rightarrow$ `localcode_server.py (/api/agent/chat body task_id)` $\rightarrow$ `main.py (ejecutar_agentes task_id)` $\rightarrow$ `agent_pipeline.py (run session_id)` $\rightarrow$ `EventBus (session_id)` $\rightarrow$ `SSE GET /api/pipeline/events?task_id=task-ui-XYZ`
+`desktop_app.py (task-ui-XYZ)` $\rightarrow$ `localcode_server.py (/api/agent/chat body task_id)` $\rightarrow$ `main.py (ejecutar_agentes task_id)` $\rightarrow$ `agent_pipeline.py (run session_id)` $\rightarrow$ `EventBus (session_id)` $\rightarrow$ `SSE GET /api/pipeline/events?task_id=task-ui-XYZ`
 
 ---
 

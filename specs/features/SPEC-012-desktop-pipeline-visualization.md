@@ -1,11 +1,11 @@
 # SPEC-012 — Desktop Real-Time Pipeline EventSource Visualization
 
 ## Intent
-Conectar la interfaz de usuario Desktop (`localcode_claude_ui.html`) al flujo de eventos Server-Sent Events en tiempo real (`GET /api/pipeline/events?task_id=XYZ`) de `SPEC-011`. Reemplazar el temporizador artificial estático (`secCount % 3 === 0`) con un componente visual reactivo que renderice en vivo las transiciones de la máquina de estados del `AgentPipeline` (`INIT`, `PLAN`, `EXPLORE`, `EXECUTE`, `VERIFY`, `DIAGNOSE`, `REPLAN`, `CRITIC`, `DONE`) y las herramientas en ejecución.
+Conectar la interfaz de usuario Desktop (`desktop_app.py`) al flujo de eventos Server-Sent Events en tiempo real (`GET /api/pipeline/events?task_id=XYZ`) de `SPEC-011`. Reemplazar el temporizador artificial estático (`secCount % 3 === 0`) con un componente visual reactivo que renderice en vivo las transiciones de la máquina de estados del `AgentPipeline` (`INIT`, `PLAN`, `EXPLORE`, `EXECUTE`, `VERIFY`, `DIAGNOSE`, `REPLAN`, `CRITIC`, `DONE`) y las herramientas en ejecución.
 
 ## Preconditions
 - El servidor backend `localcode_server.py` y la ruta SSE `GET /api/pipeline/events` (`SPEC-011`) se encuentran operativos.
-- La interfaz Desktop `localcode_claude_ui.html` inicia una petición de chat con un `task_id` correlacionado.
+- La interfaz Desktop `desktop_app.py` inicia una petición de chat con un `task_id` correlacionado.
 
 ## Postconditions
 - La interfaz de usuario establece una conexión `EventSource` hacia `/api/pipeline/events?task_id=XYZ` durante la ejecución de la tarea.
@@ -28,7 +28,7 @@ Conectar la interfaz de usuario Desktop (`localcode_claude_ui.html`) al flujo de
 - Demostrable mediante la suite `tests/test_desktop_pipeline_visualization.py` que verifica la presencia del contrato de conexión SSE en la UI, el parseo de eventos reales, la correlación de `task_id`, el cleanup de recursos y la eliminación del progreso falso.
 
 ## Traceability
-- Source File: `mis_agentes_inteligentes/localcode_claude_ui.html`, `mis_agentes_inteligentes/localcode_server.py`, `mis_agentes_inteligentes/agent_pipeline.py`
+- Source File: `desktop_app.py`, `mis_agentes_inteligentes/localcode_server.py`, `mis_agentes_inteligentes/agent_pipeline.py`
 - Test File: `tests/test_desktop_pipeline_visualization.py`
 - Change Impact: `change/change-feature-desktop-pipeline-visualization.md`
 - Evidence File: `audits/features/SPEC-012/runtime-evidence.md`
