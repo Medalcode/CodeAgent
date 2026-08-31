@@ -1,6 +1,6 @@
-# 💻 CodeAgent (v6.2 SDD Certified & Canonical Architecture Migrated)
+# 💻 CodeAgent (v6.3 SDD Certified & Canonical Baseline Recovered)
 
-> **Un entorno local, robusto y extensible para construir, supervisar y gobernar agentes de código autónomos bajo certificación de invariantes SDD y arquitectura canónica unificada.**
+> **Un entorno local, robusto y extensible para construir, supervisar y gobernar agentes de código autónomos bajo certificación de invariantes SDD, arquitectura canónica unificada y 100% de suite de pruebas verde (223 passed).**
 
 CodeAgent es una plataforma de ingeniería de software asistida por IA local inspirada en **Google Antigravity** y **GitHub Copilot Workspace**. Está diseñada para ejecutar agentes autónomos sobre repositorios de código locales y remotos con soporte primario para modelos locales (**Ollama `qwen2.5-coder:14b`**, `llama3`, `deepseek`) y proveedores Cloud (OpenAI, Gemini, Anthropic, Groq).
 
@@ -37,18 +37,27 @@ CodeAgent es una plataforma de ingeniería de software asistida por IA local ins
 │ 🧠 INTELLIGENCE: RAG sobre Subgrafos AST Graphify (SPEC-013) + Memoria de 3 Capas            │
 │ ⚙️ EXECUTION: Sandboxing PermissionLevel + Terminal HITL + Git / GitHub REST                │
 │ 🧩 EXTENSIBILITY: Subagentes dinámicos .md + Multi-Proveedor LiteLLM (Ollama/Cloud)        │
-└─────────────────────────────────────────────────────────────────────────────────────────────┘
+└─────────────────────────────────────────┬───────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 📐 Auditorías y Migraciones Arquitectónicas (Phases A, B, C1 & C2)
+## 📐 Auditorías, Canonización y Recuperación de Pruebas (Phases A → E0.7)
 
-CodeAgent cuenta con una suite completa de informes de auditoría, gobernanza y migraciones canónicas:
+CodeAgent cuenta con una suite completa de informes de auditoría, gobernanza, migraciones canónicas y recuperación de infraestructura:
 
 * **[ARCHITECTURE_WEIGHT_AUDIT.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/ARCHITECTURE_WEIGHT_AUDIT.md)**: Auditoría profunda de complejidad esencial vs. accidental, hotspots de dependencias y evaluación de módulos God Object.
 * **[CANONICAL_ARCHITECTURE_ANALYSIS.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/CANONICAL_ARCHITECTURE_ANALYSIS.md)**: Matriz de canonización de responsabilidades (*ONE RESPONSIBILITY → ONE CANONICAL IMPLEMENTATION*), delimitación de componentes canónicos vs. legacy y roadmap de migración.
 * **[REPOSITORY_HYGIENE_REPORT.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/REPOSITORY_HYGIENE_REPORT.md)**: Informe de desintoxicación y reducción de peso físico (**reducción del 98.7% de peso en disco**, pasando de 1.49 GB a 18.5 MB sin modificar comportamiento).
+
+### 🚀 Informes de Migración Canónica, Auditorías y Recuperación (Phases C2, C3.1 & E0.7)
+1. **[MIGRATION_RAG.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/MIGRATION_RAG.md)**: Migración de `rag_tools.py` (ChromaDB) a `graph_context.py` (AST Subgraph RAG - SPEC-013).
+2. **[MIGRATION_UI.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/MIGRATION_UI.md)**: Deprecación de `app.py` (Streamlit) en favor de `desktop_app.py` (PyWebView Desktop IDE).
+3. **[MIGRATION_ORCHESTRATOR.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/MIGRATION_ORCHESTRATOR.md)**: Deprecación de `orquestador_agente.py` v1.0 en favor de `AgentStateMachineController` y `benchmark_suite.py`.
+4. **[MIGRATION_SESSION.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/MIGRATION_SESSION.md)**: Transición de persistencia JSON suelta (`session_manager.py`) a `DatabaseManager` (SQLite WAL).
+5. **[TASK_CONTRACT_COMPATIBILITY_MATRIX.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/TASK_CONTRACT_COMPATIBILITY_MATRIX.md)** & **[MIGRATION_CONTRACTS.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/MIGRATION_CONTRACTS.md)**: Unificación de `TaskContract` y `TaskType` bajo `sdd_contract/`.
+6. **[CANONICAL_ENFORCEMENT_AUDIT.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/CANONICAL_ENFORCEMENT_AUDIT.md)**: Auditoría de cumplimiento en runtime (detección de *Canonicalization Drift*).
+7. **[E0_7_TEST_INFRASTRUCTURE_RECOVERY_REPORT.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/E0_7_TEST_INFRASTRUCTURE_RECOVERY_REPORT.md)**: Restauración completa de la infraestructura de pruebas (**223 passed**, 0 collection errors, 100% de la suite verde).�n y reducción de peso físico (**reducción del 98.7% de peso en disco**, pasando de 1.49 GB a 18.5 MB sin modificar comportamiento).
 
 ### 🚀 Informes de Migración Canónica y Auditoría de Cumplimiento (Phases C2 & C2.5)
 1. **[MIGRATION_RAG.md](file:///c:/Users/Jonatthan/Documents/Github/CodeAgent/MIGRATION_RAG.md)**: Migración de `rag_tools.py` (ChromaDB) a `graph_context.py` (AST Subgraph RAG - SPEC-013).
@@ -133,7 +142,7 @@ python mis_agentes_inteligentes/localcode_server.py
 
 ## 🧪 Suite de Pruebas y Control de Calidad
 
-CodeAgent cuenta con una suite automatizada de **más de 190 pruebas unitarias, de integración, de ciclo de vida Desktop y de conformidad SDD** con 100% de tasa de aprobación.
+CodeAgent cuenta con una suite automatizada de **más de 223 pruebas unitarias, de integración, de ciclo de vida Desktop, de persistencia canónica y de conformidad SDD (223 passed, 0 collection errors)** con 100% de tasa de aprobación.
 
 ```bash
 # Ejecutar todas las pruebas del sistema

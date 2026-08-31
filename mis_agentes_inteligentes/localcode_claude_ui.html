@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CodeAgent - Antigravity IDE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --bg-activity: #14171d;
+    --bg-sidebar: #181c24;
+    --bg-editor: #0d1015;
+    --bg-panel: #11141a;
+    --bg-header: #14171d;
+    --bg-elevated: #1e222d;
+    --bg-hover: #242936;
+    --border: #232834;
+    --border-bright: #303746;
+    --text: #cccccc;
+    --text-bright: #ffffff;
+    --text-muted: #7c8594;
+    --text-dim: #505765;
+    --accent: #4e9df5;
+    --accent-orange: #e8a33d;
+    --accent-soft: rgba(78, 157, 245, 0.12);
+    --teal: #4fd1ae;
+    --teal-soft: rgba(79, 209, 174, 0.12);
+    --red: #e5636a;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --sans: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    --radius: 6px;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; padding: 0; }
+  body {
+    background: var(--bg-editor);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  /* ---------------- HEADER / TITLEBAR ---------------- */
+  .ide-header {
+    height: 38px;
+    min-height: 38px;
+    background: var(--bg-header);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    font-size: 12px;
+    z-index: 9999;
+    overflow: visible !important;
+  }
+  .menu-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-muted);
+    overflow: visible !important;
+  }
+  .menu-item {
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  .menu-item:hover { color: var(--text-bright); background: var(--bg-hover); }
+  .menu-opt {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 14px;
+    cursor: pointer;
+    color: var(--text-bright);
+  }
+  .menu-opt:hover {
+    background: var(--accent);
+    color: #ffffff;
+  }
+  .opt-shortcut {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-left: 16px;
+  }
+  .menu-opt:hover .opt-shortcut {
+    color: #e0f2fe;
+  }
+  .title-breadcrumbs {
+    font-family: var(--sans);
+    color: var(--text-muted);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .title-breadcrumbs strong { color: var(--text-bright); font-weight: 500; }
+  .window-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-muted);
+  }
+  .win-btn {
+    cursor: pointer;
+    padding: 2px 6px;
+  }
+  .win-btn:hover { color: var(--text-bright); }
+
+  /* ---------------- MAIN CONTAINER ---------------- */
+  .ide-main {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ---------------- ACTIVITY BAR (FAR LEFT) ---------------- */
+  .activity-bar {
+    width: 48px;
+    min-width: 48px;
+    background: var(--bg-activity);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    z-index: 5;
+  }
+  .act-group { display: flex; flex-direction: column; gap: 16px; align-items: center; }
+  .act-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    font-size: 18px;
+  }
+  .act-icon:hover { color: var(--text-bright); background: var(--bg-hover); }
+  .act-icon.active { color: var(--accent); }
+  .act-icon.active::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 6px; bottom: 6px; width: 2px;
+    background: var(--accent);
+    border-radius: 0 2px 2px 0;
+  }
+
+  /* ---------------- SIDEBAR (EXPLORER) ---------------- */
+  .sidebar {
+    width: 240px;
+    min-width: 200px;
+    background: var(--bg-sidebar);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .sidebar-header {
+    height: 35px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 11px;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+  }
+  .tree-section {
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-title {
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+  }
+  .file-tree {
+    flex: 1;
+    overflow-y: auto;
+    padding: 4px 0;
+  }
+  .tree-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px 4px 16px;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .tree-item:hover { background: var(--bg-hover); color: var(--text-bright); }
+  .tree-item.active { background: var(--accent-soft); color: var(--accent); font-weight: 500; }
+  .tree-item .icon { font-size: 14px; opacity: 0.8; }
+
+  /* ---------------- EDITOR CONTAINER (CENTER) ---------------- */
+  .editor-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-editor);
+    overflow: hidden;
+  }
+  .tab-bar {
+    height: 35px;
+    background: var(--bg-sidebar);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+  }
+  .tab-item {
+    height: 35px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-activity);
+    border-right: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .tab-item.active {
+    background: var(--bg-editor);
+    color: var(--text-bright);
+    border-top: 2px solid var(--accent);
+  }
+  .tab-close {
+    border-radius: 3px;
+    padding: 1px 4px;
+    font-size: 10px;
+  }
+  .tab-close:hover { background: var(--bg-hover); color: var(--red); }
+
+  .breadcrumb-bar {
+    height: 26px;
+    padding: 0 12px;
+    background: var(--bg-editor);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: var(--mono);
+  }
+  .code-editor-wrap {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+  }
+  .line-numbers {
+    width: 42px;
+    padding: 12px 8px;
+    background: var(--bg-editor);
+    color: var(--text-dim);
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: right;
+    user-select: none;
+    border-right: 1px solid var(--border);
+  }
+  .code-textarea {
+    flex: 1;
+    padding: 12px;
+    background: var(--bg-editor);
+    color: #e1e4e8;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.6;
+    border: none;
+    resize: none;
+    outline: none;
+    overflow: auto;
+    white-space: pre;
+    tab-size: 2;
+  }
+
+  /* ---------------- ANTIGRAVITY ASSISTANT CHAT PANEL (RIGHT) ---------------- */
+  .chat-panel {
+    width: 380px;
+    min-width: 300px;
+    background: var(--bg-panel);
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .chat-panel-header {
+    height: 42px;
+    padding: 0 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-sidebar);
+  }
+  .chat-title {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-bright);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .chat-actions { display: flex; gap: 8px; color: var(--text-muted); }
+  .chat-actions button { padding: 4px; border-radius: 4px; }
+  .chat-actions button:hover { color: var(--text-bright); background: var(--bg-hover); }
+
+  .chat-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  /* REASONING ACCORDION ("Worked for 4s >") */
+  .reasoning-accordion {
+    background: var(--bg-sidebar);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+  .reasoning-header {
+    padding: 8px 12px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .reasoning-header:hover { color: var(--text-bright); background: var(--bg-hover); }
+  .reasoning-content {
+    padding: 10px 12px;
+    border-top: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    background: var(--bg-editor);
+    display: none;
+  }
+  .reasoning-accordion.open .reasoning-content { display: block; }
+
+  .msg-bubble-user {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-bright);
+    border-radius: var(--radius);
+    padding: 10px 14px;
+    color: var(--text-bright);
+    align-self: flex-end;
+    max-width: 90%;
+  }
+  .msg-bubble-assistant {
+    background: transparent;
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 13px;
+    user-select: text !important;
+    -webkit-user-select: text !important;
+  }
+  .msg-bubble-user {
+    user-select: text !important;
+    -webkit-user-select: text !important;
+  }
+  .chat-body, textarea, input, code, pre {
+    user-select: text !important;
+    -webkit-user-select: text !important;
+  }
+  .msg-bubble-assistant h1, .msg-bubble-assistant h2, .msg-bubble-assistant h3 {
+    color: var(--text-bright);
+    margin-top: 10px;
+    margin-bottom: 6px;
+  }
+  .msg-bubble-assistant code {
+    font-family: var(--mono);
+    background: var(--bg-sidebar);
+    padding: 2px 5px;
+    border-radius: 4px;
+    color: var(--accent-orange);
+  }
+  .msg-bubble-assistant pre {
+    background: var(--bg-editor);
+    border: 1px solid var(--border);
+    padding: 10px;
+    border-radius: var(--radius);
+    overflow-x: auto;
+  }
+
+  /* BURBUJA DE TAREAS DE TERMINAL INTEGRADA */
+  .terminal-card {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    margin: 10px 0;
+    padding: 10px 12px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: #c9d1d9;
+    user-select: text !important;
+    -webkit-user-select: text !important;
+  }
+  .terminal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #21262d;
+    padding-bottom: 6px;
+    margin-bottom: 8px;
+  }
+  .terminal-title {
+    color: #58a6ff;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .terminal-cmd {
+    color: #79c0ff;
+    font-weight: 600;
+    margin-bottom: 6px;
+    word-break: break-all;
+  }
+  .terminal-output {
+    background: #161b22;
+    border: 1px solid #21262d;
+    padding: 8px;
+    border-radius: 4px;
+    max-height: 220px;
+    overflow-y: auto;
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-all;
+    color: #8b949e;
+  }
+
+  /* ANIMACIÓN Y BURBUJA WORKING... EN VIVO */
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  @keyframes pulseSlow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+  .working-card {
+    background: var(--bg-hover);
+    border: 1px solid var(--border-bright);
+    border-radius: 8px;
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-bright);
+    margin: 8px 0;
+    animation: pulseSlow 2s infinite ease-in-out;
+  }
+  .working-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .working-spinner {
+    display: inline-block;
+    animation: spin 1.2s linear infinite;
+    font-size: 14px;
+  }
+  .working-steps {
+    font-size: 11px;
+    color: var(--text-muted);
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding-left: 22px;
+  }
+
+  /* BOTTOM PROMPT DOCK */
+  .chat-dock {
+    padding: 12px;
+    border-top: 1px solid var(--border);
+    background: var(--bg-sidebar);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .input-box-wrap {
+    background: var(--bg-editor);
+    border: 1px solid var(--border-bright);
+    border-radius: 8px;
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .input-box-wrap:focus-within { border-color: var(--accent); }
+  .chat-textarea {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--text-bright);
+    font-size: 13px;
+    resize: none;
+    min-height: 48px;
+  }
+  .dock-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .model-pill {
+    background: var(--bg-hover);
+    border: 1px solid var(--border);
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    color: var(--accent);
+    cursor: pointer;
+    font-family: var(--mono);
+  }
+  .dock-btns { display: flex; gap: 8px; align-items: center; color: var(--text-muted); }
+  .send-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .send-btn:hover { background: #3b82f6; }
+
+  /* ---------------- STATUSBAR (BOTTOM) ---------------- */
+  .ide-statusbar {
+    height: 24px;
+    min-height: 24px;
+    background: #007acc;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    font-size: 11px;
+    font-family: var(--sans);
+    z-index: 10;
+  }
+  .status-left, .status-right { display: flex; align-items: center; gap: 14px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER / TITLEBAR -->
+<header class="ide-header" role="banner">
+  <div class="menu-bar">
+    <div class="menu-dropdown-wrap" style="position:relative; display:inline-block; overflow:visible;">
+      <span class="menu-item" id="fileMenuBtn" onclick="toggleFileMenu(event)" style="user-select:none; cursor:pointer;">File</span>
+      <div class="dropdown-menu" id="fileDropdownMenu" style="display:none; position:absolute; top:100%; left:0; background:var(--bg-panel); border:1px solid var(--border-bright); border-radius:6px; min-width:230px; box-shadow:0 8px 24px rgba(0,0,0,0.6); z-index:999; padding:4px 0; font-size:12px;">
+        <div class="menu-opt" onclick="onNewFile()"><span class="opt-text">📄 New File</span><span class="opt-shortcut">Ctrl+N</span></div>
+        <div class="menu-opt" onclick="onNewWindow()"><span class="opt-text">🪟 New Window</span><span class="opt-shortcut">Ctrl+Shift+N</span></div>
+        <div class="menu-hr" style="height:1px; background:var(--border); margin:4px 0;"></div>
+        <div class="menu-opt" onclick="onOpenFile()"><span class="opt-text">📂 Open File...</span><span class="opt-shortcut">Ctrl+O</span></div>
+        <div class="menu-opt" onclick="onOpenFolder()"><span class="opt-text">📁 Open Folder...</span><span class="opt-shortcut">Ctrl+K Ctrl+O</span></div>
+        <div class="menu-hr" style="height:1px; background:var(--border); margin:4px 0;"></div>
+        <div class="menu-opt" onclick="onSaveFile()"><span class="opt-text">💾 Save</span><span class="opt-shortcut">Ctrl+S</span></div>
+        <div class="menu-opt" onclick="onSaveFileAs()"><span class="opt-text">📝 Save As...</span><span class="opt-shortcut">Ctrl+Shift+S</span></div>
+        <div class="menu-opt" onclick="toggleAutoSave()"><span class="opt-text"><span id="autoSaveCheckMark">✓</span> Auto Save</span><span class="opt-shortcut">Toggle</span></div>
+        <div class="menu-hr" style="height:1px; background:var(--border); margin:4px 0;"></div>
+        <div class="menu-opt" onclick="onCloseEditor()"><span class="opt-text">❌ Close Editor</span><span class="opt-shortcut">Ctrl+W</span></div>
+        <div class="menu-opt" onclick="onCloseFolder()"><span class="opt-text">🧹 Close Folder</span><span class="opt-shortcut">Ctrl+K F</span></div>
+        <div class="menu-opt" onclick="onCloseWindow()"><span class="opt-text">🚪 Close Window</span><span class="opt-shortcut">Alt+F4</span></div>
+        <div class="menu-hr" style="height:1px; background:var(--border); margin:4px 0;"></div>
+        <div class="menu-opt" onclick="onExitApp()"><span class="opt-text">🛑 Exit</span><span class="opt-shortcut">Ctrl+Q</span></div>
+      </div>
+    </div>
+    <span class="menu-item">Edit</span>
+    <span class="menu-item">Selection</span>
+    <span class="menu-item">View</span>
+    <span class="menu-item">Go</span>
+    <span class="menu-item">Run</span>
+    <span class="menu-item">...</span>
+  </div>
+  <div class="title-breadcrumbs" id="headerTitle">
+    <button id="changeWorkspaceBtn" style="background:var(--bg-elevated); border:1px solid var(--border); color:var(--text-bright); padding:2px 8px; border-radius:4px; font-size:11px; cursor:pointer; display:inline-flex; align-items:center; gap:4px;">
+      📁 <span id="currentWorkspaceLabel">CodeAgent</span> ▾
+    </button>
+    <span>-</span>
+    <strong id="activeFileName">ADR-001-smolagents-react-engine.md</strong>
+  </div>
+  <div class="window-controls">
+    <span class="win-btn">🔍</span>
+    <span class="win-btn">◫</span>
+    <span class="win-btn">—</span>
+    <span class="win-btn">□</span>
+    <span class="win-btn">✕</span>
+  </div>
+</header>
+
+<!-- MAIN CONTAINER -->
+<div class="ide-main">
+
+  <!-- ACTIVITY BAR (FAR LEFT) -->
+  <aside class="activity-bar" aria-label="Activity Bar">
+    <div class="act-group">
+      <div class="act-icon active" title="Explorer">📁</div>
+      <div class="act-icon" title="Search">🔍</div>
+      <div class="act-icon" title="Source Control">🌿</div>
+      <div class="act-icon" title="Debug">🐞</div>
+      <div class="act-icon" title="Extensions">🧩</div>
+    </div>
+    <div class="act-group">
+      <div class="act-icon" title="Graphify Knowledge Graph">🕸️</div>
+      <div class="act-icon" title="Settings">⚙️</div>
+    </div>
+  </aside>
+
+  <!-- SIDEBAR (EXPLORER TREE) -->
+  <aside class="sidebar" aria-label="File Explorer">
+    <div class="sidebar-header" style="display:flex; justify-content:space-between; align-items:center; padding:8px 12px;">
+      <span style="font-weight:600; font-size:11px; letter-spacing:0.5px; color:var(--text-bright);">EXPLORER</span>
+      <div style="display:flex; gap:6px; font-size:12px;">
+        <span onclick="onNewFile()" title="Nuevo Archivo (Personalizar nombre y extensión)" style="cursor:pointer; padding:2px 4px; border-radius:3px; background:var(--bg-hover);">➕</span>
+        <span onclick="onOpenFile()" title="Abrir Archivo en Explorador OS" style="cursor:pointer; padding:2px 4px; border-radius:3px; background:var(--bg-hover);">📂</span>
+        <span onclick="onOpenFolder()" title="Abrir Carpeta en Explorador OS" style="cursor:pointer; padding:2px 4px; border-radius:3px; background:var(--bg-hover);">📁</span>
+      </div>
+    </div>
+    <div class="file-tree" id="fileTreeContainer">
+      <div class="tree-section">
+        <div class="section-title">∨ Open Editors</div>
+        <div id="openEditorsList"></div>
+      </div>
+      <div class="tree-section">
+        <div class="section-title">∨ CodeAgent</div>
+        <div id="workspaceTreeList"></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- EDITOR CONTAINER (CENTER) -->
+  <main class="editor-container" aria-label="Code Editor">
+    <div class="tab-bar" id="tabBar">
+      <div class="tab-item active">
+        <span>📄</span> <span id="activeTabName">ADR-001-smolagents-react-engine.md</span> <span class="tab-close">✕</span>
+      </div>
+    </div>
+    <div class="breadcrumb-bar" id="breadcrumbBar">
+      engine.md > # ADR-001: Selección de smolagents como Motor ReAct > ## Decisión
+    </div>
+    <div class="code-editor-wrap">
+      <div class="line-numbers" id="lineNumbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20</div>
+      <textarea class="code-textarea" id="codeEditor" spellcheck="false"></textarea>
+    </div>
+  </main>
+
+  <!-- ANTIGRAVITY ASSISTANT CHAT PANEL (RIGHT) -->
+  <aside class="chat-panel" aria-label="Antigravity Assistant Chat">
+    <div class="chat-panel-header">
+      <div class="chat-title">
+        <span>✨</span> <span id="panelTitle">Asistente CodeAgent</span>
+      </div>
+      <div class="chat-actions">
+        <button id="newChatBtn" title="Nueva Conversación">+</button>
+        <button id="clearChatBtn" title="Limpiar Historial de Chat">🗑️</button>
+        <button title="Historial">🕒</button>
+        <button title="Colapsar">✕</button>
+      </div>
+    </div>
+
+    <div class="chat-body" id="chatBody">
+      <!-- Reasoning step accordion -->
+      <div class="reasoning-accordion" id="reasoningAccordion" style="display:none;">
+        <div class="reasoning-header" id="reasoningHeader" onclick="this.parentElement.classList.toggle('open')">
+          <span>Worked for 0s</span>
+          <span>></span>
+        </div>
+        <div class="reasoning-content" id="reasoningContent">
+          <strong>Ejecución del Agente ReAct:</strong><br>
+        </div>
+      </div>
+
+      <!-- Messages container -->
+      <div id="messagesContainer"></div>
+    </div>
+
+    <!-- BOTTOM PROMPT DOCK -->
+    <div class="chat-dock">
+      <div class="input-box-wrap">
+        <textarea class="chat-textarea" id="chatInput" placeholder="Ask anything, @ to mention, / for actions"></textarea>
+        <div class="dock-toolbar">
+          <select id="modelSelect" class="model-pill">
+            <option value="qwen2.5-coder:14b" selected>Ollama (qwen2.5-coder:14b) ^</option>
+            <option value="qwen2.5-coder:7b">Ollama (qwen2.5-coder:7b) ^</option>
+            <option value="llama3.1:8b">Ollama (llama3.1:8b) ^</option>
+          </select>
+          <div class="dock-btns">
+            <span>📎</span>
+            <span>🎙️</span>
+            <div class="send-btn" id="sendBtn">➔</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+<!-- STATUSBAR (BOTTOM) -->
+<footer class="ide-statusbar" role="contentinfo">
+  <div class="status-left">
+    <span>🌿 main</span>
+    <span>🛈 0  ⚠ 0</span>
+    <span>Medalcode (2 hours ago)</span>
+  </div>
+  <div class="status-right">
+    <span id="statusPos">Ln 11, Col 61</span>
+    <span>Spaces: 2</span>
+    <span>UTF-8</span>
+    <span>LF</span>
+    <span>{} Markdown</span>
+    <span>Antigravity - Settings</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  let files = [];
+  let openTabs = [];
+  let activeFile = null;
+  let messages = [];
+
+  function updateLineNumbers(){
+    const text = ($('codeEditor').value || '');
+    const lines = text.split('\n').length;
+    let nums = '';
+    for(let i=1; i<=Math.max(lines, 20); i++){ nums += i + '<br>'; }
+    $('lineNumbers').innerHTML = nums;
+
+    // Actualizar coordenadas en statusbar
+    const cursorPos = $('codeEditor').selectionStart || 0;
+    const textBefore = text.substring(0, cursorPos);
+    const lineNum = textBefore.split('\n').length;
+    const colNum = textBefore.length - textBefore.lastIndexOf('\n');
+    $('statusPos').textContent = `Ln ${lineNum}, Col ${colNum}`;
+  }
+
+  $('codeEditor').addEventListener('input', updateLineNumbers);
+  $('codeEditor').addEventListener('keyup', updateLineNumbers);
+  $('codeEditor').addEventListener('click', updateLineNumbers);
+
+  window.renameFile = function(fileObj, event){
+    if(event) event.stopPropagation();
+    const currentName = fileObj.name;
+    const newName = prompt(`Personalizar nombre y extensión para "${currentName}":`, currentName);
+    if(!newName || !newName.trim() || newName.trim() === currentName) return;
+
+    const cleanNewName = newName.trim();
+    fileObj.name = cleanNewName;
+    fileObj.path = cleanNewName;
+
+    if(activeFile && activeFile.name === currentName){
+      activeFile.name = cleanNewName;
+      activeFile.path = cleanNewName;
+      $('activeFileName').textContent = cleanNewName;
+      $('activeTabName').textContent = cleanNewName;
+      $('breadcrumbBar').innerHTML = `codeagent > <strong>${cleanNewName}</strong>`;
+    }
+    renderTree();
+  };
+
+  window.closeTab = function(fileName, event){
+    if(event) event.stopPropagation();
+    openTabs = openTabs.filter(t => t.name !== fileName);
+    if(activeFile && activeFile.name === fileName){
+      if(openTabs.length > 0){
+        openFile(openTabs[openTabs.length - 1]);
+      } else {
+        activeFile = null;
+        $('codeEditor').value = '';
+        $('activeFileName').textContent = 'No File Open';
+        $('activeTabName').textContent = 'No File Open';
+      }
+    }
+    renderTree();
+  };
+
+  function renderTree(){
+    const wrap = $('workspaceTreeList');
+    const openWrap = $('openEditorsList');
+    if(!wrap || !openWrap) return;
+    wrap.innerHTML = '';
+    openWrap.innerHTML = '';
+
+    if(!files.length){
+      wrap.innerHTML = '<div style="padding:6px 16px;color:var(--text-muted);">Sin archivos</div>';
+      return;
+    }
+
+    files.forEach(file => {
+      const item = document.createElement('div');
+      item.className = 'tree-item' + (activeFile && activeFile.name === file.name ? ' active' : '');
+      item.style.display = 'flex';
+      item.style.justifyContent = 'space-between';
+      item.style.alignItems = 'center';
+
+      const ext = (file.name.split('.').pop() || '').toLowerCase();
+      let icon = '📄';
+      if(ext === 'py') icon = '🐍';
+      else if(ext === 'js' || ext === 'ts' || ext === 'jsx' || ext === 'tsx') icon = '📜';
+      else if(ext === 'html') icon = '🌐';
+      else if(ext === 'css') icon = '🎨';
+      else if(ext === 'json') icon = '📋';
+      else if(ext === 'md') icon = '📝';
+      else if(ext === 'db' || ext === 'sql') icon = '🗄️';
+
+      const safeName = escapeHtml(file.name);
+      item.innerHTML = `<div style="display:flex; align-items:center; gap:6px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><span class="icon">${icon}</span> <span>${safeName}</span></div>` +
+                       `<span title="Renombrar nombre y extensión" onclick="renameFile(files.find(f=>f.name==='${file.name}'), event)" style="cursor:pointer; opacity:0.7; font-size:11px; padding:2px 4px;">✏️</span>`;
+      item.addEventListener('click', () => openFile(file));
+      wrap.appendChild(item);
+    });
+
+    openTabs.forEach(file => {
+      const item = document.createElement('div');
+      item.className = 'tree-item' + (activeFile && activeFile.name === file.name ? ' active' : '');
+      item.style.display = 'flex';
+      item.style.justifyContent = 'space-between';
+      item.style.alignItems = 'center';
+      const safeName = escapeHtml(file.name);
+      item.innerHTML = `<div style="display:flex; align-items:center; gap:6px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><span class="icon">📄</span> <span>${safeName}</span></div>` +
+                       `<span title="Cerrar pestaña" onclick="closeTab('${file.name}', event)" style="cursor:pointer; opacity:0.7; font-size:11px; padding:2px 4px;">✕</span>`;
+      item.addEventListener('click', () => openFile(file));
+      openWrap.appendChild(item);
+    });
+  }
+
+  function openFile(file){
+    activeFile = file;
+    if(!openTabs.some(t => t.name === file.name)){
+      openTabs.push(file);
+    }
+    $('codeEditor').value = file.content || '';
+    $('activeFileName').textContent = file.name;
+    $('activeTabName').textContent = file.name;
+    $('breadcrumbBar').innerHTML = `codeagent > <strong>${file.name}</strong>`;
+    updateLineNumbers();
+    renderTree();
+  }
+
+  // BOTÓN NUEVA CONVERSACIÓN (+)
+  $('newChatBtn').addEventListener('click', () => {
+    messages = [];
+    $('messagesContainer').innerHTML = '';
+    $('reasoningAccordion').className = 'reasoning-accordion';
+  });
+
+  function escapeHtml(str){
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function renderSafeMarkdown(content){
+    const parts = content.split(/```/);
+    let html = '';
+    for(let i=0; i<parts.length; i++){
+      if(i % 2 === 1){
+        html += `<pre><code>${escapeHtml(parts[i])}</code></pre>`;
+      }else{
+        html += escapeHtml(parts[i]).replace(/\n/g, '<br>');
+      }
+    }
+    return html;
+  }
+
+  window.copyMsgText = function(btnEl){
+    const msgCard = btnEl.closest('.msg-bubble-assistant');
+    if(!msgCard) return;
+
+    // Obtener texto seleccionable excluyendo el propio botón
+    const clone = msgCard.cloneNode(true);
+    const btnDiv = clone.querySelector('.copy-btn');
+    if(btnDiv && btnDiv.parentNode) btnDiv.parentNode.removeChild(btnDiv);
+    const textToCopy = clone.innerText.trim();
+
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        btnEl.innerHTML = '✅ ¡Copiado!';
+        setTimeout(() => { btnEl.innerHTML = '📋 Copiar Respuesta'; }, 2000);
+      });
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = textToCopy;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      btnEl.innerHTML = '✅ ¡Copiado!';
+      setTimeout(() => { btnEl.innerHTML = '📋 Copiar Respuesta'; }, 2000);
+    }
+  };
+
+  async function reloadWorkspaceFiles(){
+    try {
+      const res = await fetch('/api/workspace/tree');
+      if(!res.ok) return;
+      const data = await res.json();
+      if(data.success && Array.isArray(data.files)){
+        let hasChanges = false;
+        data.files.forEach(sf => {
+          const existing = files.find(f => f.name === sf.name);
+          if(existing){
+            if(!existing.isModified && existing.content !== sf.content){
+              existing.content = sf.content;
+              hasChanges = true;
+              if(activeFile && activeFile.name === sf.name){
+                $('codeEditor').value = sf.content;
+                updateLineNumbers();
+              }
+            }
+          } else {
+            files.push({
+              name: sf.name,
+              path: sf.name,
+              content: sf.content,
+              isUntitled: false,
+              isModified: false
+            });
+            hasChanges = true;
+          }
+        });
+
+        const diskNames = new Set(data.files.map(sf => sf.name));
+        const prevLength = files.length;
+        files = files.filter(f => f.isUntitled || diskNames.has(f.name));
+        if(files.length !== prevLength) hasChanges = true;
+
+        if(hasChanges){
+          renderTree();
+        }
+      }
+    } catch(err){}
+  }
+
+  async function respondTerminalApproval(btnEl, commandStr, isApproved) {
+    const cardEl = btnEl.closest('.approval-card');
+    try {
+      const res = await fetch('/api/terminal/approve', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ command: commandStr, approved: isApproved })
+      });
+      const data = await res.json();
+      if(cardEl) {
+        if(isApproved) {
+          cardEl.style.borderColor = '#2ea043';
+          cardEl.innerHTML = `
+            <div class="approval-header" style="color:#56d364;">
+              <span>✅ Comando Aprobado por el Usuario</span>
+            </div>
+            <div class="approval-cmd"><code>$ ${escapeHtml(commandStr)}</code></div>
+            <div style="font-size:12px; color:#8b949e;">Pre-aprobado para la siguiente ejecución. Puedes reenviar o dejar que el agente continúe.</div>
+          `;
+        } else {
+          cardEl.style.borderColor = '#f85149';
+          cardEl.innerHTML = `
+            <div class="approval-header" style="color:#f85149;">
+              <span>❌ Comando Rechazado / Denegado por el Usuario</span>
+            </div>
+            <div class="approval-cmd"><code>$ ${escapeHtml(commandStr)}</code></div>
+          `;
+        }
+      }
+    } catch(e) {
+      alert(`Error al procesar autorización: ${e}`);
+    }
+  }
+
+  function renderTerminalCardsHtml(termTasks) {
+    if(!Array.isArray(termTasks) || termTasks.length === 0) return '';
+    let html = '';
+    termTasks.forEach(t => {
+      if(t.output && t.output.includes("⚠️ AUTORIZACIÓN REQUERIDA (HITL):")) {
+        html += `
+          <div class="approval-card" style="background:#1f1b0a; border:1px solid #d29922; border-radius:6px; margin:10px 0; padding:12px; font-size:13px;">
+            <div class="approval-header" style="display:flex; align-items:center; gap:8px; font-weight:600; color:#d29922; margin-bottom:8px;">
+              <span>⚠️ Autorización Requerida para Ejecutar en Terminal</span>
+            </div>
+            <div class="approval-cmd" style="background:#0d1117; border:1px solid #30363d; padding:8px 10px; border-radius:4px; font-family:var(--mono); font-size:12px; color:#79c0ff; margin-bottom:10px;">
+              <code>$ ${escapeHtml(t.comando)}</code>
+            </div>
+            <div style="font-size:12px; color:#c9d1d9; margin-bottom:10px;">Este comando puede modificar paquetes o archivos del sistema. ¿Deseas autorizarlo?</div>
+            <div class="approval-actions" style="display:flex; gap:10px; justify-content:flex-end;">
+              <button onclick="respondTerminalApproval(this, '${escapeHtml(t.comando)}', false)" style="background:#da3633; border:1px solid #f85149; color:#ffffff; padding:5px 12px; border-radius:4px; font-weight:600; cursor:pointer; font-size:12px;">❌ Rechazar / Denegar</button>
+              <button onclick="respondTerminalApproval(this, '${escapeHtml(t.comando)}', true)" style="background:#238636; border:1px solid #2ea043; color:#ffffff; padding:5px 12px; border-radius:4px; font-weight:600; cursor:pointer; font-size:12px;">✅ Aprobar / Autorizar</button>
+            </div>
+          </div>
+        `;
+      } else {
+        const exitBadge = t.exit_code === 0 ?
+          '<span style="color:#56d364; font-size:11px;">✅ Código 0</span>' :
+          `<span style="color:#f85149; font-size:11px;">❌ Código ${t.exit_code}</span>`;
+        html += `
+          <div class="terminal-card">
+            <div class="terminal-header">
+              <div class="terminal-title">
+                <span>💻 Tarea de Terminal</span> ${exitBadge}
+              </div>
+              <button class="copy-btn" onclick="copyMsgText(this)" style="background:#21262d; border:1px solid #30363d; color:#c9d1d9; padding:2px 8px; border-radius:4px; font-size:11px; cursor:pointer;">📋 Copiar Comando</button>
+            </div>
+            <div class="terminal-cmd"><code>$ ${escapeHtml(t.comando)}</code></div>
+            <pre class="terminal-output"><code>${escapeHtml(t.output || '')}</code></pre>
+          </div>
+        `;
+      }
+    });
+    return html;
+  }
+
+  function saveChatHistory() {
+    try {
+      localStorage.setItem('codeagent_chat_history', JSON.stringify(messages));
+    } catch(e) {}
+  }
+
+  function loadChatHistory() {
+    try {
+      const saved = localStorage.getItem('codeagent_chat_history');
+      if(saved) {
+        messages = JSON.parse(saved);
+        const container = $('messagesContainer');
+        container.innerHTML = '';
+        messages.forEach(m => {
+          const div = document.createElement('div');
+          div.className = m.role === 'user' ? 'msg-bubble-user' : 'msg-bubble-assistant';
+          if(m.role === 'user') {
+            div.textContent = m.content;
+          } else {
+            const termHtml = renderTerminalCardsHtml(m.terminal_tasks);
+            div.innerHTML = termHtml + renderSafeMarkdown(m.content) +
+              `<div style="display:flex; justify-content:flex-end; margin-top:8px;">` +
+              `<button class="copy-btn" onclick="copyMsgText(this)" style="background:var(--bg-hover); border:1px solid var(--border); color:var(--text-bright); padding:4px 10px; border-radius:4px; font-size:11px; cursor:pointer; display:inline-flex; align-items:center; gap:4px; user-select:none;">📋 Copiar Respuesta</button>` +
+              `</div>`;
+          }
+          container.appendChild(div);
+        });
+        $('chatBody').scrollTop = $('chatBody').scrollHeight;
+      }
+    } catch(e) {}
+  }
+
+  function clearChatHistory() {
+    messages = [];
+    localStorage.removeItem('codeagent_chat_history');
+    $('messagesContainer').innerHTML = '';
+    const acc = $('reasoningAccordion');
+    if(acc) acc.style.display = 'none';
+  }
+
+  // BOTONES DE CHAT (+ / 🗑️)
+  $('newChatBtn').addEventListener('click', clearChatHistory);
+  const clearBtn = $('clearChatBtn');
+  if(clearBtn) clearBtn.addEventListener('click', clearChatHistory);
+
+  // Cargar historial persistente en inicio
+  loadChatHistory();
+
+  // Carga inicial de archivos y temporizador de auto-refresh cada 4 segundos
+  reloadWorkspaceFiles();
+  setInterval(reloadWorkspaceFiles, 4000);
+
+  let currentFetchAbortController = null;
+
+  window.cancelCurrentActiveTask = function() {
+    if(currentFetchAbortController) {
+      currentFetchAbortController.abort();
+      currentFetchAbortController = null;
+    }
+  };
+
+  // ENVIAR MENSAJE AL AGENTE
+  $('sendBtn').addEventListener('click', async () => {
+    const text = $('chatInput').value.trim();
+    if(!text) return;
+
+    messages.push({ role: 'user', content: text });
+    saveChatHistory();
+
+    const userMsg = document.createElement('div');
+let currentPipelineEventSource = null;
+
+function connectPipelineSSE(taskId) {
+  closePipelineSSE();
+  try {
+    const sseUrl = '/api/pipeline/events?task_id=' + encodeURIComponent(taskId);
+    currentPipelineEventSource = new EventSource(sseUrl);
+    console.log('[CodeAgent UI] Connected to SSE pipeline stream for task_id: ' + taskId);
+
+    currentPipelineEventSource.onmessage = function(e) {
+      if (!e || !e.data) return;
+      try {
+        const ev = JSON.parse(e.data);
+        if (ev.event_type === 'STATE_ENTERED' || ev.event_type === 'STATE_CHANGED') {
+          const stateName = ev.payload && ev.payload.state ? ev.payload.state : ev.state;
+          const stepEl = document.getElementById('workingStepText');
+          if (stepEl && stateName) {
+            stepEl.textContent = 'Fase: ' + stateName;
+          }
+        } else if (ev.event_type === 'TOOL_EXECUTED') {
+          const stepEl = document.getElementById('workingStepText');
+          if (stepEl) {
+            const toolName = ev.payload && ev.payload.tool ? ev.payload.tool : (ev.payload.prompt ? ev.payload.prompt.substring(0, 30) : 'Ejecutando herramienta');
+            stepEl.textContent = 'Herramienta: ' + toolName;
+          }
+        } else if (ev.event_type === 'TASK_COMPLETED' || ev.event_type === 'TASK_FAILED') {
+          closePipelineSSE();
+        }
+      } catch (err) {
+        console.warn('[CodeAgent UI] Error parsing SSE payload:', err);
+      }
+    };
+
+    currentPipelineEventSource.onerror = function(err) {
+      console.warn('[CodeAgent UI] SSE stream error or closed:', err);
+      closePipelineSSE();
+    };
+  } catch (err) {
+    console.warn('[CodeAgent UI] Failed to establish EventSource:', err);
+  }
+}
+
+function closePipelineSSE() {
+  if (currentPipelineEventSource) {
+    try {
+      currentPipelineEventSource.close();
+      console.log('[CodeAgent UI] Closed SSE pipeline stream');
+    } catch (e) {}
+    currentPipelineEventSource = null;
+  }
+}
+
+    userMsg.className = 'msg-bubble-user';
+    userMsg.textContent = text;
+    $('messagesContainer').appendChild(userMsg);
+    $('chatInput').value = '';
+    $('chatBody').scrollTop = $('chatBody').scrollHeight;
+
+    // Crear burbuja animada de "Working..." en vivo en el chat
+    const workingBubble = document.createElement('div');
+    workingBubble.className = 'working-card';
+
+    const startTime = Date.now();
+    let secCount = 0;
+    const phases = [
+      "🧠 Analizando solicitud e intenciones del usuario...",
+      "🔍 Consultando árbol de archivos y grafo AST Graphify...",
+      "🔨 Ejecutando herramientas agénticas (escritura/terminal)...",
+      "🧪 Verificando sintaxis post-edición y compilación...",
+      "👨‍⚖️ Evaluando criticismo y preparando respuesta final..."
+    ];
+    let phaseIdx = 0;
+
+    workingBubble.innerHTML = `
+      <div class="working-header" style="display:flex; align-items:center; justify-content:space-between;">
+        <div>
+          <span class="working-spinner">⚙️</span>
+          <span>CodeAgent trabajando (<span id="workingTimer">0s</span>)...</span>
+        </div>
+        <button id="cancelTaskBtn" onclick="cancelCurrentActiveTask()" style="background:#da3633; border:1px solid #f85149; color:#ffffff; padding:3px 8px; border-radius:4px; font-size:11px; cursor:pointer; font-weight:600;">⏹️ Cancelar Tarea</button>
+      </div>
+      <div class="working-steps" id="workingStepText">
+        ${phases[0]}
+      </div>
+      <div id="workingWarning" style="display:none; color:#d29922; font-size:11px; margin-top:4px; font-weight:500;">
+        ⚠️ Tarea ejecutándose por más de 60s. Puedes esperar o usar 'Cancelar Tarea'.
+      </div>
+    `;
+
+    $('messagesContainer').appendChild(workingBubble);
+    $('chatBody').scrollTop = $('chatBody').scrollHeight;
+
+    const timerInterval = setInterval(() => {
+      secCount = Math.floor((Date.now() - startTime) / 1000);
+      const timerEl = document.getElementById('workingTimer');
+      if(timerEl) timerEl.textContent = `${secCount}s`;
+
+      if(secCount >= 60) {
+        const warnEl = document.getElementById('workingWarning');
+        if(warnEl) warnEl.style.display = 'block';
+      }
+    }, 1000);
+
+    const currentTaskId = 'task-ui-' + Date.now();
+    connectPipelineSSE(currentTaskId);
+
+    currentFetchAbortController = new AbortController();
+
+    try {
+      const res = await fetch('/api/agent/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        signal: currentFetchAbortController.signal,
+        body: JSON.stringify({
+          prompt: text,
+          task_id: currentTaskId,
+          agent_type: "CodeAgent Developer",
+          model: $('modelSelect').value,
+          model_name: $('modelSelect').value
+        })
+      });
+      const data = await res.json();
+      clearInterval(timerInterval);
+      currentFetchAbortController = null;
+      closePipelineSSE();
+
+      if(workingBubble && workingBubble.parentNode){
+        workingBubble.parentNode.removeChild(workingBubble);
+      }
+
+      const elapsed = Math.max(1, Math.round((Date.now() - startTime) / 1000));
+      const acc = $('reasoningAccordion');
+      if(acc) {
+        acc.style.display = 'block';
+        acc.className = 'reasoning-accordion open';
+      }
+      $('reasoningHeader').innerHTML = `<span>Worked for ${elapsed}s (5 steps)</span><span>></span>`;
+
+      if(!res.ok || (data.success === false)){
+        throw new Error(data.error || `Error HTTP ${res.status}`);
+      }
+
+      const rawContent = data.respuesta || data.response || "Tarea ejecutada correctamente.";
+      const termTasks = data.terminal_tasks || [];
+      messages.push({ role: 'assistant', content: rawContent, terminal_tasks: termTasks });
+      saveChatHistory();
+
+      const botMsg = document.createElement('div');
+      botMsg.className = 'msg-bubble-assistant';
+      const termHtml = renderTerminalCardsHtml(termTasks);
+      botMsg.innerHTML = termHtml + renderSafeMarkdown(rawContent) +
+        `<div style="display:flex; justify-content:flex-end; margin-top:8px;">` +
+        `<button class="copy-btn" onclick="copyMsgText(this)" style="background:var(--bg-hover); border:1px solid var(--border); color:var(--text-bright); padding:4px 10px; border-radius:4px; font-size:11px; cursor:pointer; display:inline-flex; align-items:center; gap:4px; user-select:none;">📋 Copiar Respuesta</button>` +
+        `</div>`;
+      $('messagesContainer').appendChild(botMsg);
+
+      // Auto-refresh del árbol de archivos de inmediato tras la respuesta del agente
+      await reloadWorkspaceFiles();
+    } catch(e) {
+      clearInterval(timerInterval);
+      closePipelineSSE();
+      if(workingBubble && workingBubble.parentNode){
+        workingBubble.parentNode.removeChild(workingBubble);
+      }
+
+      const elapsed = Math.max(1, Math.round((Date.now() - startTime) / 1000));
+      $('reasoningHeader').innerHTML = `<span>Worked for ${elapsed}s</span><span>></span>`;
+
+      const botMsg = document.createElement('div');
+      botMsg.className = 'msg-bubble-assistant';
+      botMsg.style.color = 'var(--red)';
+      botMsg.innerHTML = `<strong>❌ Error en CodeAgent:</strong> ${escapeHtml(e.message || e)}`;
+      $('messagesContainer').appendChild(botMsg);
+
+      await reloadWorkspaceFiles();
+    }
+    $('chatBody').scrollTop = $('chatBody').scrollHeight;
+  });
+
+  $('chatInput').addEventListener('keydown', (e) => {
+    if((e.key === 'Enter' && !e.shiftKey) || (e.key === 'Enter' && (e.ctrlKey || e.metaKey))){
+      e.preventDefault();
+      $('sendBtn').click();
+    }
+  });
+
+  let untitledCount = 0;
+  let isAutoSaveEnabled = true;
+
+  // TOGGLE MENU DESPLEGABLE FILE
+  const fileBtn = $('fileMenuBtn');
+  const fileMenu = $('fileDropdownMenu');
+
+  window.toggleFileMenu = function(e){
+    if(e){
+      e.stopPropagation();
+      e.preventDefault();
+    }
+    const m = document.getElementById('fileDropdownMenu');
+    if(m){
+      const isHidden = (m.style.display === 'none' || !m.style.display);
+      m.style.display = isHidden ? 'block' : 'none';
+    }
+  };
+
+  document.addEventListener('click', function(e){
+    const wrap = document.querySelector('.menu-dropdown-wrap');
+    if(wrap && !wrap.contains(e.target)){
+      const m = document.getElementById('fileDropdownMenu');
+      if(m) m.style.display = 'none';
+    }
+  });
+
+  window.handleNativeFileSelect = function(e){
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = function(evt){
+      const fileObj = {
+        name: file.name,
+        path: file.name,
+        content: evt.target.result,
+        isUntitled: false,
+        isModified: false
+      };
+      if(!files.some(f => f.name === file.name)){
+        files.unshift(fileObj);
+      }
+      openFile(fileObj);
+    };
+    reader.readAsText(file);
+  };
+
+  window.handleNativeFolderSelect = function(e){
+    const selectedFiles = Array.from(e.target.files);
+    if(!selectedFiles.length) return;
+
+    const folderName = selectedFiles[0].webkitRelativePath ? selectedFiles[0].webkitRelativePath.split('/')[0] : 'Carpeta Seleccionada';
+    $('currentWorkspaceLabel').textContent = folderName;
+
+    files = [];
+    openTabs = [];
+    const readPromises = selectedFiles.map(file => {
+      return new Promise((resolve) => {
+        if(file.size > 400000) return resolve(null);
+        const reader = new FileReader();
+        reader.onload = evt => {
+          const relPath = file.webkitRelativePath || file.name;
+          const fileNameOnly = relPath.split('/').pop();
+          resolve({
+            name: fileNameOnly,
+            path: relPath,
+            content: evt.target.result,
+            isUntitled: false,
+            isModified: false
+          });
+        };
+        reader.onerror = () => resolve(null);
+        reader.readAsText(file);
+      });
+    });
+
+    Promise.all(readPromises).then(results => {
+      files = results.filter(Boolean);
+      if(files.length) openFile(files[0]);
+      renderTree();
+    });
+  };
+
+  window.onNewFile = function(){
+    if(fileMenu) fileMenu.style.display = 'none';
+    const defaultName = `script_${files.length + 1}.py`;
+    const inputName = prompt("Nombre y extensión del nuevo archivo (ej: main.py, styles.css, script.js, data.json):", defaultName);
+    if(!inputName || !inputName.trim()) return;
+
+    const cleanName = inputName.trim();
+    const ext = cleanName.split('.').pop().toLowerCase();
+    let template = `# ${cleanName}\n# Creado en CodeAgent IDE v5.0\n\n`;
+    if(ext === 'js' || ext === 'ts') template = `// ${cleanName}\nconsole.log("Hello CodeAgent!");\n`;
+    else if(ext === 'html') template = `<!DOCTYPE html>\n<html>\n<head><title>${cleanName}</title></head>\n<body>\n  <h1>Hello CodeAgent</h1>\n</body>\n</html>\n`;
+    else if(ext === 'css') template = `/* ${cleanName} */\nbody {\n  margin: 0;\n  padding: 0;\n}\n`;
+    else if(ext === 'json') template = `{\n  "name": "${cleanName}",\n  "version": "1.0.0"\n}\n`;
+
+    const newFileObj = {
+      name: cleanName,
+      path: cleanName,
+      content: template,
+      isUntitled: false,
+      isModified: true
+    };
+    files.unshift(newFileObj);
+    openFile(newFileObj);
+  };
+
+  window.onNewWindow = async function(){
+    if(fileMenu) fileMenu.style.display = 'none';
+    if(window.pywebview && window.pywebview.api){
+      await window.pywebview.api.new_window();
+    } else {
+      window.open(window.location.href, '_blank');
+    }
+  };
+
+  window.onOpenFile = async function(){
+    if(fileMenu) fileMenu.style.display = 'none';
+    if(window.pywebview && window.pywebview.api){
+      try {
+        const res = await window.pywebview.api.open_file_dialog();
+        if(res && res.path){
+          const fileObj = { name: res.filename, path: res.path, content: res.content, isUntitled: false, isModified: false };
+          files.unshift(fileObj);
+          openFile(fileObj);
+          return;
+        }
+      } catch(err){}
+    }
+    // Fallback nativo navegador
+    const input = $('nativeFileInput');
+    if(input) input.click();
+  };
+
+  window.onOpenFolder = async function(){
+    if(fileMenu) fileMenu.style.display = 'none';
+    if(window.pywebview && window.pywebview.api){
+      try {
+        const res = await window.pywebview.api.open_folder_dialog();
+        if(res && res.path){
+          $('currentWorkspaceLabel').textContent = res.folder_name || 'Workspace';
+          location.reload();
+          return;
+        }
+      } catch(err){}
+    }
+    // Fallback nativo navegador
+    const input = $('nativeFolderInput');
+    if(input) input.click();
+  };
+
+  window.onSaveFile = async function(){
+    if(fileMenu) fileMenu.style.display = 'none';
+    if(!activeFile) return;
+
+    if(activeFile.isUntitled || !activeFile.path || activeFile.path.startsWith('Untitled')){
+      return window.onSaveFileAs();
+    }
+
+    const currentContent = $('codeEditor').value;
+    if(window.pywebview && window.pywebview.api){
+      const ok = await window.pywebview.api.write_file(activeFile.path, currentContent);
+      if(ok){
+        activeFile.content = currentContent;
+        activeFile.isModified = false;
+        renderTree();
+      }
+    } else {
+      try {
+        const res = await fetch('/api/fs/save', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ path: activeFile.path, filePath: activeFile.path, content: currentContent })
+        });
+        const data = await res.json();
+        if(data.success){
+          activeFile.content = currentContent;
+          activeFile.isModified = false;
+          renderTree();
+        }
+      } catch(e){
+        alert('Error al guardar archivo: ' + e.message);
+      }
+    }
+  };
+
+  window.onSaveFileAs = async function(){
+    if(fileMenu) fileMenu.style.display = 'none';
+    if(!activeFile) return;
+
+    const currentContent = $('codeEditor').value;
+    if(window.pywebview && window.pywebview.api){
+      const res = await window.pywebview.api.save_file_dialog(currentContent, activeFile.name || 'Untitled.py');
+      if(res && res.path){
+        activeFile.name = res.filename;
+        activeFile.path = res.path;
+        activeFile.content = currentContent;
+        activeFile.isUntitled = false;
+        activeFile.isModified = false;
+        openFile(activeFile);
+      }
+    } else {
+      try {
+        const res = await fetch('/api/fs/save', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ path: '', default_filename: activeFile.name || 'Untitled.py', content: currentContent })
+        });
+        const data = await res.json();
+        if(data.success && data.path){
+          activeFile.name = data.filename;
+          activeFile.path = data.path;
+          activeFile.content = currentContent;
+          activeFile.isUntitled = false;
+          activeFile.isModified = false;
+          openFile(activeFile);
+        }
+      } catch(e){
+        alert('Error al guardar archivo como: ' + e.message);
+      }
+    }
+  };
+
+  window.toggleAutoSave = function(){
+    isAutoSaveEnabled = !isAutoSaveEnabled;
+    const mark = $('autoSaveCheckMark');
+    if(mark) mark.textContent = isAutoSaveEnabled ? '✓' : ' ';
+  };
+
+  setInterval(() => {
+    if(isAutoSaveEnabled && activeFile && activeFile.isModified && !activeFile.isUntitled){
+      window.onSaveFile();
+    }
+  }, 4000);
+
+  window.onCloseEditor = function(){
+    if(fileMenu) fileMenu.style.display = 'none';
+    if(!activeFile) return;
+    openTabs = openTabs.filter(t => t.name !== activeFile.name);
+    if(openTabs.length > 0){
+      openFile(openTabs[openTabs.length - 1]);
+    } else {
+      activeFile = null;
+      $('codeEditor').value = '';
+      $('activeFileName').textContent = 'No File Open';
+      $('activeTabName').textContent = 'No File Open';
+      renderTree();
+    }
+  };
+
+  window.onCloseFolder = function(){
+    if(fileMenu) fileMenu.style.display = 'none';
+    files = [];
+    openTabs = [];
+    activeFile = null;
+    $('codeEditor').value = '';
+    $('activeFileName').textContent = 'No Workspace';
+    $('currentWorkspaceLabel').textContent = 'No Workspace';
+    renderTree();
+  };
+
+  window.onCloseWindow = window.onExitApp = function(){
+    if(fileMenu) fileMenu.style.display = 'none';
+    if(window.pywebview && window.pywebview.api){
+      window.pywebview.api.exit_app();
+    } else {
+      window.close();
+    }
+  };
+
+  // ATASCOS DE TECLADO GLOBALES
+  window.addEventListener('keydown', (e) => {
+    if(e.ctrlKey || e.metaKey){
+      const key = e.key.toLowerCase();
+      if(key === 'n' && !e.shiftKey){ e.preventDefault(); onNewFile(); }
+      else if(key === 'n' && e.shiftKey){ e.preventDefault(); onNewWindow(); }
+      else if(key === 'o' && !e.shiftKey){ e.preventDefault(); onOpenFile(); }
+      else if(key === 's' && !e.shiftKey){ e.preventDefault(); onSaveFile(); }
+      else if(key === 's' && e.shiftKey){ e.preventDefault(); onSaveFileAs(); }
+      else if(key === 'w'){ e.preventDefault(); onCloseEditor(); }
+      else if(key === 'q'){ e.preventDefault(); onExitApp(); }
+    }
+  });
+
+  // BARRA DE ACTIVIDAD
+  document.querySelectorAll('.act-icon').forEach(icon => {
+    icon.addEventListener('click', function(){
+      document.querySelectorAll('.act-icon').forEach(i => i.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  // CARGAR WORKSPACE E HYDRATE DE MODELOS OLLAMA
+  async function init(){
+    try {
+      const tagsRes = await fetch('/api/tags');
+      if(tagsRes.ok){
+        const tagsData = await tagsRes.json();
+        if(tagsData.models && tagsData.models.length){
+          const select = $('modelSelect');
+          select.innerHTML = '';
+          tagsData.models.forEach(m => {
+            const opt = document.createElement('option');
+            opt.value = m.name;
+            opt.textContent = `Ollama (${m.name}) ^`;
+            select.appendChild(opt);
+          });
+        }
+      }
+    } catch(e){}
+
+    try {
+      const treeRes = await fetch('/api/workspace/tree');
+      if(treeRes.ok){
+        const treeData = await treeRes.json();
+        if(treeData.path){
+          const parts = treeData.path.replace(/\\/g, '/').split('/');
+          $('currentWorkspaceLabel').textContent = parts[parts.length - 1] || 'CodeAgent';
+        }
+        if(treeData.files && treeData.files.length){
+          files = treeData.files;
+          openFile(files[0]);
+        }
+      }
+    } catch(e){
+      files = [
+        { name: 'ADR-001-smolagents-react-engine.md', content: '# ADR-001: Selección de smolagents como Motor ReAct\n\n## Contexto\nEl sistema requiere un motor agéntico liviano.\n\n## Decisión\nSe seleccionó smolagents.' },
+        { name: 'AGENTS.md', content: '# Reglas de Agentes\n1. Graphify Knowledge Graph' },
+        { name: 'main.py', content: '# CodeAgent Main Entrypoint\nimport os\n' }
+      ];
+      openFile(files[0]);
+    }
+
+    // WORKSPACE MODAL EVENT LISTENERS
+    $('changeWorkspaceBtn').onclick = () => {
+      $('workspaceModal').style.display = 'flex';
+    };
+    $('closeWorkspaceModalBtn').onclick = () => {
+      $('workspaceModal').style.display = 'none';
+    };
+    $('confirmWorkspaceBtn').onclick = async () => {
+      const path = $('workspacePathInput').value.trim();
+      if(!path) return;
+      try {
+        const res = await fetch('/api/workspace/open-folder', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ path })
+        });
+        const data = await res.json();
+        if(data.success){
+          const parts = data.path.replace(/\\/g, '/').split('/');
+          $('currentWorkspaceLabel').textContent = parts[parts.length - 1] || 'Workspace';
+          files = data.files || [];
+          if(files.length) openFile(files[0]);
+          $('workspaceModal').style.display = 'none';
+          alert('Espacio de trabajo cambiado a: ' + data.path);
+        } else {
+          alert('Error: ' + (data.error || 'No se pudo abrir la ruta'));
+        }
+      } catch(err){
+        alert('Error de conexión al cambiar espacio de trabajo: ' + err.message);
+      }
+    };
+  }
+  init();
+})();
+</script>
+
+<!-- WORKSPACE SWITCHER MODAL -->
+<div id="workspaceModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;">
+  <div style="background:var(--bg-panel); border:1px solid var(--border-bright); width:480px; padding:20px; border-radius:8px; box-shadow:0 8px 32px rgba(0,0,0,0.5);">
+    <h3 style="margin-top:0; color:var(--text-bright); font-size:15px; display:flex; align-items:center; gap:8px;">📁 Cambiar Espacio de Trabajo / Repositorio</h3>
+    <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">Ingresa la ruta absoluta del repositorio en tu disco donde operará el agente de código:</p>
+    <input type="text" id="workspacePathInput" style="width:100%; padding:8px; background:var(--bg-editor); border:1px solid var(--border); color:var(--text-bright); border-radius:4px; font-family:var(--mono); font-size:12px; box-sizing:border-box; margin-bottom:12px;" placeholder="ej: C:\Users\Jonatthan\Documents\Github\MiProyecto">
+    <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:16px;">
+      <button id="closeWorkspaceModalBtn" style="padding:6px 12px; background:var(--bg-sidebar); border:1px solid var(--border); color:var(--text); border-radius:4px; cursor:pointer;">Cancelar</button>
+      <button id="confirmWorkspaceBtn" style="padding:6px 12px; background:var(--accent); border:none; color:#fff; border-radius:4px; cursor:pointer; font-weight:500;">Abrir Repositorio</button>
+    </div>
+  </div>
+</div>
+<!-- HIDDEN NATIVE OS FILE & FOLDER INPUTS -->
+<input type="file" id="nativeFileInput" style="display:none;" onchange="handleNativeFileSelect(event)">
+<input type="file" id="nativeFolderInput" webkitdirectory directory multiple style="display:none;" onchange="handleNativeFolderSelect(event)">
+
+</body>
+</html>

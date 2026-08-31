@@ -117,7 +117,7 @@ with st.sidebar:
         return session_manager.list_sessions()
 
     sesiones = get_sessions_list()
-    sesiones_dict = {s["id"]: s["name"] for s in sesiones}
+    sesiones_dict = {s["id"]: s.get("name", s.get("id", "Sesión Sin Nombre")) for s in sesiones if isinstance(s, dict) and "id" in s}
 
     if sesiones:
         index = 0

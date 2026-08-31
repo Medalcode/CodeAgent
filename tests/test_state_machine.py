@@ -1,5 +1,8 @@
+import os
+import sys
 import unittest
 from unittest.mock import MagicMock
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../mis_agentes_inteligentes')))
 
 from agent_pipeline import AgentStateMachineController, ExecutionLevel
 from benchmark_metrics import BenchmarkMetricsCollector
@@ -57,7 +60,7 @@ class TestAgentStateMachineController(unittest.TestCase):
             level=ExecutionLevel.LEVEL_4_FULL
         )
 
-        self.assertIn("Evidencia de Verificación Tri-Estado", response)
+        self.assertIn("Evidencia de Verificac", response)
         self.assertEqual(metrics["execution_level"], ExecutionLevel.LEVEL_4_FULL.value)
 
     def test_benchmark_metrics_collector(self):

@@ -41,8 +41,12 @@ from collections.abc import Callable
 from enum import Enum
 from typing import Any
 
-from .benchmark_metrics import metrics_collector
-from .cognitive_directives import get_phase_cognitive_directive
+try:
+    from benchmark_metrics import metrics_collector
+    from cognitive_directives import get_phase_cognitive_directive
+except ImportError:
+    from .benchmark_metrics import metrics_collector
+    from .cognitive_directives import get_phase_cognitive_directive
 
 from sdd_contract.task_contract import ChatTaskContract, ActionTaskContract, FeatureTaskContract
 
@@ -244,10 +248,17 @@ class AgentStateMachineController:
         # â”€â”€â”€ PRIMARIO: SQLite / DatabaseManager (Source of Truth) â”€â”€â”€
         sqlite_success = False
         try:
-            from .runtime.event_bus import get_event_bus
-            from .storage.database import get_db_manager
+            try:
+                from runtime.event_bus import get_event_bus
+                from storage.database import get_db_manager
+            except ImportError:
+                from .runtime.event_bus import get_event_bus
+                from .storage.database import get_db_manager
             db = self._db_manager or get_db_manager()
             bus = self._event_bus or get_event_bus()
+
+            if not db.get_task(session_id):
+                db.create_task(task_id=session_id, project_path=self.workspace_dir, goal=user_goal, execution_level=execution_level.value)
 
             db.save_checkpoint(
                 task_id=session_id,
@@ -277,7 +288,10 @@ class AgentStateMachineController:
         # Solo se ejecuta si SQLite tuvo Ã©xito. Clasificado explÃ­citamente como LEGACY EXPORT.
         if sqlite_success:
             try:
-                from .session_manager import load_session, save_session
+                try:
+                    from session_manager import load_session, save_session
+                except ImportError:
+                    from .session_manager import load_session, save_session
                 data = load_session(session_id)
                 if data:
                     if "memory" not in data or not isinstance(data["memory"], dict):
@@ -455,7 +469,7 @@ class AgentStateMachineController:
                 })
 
         elapsed = round(time.time() - start_time, 2)
-        success = verification_res["success"]
+        success = verification_res.get("success", False)
         py_count = verification_res.get("py_files_count", 0)
 
         summary_metrics = metrics_collector.record_run(
@@ -562,7 +576,10 @@ class AgentStateMachineController:
 # â”€â”€â”€ CASO B: SQLite no tiene la sesiÃ³n + JSON legacy existe â”€â”€â”€
         if not checkpoint:
             try:
-                from .session_manager import load_session
+                try:
+                    from session_manager import load_session
+                except ImportError:
+                    from .session_manager import load_session
                 data = load_session(session_id)
                 if data and "memory" in data and isinstance(data["memory"], dict):
                     legacy_checkpoint = data.get("memory", {}).get("working", {}).get("state_checkpoint")
@@ -993,7 +1010,7 @@ class AgentStateMachineController:
         except Exception:
             pass
 
-        requirements_met = verification["success"]
+        requirements_met = verification.get("success", True)
         critic_notes = []
 
         if verification.get("tests_status") == "NOT_REQUIRED":

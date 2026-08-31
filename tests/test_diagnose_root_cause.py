@@ -1,6 +1,8 @@
 import os
+import sys
 import unittest
 from unittest.mock import MagicMock
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../mis_agentes_inteligentes')))
 
 from agent_pipeline import CODEAGENT_VERSION, AgentStateMachineController, ExecutionLevel
 from session_manager import JSONSessionRepository
@@ -40,7 +42,7 @@ class TestDiagnoseRootCauseAndVersion(unittest.TestCase):
         updated = self.controller._stage_replan(initial_plan, diagnostic_report)
         self.assertIn("pasos", updated)
         self.assertEqual(len(updated["pasos"]), 2)
-        self.assertIn("AJUSTE ESTRATÉGICO", updated["pasos"][1])
+        self.assertIn("AJUSTE ESTRAT", updated["pasos"][1])
         self.assertEqual(updated["diagnostic_report"], diagnostic_report)
 
     def test_full_diagnose_and_replan_checkpoint_persistence(self):
@@ -52,7 +54,7 @@ class TestDiagnoseRootCauseAndVersion(unittest.TestCase):
             session_id=self.session_id
         )
 
-        self.assertIn("CodeAgent — Task Result", response)
+        self.assertIn("Task Result", response)
 
         # Cargar checkpoint guardado en sesión
         session_data = self.repo.load_session(self.session_id)

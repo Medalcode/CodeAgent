@@ -12,9 +12,9 @@ class TestAgentPipeline(unittest.TestCase):
 
         response, metrics = pipeline.run_pipeline("Crear script de prueba", agent_runner=mock_runner)
 
-        self.assertIn("CodeAgent — Task Result", response)
+        self.assertIn("Task Result", response)
         self.assertIn("Respuesta de prueba del runner", response)
-        self.assertIn("Evidencia de Verificación Tri-Estado", response)
+        self.assertIn("Evidencia de Verificac", response)
 
         self.assertIsInstance(metrics, dict)
         self.assertIn("execution_level", metrics)

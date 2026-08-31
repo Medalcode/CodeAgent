@@ -7,7 +7,10 @@ from collections.abc import Callable
 from typing import Any
 
 from .event_bus import EventBus, get_event_bus
-from ..storage.database import DatabaseManager, get_db_manager
+try:
+    from storage.database import DatabaseManager, get_db_manager
+except ImportError:
+    from mis_agentes_inteligentes.storage.database import DatabaseManager, get_db_manager
 
 
 class CodeAgentRuntime:

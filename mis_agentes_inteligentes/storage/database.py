@@ -199,6 +199,8 @@ _global_db_manager: DatabaseManager | None = None
 
 def get_db_manager() -> DatabaseManager:
     global _global_db_manager
-    if _global_db_manager is None:
-        _global_db_manager = DatabaseManager()
+    current_env_path = os.getenv("CODEAGENT_DB_PATH")
+    target_path = current_env_path if current_env_path else DB_FILE_PATH
+    if _global_db_manager is None or _global_db_manager.db_path != target_path:
+        _global_db_manager = DatabaseManager(db_path=target_path)
     return _global_db_manager

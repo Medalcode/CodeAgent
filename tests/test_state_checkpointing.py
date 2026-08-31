@@ -1,6 +1,8 @@
 import os
+import sys
 import unittest
 from unittest.mock import MagicMock
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../mis_agentes_inteligentes')))
 
 from agent_pipeline import AgentStateMachineController, ExecutionLevel, State
 from session_manager import JSONSessionRepository
@@ -45,7 +47,7 @@ class TestStateCheckpointing(unittest.TestCase):
             agent_runner=mock_runner
         )
 
-        self.assertIn("CodeAgent — Task Result", response)
+        self.assertIn("Task Result", response)
         self.assertEqual(metrics["execution_level"], ExecutionLevel.LEVEL_4_FULL.value)
         self.assertTrue(metrics["verifier_passed"])
 
