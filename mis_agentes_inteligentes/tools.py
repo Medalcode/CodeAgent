@@ -108,7 +108,7 @@ def guardar_reporte(analisis: str) -> str:
         analisis: El texto del reporte a guardar.
     """
     try:
-        historial_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'historial_analisis.txt')
+        historial_path = os.path.join(_detectar_raiz_proyecto("."), 'historial_analisis.txt')
         with open(historial_path, "a", encoding="utf-8") as f:
             f.write(f"\n--- {date.today()} ---\n{analisis}\n")
         return "Reporte guardado con éxito."

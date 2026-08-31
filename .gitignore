@@ -41,3 +41,5 @@ mis_agentes_inteligentes/tmp*
 .env
 .idea/
 .vscode/
+
+experimental_build/

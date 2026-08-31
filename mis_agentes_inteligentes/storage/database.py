@@ -5,7 +5,29 @@ import threading
 import time
 from typing import Any
 
-DB_FILE_PATH = os.getenv("CODEAGENT_DB_PATH", os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "codeagent_desktop.db"))
+import platform
+
+def _resolve_default_db_path() -> str:
+    env_path = os.getenv("CODEAGENT_DB_PATH")
+    if env_path:
+        return env_path
+
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    if os.path.exists(os.path.join(base_dir, ".git")) or os.path.exists(os.path.join(base_dir, "AGENTS.md")):
+        return os.path.join(base_dir, "codeagent_desktop.db")
+
+    if platform.system() == "Windows":
+        appdata = os.environ.get("APPDATA") or os.path.expanduser("~\\AppData\\Roaming")
+        target_dir = os.path.join(appdata, "CodeAgent", "database")
+    elif platform.system() == "Darwin":
+        target_dir = os.path.join(os.path.expanduser("~"), "Library", "Application Support", "CodeAgent", "database")
+    else:
+        target_dir = os.path.join(os.path.expanduser("~"), ".config", "CodeAgent", "database")
+
+    os.makedirs(target_dir, exist_ok=True)
+    return os.path.join(target_dir, "codeagent_desktop.db")
+
+DB_FILE_PATH = _resolve_default_db_path()
 _DB_LOCK = threading.Lock()
 
 

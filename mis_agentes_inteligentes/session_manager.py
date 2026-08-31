@@ -38,8 +38,30 @@ warnings.warn(
 #   3. LEGACY EXPORT desde _save_checkpoint (marcado con _legacy_export=True)
 # ─────────────────────────────────────────────────────────────────────────────
 
+import platform
+
+def _resolve_default_sessions_dir(base_dir: str) -> str:
+    env_path = os.getenv("CODEAGENT_SESSIONS_DIR")
+    if env_path:
+        return env_path
+        
+    repo_root = os.path.dirname(base_dir)
+    if os.path.exists(os.path.join(repo_root, ".git")) or os.path.exists(os.path.join(repo_root, "AGENTS.md")):
+        return os.path.join(base_dir, "sesiones")
+
+    if platform.system() == "Windows":
+        appdata = os.environ.get("APPDATA") or os.path.expanduser("~\\AppData\\Roaming")
+        target_dir = os.path.join(appdata, "CodeAgent", "sesiones")
+    elif platform.system() == "Darwin":
+        target_dir = os.path.join(os.path.expanduser("~"), "Library", "Application Support", "CodeAgent", "sesiones")
+    else:
+        target_dir = os.path.join(os.path.expanduser("~"), ".config", "CodeAgent", "sesiones")
+
+    os.makedirs(target_dir, exist_ok=True)
+    return target_dir
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-SESSIONS_DIR = os.path.join(BASE_DIR, "sesiones")
+SESSIONS_DIR = _resolve_default_sessions_dir(BASE_DIR)
 
 
 class BaseSessionRepository(ABC):
