@@ -1,0 +1,132 @@
+# PHASE D0: GOD MODULE DECOMPOSITION
+# Responsibility Inventory - agent_pipeline.py
+
+# KEY RESPONSIBILITY AREAS IDENTIFIED
+
+A. State Machine / Orchestration
+   Lines: 229-537
+   Description: The AgentStateMachineController class and its `run()` method implement a deterministic finite state machine lifecycle: INIT→PLAN→EXPLORE→EXECUTE→VERIFY→CRITIC→DONE with replanning loops. Manages state transitions, checkpointing, and recovery.
+   Key methods: run(), resume_session(), _save_checkpoint()
+   Dependencies: ExecutionLevel, State, TaskContract, ComplexityRiskEvaluator, session_manager.py, storage/database.py
+   State owned: current task state, execution level, replans count, failed verification, checkpoint data
+   Consumers: AgentStateMachineController.run(), metrics_collector, event_bus
+
+B. Task Classification
+   Lines: 146-194
+   Description: ComplexityRiskEvaluator.classify_with_router() and .evaluate() classify user goals into task types (CHAT, ACTION, FEATURE, RECOVERY) and execution levels (LEVEL_1_CHAT through LEVEL_4_FULL) using keyword matching and heuristics.
+   Key methods: classify_with_router(), evaluate(), build_contract()
+   Dependencies: TaskRouter, sdd_contract.task_router, TaskType, ExecutionLevel
+   State owned: task_type determination, execution level assignment
+   Consumers: build_contract(), run(), _stage_explorer()
+
+C. Task Contract Handling
+   Lines: 196-214
+   Description: ComplexityRiskEvaluator.build_contract() returns canonical TaskContract instances (ChatTaskContract, ActionTaskContract, FeatureTaskContract) wrapped with _ContractWrapper, providing the compatibility interface (requires_*, tools_allowed, files_allowed) expected by the pipeline.
+   Key methods: build_contract()
+   Dependencies: sdd_contract.task_contract, ChatTaskContract, ActionTaskContract, FeatureTaskContract, _ContractWrapper, TaskType, ExecutionLevel
+   State owned: contract task_type, contract execution_level, contract properties
+   Consumers: _stage_verifier(), run(), metrics collection
+
+D. Risk Evaluation
+   Lines: 143-194
+   Description: ComplexityRiskEvaluator evaluates user goals to determine execution level and build appropriate contracts. Combines TaskRouter classification with keyword matching, mutation detection, and single-file action detection.
+   Key methods: classify_with_router(), evaluate(), build_contract()
+   Dependencies: TaskRouter, sdd_contract.task_types.TaskType, ExecutionLevel, chat_keywords, ACTION_KEYWORDS, FEATURE_KEYWORDS
+   State owned: risk classification, complexity assessment
+   Consumers: build_contract(), classify_with_router()
+
+E. Tool Execution
+   Lines: 323-416
+   Description: The `run()` method executes the state machine cycle. Handles PLAN→EXPLORE→EXECUTE→VERIFY→CRITIC→DONE transitions. Calls _stage_planner(), _stage_explorer(), _stage_execute(), _stage_verifier(). Coordinates agent runner invocation.
+   Key methods: run(), _stage_planner(), _stage_explorer(), _stage_replan(), _stage_diagnose(), _stage_critic()
+   Dependencies: event_bus, session_manager.py, storage/database.py, metrics_collector, AgentStateMachineController, _stage_* methods
+   State owned: plan_data, graph_context, verification_res, diagnostic_report, critic_summary, execution_result
+   Consumers: metrics_collector, event_bus, agent_runner callback
+
+F. Tool Authorization / Policy
+   Lines: 49-66
+   Description: enforce_tool_policy() method delegates to ToolPolicyEnforcer for tool policy enforcement. get_contract() method returns appropriate contract for task type.
+   Key methods: enforce_tool_policy(), get_contract(), create_task()
+   Dependencies: ToolPolicyEnforcer, TaskRouter, sdd_contract.task_contract
+   State owned: task_type for policy enforcement
+   Consumers: enforce_tool_policy() called from elsewhere
+
+G. Verification
+   Lines: 737-973
+   Description: _stage_verifier() checks syntax AST, linter Ruff, and suite of tasks-scoped tests. Returns detailed verification results including ast_status, tests_status, ruff_status, py_files_count, test_files_count, ast_errors, tests_passed, ruff_passed, program_passed, program_output, blocking_checks.
+   Key methods: _stage_verifier()
+   Dependencies: subprocess, git, os.walk, self.workspace_dir, ComplexityRiskEvaluator.build_contract(), pytest, ruff
+   State owned: ast_valid, ast_errors, tests_passed, ruff_passed, program_passed, blocking_checks
+   Consumers: run(), metrics_collector, event_bus, _stage_critic()
+
+H. Recovery
+   Lines: 423-433
+   Description: State machine handles recovery when verification fails. If verification fails and agent is in LEVEL_3_FEATURE or LEVEL_4_FULL with replans < max_replans, transitions to DIAGNOSE state. Otherwise goes to CRITIC→DONE.
+   Key methods: run()
+   Dependencies: ComplexityRiskEvaluator, VerificationEngine, Replanner, Diagnosis, Plan
+   State owned: replans_count, recovered_autonomously
+   Consumers: run()
+
+I. Checkpoint / Persistence
+   Lines: 221-263
+   Description: _save_checkpoint() persists state to SQLite (Source of Truth) and optionally exports to JSON (Legacy Export/Compatibility). Uses DatabaseManager for SQLite, session_manager.py for JSON. Two-tier authority: SQLite primary, JSON secondary.
+   Key methods: _save_checkpoint()
+   Dependencies: DatabaseManager, session_manager.py, storage/database.py, EventBus, Task
+   State owned: checkpoint data, execution_level, state, replans_count, failed_verification, plan_data, diagnostic_report
+   Consumers: run(), resume_session()
+
+J. Event Emission
+   Lines: 372-391, 439-444
+   Description: publish() calls on event_bus for STATE_ENTERED, STATE_EXITED, STATE_CHANGED events. Used for telemetry and monitoring across the agent lifecycle.
+   Key methods: run()
+   Dependencies: event_bus, session_id, current_state, execution_level
+   State owned: state transition events
+   Consumers: telemetry, monitoring, observability
+
+K. Diagnostics
+   Lines: 642-654
+   Description: _stage_diagnose() generates a RootCauseReport structuring the root cause of failures, failed assumptions, strategy changes, and whether reexploration is required.
+   Key methods: _stage_diagnose()
+   Dependencies: verification_res, user_goal
+   State owned: root_cause, failed_assumption, strategy_change, requires_reexploration
+   Consumers: run(), _stage_replan()
+
+L. Metrics / Benchmarking
+   Lines: 44-45, 344-370, 446-507
+   Description: metrics_collector.record_run() records execution metrics (time, task_type, execution_level, verification_results, replans_count, recovered_autonomously, kpis). AgentStateMachineController has metrics_collector attribute.
+   Key methods: record_run() (via metrics_collector)
+   Dependencies: metrics_collector, ExecutionLevel, user_goal, success, elapsed_seconds, replans_count
+   State owned: execution metrics, KPIs
+   Consumers: run() end, post-execution analysis
+
+M. Graph / AST Context
+   Lines: 669-707
+   Description: _stage_explorer() uses GraphContextEngine to build AST-guided context from the graphify-out graph. Task-type guided subgraph extraction per SPEC-013. Falls back to default context on exception.
+   Key methods: _stage_explorer()
+   Dependencies: GraphContextEngine, graphify-out/graph.json, user_goal, task_type
+   State owned: graph context string
+   Consumers: _stage_explorer() called from run()
+
+N. Prompt / Cognitive Directives
+   Lines: 69-86
+   Description: _get_phase_cognitive_directive() returns state-specific cognitive directives that guide the agent's thinking during each phase (PLAN, EXPLORE, EXECUTE, VERIFY, DIAGNOSE, REPLAN).
+   Key methods: _get_phase_cognitive_directive()
+   Dependencies: State enum
+   State owned: cognitive directive for current state
+   Consumers: _build_execution_prompt(), run()
+
+O. Error Handling
+   Lines: 26-38, 87-126, 260-263, 292-292
+   Description: Unicode-safe printing (_safe_print), silent Popen init (_silent_popen_init), checkpoint error handling (raises on SQLite failure, warns on JSON export failure), KeyboardInterrupt handling in main.
+   Key methods: _safe_print(), _silent_popen_init(), _save_checkpoint() error handling
+   Dependencies: subprocess, sys, print
+   State owned: error handling mode
+   Consumers: entire module
+
+P. Configuration
+   Lines: 46-47
+   Description: CODEAGENT_VERSION = "v4.4 Enterprise", CREATE_NO_WINDOW setup for Windows. ExecutionLevel and ExecutionLevel enums define the 4 execution levels.
+   Key methods: (none specific)
+   Dependencies: (none specific)
+   State owned: version string, execution level definitions
+   Consumers: throughout module

@@ -1,0 +1,137 @@
+# PHASE D0: GOD MODULE DECOMPOSITION
+# Responsibility Inventory - localcode_server.py
+
+print("=" * 70)
+print("PHASE D0: GOD MODULE DECOMPOSITION")
+print("Responsibility Inventory - localcode_server.py")
+print("=" * 70)
+
+with open('mis_agentes_inteligentes/localcode_server.py', 'r', errors='ignore') as f:
+    content = f.read()
+    lines = content.split('\n')
+
+responsibilities = {
+    "A. HTTP Server": {
+        "lines": "902-937",
+        "description": "ThreadedTCPServer class and main() function start a multithreaded HTTP server on localhost port 8000. Serves as the entry point for the desktop client connection. Uses TCPServer with ThreadingMixIn for concurrent request handling.",
+        "key_methods": ["main()", "ThreadedTCPServer"],
+        "dependencies": ["http.server", "socketserver.ThreadingMixIn", "socketserver.TCPServer", "os", "sys", "threading"],
+        "state_owned": ["server PID", "PORT", "OLLAMA_TARGET", "url", "browser auto-open flag"],
+        "consumers": ["desktop_app.py", "CodeAgent desktop UI"],
+    },
+    "B. Routing": {
+        "lines": "210-565",
+        "description": "LocalCodeProxyHandler class (http.server.SimpleHTTPRequestHandler) handles all HTTP GET/POST requests. Routes requests to specific handlers: health, SDD health, SSE events, OpenAPI spec, docs, agent chat, proxy to Ollama, terminal approval, tasks GET/POST, file operations, GitHub import. Each HTTP method maps to a specific handler function.",
+        "key_methods": ["do_GET()", "do_POST()", "handle_sse_events()", "proxy_to_ollama()", "check_local_ollama_health()"],
+        "dependencies": ["http.server.SimpleHTTPRequestHandler", "urllib.request", "urllib.parse", "json", "subprocess", "os", " threading", "time"],
+        "state_owned": ["request handling state", "connection metadata"],
+        "consumers": ["desktop_app.py", "CodeAgent backend", "web UI"],
+    },
+    "C. Static File Serving": {
+        "lines": "542-565",
+        "description": "_scan_folder() and related methods serve static file listing. The handler leverages Python's built-in http.server to serve files from the working directory. The original purpose was to serve localcode_claude_ui.html but the file reference was removed in C3.1.",
+        "key_methods": ["_scan_folder()", "handle_open_folder()", "handle_workspace_tree()"],
+        "dependencies": ["os", "fnmatch"],
+        "state_owned": ["file listing state"],
+        "consumers": ["desktop_app.py (legacy)"],
+    },
+    "D. SSE Streaming": {
+        "lines": "192-210",
+        "description": "handle_sse_events_dict() and handle_sse_events() manage Server-Sent Events connections for real-time pipeline event visualization. SSE connections allow the desktop UI to receive STATE_ENTERED, STATE_CHANGED, TOOL_EXECUTED, and TASK_COMPLETED/TASK_FAILED events in real-time during agent execution.",
+        "key_methods": ["handle_sse_events_dict()", "handle_sse_events()"],
+        "dependencies": ["urllib.request", "threading", "time"],
+        "state_owned": ["SSE connection state", "event buffers"],
+        "consumers": ["desktop_app.py (SSE visualization)"],
+    },
+    "E. Event Subscription": {
+        "lines": "192-210",
+        "description": "SSE event handler maintains EventSource connections and parses incoming events. Supports STATE_ENTERED, STATE_CHANGED, TOOL_EXECUTED, TASK_COMPLETED, TASK_FAILED event types. Enables real-time pipeline state visualization in the desktop UI.",
+        "key_methods": ["handle_sse_events_dict()"],
+        "dependencies": ["urllib.request", "json"],
+        "state_owned": ["SSE connection state", "event sequence"],
+        "consumers": ["desktop_app.py SSE visualization"],
+    },
+    "F. REST API": {
+        "lines": "192-565",
+        "description": "Full REST API surface including: GET /api/health, GET /api/pipeline/events, GET /api/pipeline/events?task_id=XYZ, GET /api/health, GET /api/server/shutdown, GET /api/openapi.json, GET /docs, POST /executer, POST /verify, GET /api/terminal_approve, GET /tasks GET/POST, POST /files/open, GET /workspace/tree, GET /save_file, GET /fs/open/file, GET /fs/open/folder, GET /github/import, POST /agent/chat, POST /proxy/to/Ollama, POST /terminal/approve, GET /github/repo, GET /workspace/tree, POST /save/file, various file operation endpoints.",
+        "key_methods": ["do_GET()", "do_POST()", "handle_health()", "handle_sdd_health()", "handle_sse_events()", "handle_agent_chat()", "proxy_to_ollama()", "handle_terminal_approve()", "handle_tasks_get()", "handle_tasks_post()", "handle_open_folder()", "handle_workspace_tree()", "handle_save_file()", "handle_fs_open_file_dialog()", "handle_fs_open_folder_dialog()", "handle_github_import()", "check_local_ollama_health()", "handle_metrics()", "handle_openapi_spec()", "handle_docs()"],
+        "dependencies": ["http.server", "json", "subprocess", "os", "threading", "time", "urllib.request", "urllib.parse"],
+        "state_owned": ["API response state"],
+        "consumers": ["desktop_app.py", "CodeAgent backend", "external tools"],
+    },
+    "G. Process Monitoring": {
+        "lines": "28-37",
+        "description": "Monitors parent process lifecycle. _is_parent_alive() checks if the parent process is still running. _start_parent_monitor() sets up a timer to monitor parent process death. Critical for cleanup when the parent process exits.",
+        "key_methods": ["_is_parent_alive()", "_start_parent_monitor()", "_monitor()"],
+        "dependencies": ["os", "signal", "threading", "time"],
+        "state_owned": ["parent process status", "monitoring state"],
+        "consumers": ["main()", "server lifecycle"],
+    },
+    "H. Parent Process Monitoring": {
+        "lines": "28-37",
+        "description": "Same as Process Monitoring - monitors whether the parent process ( launching the server) is still alive. If parent dies, server shuts down gracefully.",
+        "key_methods": ["_is_parent_alive()", "_start_parent_monitor()", "_monitor()"],
+        "dependencies": ["os", "signal", "threading", "time"],
+        "state_owned": ["parent process monitoring flag"],
+        "consumers": ["main()"],
+    },
+    "I. GUI / PowerShell Dialogs": {
+        "lines": "142-173",
+        "description": "PowerShell-style file dialogs: _ps_file_dialog(), _ps_folder_dialog(), _ps_save_dialog(). These use PowerShell commands to show file selection dialogs on Windows. Used for manual file operations through the server.",
+        "key_methods": ["_ps_file_dialog()", "_ps_folder_dialog()", "_ps_save_dialog()"],
+        "dependencies": ["subprocess", "powershell"],
+        "state_owned": ["dialog results"],
+        "consumers": ["manual file operations"],
+    },
+    "I. Workspace Interaction": {
+        "lines": "542-675",
+        "description": "Workspace file operations: _scan_folder(), handle_open_folder(), handle_workspace_tree(), handle_save_file(), handle_fs_open_file_dialog(), handle_fs_open_folder_dialog(). Manage file system operations within the workspace directory. List directory tree, open files, save files, manage file dialogs.",
+        "key_methods": ["_scan_folder()", "handle_open_folder()", "handle_workspace_tree()", "handle_save_file()", "handle_fs_open_file_dialog()", "handle_fs_open_folder_dialog()"],
+        "dependencies": ["os", "fnmatch", "json"],
+        "state_owned": ["workspace file state"],
+        "consumers": ["desktop_app.py", "agent operations"],
+    },
+    "J. Agent Interaction": {
+        "lines": "758-859",
+        "description": "Agent chat and interaction handlers: check_local_ollama_health(), handle_agent_chat(), proxy_to_ollama(). Manage Ollama LLM integration, chat routing, and proxy connections to the Ollama backend.",
+        "key_methods": ["check_local_ollama_health()", "handle_agent_chat()", "proxy_to_ollama()"],
+        "dependencies": ["urllib.request", "os", "subprocess", "threading", "time", "sdd_contract"],
+        "state_owned": ["Ollama health status", "chat state"],
+        "consumers": ["desktop_app.py", "agent chat operations"],
+    },
+    "K. Serialization": {
+        "lines": "192-565",
+        "description": "All API responses are serialized via _send_json() and _get_post_body(). JSON encoding/decoding for all API endpoints. Consistent response format across all endpoints.",
+        "key_methods": ["_send_json()", "_get_post_body()"],
+        "dependencies": ["json"],
+        "state_owned": ["serialization format"],
+        "consumers": ["all API endpoints"],
+    },
+    "L. Error Handling": {
+        "lines": "87-126, 920-924",
+        "description": "Error handling across all endpoints. try/except blocks throughout. _safe_print() for Unicode-safe printing. sys.exit(1) on fatal errors. Graceful degradation on errors. Various error responses returned as JSON with status codes.",
+        "key_methods": ["_safe_print()", "error handling in do_GET()/do_POST()"],
+        "dependencies": ["traceback", "sys", "_safe_print()"],
+        "state_owned": ["error state"],
+        "consumers": ["all API clients"],
+    },
+    "M. Configuration": {
+        "lines": "4-6",
+        "description": "Server configuration: serves localcode_claude_ui.html (removed in C3.1), proxy to Ollama at http://localhost:11434, PORT configuration, multithreaded server setup. Originally served the deleted HTML file but adapted to current architecture.",
+        "key_methods": ["main()"],
+        "dependencies": ["os", "sys", "http.server", "socketserver"],
+        "state_owned": ["PORT", "OLLAMA_TARGET", "server configuration"],
+        "consumers": ["main()", "desktop_app.py"],
+    },
+}
+
+for name, data in responsibilities.items():
+    print(f"\n{name}")
+    print(f"  Lines: {data['lines']}")
+    print(f"  Key methods: {', '.join(data['key_methods'])}")
+    print(f"  Dependencies: {', '.join(data['dependencies'][:3])}...")
+    print(f"  State owned: {data['state_owned'][:2]}")
+    print(f"  Consumers: {data['consumers'][0]}")
+
+print("\n" + "=" * 70)
+PYEOF

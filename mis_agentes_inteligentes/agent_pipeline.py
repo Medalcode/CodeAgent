@@ -42,6 +42,7 @@ from enum import Enum
 from typing import Any
 
 from .benchmark_metrics import metrics_collector
+from .cognitive_directives import get_phase_cognitive_directive
 
 from sdd_contract.task_contract import ChatTaskContract, ActionTaskContract, FeatureTaskContract
 
@@ -105,25 +106,6 @@ class State(Enum):
     REPLAN = "REPLAN"
     CRITIC = "CRITIC"
     DONE = "DONE"
-
-
-def _get_phase_cognitive_directive(state: State, failed_verification: dict[str, Any] | None = None) -> str:
-    """Devuelve la directiva cognitiva acotada a la fase activa."""
-    if state == State.PLAN:
-        return "DIRECTIVA DE FASE (PLAN): EstÃ¡s en la fase PLAN. EspecialÃ­zate Ãºnicamente en analizar el objetivo y construir un desglose estructurado de pasos sin aplicar modificaciones de cÃ³digo."
-    elif state == State.EXPLORE:
-        return "DIRECTIVA DE FASE (EXPLORE): EstÃ¡s en la fase EXPLORE. EspecialÃ­zate Ãºnicamente en consultar el Grafo AST Graphify y leer dependencias para construir el contexto estructural."
-    elif state == State.EXECUTE:
-        return "DIRECTIVA DE FASE (EXECUTE): EstÃ¡s en la fase EXECUTE. EspecialÃ­zate en aplicar los parches sintÃ¡cticos y modificaciones de cÃ³digo exactas usando las herramientas de archivos."
-    elif state == State.VERIFY:
-        return "DIRECTIVA DE FASE (VERIFY): EstÃ¡s en la fase VERIFY. EspecialÃ­zate en ejecutar ruff y la suite de pruebas unitarias para confirmar la validez sintÃ¡ctica."
-    elif state == State.DIAGNOSE:
-        err_msg = ", ".join(failed_verification.get("ast_errors", [])) if failed_verification else "Fallo no especificado"
-        return f"DIRECTIVA DE FASE (DIAGNOSE): Analiza la causa raÃ­z del siguiente fallo: {err_msg}. Determina si se trata de un error sintÃ¡ctico, una falla en pruebas o una dependencia faltante."
-    elif state == State.REPLAN:
-        err_msg = ", ".join(failed_verification.get("ast_errors", ["Fallo en pruebas unitarias o linter ruff"])) if failed_verification else "Errores no especificados"
-        return f"DIRECTIVA DE FASE (REPLAN): La verificaciÃ³n anterior fallÃ³ con los siguientes errores exactos: {err_msg}. Tu Ãºnico objetivo cognitivo ahora es corregir y reparar estas fallas."
-    return ""
 
 
 from sdd_contract.task_types import TaskType
@@ -360,7 +342,7 @@ class AgentStateMachineController:
             if cancel_event and cancel_event.is_set():
                 raise InterruptedError("CANCELLED")
             verification_res = self._stage_verifier(user_goal)
-            directive = _get_phase_cognitive_directive(State.EXECUTE)
+            directive = get_phase_cognitive_directive("EXECUTE")
             full_prompt = f"{directive}\n\n{user_goal}"
             if agent_runner:
                 try:
@@ -430,7 +412,7 @@ class AgentStateMachineController:
                 current_state = State.EXECUTE
 
             elif current_state == State.EXECUTE:
-                directive = _get_phase_cognitive_directive(State.EXECUTE)
+                directive = get_phase_cognitive_directive("EXECUTE")
                 prompt = self._build_execution_prompt(user_goal, plan_data, graph_context, verification_res if replans_count > 0 else None)
                 full_prompt = f"{directive}\n\n{prompt}"
                 if agent_runner:

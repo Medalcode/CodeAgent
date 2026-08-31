@@ -1,0 +1,84 @@
+# PHASE D0: EXTRACTION CANDIDATES
+
+# SAFE EXTRACTION (Grade A)
+# These can be extracted with low risk
+
+1. State Machine Interface
+   Responsibility: State machine lifecycle management (run(), resume_session(), state transitions)
+   Current Location: agent_pipeline.py: AgentStateMachineController
+   Consumers: run(), metrics_collector, event_bus
+   Dependencies: ExecutionLevel, State, TaskContract, ComplexityRiskEvaluator
+   Proposed Interface: task_type, execution_level, current_state, replans_count
+   Expected Benefit: Extract state machine logic into separate module; pipeline becomes thin orchestrator
+
+2. Task Contract Bridge
+   Responsibility: _ContractWrapper and build_contract() canonical contract creation
+   Current Location: agent_pipeline.py: ComplexityRiskEvaluator.build_contract() + _ContractWrapper
+   Consumers: run(), _stage_verifier()
+   Dependencies: sdd_contract.task_contract, TaskType, ExecutionLevel
+   Proposed Interface: contract instance with task_type, execution_level, requires_*, tools_allowed, files_allowed
+   Expected Benefit: Move canonical contract logic out of pipeline; pipeline uses sdd_contract directly
+
+# CONTROLLED EXTRACTION (Grade B)
+# These require tests additional and adaptation
+
+3. Cognitive Directives
+   Responsibility: _get_phase_cognitive_directive() state-specific directives
+   Current Location: agent_pipeline.py: Lines 69-86
+   Consumers: run(), _build_execution_prompt()
+   Dependencies: State enum
+   Proposed Interface: cognitive directive string for each state (PLAN, EXPLORE, EXECUTE, VERIFY, DIAGNOSE, REPLAN)
+   Expected Benefit: Low risk - self-contained directive generation; could be extracted
+
+# DEFER (Grade C)
+# These exist but have too much coupling to extract safely now
+
+4. Checkpoint/Persistence
+   Responsibility: _save_checkpoint() and persistence logic
+   Current Location: agent_pipeline.py: _save_checkpoint()
+   Consumers: run(), resume_session()
+   Dependencies: DatabaseManager, session_manager.py, storage/database.py, EventBus, Task
+   Proposed Interface: checkpoint data, execution_level, state, replans_count, failed_verification, plan_data, diagnostic_report
+   Expected Benefit: Important functionality but dual ownership (SQLite vs JSON) and critical to C3.1; postpone
+
+5. Task Classification
+   Responsibility: ComplexityRiskEvaluator.classify_with_router() and .evaluate()
+   Current Location: agent_pipeline.py: ComplexityRiskEvaluator
+   Consumers: build_contract(), run()
+   Dependencies: TaskRouter, sdd_contract.task_types.TaskType, ExecutionLevel, chat/feature/feature keywords
+   Proposed Interface: execution_level, task_type determination
+   Expected Benefit: Core pipeline functionality; extracting would change fundamental pipeline behavior
+
+# DO NOT EXTRACT (Grade D)
+# These would worsen the architecture if extracted
+
+6. State Machine Orchestration
+   Responsibility: The full run() method with state transitions PLAN→EXPLORE→EXECUTE→VERIFY→CRITIC→DONE
+   Current Location: agent_pipeline.py: AgentStateMachineController.run()
+   Consumers: All pipeline operations
+   Dependencies: ExecutionLevel, State, TaskContract, ComplexityRiskEvaluator, session_manager, storage/db
+   Proposed Interface: Full state machine lifecycle
+   Expected Benefit: N/A - Extracting would fragment the core pipeline; the state machine is the pipeline's heart
+
+# Analysis Summary
+
+GRADE A (SAFE EXTRACT): 2 candidates
+  - State Machine Interface: Extract state machine mechanics while keeping pipeline orchestration
+  - Task Contract Bridge: Move canonical contract logic to sdd_contract (ALREADY DONE in C3.3)
+
+GRADE B (CONTROLLED): 1 candidate
+  - Cognitive Directives: Extract phase-specific directive generation
+
+GRADE C (DEFER): 2 candidates
+  - Checkpoint/Persistence: Critical C3.1 feature, dual ownership design
+  - Task Classification: Core pipeline behavior
+
+GRADE D (DO NOT EXTRACT): 1 candidate
+  - State Machine Orchestration: The run() method is the pipeline's heart
+
+OVERALL ASSESSMENT:
+- 2 safe extractions possible immediately (C3.3 already handled Task Contract Bridge)
+- 1 controlled extraction feasible with test adaptation
+- 3 should be deferred or avoided
+- No extractions should target the core state machine orchestration
+- Cross-cutting concerns (error handling, configuration, serialization) should remain as utilities

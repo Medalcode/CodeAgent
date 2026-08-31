@@ -1,0 +1,125 @@
+# PHASE D0: GOD MODULE DECOMPOSITION
+# Responsibility Inventory - tools.py
+
+print("=" * 70)
+print("PHASE D0: GOD MODULE DECOMPOSITION")
+print("Responsibility Inventory - tools.py")
+print("=" * 70)
+
+with open('mis_agentes_inteligentes/tools.py', 'r', errors='ignore') as f:
+    content = f.read()
+    lines = content.split('\n')
+
+responsibilities = {
+    "A. Filesystem Operations": {
+        "lines": "320-375",
+        "description": "Core filesystem operations: leer_archivo_local(), escribir_archivo_local(), _atomic_write_file(), listar_directorio_local(). Read, write, and list files locally. _atomic_write_file() provides crash-safe writes with temp file + atomic rename. All operations work within the workspace directory.",
+        "key_methods": ["leer_archivo_local()", "escribir_archivo_local()", "_atomic_write_file()", "listar_directorio_local()"],
+        "dependencies": ["os", "_verificar_sintaxis_post_edicion()"],
+        "state_owned": ["file contents", "file listings", "atomic write state"],
+        "consumers": ["agent_pipeline.py", "localcode_server.py", "agent operations"],
+    },
+    "B. Terminal Execution": {
+        "lines": "398-418",
+        "description": "ejecutar_comando_terminal() executes shell commands in a specified directory. Captures stdout/stderr and exit code. Used by the agent to execute terminal commands as part of its operation. Integral to ACTION task type execution.",
+        "key_methods": ["ejecutar_comando_terminal()"],
+        "dependencies": ["os", "subprocess"],
+        "state_owned": ["command output", "exit code", "command execution state"],
+        "consumers": ["agent_pipeline.py ACTION tasks"],
+    },
+    "C. Code Execution": {
+        "lines": "398-418",
+        "description": "Same as Terminal Execution - ejecutar_comando_terminal() can execute Python code files. Integral to ACTION task type when execution is required. Distinction between 'terminal execution' and 'code execution' is subtle; both use the same underlying mechanism.",
+        "key_methods": ["ejecutar_comando_terminal()"],
+        "dependencies": ["os", "subprocess"],
+        "state_owned": ["command output", "exit code"],
+        "consumers": ["agent_pipeline.py ACTION tasks with execution"],
+    },
+    "D. Syntax Verification": {
+        "lines": "340-355",
+        "description": "_verificar_sintaxis_post_edicion() verifies syntax after file editing. Parses Python AST to check for syntax errors in newly edited files. Integral to the verification pipeline after file modifications.",
+        "key_methods": ["_verificar_sintaxis_post_edicion()"],
+        "dependencies": ["ast"],
+        "state_owned": ["syntax verification result"],
+        "consumers": ["agent_pipeline.py verification pipeline"],
+    },
+    "E. Workspace Context": {
+        "lines": "19-38, 219-228, 500-503, 638-653",
+        "workspace context management: set_active_workspace(), get_active_workspace(), get_terminal_tasks_buffer(), clear_terminal_tasks_buffer(). Manage the active workspace path and the terminal tasks buffer (commands executed during the current session). Essential for tracking what has been executed and maintaining session state.",
+        "key_methods": ["set_active_workspace()", "get_active_workspace()", "get_terminal_tasks_buffer()", "clear_terminal_tasks_buffer()"],
+        "dependencies": ["os"],
+        "state_owned": ["active workspace path", "terminal tasks buffer"],
+        "consumers": ["agent_pipeline.py, metrics_collector"],
+    },
+    "F. Thread Safety": {
+        "lines": "39-51",
+        "description": "PermissionLevel enum (CRITICAL, HIGH, MEDIUM, LOW, NONE) and check_tool_permission() enforce hierarchical permission levels for tool operations. Determines which tools can be used based on the current permission level. Integral to HITL (Human-In-The-Loop) permission system.",
+        "key_methods": ["check_tool_permission()", "PermissionLevel enum"],
+        "dependencies": [],
+        "state_owned": ["current permission level", "tool access control"],
+        "consumers": ["agent_pipeline.py, enforce_tool_policy()"],
+    },
+    "G. HITL Permissions": {
+        "lines": "19-38, 732-735",
+        "description": "pre_approve_command() and is_command_approved() implement Human-In-The-Loop command approval. Commands can be pre-approved or require explicit approval. Commands lists with sensitive operations (shell, file creation, execution) are flagged and require approval before execution.",
+        "key_methods": ["pre_approve_command()", "is_command_approved()"],
+        "dependencies": [],
+        "state_owned": ["command approval state"],
+        "consumers": ["agent_pipeline.run()"],
+    },
+    "I. GitHub Integration": {
+        "lines": "119-200",
+        "description": "GitHub repository operations: _make_github_request(), _resolver_nombre_repo(), consultar_github(), leer_repositorio_github(), leer_archivo_github(). Fetch repository data, list files, read file contents from GitHub. Used for external repository operations.",
+        "key_methods": ["_make_github_request()", "consultar_github()", "leer_repositorio_github()", "leer_archivo_github()"],
+        "dependencies": ["requests"],
+        "state_owned": ["GitHub API state", "repository data"],
+        "consumers": ["external GitHub operations"],
+    },
+    "J. Tool Registry": {
+        "lines": "39-51, 512-539",
+        "description": "Consultar en internet query: buscar_en_internet() performs internet searches. set_active_workspace()/get_active_workspace() manage the workspace path. Part of the tool system's self-description and capability enumeration.",
+        "key_methods": ["buscar_en_internet()", "set_active_workspace()", "get_active_workspace()"],
+        "dependencies": ["os"],
+        "state_owned": ["search capability", "workspace path"],
+        "consumers": ["agent operations requiring internet"],
+    },
+    "K. Serialization": {
+        "lines": "51-52",
+        "description": "Minimal serialization - functions return strings, enums are serialized via their .value. No complex serialization frameworks used. Functions primarily operate on strings and enums.",
+        "key_methods": (None),
+        "dependencies": [],
+        "state_owned": (None),
+        "consumers": (None),
+    },
+    "L. Error Handling": {
+        "lines": "16, 340-355, 398-418, 732-735",
+        "description": "Error handling throughout: _silent_popen_init (from agent_pipeline.py imported context), try/except in file operations, command execution error handling, command approval system. Graceful degradation on failures.",
+        "key_methods": (None),
+        "dependencies": [],
+        "state_owned": (None),
+        "consumers": (None),
+    },
+    "M. Configuration": {
+        "lines": "4-5",
+        "description": "Module-level configuration and constants. PermissionLevel enum defines the 5 permission tiers. Functions operate on workspace path and GitHub tokens.",
+        "key_methods": (None),
+        "dependencies": [],
+        "state_owned": ["PermissionLevel enum", "workspace path management"],
+        "consumers": (None),
+    },
+}
+
+for name, data in responsibilities.items():
+    print(f"\n{name}")
+    print(f"  Lines: {data['lines']}")
+    if data['key_methods']:
+        print(f"  Key methods: {', '.join(data['key_methods'])}")
+    else:
+        print(f"  Key methods: (none specified)")
+    deps = data['dependencies']
+    print(f"  Dependencies: {', '.join(deps[:3])}..." if deps else "  Dependencies: (none)")
+    print(f"  State owned: {data['state_owned'][:2]}" if data['state_owned'] else "  State owned: (none)")
+    print(f"  Consumers: {data['consumers'][0]}" if data['consumers'] else "  Consumers: (none)")
+
+print("\n" + "=" * 70)
+PYEOF

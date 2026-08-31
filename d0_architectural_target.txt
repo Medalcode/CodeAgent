@@ -1,0 +1,64 @@
+# PHASE D0: ARCHITECTURAL TARGET PROPOSAL
+
+## Conceptual Target Architecture
+
+**NOTE**: This is a PROPOSAL only - NO code modifications, NO module creation, NO restructuring.
+
+## Current Architecture (Post-C3.3)
+
+The canonical architecture established in C3.1-C3.3 has these layers:
+
+```
+UI (Desktop PyWebView app)
+    ↓
+Server (localcode_server.py - HTTP + SSE)
+    ↓
+Pipeline (agent_pipeline.py - StateMachineController)
+    ↓
+Contracts & Policies (sdd_contract.task_contract, sdd_contract.task_types - THE AUTHORITY)
+    ↓
+Verification & Risk (ComplexityRiskEvaluator, VerificationEngine)
+    ↓
+Storage & Runtime (DatabaseManager, session_manager.py, storage/database.py, event_bus)
+    ↓
+Tools (filesystem, terminal, syntax verification - mis_agentes_inteligentes.tools)
+    ↓
+Graphify (graphify-out/graph.json - optional AST context)
+```
+
+## Proposed Target Architecture (Conceptual)
+
+The target should refine the current architecture without fragmenting the core state machine:
+
+```
+                     +----------------------+
+                     |        UI Layer      |
+                     |  (desktop PyWebView) |
+                     +----------------------+
+                               |
+                               v
+          +----------------------+                    +----------------------+
+          |   infra Layer        |                    |  domain Layer        |
+          | (http, SSE, file    |                    | (sdd_contract,       |
+          |   serving, OAuth)   |                    |  task contracts)     |
+          +----------------------+                    +----------------------+
+                               |
+                               v
+          +----------------------+                    +----------------------+
+          |   pipeline Layer     |                    |  infrastructure Layer|
+          | (AgentStateMachineC) |                    | (DatabaseManager,     |
+          |   state orchestration)|                    |  session_manager,    |
+          +----------------------+                    |  storage/db)         |
+          +----------------------+                                    +----------+         |
+                               |                                           |            |           |
+                               v                                           v            v           v
+                      +-----------------+                +-----------------+   +-----------------+
+                      |  tools Layer    |                |  graphify Layer  |   |  UI Interaction |
+                      | (tools.py)      |                | (graphify-out)   |   | (desktop_app)   |
+                      +-----------------+                +-----------------+   +-----------------+
+
+Key principles (NOT to be implemented in D0):
+- sdd_contract remains the UNIFIED authority for TaskType and TaskContract
+- AgentStateMachineController stays as the pipeline's state orchestrator
+- No God Module restructuring - decomposition must be Grade A extractions only
+- All extractions must preserve backward compatibility and test coverage

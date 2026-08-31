@@ -1,0 +1,109 @@
+# PHASE D0: MIGRATION ORDER PROPOSAL
+
+## Migration Order: SAFE FIRST → CONTROLLED → HIGH RISK
+
+The guiding principle: "Never start by the most complex extraction."
+
+### Phase 1: SAFE EXTRACTIONS (Grade A)
+
+**1. Task Contract Bridge** (ALREADY COMPLETED in C3.3)
+- What: Move canonical TaskContract logic from agent_pipeline.py to sdd_contract
+- What was done: _ContractWrapper created, build_contract() now returns canonical contracts
+- Risk: LOW - already completed in C3.3
+- Tests required: test_task_contract_canonical.py (9 tests pass)
+- Rollback: Revert _ContractWrapper and rebuild_contract() changes
+- Architectural improvement: sdd_contract becomes sole TaskContract authority
+
+**2. Cognitive Directives Extraction** (Grade B)
+- What: Extract _get_phase_cognitive_directive() into separate module
+- What: Move directive generation out of agent_pipeline.py
+- Risk: LOW - self-contained directive generation
+- Tests required: Update existing tests to import from new module
+- Rollback: Keep directives in agent_pipeline.py, import from new module
+- Architectural improvement: Separates cognitive logic from state machine orchestration
+
+### Phase 2: CONTROLLED EXTRACTION (Grade B → C)
+
+**3. Checkpoint/Persistence Module** (Grade C → defer)
+- What: Extract _save_checkpoint() persistence logic
+- What: Move SQLite/JSON checkpoint logic to separate module
+- Risk: MEDIUM - dual ownership (SQLite primary, JSON legacy per C3.1)
+- Tests required: Ensure checkpoint round-trip tests pass
+- Rollback: Keep checkpoint logic in agent_pipeline.py
+- Architectural improvement: Separate persistence concern from state orchestration
+- Decision: FERR - critical to C3.1 design; postpone to D1 or later
+
+**4. Task Classification** (Grade C → defer)
+- What: Extract ComplexityRiskEvaluator.classify_with_router() and .evaluate()
+- What: Move task classification logic to separate module
+- Risk: HIGH - core pipeline behavior; changing classification rules is dangerous
+- Tests required: extensive test coverage of all classification paths
+- Rollback: Keep classification in agent_pipeline.py
+- Architectural improvement: Would fragment fundamental pipeline behavior
+- Decision: FERR - postpone indefinitely
+
+### Phase 3: DO NOT EXTRACT (Grade D)
+
+**5. State Machine Orchestration** (Grade D)
+- What: Extract the full run() method with state transitions
+- What: Move PLAN→EXPLORE→EXECUTE→VERIFY→CRITIC→DONE logic to separate module
+- Risk: CRITICAL - would fragment the pipeline's heart
+- Tests required: N/A - do not attempt
+- Rollback: N/A
+- Architectural improvement: N/A - would worsen architecture
+- Decision: ABSOLUTELY DO NOT EXTRACT - the state machine IS the pipeline
+
+### Phase 4: POSTPONE INDEFINIENTLY
+
+**5. b. GUI/PowerShell Dialogs** (Grade D)
+- What: Extract PowerShell file dialogs from localcode_server.py
+- What: Move _ps_file_dialog(), _ps_folder_dialog(), _ps_save_dialog() to separate module
+- Risk: LOW (Windows-specific, rarely used)
+- Tests required: None currently for these functions
+- Rollback: Keep in localcode_server.py
+- Architectural improvement: Would remove Windows-specific code from core server
+- Decision: DEFER - Windows-specific, low priority
+
+**6. Static File Serving** (Grade D)
+- What: Extract _scan_folder() and static file handlers from localcode_server.py
+- What: Move file serving logic to separate module
+- Risk: LOW - legacy functionality removed in C3.1
+- Tests required: None currently
+- Rollback: Keep in localcode_server.py
+- Architectural improvement: Clean up legacy code
+- Decision: DEFER - legacy from before C3.1, HTML file removed
+
+### Summary Migration Order
+
+| Priority | Extraction | Risk | Action |
+|----------|-----------|------|--------|
+| 1A | Task Contract Bridge | LOW | DONE (C3.3) |
+| 1B | Cognitive Directives | LOW | Plan for D1 |
+| 2 | Checkpoint/Persistence | MEDIUM | FERR (postpone) |
+| 3 | Task Classification | HIGH | FERR (postpone) |
+| 4 | State Machine Orchestration | CRITICAL | ABSOLUTELY DO NOT |
+| 4a | GUI/PowerShell Dialogs | LOW | FERR (defer) |
+| 4b | Static File Serving | LOW | FERR (defer, legacy) |
+
+**Key Rule**: Never start by the most complex extraction. Begin with Grade A safe extractions, progress to Grade B controlled extractions, and avoid Grades C/D entirely during D0.
+
+### Test Strategy for Extractions
+
+- **Grade A extractions**: Must have test coverage BEFORE extraction; migration tests verify behavior preservation
+- **Grade B extractions**: Existing tests must pass; new tests in new module; migration tests
+- **Grade C/D extractions**: Do not attempt during D0; document as technical debt for D1+
+
+## Rollback Strategy
+
+For each extraction:
+1. **Version control**: git tag before extraction
+2. **Behavior tests**: Run full pytest suite before and after
+3. **Contract tests**: Verify sdd_contract authority preserved
+4. **Rollback command**: `git reset --hard <tag>`
+5. **Verification**: SDD check must still PASS
+
+## Expected Architectural Improvements
+
+- Grade A extractions: Cleaner separation of concerns; sdd_contract as sole canonical authority
+- Grade B extractions: Modularize self-contained concerns; improve code organization
+- Avoid Grades C/D: Preserve pipeline integrity; avoid fragmentation that would increase coupling

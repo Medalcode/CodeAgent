@@ -110,8 +110,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/agent_pipeline.py": {
-    "mtime": 1788127999.1321423,
-    "ast_hash": "2feb29c8ea6f7e76ce63d0745b9a7131",
+    "mtime": 1788132658.9664383,
+    "ast_hash": "93717b8ad5d38e6a74f04ca524b375d5",
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/claude_code_cli.py": {
@@ -850,8 +850,78 @@
     "semantic_hash": ""
   },
   "test_output.txt": {
-    "mtime": 1788127386.9763434,
-    "ast_hash": "1f3d01cb10062721fef314e22b96c0e6",
+    "mtime": 1788134691.2865677,
+    "ast_hash": "1b085313abc2037836f042cd0f205cc2",
+    "semantic_hash": ""
+  },
+  "mis_agentes_inteligentes/cognitive_directives.py": {
+    "mtime": 1788132592.3913858,
+    "ast_hash": "59b0cd3d47db111ece681b68a6c35c24",
+    "semantic_hash": ""
+  },
+  "tests/test_cognitive_directives.py": {
+    "mtime": 1788134609.6516185,
+    "ast_hash": "cca2e1394c3bfcb84947d1c639c1a9c5",
+    "semantic_hash": ""
+  },
+  "TASK_CONTRACT_CANONICALIZATION_REPORT.md": {
+    "mtime": 1788128219.5100648,
+    "ast_hash": "77b79f72edb6f1ed0cc3ba1aeea01a9f",
+    "semantic_hash": ""
+  },
+  "d0_analysis_agent_pipeline.txt": {
+    "mtime": 1788129731.6440423,
+    "ast_hash": "2fdff853714a1c198875474e0335fe40",
+    "semantic_hash": ""
+  },
+  "d0_analysis_localcode_server.txt": {
+    "mtime": 1788129817.6483784,
+    "ast_hash": "d8ef1d04250dcf6613dbdd3ee115f210",
+    "semantic_hash": ""
+  },
+  "d0_analysis_tools.txt": {
+    "mtime": 1788129872.0522783,
+    "ast_hash": "57b2d686c8667744b89b753a3574d129",
+    "semantic_hash": ""
+  },
+  "d0_anti_patterns.txt": {
+    "mtime": 1788130309.556391,
+    "ast_hash": "530d049a85ae2761b7cb15d0068e2a5b",
+    "semantic_hash": ""
+  },
+  "d0_architectural_target.txt": {
+    "mtime": 1788130233.7287724,
+    "ast_hash": "6fe152b4f2ccd4d4a5f09adea1a53195",
+    "semantic_hash": ""
+  },
+  "d0_cohesion_tools.txt": {
+    "mtime": 1788129999.6657429,
+    "ast_hash": "f75fc1411aeec8adc03f835f468809c9",
+    "semantic_hash": ""
+  },
+  "d0_extraction_candidates.txt": {
+    "mtime": 1788130166.4410732,
+    "ast_hash": "2a0fdc4bdb00cc1773e0820734cbe14d",
+    "semantic_hash": ""
+  },
+  "d0_god_module_audit.md": {
+    "mtime": 1788131128.8474803,
+    "ast_hash": "058290998d98de28c45971e1afc198f0",
+    "semantic_hash": ""
+  },
+  "d0_god_module_score.txt": {
+    "mtime": 1788130186.0413365,
+    "ast_hash": "8cb35b07ad92bba872a1dc0d9557bb17",
+    "semantic_hash": ""
+  },
+  "d0_mermaid_diagrams.txt": {
+    "mtime": 1788131152.0774052,
+    "ast_hash": "b6e907b2c36e9afcc46ce7c9fd9d341b",
+    "semantic_hash": ""
+  },
+  "d0_migration_order.txt": {
+    "mtime": 1788130267.083265,
+    "ast_hash": "b7a75fa5a4017dbb26bb79c7704d86f6",
     "semantic_hash": ""
   }
 }

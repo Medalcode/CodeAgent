@@ -1,0 +1,52 @@
+# Mermaid Diagrams for D0 God Module Audit
+
+%% Dependency Direction
+graph TD
+    UI -->|HTTP Requests| Server[localcode_server.py]
+    Server -->|Pipeline Calls| Pipeline[agent_pipeline.py]
+    Pipeline -->|Uses Contracts| sdd_contract[sdc_contract/]
+    Pipeline -->|Uses Tools| tools[mis_agentes_inteligentes/tools.py]
+    Pipeline -->|Uses Graph| graphify[graphify-out/]
+    Pipeline -->|Persists| storage[storage/database.py]
+    Pipeline -->|Events| event_bus[EventBus]
+
+    style sdd_contract fill:#cfe2f3,stroke:#333,stroke-width:2px
+    style agent_pipeline fill:#f8d7da,stroke:#333,stroke-width:2px
+    style localcode_server fill:#f8d7da,stroke:#333,stroke-width:2px
+    style tools fill:#f8d7da,stroke:#333,stroke-width:2px
+    style graphify fill:#d1e7dd,stroke:#333,stroke-width:2px
+
+    %% Responsibility Clusters
+    subgraph God_Modules [God Modules]
+        direction TB
+        A1[agent_pipeline.py<br/>State Machine + Task Contract<br/>HIGH cohesion/LOW coupling]
+        A2[localcode_server.py<br/>HTTP + SSE + REST<br/>HIGH cohesion for Server+SSE]
+        A3[tools.py<br/>FS + Terminal + Syntax<br/>HIGH cohesion for core ops]
+    end
+
+    %% State Ownership
+    subgraph Ownership [State Ownership]
+        direction LR
+        CT[current task<br/>AgentStateMachineController]
+        TC[task contract<br/>sdd_contract (canonical)<br/>✓ resolved C3.3]
+        AS[agent state<br/>AgentStateMachineController]
+        CK[checkpoint<br/>SQLite primary, JSON legacy]
+        SN[session<br/>SQLite primary, JSON legacy]
+        EB[EventBus]
+        VE[verification evidence]
+        RS[risk state<br/>ComplexityRiskEvaluator]
+        TP[tool permissions<br/>PermissionLevel + check_tool_permission()]
+        UI[UI state<br/>desktop_app.py + SSE]
+        PS[process state<br/>ThreadedTCPServer / main()]
+        
+        CT -->|single owner| OK
+        TC -->|dual ownership resolved<br/>C3.3: sdd_contract canonical| OK
+        AS -->|single owner| OK
+        CK-->|dual per C3.1 design| OK
+        SN-->|dual per C3.1 design| OK
+        EB-->|single owner| OK
+        VE-->|single owner| OK
+        RS-->|single owner| OK
+        TP-->|shared but controlled| OK (with PermissionLevel)
+        UI-->|single owner| OK
+        PS-->|single owner| OK
