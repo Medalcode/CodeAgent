@@ -579,6 +579,586 @@
     z-index: 10;
   }
   .status-left, .status-right { display: flex; align-items: center; gap: 14px; }
+
+    #toastContainer {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .toast-msg {
+      background: var(--bg-elevated);
+      border-left: 4px solid var(--accent);
+      color: var(--text-bright);
+      padding: 12px 16px;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      font-size: 13px;
+      min-width: 250px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .toast-msg.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .toast-msg.error { border-left-color: var(--red); }
+    .toast-msg.success { border-left-color: var(--teal); }
+    
+    .execution-log {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 11px;
+      color: var(--text-muted);
+      max-height: 120px;
+      overflow-y: auto;
+      background: #0d1117;
+      border-radius: 4px;
+      padding: 6px;
+      border: 1px solid var(--border);
+    }
+    .execution-log li {
+      margin-bottom: 2px;
+      font-family: var(--mono);
+    }
+    .execution-log li .ts { color: #8b949e; margin-right: 6px; }
+    .badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+    .badge-success { background: rgba(35, 134, 54, 0.2); color: #3fb950; border: 1px solid rgba(35, 134, 54, 0.4); }
+    .badge-fail { background: rgba(218, 54, 51, 0.2); color: #ff7b72; border: 1px solid rgba(218, 54, 51, 0.4); }
+
+    #toastContainer {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .toast-msg {
+      background: var(--bg-elevated);
+      border-left: 4px solid var(--accent);
+      color: var(--text-bright);
+      padding: 12px 16px;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      font-size: 13px;
+      min-width: 250px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .toast-msg.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .toast-msg.error { border-left-color: var(--red); }
+    .toast-msg.success { border-left-color: var(--teal); }
+    
+    .execution-log {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 11px;
+      color: var(--text-muted);
+      max-height: 120px;
+      overflow-y: auto;
+      background: #0d1117;
+      border-radius: 4px;
+      padding: 6px;
+      border: 1px solid var(--border);
+    }
+    .execution-log li {
+      margin-bottom: 2px;
+      font-family: var(--mono);
+    }
+    .execution-log li .ts { color: #8b949e; margin-right: 6px; }
+    .badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+    .badge-success { background: rgba(35, 134, 54, 0.2); color: #3fb950; border: 1px solid rgba(35, 134, 54, 0.4); }
+    .badge-fail { background: rgba(218, 54, 51, 0.2); color: #ff7b72; border: 1px solid rgba(218, 54, 51, 0.4); }
+
+    #toastContainer {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .toast-msg {
+      background: var(--bg-elevated);
+      border-left: 4px solid var(--accent);
+      color: var(--text-bright);
+      padding: 12px 16px;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      font-size: 13px;
+      min-width: 250px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .toast-msg.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .toast-msg.error { border-left-color: var(--red); }
+    .toast-msg.success { border-left-color: var(--teal); }
+    
+    .execution-log {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 11px;
+      color: var(--text-muted);
+      max-height: 120px;
+      overflow-y: auto;
+      background: #0d1117;
+      border-radius: 4px;
+      padding: 6px;
+      border: 1px solid var(--border);
+    }
+    .execution-log li {
+      margin-bottom: 2px;
+      font-family: var(--mono);
+    }
+    .execution-log li .ts { color: #8b949e; margin-right: 6px; }
+    .badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+    .badge-success { background: rgba(35, 134, 54, 0.2); color: #3fb950; border: 1px solid rgba(35, 134, 54, 0.4); }
+    .badge-fail { background: rgba(218, 54, 51, 0.2); color: #ff7b72; border: 1px solid rgba(218, 54, 51, 0.4); }
+
+    #toastContainer {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .toast-msg {
+      background: var(--bg-elevated);
+      border-left: 4px solid var(--accent);
+      color: var(--text-bright);
+      padding: 12px 16px;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      font-size: 13px;
+      min-width: 250px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .toast-msg.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .toast-msg.error { border-left-color: var(--red); }
+    .toast-msg.success { border-left-color: var(--teal); }
+    
+    .execution-log {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 11px;
+      color: var(--text-muted);
+      max-height: 120px;
+      overflow-y: auto;
+      background: #0d1117;
+      border-radius: 4px;
+      padding: 6px;
+      border: 1px solid var(--border);
+    }
+    .execution-log li {
+      margin-bottom: 2px;
+      font-family: var(--mono);
+    }
+    .execution-log li .ts { color: #8b949e; margin-right: 6px; }
+    .badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+    .badge-success { background: rgba(35, 134, 54, 0.2); color: #3fb950; border: 1px solid rgba(35, 134, 54, 0.4); }
+    .badge-fail { background: rgba(218, 54, 51, 0.2); color: #ff7b72; border: 1px solid rgba(218, 54, 51, 0.4); }
+
+    #toastContainer {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .toast-msg {
+      background: var(--bg-elevated);
+      border-left: 4px solid var(--accent);
+      color: var(--text-bright);
+      padding: 12px 16px;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      font-size: 13px;
+      min-width: 250px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .toast-msg.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .toast-msg.error { border-left-color: var(--red); }
+    .toast-msg.success { border-left-color: var(--teal); }
+    
+    .execution-log {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 11px;
+      color: var(--text-muted);
+      max-height: 120px;
+      overflow-y: auto;
+      background: #0d1117;
+      border-radius: 4px;
+      padding: 6px;
+      border: 1px solid var(--border);
+    }
+    .execution-log li {
+      margin-bottom: 2px;
+      font-family: var(--mono);
+    }
+    .execution-log li .ts { color: #8b949e; margin-right: 6px; }
+    .badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+    .badge-success { background: rgba(35, 134, 54, 0.2); color: #3fb950; border: 1px solid rgba(35, 134, 54, 0.4); }
+    .badge-fail { background: rgba(218, 54, 51, 0.2); color: #ff7b72; border: 1px solid rgba(218, 54, 51, 0.4); }
+
+    #toastContainer {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .toast-msg {
+      background: var(--bg-elevated);
+      border-left: 4px solid var(--accent);
+      color: var(--text-bright);
+      padding: 12px 16px;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      font-size: 13px;
+      min-width: 250px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .toast-msg.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .toast-msg.error { border-left-color: var(--red); }
+    .toast-msg.success { border-left-color: var(--teal); }
+    
+    .execution-log {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 11px;
+      color: var(--text-muted);
+      max-height: 120px;
+      overflow-y: auto;
+      background: #0d1117;
+      border-radius: 4px;
+      padding: 6px;
+      border: 1px solid var(--border);
+    }
+    .execution-log li {
+      margin-bottom: 2px;
+      font-family: var(--mono);
+    }
+    .execution-log li .ts { color: #8b949e; margin-right: 6px; }
+    .badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+    .badge-success { background: rgba(35, 134, 54, 0.2); color: #3fb950; border: 1px solid rgba(35, 134, 54, 0.4); }
+    .badge-fail { background: rgba(218, 54, 51, 0.2); color: #ff7b72; border: 1px solid rgba(218, 54, 51, 0.4); }
+
+    #toastContainer {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .toast-msg {
+      background: var(--bg-elevated);
+      border-left: 4px solid var(--accent);
+      color: var(--text-bright);
+      padding: 12px 16px;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      font-size: 13px;
+      min-width: 250px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .toast-msg.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .toast-msg.error { border-left-color: var(--red); }
+    .toast-msg.success { border-left-color: var(--teal); }
+    
+    .execution-log {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 11px;
+      color: var(--text-muted);
+      max-height: 120px;
+      overflow-y: auto;
+      background: #0d1117;
+      border-radius: 4px;
+      padding: 6px;
+      border: 1px solid var(--border);
+    }
+    .execution-log li {
+      margin-bottom: 2px;
+      font-family: var(--mono);
+    }
+    .execution-log li .ts { color: #8b949e; margin-right: 6px; }
+    .badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+    .badge-success { background: rgba(35, 134, 54, 0.2); color: #3fb950; border: 1px solid rgba(35, 134, 54, 0.4); }
+    .badge-fail { background: rgba(218, 54, 51, 0.2); color: #ff7b72; border: 1px solid rgba(218, 54, 51, 0.4); }
+
+    #toastContainer {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .toast-msg {
+      background: var(--bg-elevated);
+      border-left: 4px solid var(--accent);
+      color: var(--text-bright);
+      padding: 12px 16px;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      font-size: 13px;
+      min-width: 250px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .toast-msg.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .toast-msg.error { border-left-color: var(--red); }
+    .toast-msg.success { border-left-color: var(--teal); }
+    
+    .execution-log {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 11px;
+      color: var(--text-muted);
+      max-height: 120px;
+      overflow-y: auto;
+      background: #0d1117;
+      border-radius: 4px;
+      padding: 6px;
+      border: 1px solid var(--border);
+    }
+    .execution-log li {
+      margin-bottom: 2px;
+      font-family: var(--mono);
+    }
+    .execution-log li .ts { color: #8b949e; margin-right: 6px; }
+    .badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+    .badge-success { background: rgba(35, 134, 54, 0.2); color: #3fb950; border: 1px solid rgba(35, 134, 54, 0.4); }
+    .badge-fail { background: rgba(218, 54, 51, 0.2); color: #ff7b72; border: 1px solid rgba(218, 54, 51, 0.4); }
+
+    #toastContainer {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .toast-msg {
+      background: var(--bg-elevated);
+      border-left: 4px solid var(--accent);
+      color: var(--text-bright);
+      padding: 12px 16px;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      font-size: 13px;
+      min-width: 250px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .toast-msg.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .toast-msg.error { border-left-color: var(--red); }
+    .toast-msg.success { border-left-color: var(--teal); }
+    
+    .execution-log {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 11px;
+      color: var(--text-muted);
+      max-height: 120px;
+      overflow-y: auto;
+      background: #0d1117;
+      border-radius: 4px;
+      padding: 6px;
+      border: 1px solid var(--border);
+    }
+    .execution-log li {
+      margin-bottom: 2px;
+      font-family: var(--mono);
+    }
+    .execution-log li .ts { color: #8b949e; margin-right: 6px; }
+    .badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+    .badge-success { background: rgba(35, 134, 54, 0.2); color: #3fb950; border: 1px solid rgba(35, 134, 54, 0.4); }
+    .badge-fail { background: rgba(218, 54, 51, 0.2); color: #ff7b72; border: 1px solid rgba(218, 54, 51, 0.4); }
+
+    #toastContainer {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .toast-msg {
+      background: var(--bg-elevated);
+      border-left: 4px solid var(--accent);
+      color: var(--text-bright);
+      padding: 12px 16px;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      font-size: 13px;
+      min-width: 250px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .toast-msg.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .toast-msg.error { border-left-color: var(--red); }
+    .toast-msg.success { border-left-color: var(--teal); }
+    
+    .execution-log {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 11px;
+      color: var(--text-muted);
+      max-height: 120px;
+      overflow-y: auto;
+      background: #0d1117;
+      border-radius: 4px;
+      padding: 6px;
+      border: 1px solid var(--border);
+    }
+    .execution-log li {
+      margin-bottom: 2px;
+      font-family: var(--mono);
+    }
+    .execution-log li .ts { color: #8b949e; margin-right: 6px; }
+    .badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+    .badge-success { background: rgba(35, 134, 54, 0.2); color: #3fb950; border: 1px solid rgba(35, 134, 54, 0.4); }
+    .badge-fail { background: rgba(218, 54, 51, 0.2); color: #ff7b72; border: 1px solid rgba(218, 54, 51, 0.4); }
 </style>
 </head>
 <body>
@@ -760,6 +1340,23 @@
   let files = [];
   let openTabs = [];
   let activeFile = null;
+  
+  function showToast(msg, type = 'info') {
+    const container = document.getElementById('toastContainer');
+    if (!container) return;
+    const t = document.createElement('div');
+    t.className = 'toast-msg ' + type;
+    t.textContent = msg;
+    container.appendChild(t);
+    setTimeout(() => {
+      t.classList.add('show');
+    }, 10);
+    setTimeout(() => {
+      t.classList.remove('show');
+      setTimeout(() => { if (t.parentNode) t.parentNode.removeChild(t); }, 300);
+    }, 4000);
+  }
+
   let messages = [];
 
   function updateLineNumbers(){
@@ -1003,7 +1600,7 @@
         }
       }
     } catch(e) {
-      alert(`Error al procesar autorización: ${e}`);
+      showToast(`Error al procesar autorización: ${e}`, 'error');
     }
   }
 
@@ -1133,15 +1730,23 @@ function connectPipelineSSE(taskId) {
         const ev = JSON.parse(e.data);
         if (ev.event_type === 'STATE_ENTERED' || ev.event_type === 'STATE_CHANGED') {
           const stateName = ev.payload && ev.payload.state ? ev.payload.state : ev.state;
-          const stepEl = document.getElementById('workingStepText');
-          if (stepEl && stateName) {
-            stepEl.textContent = 'Fase: ' + stateName;
+          const logEl = document.getElementById('executionLogContainer');
+          if (logEl && stateName) {
+            const atBottom = logEl.scrollHeight - logEl.scrollTop <= logEl.clientHeight + 10;
+            const li = document.createElement('li');
+            li.innerHTML = `<span class="ts">[${new Date().toLocaleTimeString()}]</span> <span style="color:#79c0ff;">&#10003; State entered: ${stateName}</span>`;
+            logEl.appendChild(li);
+            if(atBottom) logEl.scrollTop = logEl.scrollHeight;
           }
         } else if (ev.event_type === 'TOOL_EXECUTED') {
-          const stepEl = document.getElementById('workingStepText');
-          if (stepEl) {
-            const toolName = ev.payload && ev.payload.tool ? ev.payload.tool : (ev.payload.prompt ? ev.payload.prompt.substring(0, 30) : 'Ejecutando herramienta');
-            stepEl.textContent = 'Herramienta: ' + toolName;
+          const logEl = document.getElementById('executionLogContainer');
+          if (logEl) {
+            const atBottom = logEl.scrollHeight - logEl.scrollTop <= logEl.clientHeight + 10;
+            const toolName = ev.payload && ev.payload.tool ? ev.payload.tool : (ev.payload.prompt ? ev.payload.prompt.substring(0, 30) : 'herramienta');
+            const li = document.createElement('li');
+            li.innerHTML = `<span class="ts">[${new Date().toLocaleTimeString()}]</span> <span style="color:#d29922;">&#10003; Tool executed: ${toolName}</span>`;
+            logEl.appendChild(li);
+            if(atBottom) logEl.scrollTop = logEl.scrollHeight;
           }
         } else if (ev.event_type === 'TASK_COMPLETED' || ev.event_type === 'TASK_FAILED') {
           closePipelineSSE();
@@ -1199,8 +1804,10 @@ function closePipelineSSE() {
         </div>
         <button id="cancelTaskBtn" onclick="cancelCurrentActiveTask()" style="background:#da3633; border:1px solid #f85149; color:#ffffff; padding:3px 8px; border-radius:4px; font-size:11px; cursor:pointer; font-weight:600;">⏹️ Cancelar Tarea</button>
       </div>
-      <div class="working-steps" id="workingStepText">
-        ${phases[0]}
+      <div class="working-steps">
+        <ul class="execution-log" id="executionLogContainer">
+          <li><span class="ts">[${new Date().toLocaleTimeString()}]</span> <span style="color:#79c0ff;">&#10003; Iniciando tarea...</span></li>
+        </ul>
       </div>
       <div id="workingWarning" style="display:none; color:#d29922; font-size:11px; margin-top:4px; font-weight:500;">
         ⚠️ Tarea ejecutándose por más de 60s. Puedes esperar o usar 'Cancelar Tarea'.
@@ -1222,7 +1829,12 @@ function closePipelineSSE() {
     }, 1000);
 
     const currentTaskId = 'task-ui-' + Date.now();
+    window._currentActiveTaskId = currentTaskId;
     connectPipelineSSE(currentTaskId);
+    
+    document.getElementById('chatInput').disabled = true;
+    document.getElementById('sendBtn').style.opacity = '0.5';
+    document.getElementById('sendBtn').style.pointerEvents = 'none';
 
     currentFetchAbortController = new AbortController();
 
@@ -1242,11 +1854,46 @@ function closePipelineSSE() {
       const data = await res.json();
       clearInterval(timerInterval);
       currentFetchAbortController = null;
+      window._currentActiveTaskId = null;
       closePipelineSSE();
+      
+      document.getElementById('chatInput').disabled = false;
+      document.getElementById('sendBtn').style.opacity = '1';
+      document.getElementById('sendBtn').style.pointerEvents = 'auto';
 
-      if(workingBubble && workingBubble.parentNode){
+                                                                  if(workingBubble && workingBubble.parentNode){
         workingBubble.parentNode.removeChild(workingBubble);
       }
+      document.getElementById('chatInput').disabled = false;
+      document.getElementById('sendBtn').style.opacity = '1';
+      document.getElementById('sendBtn').style.pointerEvents = 'auto';
+      document.getElementById('chatInput').disabled = false;
+      document.getElementById('sendBtn').style.opacity = '1';
+      document.getElementById('sendBtn').style.pointerEvents = 'auto';
+      document.getElementById('chatInput').disabled = false;
+      document.getElementById('sendBtn').style.opacity = '1';
+      document.getElementById('sendBtn').style.pointerEvents = 'auto';
+      document.getElementById('chatInput').disabled = false;
+      document.getElementById('sendBtn').style.opacity = '1';
+      document.getElementById('sendBtn').style.pointerEvents = 'auto';
+      document.getElementById('chatInput').disabled = false;
+      document.getElementById('sendBtn').style.opacity = '1';
+      document.getElementById('sendBtn').style.pointerEvents = 'auto';
+      document.getElementById('chatInput').disabled = false;
+      document.getElementById('sendBtn').style.opacity = '1';
+      document.getElementById('sendBtn').style.pointerEvents = 'auto';
+      document.getElementById('chatInput').disabled = false;
+      document.getElementById('sendBtn').style.opacity = '1';
+      document.getElementById('sendBtn').style.pointerEvents = 'auto';
+      document.getElementById('chatInput').disabled = false;
+      document.getElementById('sendBtn').style.opacity = '1';
+      document.getElementById('sendBtn').style.pointerEvents = 'auto';
+      document.getElementById('chatInput').disabled = false;
+      document.getElementById('sendBtn').style.opacity = '1';
+      document.getElementById('sendBtn').style.pointerEvents = 'auto';
+      document.getElementById('chatInput').disabled = false;
+      document.getElementById('sendBtn').style.opacity = '1';
+      document.getElementById('sendBtn').style.pointerEvents = 'auto';
 
       const elapsed = Math.max(1, Math.round((Date.now() - startTime) / 1000));
       const acc = $('reasoningAccordion');
@@ -1268,7 +1915,77 @@ function closePipelineSSE() {
       const botMsg = document.createElement('div');
       botMsg.className = 'msg-bubble-assistant';
       const termHtml = renderTerminalCardsHtml(termTasks);
-      botMsg.innerHTML = termHtml + renderSafeMarkdown(rawContent) +
+      let badgeHtml = '';
+      if (rawContent.includes('VERIFICADO') || rawContent.includes('PASS') || termTasks.some(t => (t.output||'').includes('PASSED'))) {
+        badgeHtml = '<span class="badge badge-success">✓ VERIFIED</span>';
+      } else if (rawContent.includes('FAIL') || rawContent.includes('Error') || termTasks.some(t => (t.output||'').includes('FAILED'))) {
+        badgeHtml = '<span class="badge badge-fail">✗ FAILED</span>';
+      }
+      
+      let badgeHtml = '';
+      if (rawContent.includes('VERIFICADO') || rawContent.includes('PASS') || termTasks.some(t => (t.output||'').includes('PASSED'))) {
+        badgeHtml = '<span class="badge badge-success">✓ VERIFIED</span>';
+      } else if (rawContent.includes('FAIL') || rawContent.includes('Error') || termTasks.some(t => (t.output||'').includes('FAILED'))) {
+        badgeHtml = '<span class="badge badge-fail">✗ FAILED</span>';
+      }
+      
+      let badgeHtml = '';
+      if (rawContent.includes('VERIFICADO') || rawContent.includes('PASS') || termTasks.some(t => (t.output||'').includes('PASSED'))) {
+        badgeHtml = '<span class="badge badge-success">✓ VERIFIED</span>';
+      } else if (rawContent.includes('FAIL') || rawContent.includes('Error') || termTasks.some(t => (t.output||'').includes('FAILED'))) {
+        badgeHtml = '<span class="badge badge-fail">✗ FAILED</span>';
+      }
+      
+      let badgeHtml = '';
+      if (rawContent.includes('VERIFICADO') || rawContent.includes('PASS') || termTasks.some(t => (t.output||'').includes('PASSED'))) {
+        badgeHtml = '<span class="badge badge-success">✓ VERIFIED</span>';
+      } else if (rawContent.includes('FAIL') || rawContent.includes('Error') || termTasks.some(t => (t.output||'').includes('FAILED'))) {
+        badgeHtml = '<span class="badge badge-fail">✗ FAILED</span>';
+      }
+      
+      let badgeHtml = '';
+      if (rawContent.includes('VERIFICADO') || rawContent.includes('PASS') || termTasks.some(t => (t.output||'').includes('PASSED'))) {
+        badgeHtml = '<span class="badge badge-success">✓ VERIFIED</span>';
+      } else if (rawContent.includes('FAIL') || rawContent.includes('Error') || termTasks.some(t => (t.output||'').includes('FAILED'))) {
+        badgeHtml = '<span class="badge badge-fail">✗ FAILED</span>';
+      }
+      
+      let badgeHtml = '';
+      if (rawContent.includes('VERIFICADO') || rawContent.includes('PASS') || termTasks.some(t => (t.output||'').includes('PASSED'))) {
+        badgeHtml = '<span class="badge badge-success">✓ VERIFIED</span>';
+      } else if (rawContent.includes('FAIL') || rawContent.includes('Error') || termTasks.some(t => (t.output||'').includes('FAILED'))) {
+        badgeHtml = '<span class="badge badge-fail">✗ FAILED</span>';
+      }
+      
+      let badgeHtml = '';
+      if (rawContent.includes('VERIFICADO') || rawContent.includes('PASS') || termTasks.some(t => (t.output||'').includes('PASSED'))) {
+        badgeHtml = '<span class="badge badge-success">✓ VERIFIED</span>';
+      } else if (rawContent.includes('FAIL') || rawContent.includes('Error') || termTasks.some(t => (t.output||'').includes('FAILED'))) {
+        badgeHtml = '<span class="badge badge-fail">✗ FAILED</span>';
+      }
+      
+      let badgeHtml = '';
+      if (rawContent.includes('VERIFICADO') || rawContent.includes('PASS') || termTasks.some(t => (t.output||'').includes('PASSED'))) {
+        badgeHtml = '<span class="badge badge-success">✓ VERIFIED</span>';
+      } else if (rawContent.includes('FAIL') || rawContent.includes('Error') || termTasks.some(t => (t.output||'').includes('FAILED'))) {
+        badgeHtml = '<span class="badge badge-fail">✗ FAILED</span>';
+      }
+      
+      let badgeHtml = '';
+      if (rawContent.includes('VERIFICADO') || rawContent.includes('PASS') || termTasks.some(t => (t.output||'').includes('PASSED'))) {
+        badgeHtml = '<span class="badge badge-success">✓ VERIFIED</span>';
+      } else if (rawContent.includes('FAIL') || rawContent.includes('Error') || termTasks.some(t => (t.output||'').includes('FAILED'))) {
+        badgeHtml = '<span class="badge badge-fail">✗ FAILED</span>';
+      }
+      
+      let badgeHtml = '';
+      if (rawContent.includes('VERIFICADO') || rawContent.includes('PASS') || termTasks.some(t => (t.output||'').includes('PASSED'))) {
+        badgeHtml = '<span class="badge badge-success">✓ VERIFIED</span>';
+      } else if (rawContent.includes('FAIL') || rawContent.includes('Error') || termTasks.some(t => (t.output||'').includes('FAILED'))) {
+        badgeHtml = '<span class="badge badge-fail">✗ FAILED</span>';
+      }
+      
+      botMsg.innerHTML = badgeHtml + termHtml + renderSafeMarkdown(rawContent) +
         `<div style="display:flex; justify-content:flex-end; margin-top:8px;">` +
         `<button class="copy-btn" onclick="copyMsgText(this)" style="background:var(--bg-hover); border:1px solid var(--border); color:var(--text-bright); padding:4px 10px; border-radius:4px; font-size:11px; cursor:pointer; display:inline-flex; align-items:center; gap:4px; user-select:none;">📋 Copiar Respuesta</button>` +
         `</div>`;
@@ -1279,9 +1996,39 @@ function closePipelineSSE() {
     } catch(e) {
       clearInterval(timerInterval);
       closePipelineSSE();
-      if(workingBubble && workingBubble.parentNode){
+                                                                  if(workingBubble && workingBubble.parentNode){
         workingBubble.parentNode.removeChild(workingBubble);
       }
+      document.getElementById('chatInput').disabled = false;
+      document.getElementById('sendBtn').style.opacity = '1';
+      document.getElementById('sendBtn').style.pointerEvents = 'auto';
+      document.getElementById('chatInput').disabled = false;
+      document.getElementById('sendBtn').style.opacity = '1';
+      document.getElementById('sendBtn').style.pointerEvents = 'auto';
+      document.getElementById('chatInput').disabled = false;
+      document.getElementById('sendBtn').style.opacity = '1';
+      document.getElementById('sendBtn').style.pointerEvents = 'auto';
+      document.getElementById('chatInput').disabled = false;
+      document.getElementById('sendBtn').style.opacity = '1';
+      document.getElementById('sendBtn').style.pointerEvents = 'auto';
+      document.getElementById('chatInput').disabled = false;
+      document.getElementById('sendBtn').style.opacity = '1';
+      document.getElementById('sendBtn').style.pointerEvents = 'auto';
+      document.getElementById('chatInput').disabled = false;
+      document.getElementById('sendBtn').style.opacity = '1';
+      document.getElementById('sendBtn').style.pointerEvents = 'auto';
+      document.getElementById('chatInput').disabled = false;
+      document.getElementById('sendBtn').style.opacity = '1';
+      document.getElementById('sendBtn').style.pointerEvents = 'auto';
+      document.getElementById('chatInput').disabled = false;
+      document.getElementById('sendBtn').style.opacity = '1';
+      document.getElementById('sendBtn').style.pointerEvents = 'auto';
+      document.getElementById('chatInput').disabled = false;
+      document.getElementById('sendBtn').style.opacity = '1';
+      document.getElementById('sendBtn').style.pointerEvents = 'auto';
+      document.getElementById('chatInput').disabled = false;
+      document.getElementById('sendBtn').style.opacity = '1';
+      document.getElementById('sendBtn').style.pointerEvents = 'auto';
 
       const elapsed = Math.max(1, Math.round((Date.now() - startTime) / 1000));
       $('reasoningHeader').innerHTML = `<span>Worked for ${elapsed}s</span><span>></span>`;
@@ -1486,7 +2233,7 @@ function closePipelineSSE() {
           renderTree();
         }
       } catch(e){
-        alert('Error al guardar archivo: ' + e.message);
+        showToast('Error al guardar archivo: ' + e.message, 'error');
       }
     }
   };
@@ -1523,7 +2270,7 @@ function closePipelineSSE() {
           openFile(activeFile);
         }
       } catch(e){
-        alert('Error al guardar archivo como: ' + e.message);
+        showToast('Error al guardar archivo como: ' + e.message, 'error');
       }
     }
   };
@@ -1661,12 +2408,12 @@ function closePipelineSSE() {
           files = data.files || [];
           if(files.length) openFile(files[0]);
           $('workspaceModal').style.display = 'none';
-          alert('Espacio de trabajo cambiado a: ' + data.path);
+          showToast('Espacio de trabajo cambiado a: ' + data.path, 'error');
         } else {
-          alert('Error: ' + (data.error || 'No se pudo abrir la ruta'));
+          showToast('Error: ' + (data.error || 'No se pudo abrir la ruta'), 'error');
         }
       } catch(err){
-        alert('Error de conexión al cambiar espacio de trabajo: ' + err.message);
+        showToast('Error de conexión al cambiar espacio de trabajo: ' + err.message, 'error');
       }
     };
   }

@@ -1,0 +1,35 @@
+{
+    "python_url": "https://www.python.org/ftp/python/3.11.9/python-3.11.9-embed-amd64.zip",
+    "python_dir": "python_runtime",
+    "pip_packages": [
+        "fastapi",
+        "uvicorn",
+        "sse-starlette",
+        "python-multipart",
+        "pywebview",
+        "requests",
+        "smolagents",
+        "litellm",
+        "pytest"
+    ],
+    "app_directories": [
+        "mis_agentes_inteligentes"
+    ],
+    "app_files": [
+        "desktop_app.py"
+    ],
+    "exclude_patterns": [
+        "__pycache__",
+        "tests",
+        "scripts",
+        "*.db",
+        "sesiones",
+        "tmp*",
+        "historial_analisis.txt",
+        "metrics_benchmarks.json",
+        ".env",
+        ".git",
+        ".github",
+        ".agents"
+    ]
+}

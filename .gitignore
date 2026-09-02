@@ -43,3 +43,8 @@ mis_agentes_inteligentes/tmp*
 .vscode/
 
 experimental_build/
+
+# Build artifacts
+dist/
+build/
+CodeAgent_Setup*.exe
