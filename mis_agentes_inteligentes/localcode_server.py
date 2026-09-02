@@ -228,7 +228,7 @@ class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
         _inc_metric("total_requests")
         clean_path = self.path.split('?')[0]
         if clean_path in ("/", "", "/ui", "/app", "/index.html", "/chat", "/editor", "/localcode_claude_ui.html"):
-            self.path = "/localcode_claude_ui.html"
+            self.path = "/mis_agentes_inteligentes/localcode_claude_ui.html"
             super().do_GET()
         elif clean_path in ("/api/health", "/api/server/health", "/api/server/identity"):
             self.handle_health()

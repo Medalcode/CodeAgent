@@ -1699,8 +1699,20 @@
 
   let currentFetchAbortController = null;
 
-  window.cancelCurrentActiveTask = function() {
-    if(currentFetchAbortController) {
+  window.cancelCurrentActiveTask = async function() {
+    if (window._currentActiveTaskId) {
+      try {
+        const resp = await fetch('/api/tasks/' + window._currentActiveTaskId + '/cancel', { method: 'POST' });
+        if (resp.ok) {
+          showToast('Cancelación solicitada al backend.', 'info');
+        } else {
+          showToast('El servidor rechazó la cancelación.', 'error');
+        }
+      } catch(e) {
+        showToast('Error de red al intentar cancelar.', 'error');
+      }
+    }
+    if (currentFetchAbortController) {
       currentFetchAbortController.abort();
       currentFetchAbortController = null;
     }
