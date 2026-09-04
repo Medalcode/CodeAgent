@@ -139,37 +139,6 @@ def _safe_print(*args, **kwargs):
         print(safe_msg, **kwargs)
 CREATE_NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if os.name == "nt" else 0
 
-def _ps_file_dialog(title: str = "Abrir Archivo") -> str | None:
-    ps_cmd = f"[System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms') | Out-Null; $f = New-Object System.Windows.Forms.OpenFileDialog; $f.Title = '{title}'; $f.Filter = 'Todos los archivos (*.*)|*.*'; if($f.ShowDialog() -eq 'OK'){{ $f.FileName }}"
-    try:
-        res = subprocess.run(["powershell", "-NoProfile", "-Command", ps_cmd], capture_output=True, text=True, timeout=60, creationflags=CREATE_NO_WINDOW)
-        path = res.stdout.strip()
-        return path if path and os.path.exists(path) else None
-    except Exception as e:
-        print(f"Error en _ps_file_dialog: {e}")
-        return None
-
-def _ps_folder_dialog(title: str = "Abrir Carpeta de Proyecto") -> str | None:
-    ps_cmd = f"[System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms') | Out-Null; $f = New-Object System.Windows.Forms.FolderBrowserDialog; $f.Description = '{title}'; if($f.ShowDialog() -eq 'OK'){{ $f.SelectedPath }}"
-    try:
-        res = subprocess.run(["powershell", "-NoProfile", "-Command", ps_cmd], capture_output=True, text=True, timeout=60, creationflags=CREATE_NO_WINDOW)
-        path = res.stdout.strip()
-        return path if path and os.path.exists(path) else None
-    except Exception as e:
-        print(f"Error en _ps_folder_dialog: {e}")
-        return None
-
-def _ps_save_dialog(title: str = "Guardar Archivo Como", default_filename: str = "Untitled.py") -> str | None:
-    ps_cmd = f"[System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms') | Out-Null; $f = New-Object System.Windows.Forms.SaveFileDialog; $f.Title = '{title}'; $f.FileName = '{default_filename}'; if($f.ShowDialog() -eq 'OK'){{ $f.FileName }}"
-    try:
-        res = subprocess.run(["powershell", "-NoProfile", "-Command", ps_cmd], capture_output=True, text=True, timeout=60, creationflags=CREATE_NO_WINDOW)
-        path = res.stdout.strip()
-        return path if path else None
-    except Exception as e:
-        print(f"Error en _ps_save_dialog: {e}")
-        return None
-
-
 def get_sdd_health_dict() -> dict:
     status_str = "OK"
     parent_alive = False
@@ -426,11 +395,7 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
         self.wfile.write(html.encode("utf-8"))
 
     def do_POST(self):
-        if self.path.startswith("/api/fs/open_file_dialog"):
-            self.handle_fs_open_file_dialog()
-        elif self.path.startswith("/api/fs/open_folder_dialog"):
-            self.handle_fs_open_folder_dialog()
-        elif self.path.startswith("/api/workspace/open-folder"):
+        if self.path.startswith("/api/workspace/open-folder"):
             self.handle_open_folder()
         elif self.path.startswith("/api/github/import"):
             self.handle_github_import()
@@ -544,7 +509,7 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
         if not os.path.exists(folder_path):
             return files_found
 
-        ignore_dirs = {'.git', 'node_modules', 'venv', '.venv', '__pycache__', 'chroma_db', 'graphify-out', '.idea', '.vscode'}
+        ignore_dirs = {'.git', 'node_modules', 'venv', '.venv', '__pycache__', 'chroma_db', 'graphify-out', '.idea', '.vscode', 'dist', 'build'}
         valid_exts = ('.py', '.js', '.ts', '.jsx', '.tsx', '.html', '.css', '.json', '.md', '.txt', '.yml', '.yaml', '.toml', '.sh', '.bat', '.c', '.cpp', '.h', '.java', '.go', '.rs')
 
         for root, dirs, filenames in os.walk(folder_path):
@@ -628,49 +593,6 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
             self._send_json({"success": True, "path": target_file, "filename": os.path.basename(target_file)})
         except Exception as e:
             self._send_json({"success": False, "error": str(e)}, 500)
-
-
-
-    def handle_fs_open_file_dialog(self):
-        now_str = time.strftime("%Y-%m-%d %H:%M:%S")
-        _safe_print(f"[{now_str}] [NATIVE_UI] HTTP GET /api/fs/open-file-dialog CALLED")
-        try:
-            filepath = _ps_file_dialog("Abrir Archivo — CodeAgent IDE")
-            if filepath and os.path.exists(filepath):
-                with open(filepath, encoding="utf-8", errors="replace") as f:
-                    content = f.read(200000)
-                self._send_json({
-                    "success": True,
-                    "path": filepath,
-                    "filename": os.path.basename(filepath),
-                    "content": content
-                })
-            else:
-                self._send_json({"success": False, "cancelled": True})
-        except Exception as e:
-            self._send_json({"success": False, "error": f"Error en open_file_dialog: {e}"}, 500)
-
-    def handle_fs_open_folder_dialog(self):
-        global ACTIVE_WORKSPACE_DIR
-        now_str = time.strftime("%Y-%m-%d %H:%M:%S")
-        _safe_print(f"[{now_str}] [NATIVE_UI] HTTP GET /api/fs/open-folder-dialog CALLED")
-        try:
-            folderpath = _ps_folder_dialog("Abrir Carpeta de Proyecto — CodeAgent IDE")
-            if folderpath and os.path.exists(folderpath):
-                ACTIVE_WORKSPACE_DIR = folderpath
-                from mis_agentes_inteligentes.tools import set_active_workspace
-                set_active_workspace(folderpath)
-                files_found = self._scan_folder(folderpath)
-                self._send_json({
-                    "success": True,
-                    "path": folderpath,
-                    "folder_name": os.path.basename(folderpath),
-                    "files": files_found
-                })
-            else:
-                self._send_json({"success": False, "cancelled": True})
-        except Exception as e:
-            self._send_json({"success": False, "error": f"Error en open_folder_dialog: {e}"}, 500)
 
     def handle_github_import(self):
         data = self._get_post_body()
@@ -833,25 +755,71 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
 
         try:
             import main as codeagent_main
-            respuesta, metricas = codeagent_main.ejecutar_agentes(
+            _runner, metricas = codeagent_main.ejecutar_agentes(
                 user_prompt=prompt,
                 provider=provider,
                 model_name=model_name,
                 api_key=api_key,
                 agent_type=agent_type,
                 selected_tools=selected_tools,
+                task_id=task_id,
+                run_pipeline=False
+            )
+            
+            from runtime.runtime import get_runtime
+            runtime = get_runtime()
+            
+            # Start task asynchronously and offload execution to the daemon thread
+            created_task_id = runtime.start_task(
+                goal=prompt,
+                project_path=ACTIVE_WORKSPACE_DIR,
+                agent_runner=_runner,
                 task_id=task_id
             )
+            _safe_print(f"[LocalCode Server] Tarea delegada al runtime asíncrono con ID: {created_task_id}\n")
+            
+            import threading
+            completion_event = threading.Event()
+            result_data = {}
+            
+            def _on_event(ev):
+                if ev.task_id == created_task_id:
+                    if ev.event_type == "TASK_COMPLETED":
+                        result_data["respuesta"] = ev.payload.get("output", "Completado.")
+                        result_data["metricas"] = ev.payload.get("metrics", {})
+                        completion_event.set()
+                    elif ev.event_type == "TASK_CANCELLED":
+                        result_data["error"] = "Tarea cancelada por el usuario."
+                        completion_event.set()
+                    elif ev.event_type == "TASK_FAILED":
+                        result_data["error"] = ev.payload.get("error", "Fallo en pipeline.")
+                        completion_event.set()
+                        
+            runtime.event_bus.subscribe(_on_event)
+            try:
+                completion_event.wait(timeout=3600)
+            finally:
+                runtime.event_bus.unsubscribe(_on_event)
+                
+            if "error" in result_data:
+                _inc_metric("failed_requests")
+                self._send_json({"success": False, "error": result_data["error"]}, 500)
+                return
+            
+            _inc_metric("successful_requests")
             term_tasks = []
             try:
                 from mis_agentes_inteligentes.tools import get_terminal_tasks_buffer
                 term_tasks = get_terminal_tasks_buffer()
             except Exception:
                 pass
-
-            _safe_print(f"[LocalCode Server] ✅ Agente respondió con éxito en {metricas.get('tiempo_segundos', 0)}s\n")
-            _inc_metric("successful_requests")
-            self._send_json({"success": True, "respuesta": respuesta, "metricas": metricas, "terminal_tasks": term_tasks})
+                
+            self._send_json({
+                "success": True, 
+                "respuesta": result_data.get("respuesta", "Completado"), 
+                "metricas": result_data.get("metricas", metricas),
+                "terminal_tasks": term_tasks
+            })
         except Exception as e:
             _safe_print(f"[LocalCode Server] ❌ Error en Agente: {e}\n")
             _inc_metric("failed_requests")

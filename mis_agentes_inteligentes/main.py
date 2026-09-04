@@ -79,7 +79,8 @@ def ejecutar_agentes(
     selected_tools: list,
     _step_callback=None,
     task_id: str | None = None,
-) -> tuple[str, dict]:
+    run_pipeline: bool = True,
+) -> tuple:
     """
     Pipeline principal usando smolagents.
     FIX: el historial ya no se manda como prompt — eso lo maneja app.py.
@@ -150,9 +151,14 @@ def ejecutar_agentes(
             else:
                 return str(agente.run(prompt_enriquecido))
 
+        if not run_pipeline:
+            return _runner, metricas
+
         try:
             from mis_agentes_inteligentes.agent_pipeline import AgentPipeline
-            pipeline = AgentPipeline()
+            from mis_agentes_inteligentes.tools import get_active_workspace
+            ws_dir = get_active_workspace() or os.getcwd()
+            pipeline = AgentPipeline(workspace_dir=ws_dir)
             resultado_str, p_metrics = pipeline.run_pipeline(user_prompt, agent_runner=_runner, session_id=task_id)
             metricas.update(p_metrics)
         except Exception as e:

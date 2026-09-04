@@ -25,9 +25,9 @@ class CodeAgentRuntime:
         self._pause_flags: dict[str, threading.Event] = {}
         self._cancel_flags: dict[str, threading.Event] = {}
 
-    def start_task(self, goal: str, project_path: str = ".", agent_runner: Callable[[str], str] | None = None) -> str:
+    def start_task(self, goal: str, project_path: str = ".", agent_runner: Callable[[str], str] | None = None, task_id: str | None = None) -> str:
         """Inicia una nueva tarea agéntica de forma asíncrona y la registra en SQLite."""
-        task_id = str(uuid.uuid4())
+        task_id = task_id or str(uuid.uuid4())
         abs_project = os.path.abspath(project_path)
 
         from agent_pipeline import AgentStateMachineController

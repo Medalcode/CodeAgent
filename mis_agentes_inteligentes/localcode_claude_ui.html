@@ -1879,33 +1879,6 @@ function closePipelineSSE() {
       document.getElementById('chatInput').disabled = false;
       document.getElementById('sendBtn').style.opacity = '1';
       document.getElementById('sendBtn').style.pointerEvents = 'auto';
-      document.getElementById('chatInput').disabled = false;
-      document.getElementById('sendBtn').style.opacity = '1';
-      document.getElementById('sendBtn').style.pointerEvents = 'auto';
-      document.getElementById('chatInput').disabled = false;
-      document.getElementById('sendBtn').style.opacity = '1';
-      document.getElementById('sendBtn').style.pointerEvents = 'auto';
-      document.getElementById('chatInput').disabled = false;
-      document.getElementById('sendBtn').style.opacity = '1';
-      document.getElementById('sendBtn').style.pointerEvents = 'auto';
-      document.getElementById('chatInput').disabled = false;
-      document.getElementById('sendBtn').style.opacity = '1';
-      document.getElementById('sendBtn').style.pointerEvents = 'auto';
-      document.getElementById('chatInput').disabled = false;
-      document.getElementById('sendBtn').style.opacity = '1';
-      document.getElementById('sendBtn').style.pointerEvents = 'auto';
-      document.getElementById('chatInput').disabled = false;
-      document.getElementById('sendBtn').style.opacity = '1';
-      document.getElementById('sendBtn').style.pointerEvents = 'auto';
-      document.getElementById('chatInput').disabled = false;
-      document.getElementById('sendBtn').style.opacity = '1';
-      document.getElementById('sendBtn').style.pointerEvents = 'auto';
-      document.getElementById('chatInput').disabled = false;
-      document.getElementById('sendBtn').style.opacity = '1';
-      document.getElementById('sendBtn').style.pointerEvents = 'auto';
-      document.getElementById('chatInput').disabled = false;
-      document.getElementById('sendBtn').style.opacity = '1';
-      document.getElementById('sendBtn').style.pointerEvents = 'auto';
 
       const elapsed = Math.max(1, Math.round((Date.now() - startTime) / 1000));
       const acc = $('reasoningAccordion');
@@ -1927,68 +1900,6 @@ function closePipelineSSE() {
       const botMsg = document.createElement('div');
       botMsg.className = 'msg-bubble-assistant';
       const termHtml = renderTerminalCardsHtml(termTasks);
-      let badgeHtml = '';
-      if (rawContent.includes('VERIFICADO') || rawContent.includes('PASS') || termTasks.some(t => (t.output||'').includes('PASSED'))) {
-        badgeHtml = '<span class="badge badge-success">✓ VERIFIED</span>';
-      } else if (rawContent.includes('FAIL') || rawContent.includes('Error') || termTasks.some(t => (t.output||'').includes('FAILED'))) {
-        badgeHtml = '<span class="badge badge-fail">✗ FAILED</span>';
-      }
-      
-      let badgeHtml = '';
-      if (rawContent.includes('VERIFICADO') || rawContent.includes('PASS') || termTasks.some(t => (t.output||'').includes('PASSED'))) {
-        badgeHtml = '<span class="badge badge-success">✓ VERIFIED</span>';
-      } else if (rawContent.includes('FAIL') || rawContent.includes('Error') || termTasks.some(t => (t.output||'').includes('FAILED'))) {
-        badgeHtml = '<span class="badge badge-fail">✗ FAILED</span>';
-      }
-      
-      let badgeHtml = '';
-      if (rawContent.includes('VERIFICADO') || rawContent.includes('PASS') || termTasks.some(t => (t.output||'').includes('PASSED'))) {
-        badgeHtml = '<span class="badge badge-success">✓ VERIFIED</span>';
-      } else if (rawContent.includes('FAIL') || rawContent.includes('Error') || termTasks.some(t => (t.output||'').includes('FAILED'))) {
-        badgeHtml = '<span class="badge badge-fail">✗ FAILED</span>';
-      }
-      
-      let badgeHtml = '';
-      if (rawContent.includes('VERIFICADO') || rawContent.includes('PASS') || termTasks.some(t => (t.output||'').includes('PASSED'))) {
-        badgeHtml = '<span class="badge badge-success">✓ VERIFIED</span>';
-      } else if (rawContent.includes('FAIL') || rawContent.includes('Error') || termTasks.some(t => (t.output||'').includes('FAILED'))) {
-        badgeHtml = '<span class="badge badge-fail">✗ FAILED</span>';
-      }
-      
-      let badgeHtml = '';
-      if (rawContent.includes('VERIFICADO') || rawContent.includes('PASS') || termTasks.some(t => (t.output||'').includes('PASSED'))) {
-        badgeHtml = '<span class="badge badge-success">✓ VERIFIED</span>';
-      } else if (rawContent.includes('FAIL') || rawContent.includes('Error') || termTasks.some(t => (t.output||'').includes('FAILED'))) {
-        badgeHtml = '<span class="badge badge-fail">✗ FAILED</span>';
-      }
-      
-      let badgeHtml = '';
-      if (rawContent.includes('VERIFICADO') || rawContent.includes('PASS') || termTasks.some(t => (t.output||'').includes('PASSED'))) {
-        badgeHtml = '<span class="badge badge-success">✓ VERIFIED</span>';
-      } else if (rawContent.includes('FAIL') || rawContent.includes('Error') || termTasks.some(t => (t.output||'').includes('FAILED'))) {
-        badgeHtml = '<span class="badge badge-fail">✗ FAILED</span>';
-      }
-      
-      let badgeHtml = '';
-      if (rawContent.includes('VERIFICADO') || rawContent.includes('PASS') || termTasks.some(t => (t.output||'').includes('PASSED'))) {
-        badgeHtml = '<span class="badge badge-success">✓ VERIFIED</span>';
-      } else if (rawContent.includes('FAIL') || rawContent.includes('Error') || termTasks.some(t => (t.output||'').includes('FAILED'))) {
-        badgeHtml = '<span class="badge badge-fail">✗ FAILED</span>';
-      }
-      
-      let badgeHtml = '';
-      if (rawContent.includes('VERIFICADO') || rawContent.includes('PASS') || termTasks.some(t => (t.output||'').includes('PASSED'))) {
-        badgeHtml = '<span class="badge badge-success">✓ VERIFIED</span>';
-      } else if (rawContent.includes('FAIL') || rawContent.includes('Error') || termTasks.some(t => (t.output||'').includes('FAILED'))) {
-        badgeHtml = '<span class="badge badge-fail">✗ FAILED</span>';
-      }
-      
-      let badgeHtml = '';
-      if (rawContent.includes('VERIFICADO') || rawContent.includes('PASS') || termTasks.some(t => (t.output||'').includes('PASSED'))) {
-        badgeHtml = '<span class="badge badge-success">✓ VERIFIED</span>';
-      } else if (rawContent.includes('FAIL') || rawContent.includes('Error') || termTasks.some(t => (t.output||'').includes('FAILED'))) {
-        badgeHtml = '<span class="badge badge-fail">✗ FAILED</span>';
-      }
       
       let badgeHtml = '';
       if (rawContent.includes('VERIFICADO') || rawContent.includes('PASS') || termTasks.some(t => (t.output||'').includes('PASSED'))) {
@@ -2011,33 +1922,6 @@ function closePipelineSSE() {
                                                                   if(workingBubble && workingBubble.parentNode){
         workingBubble.parentNode.removeChild(workingBubble);
       }
-      document.getElementById('chatInput').disabled = false;
-      document.getElementById('sendBtn').style.opacity = '1';
-      document.getElementById('sendBtn').style.pointerEvents = 'auto';
-      document.getElementById('chatInput').disabled = false;
-      document.getElementById('sendBtn').style.opacity = '1';
-      document.getElementById('sendBtn').style.pointerEvents = 'auto';
-      document.getElementById('chatInput').disabled = false;
-      document.getElementById('sendBtn').style.opacity = '1';
-      document.getElementById('sendBtn').style.pointerEvents = 'auto';
-      document.getElementById('chatInput').disabled = false;
-      document.getElementById('sendBtn').style.opacity = '1';
-      document.getElementById('sendBtn').style.pointerEvents = 'auto';
-      document.getElementById('chatInput').disabled = false;
-      document.getElementById('sendBtn').style.opacity = '1';
-      document.getElementById('sendBtn').style.pointerEvents = 'auto';
-      document.getElementById('chatInput').disabled = false;
-      document.getElementById('sendBtn').style.opacity = '1';
-      document.getElementById('sendBtn').style.pointerEvents = 'auto';
-      document.getElementById('chatInput').disabled = false;
-      document.getElementById('sendBtn').style.opacity = '1';
-      document.getElementById('sendBtn').style.pointerEvents = 'auto';
-      document.getElementById('chatInput').disabled = false;
-      document.getElementById('sendBtn').style.opacity = '1';
-      document.getElementById('sendBtn').style.pointerEvents = 'auto';
-      document.getElementById('chatInput').disabled = false;
-      document.getElementById('sendBtn').style.opacity = '1';
-      document.getElementById('sendBtn').style.pointerEvents = 'auto';
       document.getElementById('chatInput').disabled = false;
       document.getElementById('sendBtn').style.opacity = '1';
       document.getElementById('sendBtn').style.pointerEvents = 'auto';
@@ -2189,8 +2073,8 @@ function closePipelineSSE() {
           const fileObj = { name: res.filename, path: res.path, content: res.content, isUntitled: false, isModified: false };
           files.unshift(fileObj);
           openFile(fileObj);
-          return;
         }
+        return;
       } catch(err){}
     }
     // Fallback nativo navegador
@@ -2206,8 +2090,8 @@ function closePipelineSSE() {
         if(res && res.path){
           $('currentWorkspaceLabel').textContent = res.folder_name || 'Workspace';
           location.reload();
-          return;
         }
+        return;
       } catch(err){}
     }
     // Fallback nativo navegador
