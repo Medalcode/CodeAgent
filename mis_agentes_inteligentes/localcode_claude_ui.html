@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -463,7 +463,7 @@
     color: #8b949e;
   }
 
-  /* ANIMACIÓN Y BURBUJA WORKING... EN VIVO */
+  /* ANIMACIÃ“N Y BURBUJA WORKING... EN VIVO */
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
@@ -1161,7 +1161,7 @@
     .badge-fail { background: rgba(218, 54, 51, 0.2); color: #ff7b72; border: 1px solid rgba(218, 54, 51, 0.4); }
 </style>
 </head>
-<body>
+<body><a href="/frontend/dist/index.html" style="position:fixed; top:12px; right:150px; background:var(--accent-color); color:var(--text-color); padding:5px 10px; z-index:9999; border-radius:4px; text-decoration:none; font-size:12px; font-weight:bold;">Try React UI (Beta)</a>
 
 <!-- HEADER / TITLEBAR -->
 <header class="ide-header" role="banner">
@@ -1169,21 +1169,21 @@
     <div class="menu-dropdown-wrap" style="position:relative; display:inline-block; overflow:visible;">
       <span class="menu-item" id="fileMenuBtn" onclick="toggleFileMenu(event)" style="user-select:none; cursor:pointer;">File</span>
       <div class="dropdown-menu" id="fileDropdownMenu" style="display:none; position:absolute; top:100%; left:0; background:var(--bg-panel); border:1px solid var(--border-bright); border-radius:6px; min-width:230px; box-shadow:0 8px 24px rgba(0,0,0,0.6); z-index:999; padding:4px 0; font-size:12px;">
-        <div class="menu-opt" onclick="onNewFile()"><span class="opt-text">📄 New File</span><span class="opt-shortcut">Ctrl+N</span></div>
-        <div class="menu-opt" onclick="onNewWindow()"><span class="opt-text">🪟 New Window</span><span class="opt-shortcut">Ctrl+Shift+N</span></div>
+        <div class="menu-opt" onclick="onNewFile()"><span class="opt-text">ðŸ“„ New File</span><span class="opt-shortcut">Ctrl+N</span></div>
+        <div class="menu-opt" onclick="onNewWindow()"><span class="opt-text">ðŸªŸ New Window</span><span class="opt-shortcut">Ctrl+Shift+N</span></div>
         <div class="menu-hr" style="height:1px; background:var(--border); margin:4px 0;"></div>
-        <div class="menu-opt" onclick="onOpenFile()"><span class="opt-text">📂 Open File...</span><span class="opt-shortcut">Ctrl+O</span></div>
-        <div class="menu-opt" onclick="onOpenFolder()"><span class="opt-text">📁 Open Folder...</span><span class="opt-shortcut">Ctrl+K Ctrl+O</span></div>
+        <div class="menu-opt" onclick="onOpenFile()"><span class="opt-text">ðŸ“‚ Open File...</span><span class="opt-shortcut">Ctrl+O</span></div>
+        <div class="menu-opt" onclick="onOpenFolder()"><span class="opt-text">ðŸ“ Open Folder...</span><span class="opt-shortcut">Ctrl+K Ctrl+O</span></div>
         <div class="menu-hr" style="height:1px; background:var(--border); margin:4px 0;"></div>
-        <div class="menu-opt" onclick="onSaveFile()"><span class="opt-text">💾 Save</span><span class="opt-shortcut">Ctrl+S</span></div>
-        <div class="menu-opt" onclick="onSaveFileAs()"><span class="opt-text">📝 Save As...</span><span class="opt-shortcut">Ctrl+Shift+S</span></div>
-        <div class="menu-opt" onclick="toggleAutoSave()"><span class="opt-text"><span id="autoSaveCheckMark">✓</span> Auto Save</span><span class="opt-shortcut">Toggle</span></div>
+        <div class="menu-opt" onclick="onSaveFile()"><span class="opt-text">ðŸ’¾ Save</span><span class="opt-shortcut">Ctrl+S</span></div>
+        <div class="menu-opt" onclick="onSaveFileAs()"><span class="opt-text">ðŸ“ Save As...</span><span class="opt-shortcut">Ctrl+Shift+S</span></div>
+        <div class="menu-opt" onclick="toggleAutoSave()"><span class="opt-text"><span id="autoSaveCheckMark">âœ“</span> Auto Save</span><span class="opt-shortcut">Toggle</span></div>
         <div class="menu-hr" style="height:1px; background:var(--border); margin:4px 0;"></div>
-        <div class="menu-opt" onclick="onCloseEditor()"><span class="opt-text">❌ Close Editor</span><span class="opt-shortcut">Ctrl+W</span></div>
-        <div class="menu-opt" onclick="onCloseFolder()"><span class="opt-text">🧹 Close Folder</span><span class="opt-shortcut">Ctrl+K F</span></div>
-        <div class="menu-opt" onclick="onCloseWindow()"><span class="opt-text">🚪 Close Window</span><span class="opt-shortcut">Alt+F4</span></div>
+        <div class="menu-opt" onclick="onCloseEditor()"><span class="opt-text">âŒ Close Editor</span><span class="opt-shortcut">Ctrl+W</span></div>
+        <div class="menu-opt" onclick="onCloseFolder()"><span class="opt-text">ðŸ§¹ Close Folder</span><span class="opt-shortcut">Ctrl+K F</span></div>
+        <div class="menu-opt" onclick="onCloseWindow()"><span class="opt-text">ðŸšª Close Window</span><span class="opt-shortcut">Alt+F4</span></div>
         <div class="menu-hr" style="height:1px; background:var(--border); margin:4px 0;"></div>
-        <div class="menu-opt" onclick="onExitApp()"><span class="opt-text">🛑 Exit</span><span class="opt-shortcut">Ctrl+Q</span></div>
+        <div class="menu-opt" onclick="onExitApp()"><span class="opt-text">ðŸ›‘ Exit</span><span class="opt-shortcut">Ctrl+Q</span></div>
       </div>
     </div>
     <span class="menu-item">Edit</span>
@@ -1195,17 +1195,17 @@
   </div>
   <div class="title-breadcrumbs" id="headerTitle">
     <button id="changeWorkspaceBtn" style="background:var(--bg-elevated); border:1px solid var(--border); color:var(--text-bright); padding:2px 8px; border-radius:4px; font-size:11px; cursor:pointer; display:inline-flex; align-items:center; gap:4px;">
-      📁 <span id="currentWorkspaceLabel">CodeAgent</span> ▾
+      ðŸ“ <span id="currentWorkspaceLabel">CodeAgent</span> â–¾
     </button>
     <span>-</span>
     <strong id="activeFileName">ADR-001-smolagents-react-engine.md</strong>
   </div>
   <div class="window-controls">
-    <span class="win-btn">🔍</span>
-    <span class="win-btn">◫</span>
-    <span class="win-btn">—</span>
-    <span class="win-btn">□</span>
-    <span class="win-btn">✕</span>
+    <span class="win-btn">ðŸ”</span>
+    <span class="win-btn">â—«</span>
+    <span class="win-btn">â€”</span>
+    <span class="win-btn">â–¡</span>
+    <span class="win-btn">âœ•</span>
   </div>
 </header>
 
@@ -1215,15 +1215,15 @@
   <!-- ACTIVITY BAR (FAR LEFT) -->
   <aside class="activity-bar" aria-label="Activity Bar">
     <div class="act-group">
-      <div class="act-icon active" title="Explorer">📁</div>
-      <div class="act-icon" title="Search">🔍</div>
-      <div class="act-icon" title="Source Control">🌿</div>
-      <div class="act-icon" title="Debug">🐞</div>
-      <div class="act-icon" title="Extensions">🧩</div>
+      <div class="act-icon active" title="Explorer">ðŸ“</div>
+      <div class="act-icon" title="Search">ðŸ”</div>
+      <div class="act-icon" title="Source Control">ðŸŒ¿</div>
+      <div class="act-icon" title="Debug">ðŸž</div>
+      <div class="act-icon" title="Extensions">ðŸ§©</div>
     </div>
     <div class="act-group">
-      <div class="act-icon" title="Graphify Knowledge Graph">🕸️</div>
-      <div class="act-icon" title="Settings">⚙️</div>
+      <div class="act-icon" title="Graphify Knowledge Graph">ðŸ•¸ï¸</div>
+      <div class="act-icon" title="Settings">âš™ï¸</div>
     </div>
   </aside>
 
@@ -1232,18 +1232,18 @@
     <div class="sidebar-header" style="display:flex; justify-content:space-between; align-items:center; padding:8px 12px;">
       <span style="font-weight:600; font-size:11px; letter-spacing:0.5px; color:var(--text-bright);">EXPLORER</span>
       <div style="display:flex; gap:6px; font-size:12px;">
-        <span onclick="onNewFile()" title="Nuevo Archivo (Personalizar nombre y extensión)" style="cursor:pointer; padding:2px 4px; border-radius:3px; background:var(--bg-hover);">➕</span>
-        <span onclick="onOpenFile()" title="Abrir Archivo en Explorador OS" style="cursor:pointer; padding:2px 4px; border-radius:3px; background:var(--bg-hover);">📂</span>
-        <span onclick="onOpenFolder()" title="Abrir Carpeta en Explorador OS" style="cursor:pointer; padding:2px 4px; border-radius:3px; background:var(--bg-hover);">📁</span>
+        <span onclick="onNewFile()" title="Nuevo Archivo (Personalizar nombre y extensiÃ³n)" style="cursor:pointer; padding:2px 4px; border-radius:3px; background:var(--bg-hover);">âž•</span>
+        <span onclick="onOpenFile()" title="Abrir Archivo en Explorador OS" style="cursor:pointer; padding:2px 4px; border-radius:3px; background:var(--bg-hover);">ðŸ“‚</span>
+        <span onclick="onOpenFolder()" title="Abrir Carpeta en Explorador OS" style="cursor:pointer; padding:2px 4px; border-radius:3px; background:var(--bg-hover);">ðŸ“</span>
       </div>
     </div>
     <div class="file-tree" id="fileTreeContainer">
       <div class="tree-section">
-        <div class="section-title">∨ Open Editors</div>
+        <div class="section-title">âˆ¨ Open Editors</div>
         <div id="openEditorsList"></div>
       </div>
       <div class="tree-section">
-        <div class="section-title">∨ CodeAgent</div>
+        <div class="section-title">âˆ¨ CodeAgent</div>
         <div id="workspaceTreeList"></div>
       </div>
     </div>
@@ -1253,11 +1253,11 @@
   <main class="editor-container" aria-label="Code Editor">
     <div class="tab-bar" id="tabBar">
       <div class="tab-item active">
-        <span>📄</span> <span id="activeTabName">ADR-001-smolagents-react-engine.md</span> <span class="tab-close">✕</span>
+        <span>ðŸ“„</span> <span id="activeTabName">ADR-001-smolagents-react-engine.md</span> <span class="tab-close">âœ•</span>
       </div>
     </div>
     <div class="breadcrumb-bar" id="breadcrumbBar">
-      engine.md > # ADR-001: Selección de smolagents como Motor ReAct > ## Decisión
+      engine.md > # ADR-001: SelecciÃ³n de smolagents como Motor ReAct > ## DecisiÃ³n
     </div>
     <div class="code-editor-wrap">
       <div class="line-numbers" id="lineNumbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20</div>
@@ -1269,13 +1269,13 @@
   <aside class="chat-panel" aria-label="Antigravity Assistant Chat">
     <div class="chat-panel-header">
       <div class="chat-title">
-        <span>✨</span> <span id="panelTitle">Asistente CodeAgent</span>
+        <span>âœ¨</span> <span id="panelTitle">Asistente CodeAgent</span>
       </div>
       <div class="chat-actions">
-        <button id="newChatBtn" title="Nueva Conversación">+</button>
-        <button id="clearChatBtn" title="Limpiar Historial de Chat">🗑️</button>
-        <button title="Historial">🕒</button>
-        <button title="Colapsar">✕</button>
+        <button id="newChatBtn" title="Nueva ConversaciÃ³n">+</button>
+        <button id="clearChatBtn" title="Limpiar Historial de Chat">ðŸ—‘ï¸</button>
+        <button title="Historial">ðŸ•’</button>
+        <button title="Colapsar">âœ•</button>
       </div>
     </div>
 
@@ -1287,7 +1287,7 @@
           <span>></span>
         </div>
         <div class="reasoning-content" id="reasoningContent">
-          <strong>Ejecución del Agente ReAct:</strong><br>
+          <strong>EjecuciÃ³n del Agente ReAct:</strong><br>
         </div>
       </div>
 
@@ -1306,9 +1306,9 @@
             <option value="llama3.1:8b">Ollama (llama3.1:8b) ^</option>
           </select>
           <div class="dock-btns">
-            <span>📎</span>
-            <span>🎙️</span>
-            <div class="send-btn" id="sendBtn">➔</div>
+            <span>ðŸ“Ž</span>
+            <span>ðŸŽ™ï¸</span>
+            <div class="send-btn" id="sendBtn">âž”</div>
           </div>
         </div>
       </div>
@@ -1320,8 +1320,8 @@
 <!-- STATUSBAR (BOTTOM) -->
 <footer class="ide-statusbar" role="contentinfo">
   <div class="status-left">
-    <span>🌿 main</span>
-    <span>🛈 0  ⚠ 0</span>
+    <span>ðŸŒ¿ main</span>
+    <span>ðŸ›ˆ 0  âš  0</span>
     <span>Medalcode (2 hours ago)</span>
   </div>
   <div class="status-right">
@@ -1381,7 +1381,7 @@
   window.renameFile = function(fileObj, event){
     if(event) event.stopPropagation();
     const currentName = fileObj.name;
-    const newName = prompt(`Personalizar nombre y extensión para "${currentName}":`, currentName);
+    const newName = prompt(`Personalizar nombre y extensiÃ³n para "${currentName}":`, currentName);
     if(!newName || !newName.trim() || newName.trim() === currentName) return;
 
     const cleanNewName = newName.trim();
@@ -1434,18 +1434,18 @@
       item.style.alignItems = 'center';
 
       const ext = (file.name.split('.').pop() || '').toLowerCase();
-      let icon = '📄';
-      if(ext === 'py') icon = '🐍';
-      else if(ext === 'js' || ext === 'ts' || ext === 'jsx' || ext === 'tsx') icon = '📜';
-      else if(ext === 'html') icon = '🌐';
-      else if(ext === 'css') icon = '🎨';
-      else if(ext === 'json') icon = '📋';
-      else if(ext === 'md') icon = '📝';
-      else if(ext === 'db' || ext === 'sql') icon = '🗄️';
+      let icon = 'ðŸ“„';
+      if(ext === 'py') icon = 'ðŸ';
+      else if(ext === 'js' || ext === 'ts' || ext === 'jsx' || ext === 'tsx') icon = 'ðŸ“œ';
+      else if(ext === 'html') icon = 'ðŸŒ';
+      else if(ext === 'css') icon = 'ðŸŽ¨';
+      else if(ext === 'json') icon = 'ðŸ“‹';
+      else if(ext === 'md') icon = 'ðŸ“';
+      else if(ext === 'db' || ext === 'sql') icon = 'ðŸ—„ï¸';
 
       const safeName = escapeHtml(file.name);
       item.innerHTML = `<div style="display:flex; align-items:center; gap:6px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><span class="icon">${icon}</span> <span>${safeName}</span></div>` +
-                       `<span title="Renombrar nombre y extensión" onclick="renameFile(files.find(f=>f.name==='${file.name}'), event)" style="cursor:pointer; opacity:0.7; font-size:11px; padding:2px 4px;">✏️</span>`;
+                       `<span title="Renombrar nombre y extensiÃ³n" onclick="renameFile(files.find(f=>f.name==='${file.name}'), event)" style="cursor:pointer; opacity:0.7; font-size:11px; padding:2px 4px;">âœï¸</span>`;
       item.addEventListener('click', () => openFile(file));
       wrap.appendChild(item);
     });
@@ -1457,8 +1457,8 @@
       item.style.justifyContent = 'space-between';
       item.style.alignItems = 'center';
       const safeName = escapeHtml(file.name);
-      item.innerHTML = `<div style="display:flex; align-items:center; gap:6px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><span class="icon">📄</span> <span>${safeName}</span></div>` +
-                       `<span title="Cerrar pestaña" onclick="closeTab('${file.name}', event)" style="cursor:pointer; opacity:0.7; font-size:11px; padding:2px 4px;">✕</span>`;
+      item.innerHTML = `<div style="display:flex; align-items:center; gap:6px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><span class="icon">ðŸ“„</span> <span>${safeName}</span></div>` +
+                       `<span title="Cerrar pestaÃ±a" onclick="closeTab('${file.name}', event)" style="cursor:pointer; opacity:0.7; font-size:11px; padding:2px 4px;">âœ•</span>`;
       item.addEventListener('click', () => openFile(file));
       openWrap.appendChild(item);
     });
@@ -1477,7 +1477,7 @@
     renderTree();
   }
 
-  // BOTÓN NUEVA CONVERSACIÓN (+)
+  // BOTÃ“N NUEVA CONVERSACIÃ“N (+)
   $('newChatBtn').addEventListener('click', () => {
     messages = [];
     $('messagesContainer').innerHTML = '';
@@ -1505,7 +1505,7 @@
     const msgCard = btnEl.closest('.msg-bubble-assistant');
     if(!msgCard) return;
 
-    // Obtener texto seleccionable excluyendo el propio botón
+    // Obtener texto seleccionable excluyendo el propio botÃ³n
     const clone = msgCard.cloneNode(true);
     const btnDiv = clone.querySelector('.copy-btn');
     if(btnDiv && btnDiv.parentNode) btnDiv.parentNode.removeChild(btnDiv);
@@ -1513,8 +1513,8 @@
 
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(textToCopy).then(() => {
-        btnEl.innerHTML = '✅ ¡Copiado!';
-        setTimeout(() => { btnEl.innerHTML = '📋 Copiar Respuesta'; }, 2000);
+        btnEl.innerHTML = 'âœ… Â¡Copiado!';
+        setTimeout(() => { btnEl.innerHTML = 'ðŸ“‹ Copiar Respuesta'; }, 2000);
       });
     } else {
       const ta = document.createElement('textarea');
@@ -1523,8 +1523,8 @@
       ta.select();
       document.execCommand('copy');
       document.body.removeChild(ta);
-      btnEl.innerHTML = '✅ ¡Copiado!';
-      setTimeout(() => { btnEl.innerHTML = '📋 Copiar Respuesta'; }, 2000);
+      btnEl.innerHTML = 'âœ… Â¡Copiado!';
+      setTimeout(() => { btnEl.innerHTML = 'ðŸ“‹ Copiar Respuesta'; }, 2000);
     }
   };
 
@@ -1584,23 +1584,23 @@
           cardEl.style.borderColor = '#2ea043';
           cardEl.innerHTML = `
             <div class="approval-header" style="color:#56d364;">
-              <span>✅ Comando Aprobado por el Usuario</span>
+              <span>âœ… Comando Aprobado por el Usuario</span>
             </div>
             <div class="approval-cmd"><code>$ ${escapeHtml(commandStr)}</code></div>
-            <div style="font-size:12px; color:#8b949e;">Pre-aprobado para la siguiente ejecución. Puedes reenviar o dejar que el agente continúe.</div>
+            <div style="font-size:12px; color:#8b949e;">Pre-aprobado para la siguiente ejecuciÃ³n. Puedes reenviar o dejar que el agente continÃºe.</div>
           `;
         } else {
           cardEl.style.borderColor = '#f85149';
           cardEl.innerHTML = `
             <div class="approval-header" style="color:#f85149;">
-              <span>❌ Comando Rechazado / Denegado por el Usuario</span>
+              <span>âŒ Comando Rechazado / Denegado por el Usuario</span>
             </div>
             <div class="approval-cmd"><code>$ ${escapeHtml(commandStr)}</code></div>
           `;
         }
       }
     } catch(e) {
-      showToast(`Error al procesar autorización: ${e}`, 'error');
+      showToast(`Error al procesar autorizaciÃ³n: ${e}`, 'error');
     }
   }
 
@@ -1608,33 +1608,33 @@
     if(!Array.isArray(termTasks) || termTasks.length === 0) return '';
     let html = '';
     termTasks.forEach(t => {
-      if(t.output && t.output.includes("⚠️ AUTORIZACIÓN REQUERIDA (HITL):")) {
+      if(t.output && t.output.includes("âš ï¸ AUTORIZACIÃ“N REQUERIDA (HITL):")) {
         html += `
           <div class="approval-card" style="background:#1f1b0a; border:1px solid #d29922; border-radius:6px; margin:10px 0; padding:12px; font-size:13px;">
             <div class="approval-header" style="display:flex; align-items:center; gap:8px; font-weight:600; color:#d29922; margin-bottom:8px;">
-              <span>⚠️ Autorización Requerida para Ejecutar en Terminal</span>
+              <span>âš ï¸ AutorizaciÃ³n Requerida para Ejecutar en Terminal</span>
             </div>
             <div class="approval-cmd" style="background:#0d1117; border:1px solid #30363d; padding:8px 10px; border-radius:4px; font-family:var(--mono); font-size:12px; color:#79c0ff; margin-bottom:10px;">
               <code>$ ${escapeHtml(t.comando)}</code>
             </div>
-            <div style="font-size:12px; color:#c9d1d9; margin-bottom:10px;">Este comando puede modificar paquetes o archivos del sistema. ¿Deseas autorizarlo?</div>
+            <div style="font-size:12px; color:#c9d1d9; margin-bottom:10px;">Este comando puede modificar paquetes o archivos del sistema. Â¿Deseas autorizarlo?</div>
             <div class="approval-actions" style="display:flex; gap:10px; justify-content:flex-end;">
-              <button onclick="respondTerminalApproval(this, '${escapeHtml(t.comando)}', false)" style="background:#da3633; border:1px solid #f85149; color:#ffffff; padding:5px 12px; border-radius:4px; font-weight:600; cursor:pointer; font-size:12px;">❌ Rechazar / Denegar</button>
-              <button onclick="respondTerminalApproval(this, '${escapeHtml(t.comando)}', true)" style="background:#238636; border:1px solid #2ea043; color:#ffffff; padding:5px 12px; border-radius:4px; font-weight:600; cursor:pointer; font-size:12px;">✅ Aprobar / Autorizar</button>
+              <button onclick="respondTerminalApproval(this, '${escapeHtml(t.comando)}', false)" style="background:#da3633; border:1px solid #f85149; color:#ffffff; padding:5px 12px; border-radius:4px; font-weight:600; cursor:pointer; font-size:12px;">âŒ Rechazar / Denegar</button>
+              <button onclick="respondTerminalApproval(this, '${escapeHtml(t.comando)}', true)" style="background:#238636; border:1px solid #2ea043; color:#ffffff; padding:5px 12px; border-radius:4px; font-weight:600; cursor:pointer; font-size:12px;">âœ… Aprobar / Autorizar</button>
             </div>
           </div>
         `;
       } else {
         const exitBadge = t.exit_code === 0 ?
-          '<span style="color:#56d364; font-size:11px;">✅ Código 0</span>' :
-          `<span style="color:#f85149; font-size:11px;">❌ Código ${t.exit_code}</span>`;
+          '<span style="color:#56d364; font-size:11px;">âœ… CÃ³digo 0</span>' :
+          `<span style="color:#f85149; font-size:11px;">âŒ CÃ³digo ${t.exit_code}</span>`;
         html += `
           <div class="terminal-card">
             <div class="terminal-header">
               <div class="terminal-title">
-                <span>💻 Tarea de Terminal</span> ${exitBadge}
+                <span>ðŸ’» Tarea de Terminal</span> ${exitBadge}
               </div>
-              <button class="copy-btn" onclick="copyMsgText(this)" style="background:#21262d; border:1px solid #30363d; color:#c9d1d9; padding:2px 8px; border-radius:4px; font-size:11px; cursor:pointer;">📋 Copiar Comando</button>
+              <button class="copy-btn" onclick="copyMsgText(this)" style="background:#21262d; border:1px solid #30363d; color:#c9d1d9; padding:2px 8px; border-radius:4px; font-size:11px; cursor:pointer;">ðŸ“‹ Copiar Comando</button>
             </div>
             <div class="terminal-cmd"><code>$ ${escapeHtml(t.comando)}</code></div>
             <pre class="terminal-output"><code>${escapeHtml(t.output || '')}</code></pre>
@@ -1667,7 +1667,7 @@
             const termHtml = renderTerminalCardsHtml(m.terminal_tasks);
             div.innerHTML = termHtml + renderSafeMarkdown(m.content) +
               `<div style="display:flex; justify-content:flex-end; margin-top:8px;">` +
-              `<button class="copy-btn" onclick="copyMsgText(this)" style="background:var(--bg-hover); border:1px solid var(--border); color:var(--text-bright); padding:4px 10px; border-radius:4px; font-size:11px; cursor:pointer; display:inline-flex; align-items:center; gap:4px; user-select:none;">📋 Copiar Respuesta</button>` +
+              `<button class="copy-btn" onclick="copyMsgText(this)" style="background:var(--bg-hover); border:1px solid var(--border); color:var(--text-bright); padding:4px 10px; border-radius:4px; font-size:11px; cursor:pointer; display:inline-flex; align-items:center; gap:4px; user-select:none;">ðŸ“‹ Copiar Respuesta</button>` +
               `</div>`;
           }
           container.appendChild(div);
@@ -1685,7 +1685,7 @@
     if(acc) acc.style.display = 'none';
   }
 
-  // BOTONES DE CHAT (+ / 🗑️)
+  // BOTONES DE CHAT (+ / ðŸ—‘ï¸)
   $('newChatBtn').addEventListener('click', clearChatHistory);
   const clearBtn = $('clearChatBtn');
   if(clearBtn) clearBtn.addEventListener('click', clearChatHistory);
@@ -1704,9 +1704,9 @@
       try {
         const resp = await fetch('/api/tasks/' + window._currentActiveTaskId + '/cancel', { method: 'POST' });
         if (resp.ok) {
-          showToast('Cancelación solicitada al backend.', 'info');
+          showToast('CancelaciÃ³n solicitada al backend.', 'info');
         } else {
-          showToast('El servidor rechazó la cancelación.', 'error');
+          showToast('El servidor rechazÃ³ la cancelaciÃ³n.', 'error');
         }
       } catch(e) {
         showToast('Error de red al intentar cancelar.', 'error');
@@ -1800,21 +1800,21 @@ function closePipelineSSE() {
     const startTime = Date.now();
     let secCount = 0;
     const phases = [
-      "🧠 Analizando solicitud e intenciones del usuario...",
-      "🔍 Consultando árbol de archivos y grafo AST Graphify...",
-      "🔨 Ejecutando herramientas agénticas (escritura/terminal)...",
-      "🧪 Verificando sintaxis post-edición y compilación...",
-      "👨‍⚖️ Evaluando criticismo y preparando respuesta final..."
+      "ðŸ§  Analizando solicitud e intenciones del usuario...",
+      "ðŸ” Consultando Ã¡rbol de archivos y grafo AST Graphify...",
+      "ðŸ”¨ Ejecutando herramientas agÃ©nticas (escritura/terminal)...",
+      "ðŸ§ª Verificando sintaxis post-ediciÃ³n y compilaciÃ³n...",
+      "ðŸ‘¨â€âš–ï¸ Evaluando criticismo y preparando respuesta final..."
     ];
     let phaseIdx = 0;
 
     workingBubble.innerHTML = `
       <div class="working-header" style="display:flex; align-items:center; justify-content:space-between;">
         <div>
-          <span class="working-spinner">⚙️</span>
+          <span class="working-spinner">âš™ï¸</span>
           <span>CodeAgent trabajando (<span id="workingTimer">0s</span>)...</span>
         </div>
-        <button id="cancelTaskBtn" onclick="cancelCurrentActiveTask()" style="background:#da3633; border:1px solid #f85149; color:#ffffff; padding:3px 8px; border-radius:4px; font-size:11px; cursor:pointer; font-weight:600;">⏹️ Cancelar Tarea</button>
+        <button id="cancelTaskBtn" onclick="cancelCurrentActiveTask()" style="background:#da3633; border:1px solid #f85149; color:#ffffff; padding:3px 8px; border-radius:4px; font-size:11px; cursor:pointer; font-weight:600;">â¹ï¸ Cancelar Tarea</button>
       </div>
       <div class="working-steps">
         <ul class="execution-log" id="executionLogContainer">
@@ -1822,7 +1822,7 @@ function closePipelineSSE() {
         </ul>
       </div>
       <div id="workingWarning" style="display:none; color:#d29922; font-size:11px; margin-top:4px; font-weight:500;">
-        ⚠️ Tarea ejecutándose por más de 60s. Puedes esperar o usar 'Cancelar Tarea'.
+        âš ï¸ Tarea ejecutÃ¡ndose por mÃ¡s de 60s. Puedes esperar o usar 'Cancelar Tarea'.
       </div>
     `;
 
@@ -1903,18 +1903,18 @@ function closePipelineSSE() {
       
       let badgeHtml = '';
       if (rawContent.includes('VERIFICADO') || rawContent.includes('PASS') || termTasks.some(t => (t.output||'').includes('PASSED'))) {
-        badgeHtml = '<span class="badge badge-success">✓ VERIFIED</span>';
+        badgeHtml = '<span class="badge badge-success">âœ“ VERIFIED</span>';
       } else if (rawContent.includes('FAIL') || rawContent.includes('Error') || termTasks.some(t => (t.output||'').includes('FAILED'))) {
-        badgeHtml = '<span class="badge badge-fail">✗ FAILED</span>';
+        badgeHtml = '<span class="badge badge-fail">âœ— FAILED</span>';
       }
       
       botMsg.innerHTML = badgeHtml + termHtml + renderSafeMarkdown(rawContent) +
         `<div style="display:flex; justify-content:flex-end; margin-top:8px;">` +
-        `<button class="copy-btn" onclick="copyMsgText(this)" style="background:var(--bg-hover); border:1px solid var(--border); color:var(--text-bright); padding:4px 10px; border-radius:4px; font-size:11px; cursor:pointer; display:inline-flex; align-items:center; gap:4px; user-select:none;">📋 Copiar Respuesta</button>` +
+        `<button class="copy-btn" onclick="copyMsgText(this)" style="background:var(--bg-hover); border:1px solid var(--border); color:var(--text-bright); padding:4px 10px; border-radius:4px; font-size:11px; cursor:pointer; display:inline-flex; align-items:center; gap:4px; user-select:none;">ðŸ“‹ Copiar Respuesta</button>` +
         `</div>`;
       $('messagesContainer').appendChild(botMsg);
 
-      // Auto-refresh del árbol de archivos de inmediato tras la respuesta del agente
+      // Auto-refresh del Ã¡rbol de archivos de inmediato tras la respuesta del agente
       await reloadWorkspaceFiles();
     } catch(e) {
       clearInterval(timerInterval);
@@ -1932,7 +1932,7 @@ function closePipelineSSE() {
       const botMsg = document.createElement('div');
       botMsg.className = 'msg-bubble-assistant';
       botMsg.style.color = 'var(--red)';
-      botMsg.innerHTML = `<strong>❌ Error en CodeAgent:</strong> ${escapeHtml(e.message || e)}`;
+      botMsg.innerHTML = `<strong>âŒ Error en CodeAgent:</strong> ${escapeHtml(e.message || e)}`;
       $('messagesContainer').appendChild(botMsg);
 
       await reloadWorkspaceFiles();
@@ -2033,14 +2033,14 @@ function closePipelineSSE() {
   window.onNewFile = function(){
     if(fileMenu) fileMenu.style.display = 'none';
     const defaultName = `script_${files.length + 1}.py`;
-    const inputName = prompt("Nombre y extensión del nuevo archivo (ej: main.py, styles.css, script.js, data.json):", defaultName);
+    const inputName = prompt("Nombre y extensiÃ³n del nuevo archivo (ej: main.py, styles.css, script.js, data.json):", defaultName);
     if(!inputName || !inputName.trim()) return;
 
     const cleanName = inputName.trim();
     const ext = cleanName.split('.').pop().toLowerCase();
     let template = `# ${cleanName}\n# Creado en CodeAgent IDE v5.0\n\n`;
     if(ext === 'js' || ext === 'ts') template = `// ${cleanName}\nconsole.log("Hello CodeAgent!");\n`;
-    else if(ext === 'html') template = `<!DOCTYPE html>\n<html>\n<head><title>${cleanName}</title></head>\n<body>\n  <h1>Hello CodeAgent</h1>\n</body>\n</html>\n`;
+    else if(ext === 'html') template = `<!DOCTYPE html>\n<html>\n<head><title>${cleanName}</title></head>\n<body><a href="/frontend/dist/index.html" style="position:fixed; top:12px; right:150px; background:var(--accent-color); color:var(--text-color); padding:5px 10px; z-index:9999; border-radius:4px; text-decoration:none; font-size:12px; font-weight:bold;">Try React UI (Beta)</a>\n  <h1>Hello CodeAgent</h1>\n</body>\n</html>\n`;
     else if(ext === 'css') template = `/* ${cleanName} */\nbody {\n  margin: 0;\n  padding: 0;\n}\n`;
     else if(ext === 'json') template = `{\n  "name": "${cleanName}",\n  "version": "1.0.0"\n}\n`;
 
@@ -2174,7 +2174,7 @@ function closePipelineSSE() {
   window.toggleAutoSave = function(){
     isAutoSaveEnabled = !isAutoSaveEnabled;
     const mark = $('autoSaveCheckMark');
-    if(mark) mark.textContent = isAutoSaveEnabled ? '✓' : ' ';
+    if(mark) mark.textContent = isAutoSaveEnabled ? 'âœ“' : ' ';
   };
 
   setInterval(() => {
@@ -2274,7 +2274,7 @@ function closePipelineSSE() {
       }
     } catch(e){
       files = [
-        { name: 'ADR-001-smolagents-react-engine.md', content: '# ADR-001: Selección de smolagents como Motor ReAct\n\n## Contexto\nEl sistema requiere un motor agéntico liviano.\n\n## Decisión\nSe seleccionó smolagents.' },
+        { name: 'ADR-001-smolagents-react-engine.md', content: '# ADR-001: SelecciÃ³n de smolagents como Motor ReAct\n\n## Contexto\nEl sistema requiere un motor agÃ©ntico liviano.\n\n## DecisiÃ³n\nSe seleccionÃ³ smolagents.' },
         { name: 'AGENTS.md', content: '# Reglas de Agentes\n1. Graphify Knowledge Graph' },
         { name: 'main.py', content: '# CodeAgent Main Entrypoint\nimport os\n' }
       ];
@@ -2309,7 +2309,7 @@ function closePipelineSSE() {
           showToast('Error: ' + (data.error || 'No se pudo abrir la ruta'), 'error');
         }
       } catch(err){
-        showToast('Error de conexión al cambiar espacio de trabajo: ' + err.message, 'error');
+        showToast('Error de conexiÃ³n al cambiar espacio de trabajo: ' + err.message, 'error');
       }
     };
   }
@@ -2320,8 +2320,8 @@ function closePipelineSSE() {
 <!-- WORKSPACE SWITCHER MODAL -->
 <div id="workspaceModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;">
   <div style="background:var(--bg-panel); border:1px solid var(--border-bright); width:480px; padding:20px; border-radius:8px; box-shadow:0 8px 32px rgba(0,0,0,0.5);">
-    <h3 style="margin-top:0; color:var(--text-bright); font-size:15px; display:flex; align-items:center; gap:8px;">📁 Cambiar Espacio de Trabajo / Repositorio</h3>
-    <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">Ingresa la ruta absoluta del repositorio en tu disco donde operará el agente de código:</p>
+    <h3 style="margin-top:0; color:var(--text-bright); font-size:15px; display:flex; align-items:center; gap:8px;">ðŸ“ Cambiar Espacio de Trabajo / Repositorio</h3>
+    <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">Ingresa la ruta absoluta del repositorio en tu disco donde operarÃ¡ el agente de cÃ³digo:</p>
     <input type="text" id="workspacePathInput" style="width:100%; padding:8px; background:var(--bg-editor); border:1px solid var(--border); color:var(--text-bright); border-radius:4px; font-family:var(--mono); font-size:12px; box-sizing:border-box; margin-bottom:12px;" placeholder="ej: C:\Users\Jonatthan\Documents\Github\MiProyecto">
     <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:16px;">
       <button id="closeWorkspaceModalBtn" style="padding:6px 12px; background:var(--bg-sidebar); border:1px solid var(--border); color:var(--text); border-radius:4px; cursor:pointer;">Cancelar</button>

@@ -13,7 +13,8 @@
         "pytest"
     ],
     "app_directories": [
-        "mis_agentes_inteligentes"
+        "mis_agentes_inteligentes",
+        "frontend/dist"
     ],
     "app_files": [
         "desktop_app.py"

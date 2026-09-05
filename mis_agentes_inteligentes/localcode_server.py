@@ -769,14 +769,8 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
             from runtime.runtime import get_runtime
             runtime = get_runtime()
             
-            # Start task asynchronously and offload execution to the daemon thread
-            created_task_id = runtime.start_task(
-                goal=prompt,
-                project_path=ACTIVE_WORKSPACE_DIR,
-                agent_runner=_runner,
-                task_id=task_id
-            )
-            _safe_print(f"[LocalCode Server] Tarea delegada al runtime asíncrono con ID: {created_task_id}\n")
+            import uuid
+            created_task_id = task_id or str(uuid.uuid4())
             
             import threading
             completion_event = threading.Event()
@@ -796,7 +790,17 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
                         completion_event.set()
                         
             runtime.event_bus.subscribe(_on_event)
+            
             try:
+                # Start task asynchronously and offload execution to the daemon thread
+                runtime.start_task(
+                    goal=prompt,
+                    project_path=ACTIVE_WORKSPACE_DIR,
+                    agent_runner=_runner,
+                    task_id=created_task_id
+                )
+                _safe_print(f"[LocalCode Server] Tarea delegada al runtime asíncrono con ID: {created_task_id}\n")
+                
                 completion_event.wait(timeout=3600)
             finally:
                 runtime.event_bus.unsubscribe(_on_event)
