@@ -121,7 +121,7 @@ export const WorkspaceTree: React.FC = () => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', borderRight: '1px solid #333', background: '#1e1e1e', width: '250px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: '#1e1e1e', width: '100%' }}>
       <div style={{ padding: '10px', borderBottom: '1px solid #333', background: '#252526' }}>
         <h3 style={{ margin: '0 0 10px 0', fontSize: '14px', color: '#fff', textTransform: 'uppercase' }}>Workspace</h3>
         <div style={{ fontSize: '11px', color: '#9cdcfe', marginBottom: '10px', wordBreak: 'break-all' }}>

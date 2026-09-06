@@ -290,8 +290,8 @@
     "semantic_hash": ""
   },
   "mis_agentes_inteligentes/benchmark_report_v42.md": {
-    "mtime": 1788583382.92969,
-    "ast_hash": "66eec4ca9ab806d70aa425a52200fedf",
+    "mtime": 1788584467.6750846,
+    "ast_hash": "f2f4d27d72aef2f7ad4e30f0dd406eed",
     "semantic_hash": ""
   },
   "tests/test_feedback_loop.py": {
@@ -1190,13 +1190,13 @@
     "semantic_hash": ""
   },
   "frontend/src/App.tsx": {
-    "mtime": 1788579335.6519194,
-    "ast_hash": "49ae9c48fc512a51282e289a109604a9",
+    "mtime": 1788584624.563578,
+    "ast_hash": "5fc5afdad23be42137e9be2aef13f617",
     "semantic_hash": ""
   },
   "frontend/src/api/apiClient.ts": {
-    "mtime": 1788579335.6481133,
-    "ast_hash": "6fa6ea2aab06ad37a472e82c0f7a39c5",
+    "mtime": 1788584554.683774,
+    "ast_hash": "96fda492bdaf3928b5e7f0ea0da8252c",
     "semantic_hash": ""
   },
   "frontend/src/events/EventAdapter.ts": {
@@ -1287,6 +1287,16 @@
   "frontend/src/assets/vite.svg": {
     "mtime": 1788579073.34996,
     "ast_hash": "9960a24288958394ac50e57ff638b036",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/WorkspaceTree.tsx": {
+    "mtime": 1788584693.0898218,
+    "ast_hash": "1c3e1f0e578f5b93efb19b27cfaa0311",
+    "semantic_hash": ""
+  },
+  "G3_4_FEATURE_PARITY_MIGRATION.md": {
+    "mtime": 1788584729.9725971,
+    "ast_hash": "ed22974675d97f9ebbe4c138e0be28d9",
     "semantic_hash": ""
   }
 }

@@ -1,44 +1,65 @@
-﻿const API_BASE = '/api';
-
-export interface TaskResponse {
-  task_id: string;
-  status: string;
-}
+﻿import type { ChatResponse, SSEEvent } from '../types';
 
 export interface WorkspaceFile {
   name: string;
-  content: string;
+  path?: string;
 }
 
 export interface WorkspaceTreeResponse {
-  success: boolean;
   path: string;
-  recent_workspaces: string[];
   files: WorkspaceFile[];
 }
 
-export const apiClient = {
-  async createTask(prompt: string, agentType: string = 'SWE-agent', model: string = 'gemini-2.5-flash', provider: string = 'google'): Promise<TaskResponse> {
-    const res = await fetch(`${API_BASE}/agent/chat`, {
+export interface TaskInfo {
+  id: string;
+  status: string;
+  goal: string;
+  project_path: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
+class ApiClient {
+  private baseUrl: string;
+
+  constructor(baseUrl: string = '') {
+    this.baseUrl = baseUrl;
+  }
+
+  async createTask(prompt: string): Promise<ChatResponse> {
+    const res = await fetch(`${this.baseUrl}/api/tasks`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt, agent_type: agentType, model, provider }),
+      body: JSON.stringify({ prompt, mode: 'autonomous' })
     });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return res.json();
-  },
-
-  async cancelTask(taskId: string): Promise<{ success: boolean; message: string }> {
-    const res = await fetch(`${API_BASE}/tasks/${taskId}/cancel`, {
-      method: 'POST',
-    });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return res.json();
-  },
-
-  async getWorkspaceTree(): Promise<WorkspaceTreeResponse> {
-    const res = await fetch(`${API_BASE}/workspace/tree`);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    if (!res.ok) throw new Error('Failed to create task');
     return res.json();
   }
-};
+
+  async cancelTask(taskId: string): Promise<void> {
+    const res = await fetch(`${this.baseUrl}/api/tasks/${taskId}/cancel`, {
+      method: 'POST'
+    });
+    if (!res.ok) throw new Error('Failed to cancel task');
+  }
+
+  async getWorkspaceTree(): Promise<WorkspaceTreeResponse> {
+    const res = await fetch(`${this.baseUrl}/api/workspace/tree`);
+    if (!res.ok) throw new Error('Failed to fetch workspace tree');
+    return res.json();
+  }
+
+  async listTasks(): Promise<{success: boolean, tasks: TaskInfo[]}> {
+    const res = await fetch(`${this.baseUrl}/api/tasks`);
+    if (!res.ok) throw new Error('Failed to list tasks');
+    return res.json();
+  }
+
+  async getTaskEvents(taskId: string): Promise<{success: boolean, events: SSEEvent[]}> {
+    const res = await fetch(`${this.baseUrl}/api/tasks/${taskId}/events`);
+    if (!res.ok) throw new Error('Failed to fetch task events');
+    return res.json();
+  }
+}
+
+export const apiClient = new ApiClient();
