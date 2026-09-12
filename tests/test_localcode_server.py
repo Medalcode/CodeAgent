@@ -1,4 +1,4 @@
-﻿import http.client
+import http.client
 
 import json
 
@@ -30,7 +30,7 @@ class TestLocalCodeServer(unittest.TestCase):
 
     def setUpClass(cls):
 
-        # Iniciar servidor multihilo en un puerto efÃ­mero disponible
+        # Iniciar servidor multihilo en un puerto efímero disponible
 
         cls.server = ThreadedTCPServer(('127.0.0.1', 0), LocalCodeProxyHandler)
 
@@ -40,7 +40,7 @@ class TestLocalCodeServer(unittest.TestCase):
 
         cls.server_thread.start()
 
-        time.sleep(0.1)  # PequeÃ±a pausa para asegurar inicio del socket
+        time.sleep(0.1)  # Pequeña pausa para asegurar inicio del socket
 
 
 
@@ -120,7 +120,7 @@ class TestLocalCodeServer(unittest.TestCase):
 
         self.assertFalse(json_data.get('success'))
 
-        self.assertEqual(json_data.get('error'), 'Prompt vacÃ­o')
+        self.assertEqual(json_data.get('error'), 'Prompt vacío')
 
 
 
@@ -173,5 +173,4 @@ class TestLocalCodeServer(unittest.TestCase):
 if __name__ == '__main__':
 
     unittest.main()
-
 

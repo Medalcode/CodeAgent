@@ -1,4 +1,4 @@
-﻿import unittest
+import unittest
 from unittest.mock import MagicMock, patch
 
 from desktop_app import check_ollama_running, check_server_running
@@ -43,4 +43,3 @@ class TestDesktopApp(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
