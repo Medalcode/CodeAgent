@@ -3,6 +3,7 @@
 export interface WorkspaceFile {
   name: string;
   path?: string;
+  content?: string;
 }
 
 export interface WorkspaceTreeResponse {
@@ -58,6 +59,29 @@ class ApiClient {
   async getTaskEvents(taskId: string): Promise<{success: boolean, events: SSEEvent[]}> {
     const res = await fetch(`${this.baseUrl}/api/tasks/${taskId}/events`);
     if (!res.ok) throw new Error('Failed to fetch task events');
+    return res.json();
+  }
+
+  async saveFile(filePath: string, content: string): Promise<{success: boolean, path?: string, error?: string}> {
+    // If running in pywebview, use native API for parity if available
+    // @ts-ignore
+    if (window.pywebview && window.pywebview.api && window.pywebview.api.write_file) {
+      try {
+        // @ts-ignore
+        const ok = await window.pywebview.api.write_file(filePath, content);
+        if (ok) return { success: true, path: filePath };
+        return { success: false, error: 'Pywebview write failed' };
+      } catch (e: any) {
+        return { success: false, error: e.message || String(e) };
+      }
+    }
+
+    // Fallback to REST API
+    const res = await fetch(`${this.baseUrl}/api/fs/save`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ filePath, content })
+    });
     return res.json();
   }
 }

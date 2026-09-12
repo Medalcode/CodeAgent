@@ -1,10 +1,12 @@
 ﻿import { useState, useEffect } from 'react';
 import { apiClient } from './api/apiClient';
+import type { WorkspaceFile } from './api/apiClient';
 import { EventAdapter } from './events/EventAdapter';
 import type { SSEEvent } from './types';
 import { WorkspaceTree } from './components/WorkspaceTree';
 import { EventTimeline } from './components/EventTimeline';
 import { TaskHistory } from './components/TaskHistory';
+import { CodeEditor } from './components/CodeEditor';
 import './App.css';
 
 function App() {
@@ -13,6 +15,7 @@ function App() {
   const [status, setStatus] = useState('idle');
   const [events, setEvents] = useState<SSEEvent[]>([]);
   const [leftTab, setLeftTab] = useState<'workspace' | 'history'>('workspace');
+  const [activeFile, setActiveFile] = useState<WorkspaceFile | null>(null);
 
   // Conexión SSE
   useEffect(() => {
@@ -70,12 +73,19 @@ function App() {
     try {
       const res = await apiClient.getTaskEvents(id);
       setEvents(res.events || []);
-      // If we loaded it from history, it's typically completed/failed
       setStatus('history'); 
     } catch (e) {
       console.error(e);
       setStatus('error');
     }
+  };
+
+  const handleFileSelect = (file: WorkspaceFile) => {
+    setActiveFile(file);
+  };
+
+  const handleFileSaved = () => {
+    // Optionally trigger a workspace refresh if needed, but for now we rely on the component's internal state
   };
 
   return (
@@ -98,17 +108,22 @@ function App() {
           </button>
         </div>
         <div style={{ flex: 1, overflow: 'hidden' }}>
-          {leftTab === 'workspace' ? <WorkspaceTree /> : <TaskHistory onSelectTask={handleSelectTask} currentTaskId={taskId} />}
+          {leftTab === 'workspace' ? <WorkspaceTree onFileSelect={handleFileSelect} selectedFilePath={activeFile?.path} /> : <TaskHistory onSelectTask={handleSelectTask} currentTaskId={taskId} />}
         </div>
       </div>
 
-      {/* Main Content Area */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+      {/* Code Editor Area */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', borderRight: '1px solid #333' }}>
+        <CodeEditor file={activeFile} onSaved={handleFileSaved} />
+      </div>
+
+      {/* Task / Chat Area */}
+      <div style={{ width: '400px', display: 'flex', flexDirection: 'column', background: '#1e1e1e' }}>
         {/* Header */}
-        <header style={{ padding: '10px 20px', background: '#252526', borderBottom: '1px solid #333', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h2 style={{ margin: 0, fontSize: '16px', color: '#fff' }}>CodeAgent</h2>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-            <span style={{ fontSize: '12px' }}>Status: 
+        <header style={{ padding: '10px 15px', background: '#252526', borderBottom: '1px solid #333', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <h2 style={{ margin: 0, fontSize: '14px', color: '#fff' }}>Agent Task</h2>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span style={{ fontSize: '11px' }}>Status: 
               <span style={{ 
                 color: status === 'running' ? '#4caf50' : 
                        status === 'error' || status === 'failed' ? '#f44336' : 
@@ -120,68 +135,73 @@ function App() {
                 {status}
               </span>
             </span>
-            <button onClick={handleNewTask} style={{ padding: '4px 10px', background: '#333', color: '#ccc', border: '1px solid #555', borderRadius: '3px', cursor: 'pointer', fontSize: '12px' }}>
-              + New Task
+            <button onClick={handleNewTask} style={{ padding: '2px 6px', background: '#333', color: '#ccc', border: '1px solid #555', borderRadius: '3px', cursor: 'pointer', fontSize: '11px' }}>
+              + New
             </button>
           </div>
         </header>
 
-        {/* Task Timeline / Chat Area */}
+        {/* Task Timeline */}
         <EventTimeline events={events} status={status} />
 
         {/* Input Area */}
-        <div style={{ padding: '20px', background: '#252526', borderTop: '1px solid #333' }}>
-          <div style={{ maxWidth: '800px', margin: '0 auto', display: 'flex', gap: '10px' }}>
-            <input 
-              type="text" 
+        <div style={{ padding: '15px', background: '#252526', borderTop: '1px solid #333' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <textarea 
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder="What do you want to build or modify?"
               disabled={status === 'running' || status === 'cancelling' || status === 'starting'}
-              onKeyDown={(e) => { if (e.key === 'Enter') handleStart(); }}
+              onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleStart(); } }}
               style={{ 
-                flex: 1, 
-                padding: '10px 15px', 
+                width: '100%',
+                boxSizing: 'border-box',
+                height: '80px',
+                padding: '10px', 
                 borderRadius: '4px', 
                 border: '1px solid #444', 
                 background: '#3c3c3c', 
                 color: '#fff',
-                fontSize: '14px',
-                outline: 'none'
+                fontSize: '13px',
+                outline: 'none',
+                resize: 'none'
               }}
             />
-            <button 
-              onClick={handleStart} 
-              disabled={status === 'running' || status === 'cancelling' || status === 'starting' || !prompt.trim()}
-              style={{
-                padding: '0 20px',
-                background: '#007acc',
-                color: '#fff',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: (status === 'running' || status === 'cancelling' || status === 'starting' || !prompt.trim()) ? 'not-allowed' : 'pointer',
-                fontWeight: 'bold',
-                opacity: (status === 'running' || status === 'cancelling' || status === 'starting' || !prompt.trim()) ? 0.5 : 1
-              }}
-            >
-              Send
-            </button>
-            <button 
-              onClick={handleCancel} 
-              disabled={status !== 'running'}
-              style={{
-                padding: '0 20px',
-                background: status === 'running' ? '#d32f2f' : '#555',
-                color: '#fff',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: status === 'running' ? 'pointer' : 'not-allowed',
-                fontWeight: 'bold',
-                opacity: status === 'running' ? 1 : 0.5
-              }}
-            >
-              Cancel
-            </button>
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+              <button 
+                onClick={handleCancel} 
+                disabled={status !== 'running'}
+                style={{
+                  padding: '6px 15px',
+                  background: status === 'running' ? '#d32f2f' : '#555',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '3px',
+                  cursor: status === 'running' ? 'pointer' : 'not-allowed',
+                  fontSize: '12px',
+                  opacity: status === 'running' ? 1 : 0.5
+                }}
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={handleStart} 
+                disabled={status === 'running' || status === 'cancelling' || status === 'starting' || !prompt.trim()}
+                style={{
+                  padding: '6px 15px',
+                  background: '#007acc',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '3px',
+                  cursor: (status === 'running' || status === 'cancelling' || status === 'starting' || !prompt.trim()) ? 'not-allowed' : 'pointer',
+                  fontSize: '12px',
+                  fontWeight: 'bold',
+                  opacity: (status === 'running' || status === 'cancelling' || status === 'starting' || !prompt.trim()) ? 0.5 : 1
+                }}
+              >
+                Send
+              </button>
+            </div>
           </div>
         </div>
       </div>

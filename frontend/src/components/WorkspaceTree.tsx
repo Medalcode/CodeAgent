@@ -6,10 +6,16 @@ interface TreeNode {
   name: string;
   path: string;
   isFile: boolean;
+  originalFile?: WorkspaceFile;
   children?: { [key: string]: TreeNode };
 }
 
-export const WorkspaceTree: React.FC = () => {
+interface WorkspaceTreeProps {
+  onFileSelect?: (file: WorkspaceFile) => void;
+  selectedFilePath?: string;
+}
+
+export const WorkspaceTree: React.FC<WorkspaceTreeProps> = ({ onFileSelect, selectedFilePath }) => {
   const [workspacePath, setWorkspacePath] = useState<string>('Loading...');
   const [files, setFiles] = useState<WorkspaceFile[]>([]);
   const [tree, setTree] = useState<TreeNode | null>(null);
@@ -67,6 +73,7 @@ export const WorkspaceTree: React.FC = () => {
             name: part,
             path: currentPath,
             isFile: i === parts.length - 1,
+            originalFile: i === parts.length - 1 ? f : undefined,
             children: i === parts.length - 1 ? undefined : {}
           };
         }
@@ -91,8 +98,20 @@ export const WorkspaceTree: React.FC = () => {
     const isExpanded = expandedNodes.has(node.path);
 
     if (node.isFile) {
+      const isSelected = selectedFilePath === node.originalFile?.path;
       return (
-        <div key={node.path} style={{ paddingLeft, cursor: 'default', color: '#ccc', padding: '2px 0 2px ' + paddingLeft + 'px', fontSize: '13px' }}>
+        <div 
+          key={node.path} 
+          onClick={() => node.originalFile && onFileSelect && onFileSelect(node.originalFile)}
+          style={{ 
+            paddingLeft, 
+            cursor: 'pointer', 
+            color: isSelected ? '#fff' : '#ccc', 
+            background: isSelected ? '#004a77' : 'transparent',
+            padding: '4px 0 4px ' + paddingLeft + 'px', 
+            fontSize: '13px' 
+          }}
+        >
           📄 {node.name}
         </div>
       );
@@ -102,7 +121,7 @@ export const WorkspaceTree: React.FC = () => {
       <div key={node.path}>
         <div 
           onClick={() => toggleNode(node.path)}
-          style={{ paddingLeft, cursor: 'pointer', fontWeight: 'bold', padding: '2px 0 2px ' + paddingLeft + 'px', fontSize: '13px', color: '#eee' }}
+          style={{ paddingLeft, cursor: 'pointer', fontWeight: 'bold', padding: '4px 0 4px ' + paddingLeft + 'px', fontSize: '13px', color: '#eee' }}
         >
           {isExpanded ? '📂' : '📁'} {node.name}
         </div>
