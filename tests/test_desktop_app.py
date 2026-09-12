@@ -1,4 +1,4 @@
-import unittest
+﻿import unittest
 from unittest.mock import MagicMock, patch
 
 from desktop_app import check_ollama_running, check_server_running
@@ -38,8 +38,9 @@ class TestDesktopApp(unittest.TestCase):
     @patch("urllib.request.urlopen")
     def test_check_server_running_failure(self, mock_urlopen):
         mock_urlopen.side_effect = Exception("Connection refused")
-        self.assertFalse(check_server_running("http://localhost:8000/localcode_claude_ui.html"))
+        self.assertFalse(check_server_running("http://localhost:8000/frontend/dist/index.html"))
 
 
 if __name__ == "__main__":
     unittest.main()
+

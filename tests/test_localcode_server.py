@@ -1,4 +1,4 @@
-import http.client
+﻿import http.client
 
 import json
 
@@ -30,7 +30,7 @@ class TestLocalCodeServer(unittest.TestCase):
 
     def setUpClass(cls):
 
-        # Iniciar servidor multihilo en un puerto efímero disponible
+        # Iniciar servidor multihilo en un puerto efÃ­mero disponible
 
         cls.server = ThreadedTCPServer(('127.0.0.1', 0), LocalCodeProxyHandler)
 
@@ -40,7 +40,7 @@ class TestLocalCodeServer(unittest.TestCase):
 
         cls.server_thread.start()
 
-        time.sleep(0.1)  # Pequeña pausa para asegurar inicio del socket
+        time.sleep(0.1)  # PequeÃ±a pausa para asegurar inicio del socket
 
 
 
@@ -80,7 +80,7 @@ class TestLocalCodeServer(unittest.TestCase):
 
         # Verificar que el servidor responde correctamente (endpoint heredado de la migracin de UI)
 
-        status, headers, data = self._make_request('GET', '/localcode_claude_ui.html')
+        status, headers, data = self._make_request('GET', '/frontend/dist/index.html')
 
         # El archivo HTML fue migrado a desktop_app.py en C3.1;
 
@@ -120,7 +120,7 @@ class TestLocalCodeServer(unittest.TestCase):
 
         self.assertFalse(json_data.get('success'))
 
-        self.assertEqual(json_data.get('error'), 'Prompt vacío')
+        self.assertEqual(json_data.get('error'), 'Prompt vacÃ­o')
 
 
 
@@ -173,4 +173,5 @@ class TestLocalCodeServer(unittest.TestCase):
 if __name__ == '__main__':
 
     unittest.main()
+
 
