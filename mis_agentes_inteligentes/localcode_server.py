@@ -1,8 +1,8 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 LocalCode Proxy Server & Static Host
 Servidor local en Python que sirve frontend/dist/index.html
-y actÃºa como proxy transparente hacia Ollama (http://localhost:11434),
+y actúa como proxy transparente hacia Ollama (http://localhost:11434),
 eliminando por completo los errores de CORS / NetworkError en el navegador.
 """
 import http.server
@@ -118,7 +118,7 @@ def _start_parent_monitor():
         while True:
             time.sleep(2)
             if not _is_parent_alive():
-                _safe_print(f"[LocalCode Server] âš ï¸ Proceso padre PID {PARENT_PID} finalizado o reciclado. Cerrando backend...")
+                _safe_print(f"[LocalCode Server] ⚠️ Proceso padre PID {PARENT_PID} finalizado o reciclado. Cerrando backend...")
                 os._exit(0)
     t = threading.Thread(target=_monitor, daemon=True)
     t.start()
@@ -218,7 +218,7 @@ class LocalCodeProxyHandler(http.server.SimpleHTTPRequestHandler):
         elif any(clean_path.startswith(p) for p in ("/api/chat", "/api/tags", "/api/version", "/api/generate", "/api/embeddings", "/v1/")):
             self.proxy_to_ollama("GET")
         else:
-            # Fallback seguro para archivos estÃ¡ticos existentes
+            # Fallback seguro para archivos estáticos existentes
             target_file = os.path.normpath(os.path.join(BASE_DIR, clean_path.lstrip("/")))
             if os.path.isfile(target_file):
                 super().do_GET()
@@ -339,7 +339,7 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
             "paths": {
                 "/api/agent/chat": {
                     "post": {
-                        "summary": "Enviar peticiÃ³n al Agente CodeAgent Developer",
+                        "summary": "Enviar petición al Agente CodeAgent Developer",
                         "requestBody": {
                             "content": {
                                 "application/json": {
@@ -357,14 +357,14 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
                             }
                         },
                         "responses": {
-                            "200": {"description": "Respuesta del agente ejecutada con mÃ©tricas"},
-                            "400": {"description": "Prompt vacÃ­o"}
+                            "200": {"description": "Respuesta del agente ejecutada con métricas"},
+                            "400": {"description": "Prompt vacío"}
                         }
                     }
                 },
                 "/api/workspace/tree": {
                     "get": {
-                        "summary": "Obtener Ã¡rbol jerÃ¡rquico de archivos del workspace",
+                        "summary": "Obtener árbol jerárquico de archivos del workspace",
                         "responses": {
                             "200": {"description": "Lista de archivos del proyecto local"}
                         }
@@ -425,7 +425,7 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
             try:
                 from mis_agentes_inteligentes.tools import pre_approve_command
                 pre_approve_command(comando)
-                self._send_json({"success": True, "message": f"Comando '{comando}' pre-aprobado para ejecuciÃ³n."})
+                self._send_json({"success": True, "message": f"Comando '{comando}' pre-aprobado para ejecución."})
             except Exception as e:
                 self._send_json({"success": False, "error": f"Error pre-aprobando comando: {e}"}, 500)
         else:
@@ -454,7 +454,7 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
             events = runtime.get_events(task_id, since_id=since_id)
             self._send_json({"success": True, "task_id": task_id, "events": events})
         else:
-            self._send_json({"error": "Ruta de tareas no vÃ¡lida"}, 400)
+            self._send_json({"error": "Ruta de tareas no válida"}, 400)
 
     def handle_tasks_post(self, clean_path: str):
         parts = [p for p in clean_path.split("/") if p]
@@ -483,7 +483,7 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
             res = runtime.cancel_task(task_id)
             self._send_json({"success": res, "task_id": task_id})
         else:
-            self._send_json({"error": "AcciÃ³n de tareas no vÃ¡lida"}, 400)
+            self._send_json({"error": "Acción de tareas no válida"}, 400)
 
     def _send_json(self, data, code=200):
         self.send_response(code)
@@ -582,7 +582,7 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
         content = data.get("content", "")
 
         if not rel_or_abs:
-            self._send_json({"success": False, "error": "Ruta de archivo no vÃ¡lida"}, 400)
+            self._send_json({"success": False, "error": "Ruta de archivo no válida"}, 400)
             return
 
         target_file = rel_or_abs if os.isabs(rel_or_abs) else os.path.abspath(os.path.join(os.getcwd(), rel_or_abs))
@@ -608,7 +608,7 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
 
         parts = clean.split("/")
         if len(parts) < 2:
-            self._send_json({"success": False, "error": "Formato de repo no vÃ¡lido. Usa usuario/repositorio"}, 400)
+            self._send_json({"success": False, "error": "Formato de repo no válido. Usa usuario/repositorio"}, 400)
             return
 
         owner, repo = parts[0], parts[1]
@@ -660,7 +660,7 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
             self._send_json({"success": False, "error": f"Error al descomprimir el repositorio de GitHub: {e}"}, 500)
 
     def check_local_ollama_health(self) -> Tuple[bool, str]:
-        """Verifica si el servicio Ollama local estÃ¡ activo en el endpoint configurado."""
+        """Verifica si el servicio Ollama local está activo en el endpoint configurado."""
         try:
             from config import OLLAMA_TARGET
         except ImportError:
@@ -697,14 +697,14 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
         if any(c in prov_clean for c in disallowed_cloud):
             self._send_json({
                 "success": False,
-                "error": f"CodeAgent estÃ¡ configurado en MODO LOCAL-ONLY. El proveedor '{req_provider}' no estÃ¡ permitido. Utilice Ollama (Local).",
+                "error": f"CodeAgent está configurado en MODO LOCAL-ONLY. El proveedor '{req_provider}' no está permitido. Utilice Ollama (Local).",
                 "provider": "Ollama (Local)"
             }, 400)
             return
 
         provider = DEFAULT_MODEL_PROVIDER
 
-        # Default inmutable al modelo local si no se especificÃ³ o si contenÃ­a identificadores cloud ajenos
+        # Default inmutable al modelo local si no se especificó o si contenía identificadores cloud ajenos
         model_clean = str(req_model).strip().lower()
         if not req_model or any(k in model_clean for k in ("gpt-", "claude-", "gemini-", "groq/", "openrouter/", "https://", "^")):
             model_name = DEFAULT_MODEL_NAME
@@ -721,14 +721,14 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
         task_id = data.get("task_id", None)
 
         if not prompt:
-            self._send_json({"success": False, "error": "Prompt vacÃ­o"}, 400)
+            self._send_json({"success": False, "error": "Prompt vacío"}, 400)
             return
 
         # Chequeo de salud de Ollama si el proveedor es local
         if provider == "Ollama (Local)" and not os.environ.get("SKIP_OLLAMA_CHECK", ""):
             is_healthy, health_err = self.check_local_ollama_health()
             if not is_healthy:
-                _safe_print(f"[LocalCode Server] âŒ {health_err}")
+                _safe_print(f"[LocalCode Server] ❌ {health_err}")
                 self._send_json({
                     "success": False,
                     "error": health_err,
@@ -737,8 +737,8 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
                 }, 503)
                 return
 
-        _safe_print(f"\n[LocalCode Server] ðŸš€ PeticiÃ³n enviada a /api/agent/chat | Agente: {agent_type} | Proveedor: {provider} | Modelo: {model_name}")
-        _safe_print(f"[LocalCode Server] ðŸ› ï¸ Herramientas activas: {', '.join(selected_tools)}")
+        _safe_print(f"\n[LocalCode Server] 🚀 Petición enviada a /api/agent/chat | Agente: {agent_type} | Proveedor: {provider} | Modelo: {model_name}")
+        _safe_print(f"[LocalCode Server] 🛠️ Herramientas activas: {', '.join(selected_tools)}")
 
         api_key = data.get("api_key", "")
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -799,7 +799,7 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
                     agent_runner=_runner,
                     task_id=created_task_id
                 )
-                _safe_print(f"[LocalCode Server] Tarea delegada al runtime asÃ­ncrono con ID: {created_task_id}\n")
+                _safe_print(f"[LocalCode Server] Tarea delegada al runtime asíncrono con ID: {created_task_id}\n")
                 
                 completion_event.wait(timeout=3600)
             finally:
@@ -825,7 +825,7 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
                 "terminal_tasks": term_tasks
             })
         except Exception as e:
-            _safe_print(f"[LocalCode Server] âŒ Error en Agente: {e}\n")
+            _safe_print(f"[LocalCode Server] ❌ Error en Agente: {e}\n")
             _inc_metric("failed_requests")
             self._send_json({"success": False, "error": f"Error ejecutando Agente CodeAgent: {e}", "trace": traceback.format_exc()}, 500)
 
@@ -864,8 +864,8 @@ codeagent_requests_failed_total {METRICS_COUNTERS['failed_requests']}
         self.send_response(502)
         self.end_headers()
         err_msg = json.dumps({
-            "error": "âŒ LocalCode Proxy Server: Ollama NO disponible en http://127.0.0.1:11434.",
-            "solucion": "Ejecuta 'ollama serve' en tu terminal o abre la app de Ollama desde tu menÃº de inicio para iniciar el servicio local.",
+            "error": "❌ LocalCode Proxy Server: Ollama NO disponible en http://127.0.0.1:11434.",
+            "solucion": "Ejecuta 'ollama serve' en tu terminal o abre la app de Ollama desde tu menú de inicio para iniciar el servicio local.",
             "detalle": str(last_error)
         }, ensure_ascii=False)
         self.wfile.write(err_msg.encode("utf-8"))
@@ -892,23 +892,22 @@ def main():
     try:
         httpd = ThreadedTCPServer(("", PORT), LocalCodeProxyHandler)
     except OSError as e:
-        _safe_print(f"âŒ Error: No se pudo abrir el servidor en el puerto asignado {PORT}: {e}")
+        _safe_print(f"❌ Error: No se pudo abrir el servidor en el puerto asignado {PORT}: {e}")
         sys.exit(1)
 
     url = f"http://localhost:{PORT}/frontend/dist/index.html"
     _safe_print("=" * 65)
-    _safe_print(f"ðŸš€ Servidor LocalCode Multihilo iniciado en: {url} (PID {os.getpid()})")
-    _safe_print(f"ðŸ”— Proxy conector activado hacia Ollama: {OLLAMA_TARGET}")
-    _safe_print("ðŸ’¡ Cierra esta ventana o presiona Ctrl+C para detener.")
+    _safe_print(f"🚀 Servidor LocalCode Multihilo iniciado en: {url} (PID {os.getpid()})")
+    _safe_print(f"🔗 Proxy conector activado hacia Ollama: {OLLAMA_TARGET}")
+    _safe_print("💡 Cierra esta ventana o presiona Ctrl+C para detener.")
     _safe_print("=" * 65 + "\n")
     if os.environ.get("NO_BROWSER") != "1":
         webbrowser.open(url)
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
-        _safe_print("\nðŸ‘‹ Servidor detenido.")
+        _safe_print("\n👋 Servidor detenido.")
 
 
 if __name__ == "__main__":
     main()
-

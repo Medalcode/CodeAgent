@@ -1,4 +1,4 @@
-﻿import os
+import os
 import warnings
 from datetime import datetime as dt
 
@@ -7,9 +7,9 @@ import streamlit as st
 from main import ejecutar_agentes
 from tools import obtener_contexto_workspace
 
-warnings.warn("app.py (Streamlit) estÃ¡ deprecado a partir de v2.5.0. Por favor utiliza localcode_server.py y frontend/dist/index.html.", DeprecationWarning, stacklevel=2)
+warnings.warn("app.py (Streamlit) está deprecado a partir de v2.5.0. Por favor utiliza localcode_server.py y frontend/dist/index.html.", DeprecationWarning, stacklevel=2)
 
-# â”€â”€â”€ Soporte .env â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ─── Soporte .env ────────────────────────────────────────────────────────────
 try:
     from dotenv import load_dotenv
     load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"))
@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 session_manager.init_sessions_dir()
 
 def _guardar_sesion_actual(session_id: str, name: str, messages: list):
-    """Guarda los datos de la sesiÃ³n activa en disco."""
+    """Guarda los datos de la sesión activa en disco."""
     if session_id:
         session_manager.save_session(session_id, {"id": session_id, "name": name, "messages": messages})
 
 def _truncar_markdown(texto: str, max_chars: int = 400) -> str:
-    """Comprime texto y asegura la validez de los bloques de cÃ³digo markdown."""
+    """Comprime texto y asegura la validez de los bloques de código markdown."""
     if len(texto) <= max_chars:
         return texto
     truncado = texto[:max_chars]
@@ -33,11 +33,11 @@ def _truncar_markdown(texto: str, max_chars: int = 400) -> str:
         truncado += "\n```"
     return truncado + "... [resumido]"
 
-st.set_page_config(page_title="OpenCode Hub", page_icon="ðŸ’»", layout="wide")
+st.set_page_config(page_title="OpenCode Hub", page_icon="💻", layout="wide")
 
-# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-# INICIALIZACIÃ“N DE ESTADO
-# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ─────────────────────────────────────────────────────────────────────────────
+# INICIALIZACIÓN DE ESTADO
+# ─────────────────────────────────────────────────────────────────────────────
 if "current_session_id" not in st.session_state:
     st.session_state.current_session_id = None
 if "messages" not in st.session_state:
@@ -46,14 +46,14 @@ if "active_file" not in st.session_state:
     st.session_state.active_file = "README.md"
 
 
-# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-# SIDEBAR: ConfiguraciÃ³n y Sesiones
-# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ─────────────────────────────────────────────────────────────────────────────
+# SIDEBAR: Configuración y Sesiones
+# ─────────────────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.header("âš™ï¸ ConfiguraciÃ³n del Hub")
+    st.header("⚙️ Configuración del Hub")
 
     provider = "Ollama (Local)"
-    st.info("ðŸ”’ Modo MODO LOCAL-ONLY Activo (0$ Costo - Sin Cloud)")
+    st.info("🔒 Modo MODO LOCAL-ONLY Activo (0$ Costo - Sin Cloud)")
     model_name = st.selectbox(
         "Modelo Local",
         ["qwen2.5-coder:14b", "qwen2.5-coder:7b", "llama3.1:8b", "deepseek-coder:6.7b", "mistral", "gemma2"]
@@ -64,15 +64,15 @@ with st.sidebar:
 
     from agents import get_available_agents
 
-    st.header("ðŸ¤– Agente (Persona)")
-    lista_agentes = ["Auto (Enrutador AutomÃ¡tico) ðŸŒŸ"] + get_available_agents()
+    st.header("🤖 Agente (Persona)")
+    lista_agentes = ["Auto (Enrutador Automático) 🌟"] + get_available_agents()
     agent_type = st.selectbox("Seleccionar Agente", lista_agentes)
 
     st.divider()
 
-    st.header("ðŸ› ï¸ Herramientas y Skills")
-    if agent_type == "Auto (Enrutador AutomÃ¡tico) ðŸŒŸ":
-        st.info("ðŸª„ En modo Auto, el Ruteador asignarÃ¡ las herramientas ideales automÃ¡ticamente.")
+    st.header("🛠️ Herramientas y Skills")
+    if agent_type == "Auto (Enrutador Automático) 🌟":
+        st.info("🪄 En modo Auto, el Ruteador asignará las herramientas ideales automáticamente.")
         selected_tools = []
     else:
         use_local_fs = st.checkbox("Archivos Locales (Leer/Escribir)", value=True)
@@ -80,8 +80,8 @@ with st.sidebar:
         use_terminal = st.checkbox("Terminal Integrada", value=True)
         use_db = st.checkbox("Base de Datos (SQLite)", value=False)
         use_github = st.checkbox("GitHub API", value=False)
-        use_websearch = st.checkbox("BÃºsqueda Web (Google)", value=False)
-        use_rag = st.checkbox("Memoria RAG (IndexaciÃ³n Local)", value=False)
+        use_websearch = st.checkbox("Búsqueda Web (Google)", value=False)
+        use_rag = st.checkbox("Memoria RAG (Indexación Local)", value=False)
 
         selected_tools = []
         if use_local_fs:
@@ -95,29 +95,29 @@ with st.sidebar:
         if use_github:
             selected_tools.append("Github")
         if use_websearch:
-            selected_tools.append("BÃºsqueda Web")
+            selected_tools.append("Búsqueda Web")
         if use_rag:
             selected_tools.append("Memoria RAG")
 
     st.divider()
 
-    # â”€â”€ GestiÃ³n de Sesiones â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-    st.header("ðŸ“ Sesiones")
+    # ── Gestión de Sesiones ───────────────────────────────────────────────────
+    st.header("📁 Sesiones")
 
     col_new, col_export = st.columns(2)
     with col_new:
-        if st.button("âž• Nueva", use_container_width=True):
-            new_id = session_manager.create_new_session("SesiÃ³n " + dt.now().strftime("%H:%M:%S"))
+        if st.button("➕ Nueva", use_container_width=True):
+            new_id = session_manager.create_new_session("Sesión " + dt.now().strftime("%H:%M:%S"))
             st.session_state.current_session_id = new_id
             st.session_state.messages = []
             st.rerun()
 
-    # BUG 4 FIX: funciÃ³n de cache con TTL corto para que se invalide automÃ¡ticamente
+    # BUG 4 FIX: función de cache con TTL corto para que se invalide automáticamente
     def get_sessions_list():
         return session_manager.list_sessions()
 
     sesiones = get_sessions_list()
-    sesiones_dict = {s["id"]: s.get("name", s.get("id", "SesiÃ³n Sin Nombre")) for s in sesiones if isinstance(s, dict) and "id" in s}
+    sesiones_dict = {s["id"]: s.get("name", s.get("id", "Sesión Sin Nombre")) for s in sesiones if isinstance(s, dict) and "id" in s}
 
     if sesiones:
         index = 0
@@ -125,7 +125,7 @@ with st.sidebar:
             index = list(sesiones_dict.keys()).index(st.session_state.current_session_id)
 
         selected_session = st.selectbox(
-            "Cambiar de SesiÃ³n",
+            "Cambiar de Sesión",
             options=list(sesiones_dict.keys()),
             format_func=lambda x: sesiones_dict.get(x, x),
             index=index
@@ -139,7 +139,7 @@ with st.sidebar:
 
         col1, col2 = st.columns(2)
         with col1:
-            if st.button("ðŸ—‘ï¸ Borrar", use_container_width=True):
+            if st.button("🗑️ Borrar", use_container_width=True):
                 # BUG 5 FIX: session_manager.delete_session ahora maneja None
                 session_manager.delete_session(st.session_state.current_session_id)
                 st.session_state.current_session_id = None
@@ -150,7 +150,7 @@ with st.sidebar:
                 md = session_manager.export_session_to_markdown(st.session_state.current_session_id)
                 nombre = sesiones_dict.get(st.session_state.current_session_id, "sesion")
                 st.download_button(
-                    "ðŸ“¤ Exportar",
+                    "📤 Exportar",
                     data=md,
                     file_name=f"{nombre[:20]}.md",
                     mime="text/markdown",
@@ -159,42 +159,42 @@ with st.sidebar:
     else:
         sesiones_dict = {}
 
-# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-# CREAR SESIÃ“N POR DEFECTO SI NO HAY NINGUNA
-# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ─────────────────────────────────────────────────────────────────────────────
+# CREAR SESIÓN POR DEFECTO SI NO HAY NINGUNA
+# ─────────────────────────────────────────────────────────────────────────────
 if not st.session_state.current_session_id:
-    new_id = session_manager.create_new_session("SesiÃ³n " + dt.now().strftime("%H:%M:%S"))
+    new_id = session_manager.create_new_session("Sesión " + dt.now().strftime("%H:%M:%S"))
     st.session_state.current_session_id = new_id
 
-# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ─────────────────────────────────────────────────────────────────────────────
 # MAIN UI & CLAUDE CODE 3-PANEL IDE LAYOUT
-# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-st.title("ðŸ’» CodeAgent Hub")
-st.caption(f"ðŸ¤– **{agent_type}** Â· {provider} / `{model_name}` | `/help`, `/clear`, `/export`, `/status`")
+# ─────────────────────────────────────────────────────────────────────────────
+st.title("💻 CodeAgent Hub")
+st.caption(f"🤖 **{agent_type}** · {provider} / `{model_name}` | `/help`, `/clear`, `/export`, `/status`")
 
-# Botones de AcciÃ³n RÃ¡pida estilo CodeAgent
+# Botones de Acción Rápida estilo CodeAgent
 col_q1, col_q2, col_q3, col_q4 = st.columns(4)
 action_prompt = None
 
 with col_q1:
-    if st.button("ðŸ” Explora Workspace", use_container_width=True):
-        action_prompt = "@workspace Explora la estructura de archivos y tecnologÃ­as del proyecto actual."
+    if st.button("🔍 Explora Workspace", use_container_width=True):
+        action_prompt = "@workspace Explora la estructura de archivos y tecnologías del proyecto actual."
 with col_q2:
-    if st.button("âœï¸ Sugiere Refactor", use_container_width=True):
-        action_prompt = "Analiza el cÃ³digo del proyecto y propone refactorizaciones o mejoras de Clean Code."
+    if st.button("✏️ Sugiere Refactor", use_container_width=True):
+        action_prompt = "Analiza el código del proyecto y propone refactorizaciones o mejoras de Clean Code."
 with col_q3:
-    if st.button("ðŸ§ª Correr Tests", use_container_width=True):
+    if st.button("🧪 Correr Tests", use_container_width=True):
         action_prompt = "Ejecuta los tests unitarios del proyecto usando ejecutar_comando_terminal y reporta los resultados."
 with col_q4:
-    if st.button("ðŸ“Š Estado Git Diff", use_container_width=True):
+    if st.button("📊 Estado Git Diff", use_container_width=True):
         action_prompt = "Muestra el estado de git status y git diff de los archivos modificados."
 
 # Paneles visuales si la persona elegida es CodeAgent Developer (o en vista IDE)
-if agent_type in ("CodeAgent Developer", "Agente de EdiciÃ³n de CÃ³digo"):
+if agent_type in ("CodeAgent Developer", "Agente de Edición de Código"):
     col_workspace, col_chat = st.columns([1, 1])
 
     with col_workspace:
-        st.subheader("ðŸ“ Explorador y Visor de CÃ³digo")
+        st.subheader("📁 Explorador y Visor de Código")
         archivos_disponibles = []
         for root, dirs, files in os.walk("."):
             dirs[:] = [d for d in dirs if d not in ['.git', '__pycache__', 'node_modules', 'venv', '.venv', 'chroma_db', 'graphify-out']]
@@ -211,49 +211,49 @@ if agent_type in ("CodeAgent Developer", "Agente de EdiciÃ³n de CÃ³digo"):
             if os.path.exists(selected_file):
                 with open(selected_file, encoding='utf-8', errors='replace') as f:
                     content = f.read(10000)
-                st.caption(f"ðŸ“„ Vendo `{selected_file}` ({len(content)} caracteres)")
+                st.caption(f"📄 Vendo `{selected_file}` ({len(content)} caracteres)")
                 st.code(content, language="python" if selected_file.endswith(".py") else "markdown")
 
     with col_chat:
-        st.subheader("ðŸ’¬ Chat con Asistente")
+        st.subheader("💬 Chat con Asistente")
         for msg in st.session_state.messages:
             with st.chat_message(msg["role"]):
                 if msg.get("time"):
-                    st.caption(f"ðŸ•’ {msg['time']}")
+                    st.caption(f"🕒 {msg['time']}")
                 st.markdown(msg["content"])
 else:
-    # Mostrar historial de la sesiÃ³n actual en vista completa
+    # Mostrar historial de la sesión actual en vista completa
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"]):
             if msg.get("time"):
-                st.caption(f"ðŸ•’ {msg['time']}")
+                st.caption(f"🕒 {msg['time']}")
             st.markdown(msg["content"])
 
-# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ─────────────────────────────────────────────────────────────────────────────
 # CAPTURA DE INPUT
-# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-chat_input_prompt = st.chat_input(f"Escribe tu peticiÃ³n a {agent_type} (/help para comandos)")
+# ─────────────────────────────────────────────────────────────────────────────
+chat_input_prompt = st.chat_input(f"Escribe tu petición a {agent_type} (/help para comandos)")
 prompt = action_prompt or chat_input_prompt
 
 
 if prompt:
-    # â”€â”€ Slash Commands â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    # ── Slash Commands ────────────────────────────────────────────────────────
     if prompt.strip().startswith("/"):
         comando = prompt.strip().lower()
 
         if comando == "/help":
             ayuda = (
                 "**Comandos Disponibles:**\n"
-                "- `/help` â€” Muestra esta ayuda\n"
-                "- `/clear` â€” Borra el historial de la sesiÃ³n actual\n"
-                "- `/export` â€” Exporta la sesiÃ³n como Markdown\n"
-                "- `/status` â€” Muestra la configuraciÃ³n activa\n\n"
-                "*Tip:* Usa `@workspace` en tu mensaje para que el agente analice la estructura del proyecto automÃ¡ticamente."
+                "- `/help` — Muestra esta ayuda\n"
+                "- `/clear` — Borra el historial de la sesión actual\n"
+                "- `/export` — Exporta la sesión como Markdown\n"
+                "- `/status` — Muestra la configuración activa\n\n"
+                "*Tip:* Usa `@workspace` en tu mensaje para que el agente analice la estructura del proyecto automáticamente."
             )
             st.session_state.messages.append({"role": "assistant", "content": ayuda, "time": dt.now().strftime("%H:%M:%S")})
             session_manager.save_session(
                 st.session_state.current_session_id,
-                {"id": st.session_state.current_session_id, "name": sesiones_dict.get(st.session_state.current_session_id, "SesiÃ³n"), "messages": st.session_state.messages}
+                {"id": st.session_state.current_session_id, "name": sesiones_dict.get(st.session_state.current_session_id, "Sesión"), "messages": st.session_state.messages}
             )
             st.rerun()
 
@@ -261,19 +261,19 @@ if prompt:
             st.session_state.messages = []
             session_manager.save_session(
                 st.session_state.current_session_id,
-                {"id": st.session_state.current_session_id, "name": sesiones_dict.get(st.session_state.current_session_id, "SesiÃ³n"), "messages": []}
+                {"id": st.session_state.current_session_id, "name": sesiones_dict.get(st.session_state.current_session_id, "Sesión"), "messages": []}
             )
             st.rerun()
 
         elif comando == "/status":
             status = (
-                f"**ConfiguraciÃ³n Activa:**\n"
-                f"- ðŸ¤– Agente: `{agent_type}`\n"
-                f"- â˜ï¸ Proveedor: `{provider}`\n"
-                f"- ðŸ§  Modelo: `{model_name}`\n"
-                f"- ðŸ› ï¸ Herramientas: `{', '.join(selected_tools) or 'Ninguna (modo chat)'}`\n"
-                f"- ðŸ“ Directorio: `{os.getcwd()}`\n"
-                f"- ðŸ’¬ Mensajes en sesiÃ³n: `{len(st.session_state.messages)}`"
+                f"**Configuración Activa:**\n"
+                f"- 🤖 Agente: `{agent_type}`\n"
+                f"- ☁️ Proveedor: `{provider}`\n"
+                f"- 🧠 Modelo: `{model_name}`\n"
+                f"- 🛠️ Herramientas: `{', '.join(selected_tools) or 'Ninguna (modo chat)'}`\n"
+                f"- 📁 Directorio: `{os.getcwd()}`\n"
+                f"- 💬 Mensajes en sesión: `{len(st.session_state.messages)}`"
             )
             st.session_state.messages.append({"role": "assistant", "content": status, "time": dt.now().strftime("%H:%M:%S")})
             st.rerun()
@@ -282,7 +282,7 @@ if prompt:
             md = session_manager.export_session_to_markdown(st.session_state.current_session_id)
             st.session_state.messages.append({
                 "role": "assistant",
-                "content": "ðŸ“¤ SesiÃ³n lista para exportar. Usa el botÃ³n **Exportar** en el sidebar.",
+                "content": "📤 Sesión lista para exportar. Usa el botón **Exportar** en el sidebar.",
                 "time": dt.now().strftime("%H:%M:%S")
             })
             st.rerun()
@@ -290,13 +290,13 @@ if prompt:
         else:
             st.warning(f"Comando desconocido: `{comando}`. Escribe `/help` para ver los comandos.")
 
-    # â”€â”€ Flujo normal de chat â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    # ── Flujo normal de chat ──────────────────────────────────────────────────
     else:
         timestamp = dt.now().strftime("%H:%M:%S")
         st.session_state.messages.append({"role": "user", "content": prompt, "time": timestamp})
 
         with st.chat_message("user"):
-            st.caption(f"ðŸ•’ {timestamp}")
+            st.caption(f"🕒 {timestamp}")
             st.markdown(prompt)
 
         with st.chat_message("assistant"):
@@ -305,9 +305,9 @@ if prompt:
 
             # BUG 3 FIX: construir el prompt correcto
             # Solo el prompt actual + contexto comprimido del historial reciente
-            historial_reciente = st.session_state.messages[-7:-1]  # Ãºltimos 7 mensajes, sin el actual
+            historial_reciente = st.session_state.messages[-7:-1]  # últimos 7 mensajes, sin el actual
             if historial_reciente:
-                contexto_historial = "## Historial reciente de la conversaciÃ³n\n"
+                contexto_historial = "## Historial reciente de la conversación\n"
                 for m in historial_reciente:
                     role_label = "Usuario" if m["role"] == "user" else "Asistente"
                     # Comprimir respuestas largas del asistente
@@ -315,7 +315,7 @@ if prompt:
                     if m["role"] == "assistant":
                         contenido = _truncar_markdown(m["content"], 400)
                     contexto_historial += f"**{role_label}:** {contenido}\n\n"
-                prompt_final = f"{contexto_historial}\n---\n\n## PeticiÃ³n actual del usuario\n{prompt}"
+                prompt_final = f"{contexto_historial}\n---\n\n## Petición actual del usuario\n{prompt}"
             else:
                 prompt_final = prompt
 
@@ -327,7 +327,7 @@ if prompt:
             status_placeholder = st.empty()
             response_placeholder = st.empty()
 
-            with st.spinner(f"ðŸ§  {agent_type} ({provider}/{model_name}) procesando..."):
+            with st.spinner(f"🧠 {agent_type} ({provider}/{model_name}) procesando..."):
                 try:
                     respuesta, metricas = ejecutar_agentes(
                         user_prompt=prompt_final,
@@ -340,7 +340,7 @@ if prompt:
                     response_placeholder.markdown(respuesta)
 
                 except Exception as e:
-                    respuesta = f"âŒ **Error de ejecuciÃ³n:**\n```\n{e}\n```"
+                    respuesta = f"❌ **Error de ejecución:**\n```\n{e}\n```"
                     st.error(respuesta)
 
                 finally:
@@ -351,12 +351,12 @@ if prompt:
                         "time": ts_resp
                     })
 
-                    # Auto-nombrar la sesiÃ³n con el primer mensaje
-                    nombre_sesion = sesiones_dict.get(st.session_state.current_session_id, "SesiÃ³n")
+                    # Auto-nombrar la sesión con el primer mensaje
+                    nombre_sesion = sesiones_dict.get(st.session_state.current_session_id, "Sesión")
                     if len(st.session_state.messages) <= 2:
                         nombre_sesion = prompt[:30].strip() + "..."
 
-                    # Guardar sesiÃ³n en disco
+                    # Guardar sesión en disco
                     session_manager.save_session(
                         st.session_state.current_session_id,
                         {
@@ -366,11 +366,10 @@ if prompt:
                         }
                     )
 
-            # Panel de mÃ©tricas
+            # Panel de métricas
             if metricas.get("tiempo_segundos"):
-                with st.expander("ðŸ“Š MÃ©tricas de EjecuciÃ³n", expanded=False):
+                with st.expander("📊 Métricas de Ejecución", expanded=False):
                     col1, col2, col3 = st.columns(3)
-                    col1.metric("â±ï¸ Tiempo", f"{metricas['tiempo_segundos']}s")
-                    col2.metric("ðŸ¤– Agente", metricas.get("agentes_usados", "-").split("(")[-1].rstrip(")"))
-                    col3.metric("ðŸ› ï¸ Herramientas", metricas.get("herramientas_activas", 0))
-
+                    col1.metric("⏱️ Tiempo", f"{metricas['tiempo_segundos']}s")
+                    col2.metric("🤖 Agente", metricas.get("agentes_usados", "-").split("(")[-1].rstrip(")"))
+                    col3.metric("🛠️ Herramientas", metricas.get("herramientas_activas", 0))
